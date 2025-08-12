@@ -181,7 +181,7 @@ async def scrape_streeteasy_apartments():
                 "https://images.unsplash.com/photo-1551250930-ace1ad395cea"
             ],
             "contact_info": {
-                "phone": "(212) 555-0456",
+                "phone": "(646) 408-8048",
                 "email": "info@midtowneastliving.com",
                 "broker": "Elite Properties"
             },
