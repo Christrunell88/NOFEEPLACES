@@ -1,169 +1,232 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import axios from "axios";
 import { Components } from './components';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
+
+// Auth Context
+const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      fetchUser();
+    } else {
+      setLoading(false);
+    }
+  }, [token]);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`${API}/auth/me`);
+      setUser(response.data);
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = async (email, password) => {
+    try {
+      const response = await axios.post(`${API}/auth/login`, { email, password });
+      const { access_token } = response.data;
+      
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      
+      await fetchUser();
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.response?.data?.detail || 'Login failed' };
+    }
+  };
+
+  const register = async (email, password, fullName) => {
+    try {
+      const response = await axios.post(`${API}/auth/register`, {
+        email,
+        password,
+        full_name: fullName
+      });
+      const { access_token } = response.data;
+      
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      
+      await fetchUser();
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.response?.data?.detail || 'Registration failed' };
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+    delete axios.defaults.headers.common['Authorization'];
+  };
+
+  const value = {
+    user,
+    login,
+    register,
+    logout,
+    loading,
+    isAuthenticated: !!user
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
 
 const { 
   Header, 
   Hero, 
-  SearchFilters, 
+  AdvancedSearchFilters, 
   ApartmentCard, 
   MapView, 
   Footer,
-  LoadingSpinner 
+  LoadingSpinner,
+  AuthModal,
+  UserDashboard,
+  ApartmentDetails,
+  SavedSearches
 } = Components;
-
-// Mock apartment data for no-fee apartments in NYC
-const mockApartments = [
-  {
-    id: 1,
-    title: "Luxury 1BR in Financial District",
-    address: "125 Greenwich St, New York, NY 10006",
-    price: "$3,200",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: "650 sq ft",
-    image: "https://images.unsplash.com/photo-1594295800284-990f74bb6928",
-    neighborhood: "Financial District",
-    amenities: ["Gym", "Doorman", "Rooftop", "Pet Friendly"],
-    available: "Available Now",
-    type: "No Fee"
-  },
-  {
-    id: 2,
-    title: "Modern 2BR in Midtown East",
-    address: "300 E 55th St, New York, NY 10022",
-    price: "$4,500",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: "900 sq ft",
-    image: "https://images.pexels.com/photos/4090093/pexels-photo-4090093.jpeg",
-    neighborhood: "Midtown East",
-    amenities: ["Concierge", "Pool", "Laundry", "Parking"],
-    available: "Dec 1st",
-    type: "No Fee"
-  },
-  {
-    id: 3,
-    title: "Spacious Studio in Brooklyn Heights",
-    address: "85 Livingston St, Brooklyn, NY 11201",
-    price: "$2,800",
-    bedrooms: 0,
-    bathrooms: 1,
-    sqft: "500 sq ft",
-    image: "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a",
-    neighborhood: "Brooklyn Heights",
-    amenities: ["Gym", "Garden", "Storage"],
-    available: "Available Now",
-    type: "No Fee"
-  },
-  {
-    id: 4,
-    title: "High-Rise 1BR in Long Island City",
-    address: "42-12 28th St, Long Island City, NY 11101",
-    price: "$2,900",
-    bedrooms: 1,
-    bathrooms: 1,
-    sqft: "700 sq ft",
-    image: "https://images.unsplash.com/photo-1551250930-ace1ad395cea",
-    neighborhood: "Long Island City",
-    amenities: ["River Views", "Gym", "Rooftop", "Concierge"],
-    available: "Jan 15th",
-    type: "No Fee"
-  },
-  {
-    id: 5,
-    title: "Luxury 2BR in Upper East Side",
-    address: "200 E 89th St, New York, NY 10128",
-    price: "$5,200",
-    bedrooms: 2,
-    bathrooms: 2,
-    sqft: "1100 sq ft",
-    image: "https://images.unsplash.com/photo-1553287222-da8a77d59c5c",
-    neighborhood: "Upper East Side",
-    amenities: ["Doorman", "Gym", "Laundry", "Storage"],
-    available: "Available Now",
-    type: "No Fee"
-  },
-  {
-    id: 6,
-    title: "Modern Studio in Chelsea",
-    address: "150 W 26th St, New York, NY 10001",
-    price: "$3,000",
-    bedrooms: 0,
-    bathrooms: 1,
-    sqft: "450 sq ft",
-    image: "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f",
-    neighborhood: "Chelsea",
-    amenities: ["Rooftop", "Gym", "Pet Friendly"],
-    available: "Dec 15th",
-    type: "No Fee"
-  }
-];
 
 const Home = () => {
   const [apartments, setApartments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchFilters, setSearchFilters] = useState({
-    minPrice: '',
-    maxPrice: '',
+    min_price: '',
+    max_price: '',
     bedrooms: '',
     neighborhood: '',
-    searchTerm: ''
+    borough: '',
+    search_term: '',
+    min_sqft: '',
+    max_sqft: ''
   });
+  const [viewMode, setViewMode] = useState('list');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalApartments, setTotalApartments] = useState(0);
+  const [searchStats, setSearchStats] = useState(null);
 
   useEffect(() => {
-    // Simulate API call with delay
-    const timer = setTimeout(() => {
-      setApartments(mockApartments);
+    fetchApartments();
+    fetchSearchStats();
+  }, [searchFilters, currentPage]);
+
+  const fetchApartments = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      
+      Object.entries(searchFilters).forEach(([key, value]) => {
+        if (value !== '' && value !== null && value !== undefined) {
+          params.append(key, value);
+        }
+      });
+      
+      params.append('page', currentPage);
+      params.append('limit', 20);
+
+      const response = await axios.get(`${API}/apartments?${params}`);
+      setApartments(response.data);
+      setTotalApartments(response.data.length);
+    } catch (error) {
+      console.error('Failed to fetch apartments:', error);
+      setApartments([]);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, []);
+  const fetchSearchStats = async () => {
+    try {
+      const response = await axios.get(`${API}/apartments/search/stats`);
+      setSearchStats(response.data);
+    } catch (error) {
+      console.error('Failed to fetch search stats:', error);
+    }
+  };
 
-  const filteredApartments = apartments.filter(apt => {
-    const matchesSearchTerm = searchFilters.searchTerm === '' || 
-      apt.title.toLowerCase().includes(searchFilters.searchTerm.toLowerCase()) ||
-      apt.neighborhood.toLowerCase().includes(searchFilters.searchTerm.toLowerCase()) ||
-      apt.address.toLowerCase().includes(searchFilters.searchTerm.toLowerCase());
-    
-    const matchesMinPrice = searchFilters.minPrice === '' || 
-      parseInt(apt.price.replace(/[$,]/g, '')) >= parseInt(searchFilters.minPrice);
-    
-    const matchesMaxPrice = searchFilters.maxPrice === '' || 
-      parseInt(apt.price.replace(/[$,]/g, '')) <= parseInt(searchFilters.maxPrice);
-    
-    const matchesBedrooms = searchFilters.bedrooms === '' || 
-      apt.bedrooms.toString() === searchFilters.bedrooms;
-    
-    const matchesNeighborhood = searchFilters.neighborhood === '' || 
-      apt.neighborhood === searchFilters.neighborhood;
+  const handleFilterChange = (key, value) => {
+    setSearchFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+    setCurrentPage(1);
+  };
 
-    return matchesSearchTerm && matchesMinPrice && matchesMaxPrice && 
-           matchesBedrooms && matchesNeighborhood;
-  });
+  const clearFilters = () => {
+    setSearchFilters({
+      min_price: '',
+      max_price: '',
+      bedrooms: '',
+      neighborhood: '',
+      borough: '',
+      search_term: '',
+      min_sqft: '',
+      max_sqft: ''
+    });
+    setCurrentPage(1);
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <Hero />
-      <SearchFilters 
+      <Hero searchStats={searchStats} />
+      <AdvancedSearchFilters 
         filters={searchFilters} 
-        setFilters={setSearchFilters}
-        apartments={apartments}
+        onFilterChange={handleFilterChange}
+        onClearFilters={clearFilters}
+        searchStats={searchStats}
       />
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">
-            {filteredApartments.length} No Fee Apartments Available
+            {loading ? 'Searching...' : `${totalApartments} No Fee Apartments Available`}
           </h2>
           <div className="flex space-x-2">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button 
+              onClick={() => setViewMode('list')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                viewMode === 'list' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
               List View
             </button>
-            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors">
+            <button 
+              onClick={() => setViewMode('map')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                viewMode === 'map' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
               Map View
             </button>
           </div>
@@ -171,15 +234,17 @@ const Home = () => {
 
         {loading ? (
           <LoadingSpinner />
-        ) : (
+        ) : viewMode === 'list' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredApartments.map(apartment => (
+            {apartments.map(apartment => (
               <ApartmentCard key={apartment.id} apartment={apartment} />
             ))}
           </div>
+        ) : (
+          <MapView apartments={apartments} />
         )}
 
-        {!loading && filteredApartments.length === 0 && (
+        {!loading && apartments.length === 0 && (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
               <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
@@ -190,16 +255,35 @@ const Home = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-2">No apartments found</h3>
               <p className="text-gray-600 mb-4">Try adjusting your search filters to see more results.</p>
               <button 
-                onClick={() => setSearchFilters({
-                  minPrice: '',
-                  maxPrice: '',
-                  bedrooms: '',
-                  neighborhood: '',
-                  searchTerm: ''
-                })}
+                onClick={clearFilters}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Clear Filters
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {!loading && apartments.length > 0 && (
+          <div className="flex justify-center mt-8">
+            <div className="flex space-x-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                Previous
+              </button>
+              <span className="px-4 py-2 bg-gray-100 rounded-lg flex items-center">
+                Page {currentPage}
+              </span>
+              <button
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                disabled={apartments.length < 20}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              >
+                Next
               </button>
             </div>
           </div>
@@ -211,15 +295,46 @@ const Home = () => {
   );
 };
 
+const ApartmentDetailsPage = () => {
+  const apartmentId = window.location.pathname.split('/').pop();
+  return <ApartmentDetails apartmentId={apartmentId} />;
+};
+
+const DashboardPage = () => {
+  const { user, isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return <UserDashboard user={user} />;
+};
+
+const SavedSearchesPage = () => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return <SavedSearches />;
+};
+
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/saved-searches" element={<SavedSearchesPage />} />
+          </Routes>
+          <AuthModal />
+        </BrowserRouter>
+      </div>
+    </AuthProvider>
   );
 }
 
