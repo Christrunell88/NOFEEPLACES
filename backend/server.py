@@ -207,8 +207,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "rentals@brooklynheights.com",
-                "broker": "Brooklyn Realty Co"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow(),
             "latitude": 40.6928,
