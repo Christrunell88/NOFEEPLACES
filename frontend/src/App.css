@@ -36,3 +36,21 @@
         transform: rotate(360deg);
     }
 }
+
+/* Fix layout stacking issues */
+.hero-section {
+    position: relative;
+    z-index: 1;
+}
+
+.search-section {
+    position: relative;
+    z-index: 2;
+    clear: both;
+    display: block;
+}
+
+.main-content {
+    position: relative;
+    z-index: 3;
+}
