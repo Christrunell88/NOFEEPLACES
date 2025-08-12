@@ -282,8 +282,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "leasing@licviews.com",
-                "broker": "Queens Modern Living"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
             "latitude": 40.7505,
