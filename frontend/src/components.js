@@ -18,45 +18,48 @@ const Header = () => {
           <div className="flex items-center space-x-3">
             {/* PLACES Logo - Using exact provided image */}
             <div className="w-12 h-12 flex items-center justify-center">
-              <img 
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
-                alt="Places Logo"
-                className="w-10 h-10 object-contain"
-                style={{
-                  filter: 'brightness(0) saturate(100%) invert(84%) sepia(11%) saturate(352%) hue-rotate(4deg) brightness(103%) contrast(96%)'
-                }}
-                onError={(e) => {
-                  // Fallback to SVG if image fails to load
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'block';
-                }}
-              />
-              {/* Fallback SVG matching your logo design */}
+              {/* Using SVG version of your logo design */}
               <svg 
-                viewBox="0 0 100 100" 
-                className="w-10 h-10 text-amber-100 hidden" 
-                fill="none" 
+                viewBox="0 0 200 200" 
+                className="w-10 h-10 text-amber-100" 
+                fill="currentColor" 
                 stroke="currentColor" 
-                strokeWidth="3"
-                style={{ display: 'none' }}
+                strokeWidth="4"
               >
-                {/* Hand outline */}
-                <path d="M20 75 Q25 70 35 70 Q40 65 45 65 Q50 60 55 60 Q60 65 65 70 Q70 75 75 80 L75 85 Q70 90 60 90 L40 90 Q30 90 25 85 Z" fill="none"/>
-                {/* House */}
-                <rect x="45" y="40" width="15" height="12" fill="none"/>
-                <path d="M42 46 L52.5 36 L63 46" fill="none"/>
-                {/* Building */}
-                <rect x="58" y="25" width="12" height="23" fill="none"/>
-                <rect x="60" y="28" width="2" height="2" fill="currentColor"/>
-                <rect x="64" y="28" width="2" height="2" fill="currentColor"/>
-                <rect x="60" y="32" width="2" height="2" fill="currentColor"/>
-                <rect x="64" y="32" width="2" height="2" fill="currentColor"/>
-                <rect x="60" y="36" width="2" height="2" fill="currentColor"/>
-                <rect x="64" y="36" width="2" height="2" fill="currentColor"/>
-                <rect x="60" y="40" width="2" height="2" fill="currentColor"/>
-                <rect x="64" y="40" width="2" height="2" fill="currentColor"/>
-                {/* Door */}
-                <rect x="49" y="46" width="3" height="6" fill="none"/>
+                {/* Hand holding buildings - based on your logo */}
+                <g transform="translate(50, 80)">
+                  {/* Hand outline */}
+                  <path 
+                    d="M20 40 Q15 35 15 30 Q15 25 20 20 Q25 15 35 15 Q40 15 45 20 Q50 15 60 15 Q70 15 75 20 Q80 25 80 30 Q80 35 75 40 L75 50 Q70 60 60 60 L40 60 Q30 60 25 50 Z" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="6"
+                  />
+                  
+                  {/* House */}
+                  <g transform="translate(25, -25)">
+                    <path d="M10 25 L20 15 L30 25" fill="none" strokeWidth="4"/>
+                    <rect x="15" y="20" width="10" height="15" fill="none" strokeWidth="4"/>
+                    <rect x="18" y="28" width="4" height="7" fill="none" strokeWidth="2"/>
+                  </g>
+                  
+                  {/* Building */}
+                  <g transform="translate(45, -35)">
+                    <rect x="0" y="10" width="15" height="25" fill="none" strokeWidth="4"/>
+                    <rect x="3" y="13" width="2" height="2" fill="currentColor"/>
+                    <rect x="7" y="13" width="2" height="2" fill="currentColor"/>
+                    <rect x="11" y="13" width="2" height="2" fill="currentColor"/>
+                    <rect x="3" y="17" width="2" height="2" fill="currentColor"/>
+                    <rect x="7" y="17" width="2" height="2" fill="currentColor"/>
+                    <rect x="11" y="17" width="2" height="2" fill="currentColor"/>
+                    <rect x="3" y="21" width="2" height="2" fill="currentColor"/>
+                    <rect x="7" y="21" width="2" height="2" fill="currentColor"/>
+                    <rect x="11" y="21" width="2" height="2" fill="currentColor"/>
+                    <rect x="3" y="25" width="2" height="2" fill="currentColor"/>
+                    <rect x="7" y="25" width="2" height="2" fill="currentColor"/>
+                    <rect x="11" y="25" width="2" height="2" fill="currentColor"/>
+                  </g>
+                </g>
               </svg>
             </div>
             <div className="text-left">
