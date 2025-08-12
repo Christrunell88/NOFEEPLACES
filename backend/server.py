@@ -214,6 +214,231 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.6928,
             "longitude": -73.9939,
             "source_url": "https://streeteasy.com/building/85-livingston-street"
+        },
+        {
+            "title": "Bright 1BR in Williamsburg - No Fee",
+            "address": "200 Grand St, Brooklyn, NY 11249",
+            "price": 3400,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Williamsburg",
+            "borough": "Brooklyn",
+            "description": "Contemporary 1-bedroom with exposed brick walls and modern appliances. Steps from trendy restaurants and nightlife in Williamsburg.",
+            "amenities": ["Rooftop", "Gym", "Pet Friendly", "Storage", "Bike Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1594295800284-990f74bb6928",
+                "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "leasing@williamsburgplaces.com",
+                "broker": "Urban Living NYC"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=14),
+            "latitude": 40.7081,
+            "longitude": -73.9571,
+            "source_url": "https://streeteasy.com/building/200-grand-street"
+        },
+        {
+            "title": "Elegant 2BR in Upper West Side - No Fee",
+            "address": "150 W 85th St, New York, NY 10024",
+            "price": 5200,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1100,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Classic pre-war charm meets modern luxury in this stunning 2-bedroom. Near Central Park and excellent restaurants.",
+            "amenities": ["Doorman", "Elevator", "Storage", "Laundry", "Near Park"],
+            "images": [
+                "https://images.pexels.com/photos/4090093/pexels-photo-4090093.jpeg",
+                "https://images.unsplash.com/photo-1551250930-ace1ad395cea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@upperwestliving.com",
+                "broker": "Manhattan Premium"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=21),
+            "latitude": 40.7851,
+            "longitude": -73.9761,
+            "source_url": "https://streeteasy.com/building/150-west-85th-street"
+        },
+        {
+            "title": "Modern Studio in Long Island City - No Fee",
+            "address": "42-12 28th St, Long Island City, NY 11101",
+            "price": 2900,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 480,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Brand new studio with stunning Manhattan skyline views. Modern amenities and quick commute to Midtown Manhattan.",
+            "amenities": ["River Views", "Gym", "Rooftop", "Concierge", "Pool"],
+            "images": [
+                "https://images.unsplash.com/photo-1553287222-da8a77d59c5c",
+                "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "leasing@licviews.com",
+                "broker": "Queens Modern Living"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=10),
+            "latitude": 40.7505,
+            "longitude": -73.9376,
+            "source_url": "https://streeteasy.com/building/42-12-28th-street"
+        },
+        {
+            "title": "Cozy 1BR in Chelsea - No Fee",
+            "address": "150 W 26th St, New York, NY 10001",
+            "price": 3800,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 600,
+            "neighborhood": "Chelsea",
+            "borough": "Manhattan",
+            "description": "Charming 1-bedroom in the heart of Chelsea. Walking distance to High Line, Madison Square Garden, and amazing dining.",
+            "amenities": ["Rooftop", "Gym", "Pet Friendly", "Laundry", "Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1594295800284-990f74bb6928",
+                "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "rentals@chelseaplaces.com",
+                "broker": "Chelsea Realty Group"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=5),
+            "latitude": 40.7441,
+            "longitude": -73.9964,
+            "source_url": "https://streeteasy.com/building/150-west-26th-street"
+        },
+        {
+            "title": "Luxury 3BR in Upper East Side - No Fee",
+            "address": "200 E 89th St, New York, NY 10128",
+            "price": 6800,
+            "bedrooms": 3,
+            "bathrooms": 2.0,
+            "sqft": 1400,
+            "neighborhood": "Upper East Side",
+            "borough": "Manhattan",
+            "description": "Spacious 3-bedroom perfect for families or roommates. Classic NYC apartment with modern updates and great natural light.",
+            "amenities": ["Doorman", "Gym", "Laundry", "Storage", "Near Museums"],
+            "images": [
+                "https://images.pexels.com/photos/4090093/pexels-photo-4090093.jpeg",
+                "https://images.unsplash.com/photo-1551250930-ace1ad395cea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "leasing@uesplaces.com",
+                "broker": "Upper East Realty"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=28),
+            "latitude": 40.7823,
+            "longitude": -73.9531,
+            "source_url": "https://streeteasy.com/building/200-east-89th-street"
+        },
+        {
+            "title": "Trendy 2BR in SoHo - No Fee",
+            "address": "75 Spring St, New York, NY 10012",
+            "price": 5800,
+            "bedrooms": 2,
+            "bathrooms": 1.5,
+            "sqft": 950,
+            "neighborhood": "SoHo",
+            "borough": "Manhattan",
+            "description": "Loft-style 2-bedroom in the heart of SoHo. Exposed brick, high ceilings, and steps from the best shopping and dining in NYC.",
+            "amenities": ["Loft Style", "High Ceilings", "Exposed Brick", "Shopping District"],
+            "images": [
+                "https://images.unsplash.com/photo-1553287222-da8a77d59c5c",
+                "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@sohoplaces.com",
+                "broker": "SoHo Living NYC"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=35),
+            "latitude": 40.7241,
+            "longitude": -74.0027,
+            "source_url": "https://streeteasy.com/building/75-spring-street"
+        },
+        {
+            "title": "Affordable 1BR in Astoria - No Fee",
+            "address": "25-15 31st Ave, Astoria, NY 11106",
+            "price": 2600,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 650,
+            "neighborhood": "Astoria",
+            "borough": "Queens",
+            "description": "Great value 1-bedroom in vibrant Astoria. Easy commute to Manhattan and surrounded by excellent Greek restaurants and cafes.",
+            "amenities": ["Laundry", "Storage", "Pet Friendly", "Near Subway"],
+            "images": [
+                "https://images.unsplash.com/photo-1594295800284-990f74bb6928",
+                "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "rentals@astoriaplaces.com",
+                "broker": "Queens Affordable Living"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7661,
+            "longitude": -73.9197,
+            "source_url": "https://streeteasy.com/building/25-15-31st-avenue"
+        },
+        {
+            "title": "Waterfront Studio in DUMBO - No Fee",
+            "address": "85 Jay St, Brooklyn, NY 11201",
+            "price": 3100,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 520,
+            "neighborhood": "DUMBO",
+            "borough": "Brooklyn",
+            "description": "Stunning waterfront studio with Manhattan and bridge views. Located in trendy DUMBO with cobblestone streets and artisanal shops.",
+            "amenities": ["Water Views", "Gym", "Rooftop", "Concierge", "Near Bridge"],
+            "images": [
+                "https://images.pexels.com/photos/4090093/pexels-photo-4090093.jpeg",
+                "https://images.unsplash.com/photo-1551250930-ace1ad395cea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "leasing@dumboplaces.com",
+                "broker": "Waterfront Brooklyn Realty"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.7033,
+            "longitude": -73.9886,
+            "source_url": "https://streeteasy.com/building/85-jay-street"
+        },
+        {
+            "title": "Classic 2BR in Park Slope - No Fee",
+            "address": "145 7th Ave, Brooklyn, NY 11215",
+            "price": 4200,
+            "bedrooms": 2,
+            "bathrooms": 1.0,
+            "sqft": 850,
+            "neighborhood": "Park Slope",
+            "borough": "Brooklyn",
+            "description": "Beautiful pre-war 2-bedroom in coveted Park Slope. Near Prospect Park, great schools, and family-friendly neighborhood.",
+            "amenities": ["Near Park", "Family Friendly", "Pre-war Charm", "Laundry", "Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1553287222-da8a77d59c5c",
+                "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@parkslopeplaces.com",
+                "broker": "Park Slope Family Realty"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.6664,
+            "longitude": -73.9814,
+            "source_url": "https://streeteasy.com/building/145-7th-avenue"
         }
     ]
     
