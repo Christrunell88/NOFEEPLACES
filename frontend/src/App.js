@@ -122,9 +122,7 @@ const Home = () => {
     bedrooms: '',
     neighborhood: '',
     borough: '',
-    search_term: '',
-    min_sqft: '',
-    max_sqft: ''
+    search_term: ''
   });
   const [viewMode, setViewMode] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
