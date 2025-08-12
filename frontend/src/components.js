@@ -125,7 +125,7 @@ const Header = () => {
 const Hero = ({ searchStats }) => {
   return (
     <section 
-      className="relative bg-cover bg-center bg-no-repeat h-96 w-full block"
+      className="hero-section relative bg-cover bg-center bg-no-repeat h-96 w-full"
       style={{
         backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1514565131-fce0801e5785')`
       }}
