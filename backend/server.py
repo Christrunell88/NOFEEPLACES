@@ -407,8 +407,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "leasing@dumboplaces.com",
-                "broker": "Waterfront Brooklyn Realty"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7033,
