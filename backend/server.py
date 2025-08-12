@@ -357,8 +357,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "info@sohoplaces.com",
-                "broker": "SoHo Living NYC"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
             "latitude": 40.7241,
