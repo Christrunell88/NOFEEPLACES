@@ -182,8 +182,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "info@midtowneastliving.com",
-                "broker": "Elite Properties"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
             "latitude": 40.7589,
