@@ -157,8 +157,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "leasing@financialdistrict.com",
-                "broker": "Premium Realty"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
             "latitude": 40.7074,
