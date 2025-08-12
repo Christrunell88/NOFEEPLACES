@@ -231,7 +231,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium text-amber-200 mb-2">Min Price</label>
             <input
@@ -268,17 +268,6 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
               <option value="3">3 BR</option>
               <option value="4">4+ BR</option>
             </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Min Sqft</label>
-            <input
-              type="number"
-              placeholder="500"
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300"
-              value={filters.min_sqft}
-              onChange={(e) => onFilterChange('min_sqft', e.target.value)}
-            />
           </div>
           
           <div className="flex items-end">
