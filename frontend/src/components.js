@@ -178,7 +178,7 @@ const Hero = ({ searchStats }) => {
   );
 };
 
-// Advanced Search Filters Component with PLACES styling
+// Advanced Search Filters Component with PLACES styling - Simplified
 const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, searchStats }) => {
   const neighborhoods = searchStats?.top_neighborhoods?.map(n => n._id) || [
     'Financial District', 'Midtown East', 'Brooklyn Heights', 'Long Island City', 
@@ -188,24 +188,26 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
 
   return (
-    <section id="search-section" className="bg-slate-800 border-b border-slate-700 py-6">
+    <section id="search-section" className="bg-slate-800 border-b border-slate-700 py-4">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          <div className="lg:col-span-2">
-            <label className="block text-sm font-medium text-amber-200 mb-2">Search Location</label>
+        {/* Main Search Bar */}
+        <div className="mb-3">
+          <div className="max-w-2xl mx-auto">
             <input
               type="text"
-              placeholder="Search by address, neighborhood..."
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300"
+              placeholder="Search by address, neighborhood, or area..."
+              className="w-full px-4 py-3 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-lg"
               value={filters.search_term}
               onChange={(e) => onFilterChange('search_term', e.target.value)}
             />
           </div>
-          
+        </div>
+        
+        {/* Compact Filter Row */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
           <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Borough</label>
             <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               value={filters.borough}
               onChange={(e) => onFilterChange('borough', e.target.value)}
             >
@@ -217,9 +219,8 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Neighborhood</label>
             <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               value={filters.neighborhood}
               onChange={(e) => onFilterChange('neighborhood', e.target.value)}
             >
@@ -229,39 +230,34 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
               ))}
             </select>
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
           <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Min Price</label>
             <input
               type="number"
-              placeholder="$2,000"
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300"
+              placeholder="Min Price"
+              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-sm"
               value={filters.min_price}
               onChange={(e) => onFilterChange('min_price', e.target.value)}
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Max Price</label>
             <input
               type="number"
-              placeholder="$5,000"
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300"
+              placeholder="Max Price"
+              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-sm"
               value={filters.max_price}
               onChange={(e) => onFilterChange('max_price', e.target.value)}
             />
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-amber-200 mb-2">Bedrooms</label>
             <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
               value={filters.bedrooms}
               onChange={(e) => onFilterChange('bedrooms', e.target.value)}
             >
-              <option value="">Any</option>
+              <option value="">Bedrooms</option>
               <option value="0">Studio</option>
               <option value="1">1 BR</option>
               <option value="2">2 BR</option>
@@ -269,15 +265,16 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
               <option value="4">4+ BR</option>
             </select>
           </div>
-          
-          <div className="flex items-end">
-            <button 
-              onClick={onClearFilters}
-              className="w-full bg-slate-600 text-amber-100 px-4 py-2 rounded-lg hover:bg-slate-500 transition-colors"
-            >
-              Clear All
-            </button>
-          </div>
+        </div>
+        
+        {/* Clear Filters Button */}
+        <div className="text-center mt-3">
+          <button 
+            onClick={onClearFilters}
+            className="text-amber-200 hover:text-amber-100 text-sm underline"
+          >
+            Clear all filters
+          </button>
         </div>
       </div>
     </section>
