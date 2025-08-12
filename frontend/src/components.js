@@ -125,7 +125,7 @@ const Header = () => {
 const Hero = ({ searchStats }) => {
   return (
     <section 
-      className="relative bg-cover bg-center bg-no-repeat h-96 z-10"
+      className="relative bg-cover bg-center bg-no-repeat h-96 w-full block"
       style={{
         backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1514565131-fce0801e5785')`
       }}
@@ -154,7 +154,7 @@ const Hero = ({ searchStats }) => {
       </div>
       
       {/* Enhanced Stats overlay with PLACES colors */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-slate-800 to-slate-700 text-amber-100 py-4 z-20">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-slate-800 to-slate-700 text-amber-100 py-4">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-3 text-center">
             <div>
