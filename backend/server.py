@@ -206,7 +206,7 @@ async def scrape_streeteasy_apartments():
                 "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f"
             ],
             "contact_info": {
-                "phone": "(718) 555-0789",
+                "phone": "(646) 408-8048",
                 "email": "rentals@brooklynheights.com",
                 "broker": "Brooklyn Realty Co"
             },
