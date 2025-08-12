@@ -188,7 +188,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
 
   return (
-    <section id="search-section" className="bg-slate-800 border-b border-slate-700 py-4 relative z-30">
+    <section id="search-section" className="bg-slate-800 border-b border-slate-700 py-4 w-full">
       <div className="container mx-auto px-4">
         {/* Main Search Bar */}
         <div className="mb-3">
