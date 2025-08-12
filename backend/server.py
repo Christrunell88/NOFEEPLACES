@@ -432,8 +432,8 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "info@parkslopeplaces.com",
-                "broker": "Park Slope Family Realty"
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.6664,
