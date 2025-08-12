@@ -193,7 +193,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50">
       <Header />
       <Hero searchStats={searchStats} />
       <AdvancedSearchFilters 
@@ -205,7 +205,7 @@ const Home = () => {
       
       <main className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-slate-800">
             {loading ? 'Searching...' : `${totalApartments} No Fee Apartments Available`}
           </h2>
           <div className="flex space-x-2">
@@ -213,8 +213,8 @@ const Home = () => {
               onClick={() => setViewMode('list')}
               className={`px-4 py-2 rounded-lg transition-colors ${
                 viewMode === 'list' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-amber-600 text-slate-800' 
+                : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
               }`}
             >
               List View
@@ -223,8 +223,8 @@ const Home = () => {
               onClick={() => setViewMode('map')}
               className={`px-4 py-2 rounded-lg transition-colors ${
                 viewMode === 'map' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-amber-600 text-slate-800' 
+                : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
               }`}
             >
               Map View
@@ -247,16 +247,16 @@ const Home = () => {
         {!loading && apartments.length === 0 && (
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-200 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 mx-auto mb-4 bg-slate-200 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No apartments found</h3>
-              <p className="text-gray-600 mb-4">Try adjusting your search filters to see more results.</p>
+              <h3 className="text-lg font-semibold text-slate-800 mb-2">No apartments found</h3>
+              <p className="text-slate-600 mb-4">Try adjusting your search filters to see more results.</p>
               <button 
                 onClick={clearFilters}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-amber-600 text-slate-800 rounded-lg hover:bg-amber-500 transition-colors font-semibold"
               >
                 Clear Filters
               </button>
@@ -271,17 +271,17 @@ const Home = () => {
               <button
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 bg-amber-600 text-slate-800 rounded-lg hover:bg-amber-500 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors font-semibold"
               >
                 Previous
               </button>
-              <span className="px-4 py-2 bg-gray-100 rounded-lg flex items-center">
+              <span className="px-4 py-2 bg-slate-100 rounded-lg flex items-center">
                 Page {currentPage}
               </span>
               <button
                 onClick={() => setCurrentPage(prev => prev + 1)}
                 disabled={apartments.length < 20}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                className="px-4 py-2 bg-amber-600 text-slate-800 rounded-lg hover:bg-amber-500 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors font-semibold"
               >
                 Next
               </button>
@@ -331,7 +331,6 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/saved-searches" element={<SavedSearchesPage />} />
           </Routes>
-          <AuthModal />
         </BrowserRouter>
       </div>
     </AuthProvider>
