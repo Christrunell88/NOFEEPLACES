@@ -977,22 +977,57 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center p-2">
-                <svg viewBox="0 0 100 100" className="w-full h-full text-amber-100" fill="currentColor">
-                  <path d="M20 85 L25 80 L35 80 L35 70 L45 70 L45 60 L55 60 L55 70 L65 70 L65 80 L75 80 L80 85 L20 85 Z" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <rect x="40" y="40" width="20" height="20" rx="2" fill="currentColor"/>
-                  <rect x="45" y="45" width="4" height="4" fill="rgb(71 85 105)"/>
-                  <rect x="51" y="45" width="4" height="4" fill="rgb(71 85 105)"/>
-                  <rect x="45" y="51" width="4" height="4" fill="rgb(71 85 105)"/>
-                  <rect x="51" y="51" width="4" height="4" fill="rgb(71 85 105)"/>
-                  <path d="M25 50 L35 40 L45 50 L50 45 L55 50 L45 60 L35 50 Z" fill="currentColor"/>
-                  <rect x="37" y="52" width="6" height="4" fill="rgb(71 85 105)"/>
+              <div className="w-12 h-12 flex items-center justify-center">
+                {/* Using same SVG logo design */}
+                <svg 
+                  viewBox="0 0 200 200" 
+                  className="w-10 h-10 text-amber-100" 
+                  fill="currentColor" 
+                  stroke="currentColor" 
+                  strokeWidth="4"
+                >
+                  {/* Hand holding buildings - based on your logo */}
+                  <g transform="translate(50, 80)">
+                    {/* Hand outline */}
+                    <path 
+                      d="M20 40 Q15 35 15 30 Q15 25 20 20 Q25 15 35 15 Q40 15 45 20 Q50 15 60 15 Q70 15 75 20 Q80 25 80 30 Q80 35 75 40 L75 50 Q70 60 60 60 L40 60 Q30 60 25 50 Z" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="6"
+                    />
+                    
+                    {/* House */}
+                    <g transform="translate(25, -25)">
+                      <path d="M10 25 L20 15 L30 25" fill="none" strokeWidth="4"/>
+                      <rect x="15" y="20" width="10" height="15" fill="none" strokeWidth="4"/>
+                      <rect x="18" y="28" width="4" height="7" fill="none" strokeWidth="2"/>
+                    </g>
+                    
+                    {/* Building */}
+                    <g transform="translate(45, -35)">
+                      <rect x="0" y="10" width="15" height="25" fill="none" strokeWidth="4"/>
+                      <rect x="3" y="13" width="2" height="2" fill="currentColor"/>
+                      <rect x="7" y="13" width="2" height="2" fill="currentColor"/>
+                      <rect x="11" y="13" width="2" height="2" fill="currentColor"/>
+                      <rect x="3" y="17" width="2" height="2" fill="currentColor"/>
+                      <rect x="7" y="17" width="2" height="2" fill="currentColor"/>
+                      <rect x="11" y="17" width="2" height="2" fill="currentColor"/>
+                      <rect x="3" y="21" width="2" height="2" fill="currentColor"/>
+                      <rect x="7" y="21" width="2" height="2" fill="currentColor"/>
+                      <rect x="11" y="21" width="2" height="2" fill="currentColor"/>
+                      <rect x="3" y="25" width="2" height="2" fill="currentColor"/>
+                      <rect x="7" y="25" width="2" height="2" fill="currentColor"/>
+                      <rect x="11" y="25" width="2" height="2" fill="currentColor"/>
+                    </g>
+                  </g>
                 </svg>
               </div>
-              <div>
-                <span className="text-xl font-bold">PLACES</span>
-                <div className="text-xs text-amber-200 -mt-1">NYC No Fee Apartments</div>
+              <div className="text-left">
+                <div className="text-xl font-bold text-amber-100 leading-tight">Places</div>
+                <div className="text-xs text-amber-200 leading-tight -mt-1">No Fee</div>
               </div>
             </div>
             <p className="text-amber-200 mb-4">
