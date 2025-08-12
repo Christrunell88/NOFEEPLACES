@@ -183,9 +183,7 @@ const Home = () => {
       bedrooms: '',
       neighborhood: '',
       borough: '',
-      search_term: '',
-      min_sqft: '',
-      max_sqft: ''
+      search_term: ''
     });
     setCurrentPage(1);
   };
