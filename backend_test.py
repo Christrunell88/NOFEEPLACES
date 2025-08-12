@@ -1,0 +1,481 @@
+#!/usr/bin/env python3
+"""
+EasyRent.NYC Backend API Testing Suite
+Tests all backend endpoints for authentication, apartments, user features, and data scraping
+"""
+
+import requests
+import json
+import time
+from datetime import datetime
+from typing import Dict, Any, Optional
+
+# Configuration
+BASE_URL = "https://nofee-nyc-finder.preview.emergentagent.com/api"
+TEST_USER_EMAIL = "testuser@easyrent.nyc"
+TEST_USER_PASSWORD = "SecurePassword123!"
+TEST_USER_NAME = "John Doe"
+
+class EasyRentAPITester:
+    def __init__(self):
+        self.base_url = BASE_URL
+        self.auth_token = None
+        self.test_user_id = None
+        self.test_apartment_id = None
+        self.test_saved_search_id = None
+        self.results = {
+            "passed": 0,
+            "failed": 0,
+            "errors": []
+        }
+    
+    def log_result(self, test_name: str, success: bool, message: str = ""):
+        """Log test result"""
+        status = "✅ PASS" if success else "❌ FAIL"
+        print(f"{status}: {test_name}")
+        if message:
+            print(f"   {message}")
+        
+        if success:
+            self.results["passed"] += 1
+        else:
+            self.results["failed"] += 1
+            self.results["errors"].append(f"{test_name}: {message}")
+    
+    def make_request(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> requests.Response:
+        """Make HTTP request with error handling"""
+        url = f"{self.base_url}{endpoint}"
+        default_headers = {"Content-Type": "application/json"}
+        
+        if headers:
+            default_headers.update(headers)
+        
+        if self.auth_token and "Authorization" not in default_headers:
+            default_headers["Authorization"] = f"Bearer {self.auth_token}"
+        
+        try:
+            if method.upper() == "GET":
+                response = requests.get(url, headers=default_headers, params=data)
+            elif method.upper() == "POST":
+                response = requests.post(url, json=data, headers=default_headers)
+            elif method.upper() == "DELETE":
+                response = requests.delete(url, headers=default_headers)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+            
+            return response
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            raise
+    
+    def test_health_check(self):
+        """Test basic health check endpoint"""
+        print("\n=== Testing Health Check ===")
+        try:
+            response = self.make_request("GET", "/health")
+            if response.status_code == 200:
+                data = response.json()
+                if "status" in data and data["status"] == "healthy":
+                    self.log_result("Health Check", True, "API is healthy")
+                else:
+                    self.log_result("Health Check", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Health Check", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Health Check", False, f"Exception: {str(e)}")
+    
+    def test_user_registration(self):
+        """Test user registration"""
+        print("\n=== Testing User Registration ===")
+        try:
+            # First, try to clean up any existing test user
+            try:
+                login_response = self.make_request("POST", "/auth/login", {
+                    "email": TEST_USER_EMAIL,
+                    "password": TEST_USER_PASSWORD
+                })
+                if login_response.status_code == 200:
+                    print("Test user already exists, continuing with existing user...")
+                    token_data = login_response.json()
+                    self.auth_token = token_data["access_token"]
+                    self.log_result("User Registration", True, "Using existing test user")
+                    return
+            except:
+                pass
+            
+            # Register new user
+            registration_data = {
+                "email": TEST_USER_EMAIL,
+                "password": TEST_USER_PASSWORD,
+                "full_name": TEST_USER_NAME
+            }
+            
+            response = self.make_request("POST", "/auth/register", registration_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "access_token" in data and "token_type" in data:
+                    self.auth_token = data["access_token"]
+                    self.log_result("User Registration", True, "User registered successfully")
+                else:
+                    self.log_result("User Registration", False, f"Missing token in response: {data}")
+            elif response.status_code == 400:
+                # User might already exist, try login
+                login_response = self.make_request("POST", "/auth/login", {
+                    "email": TEST_USER_EMAIL,
+                    "password": TEST_USER_PASSWORD
+                })
+                if login_response.status_code == 200:
+                    token_data = login_response.json()
+                    self.auth_token = token_data["access_token"]
+                    self.log_result("User Registration", True, "User already exists, logged in successfully")
+                else:
+                    self.log_result("User Registration", False, f"Registration failed: {response.text}")
+            else:
+                self.log_result("User Registration", False, f"Status code: {response.status_code}, Response: {response.text}")
+        except Exception as e:
+            self.log_result("User Registration", False, f"Exception: {str(e)}")
+    
+    def test_user_login(self):
+        """Test user login"""
+        print("\n=== Testing User Login ===")
+        try:
+            login_data = {
+                "email": TEST_USER_EMAIL,
+                "password": TEST_USER_PASSWORD
+            }
+            
+            response = self.make_request("POST", "/auth/login", login_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "access_token" in data and "token_type" in data:
+                    self.auth_token = data["access_token"]
+                    self.log_result("User Login", True, "Login successful")
+                else:
+                    self.log_result("User Login", False, f"Missing token in response: {data}")
+            else:
+                self.log_result("User Login", False, f"Status code: {response.status_code}, Response: {response.text}")
+        except Exception as e:
+            self.log_result("User Login", False, f"Exception: {str(e)}")
+    
+    def test_user_profile(self):
+        """Test getting user profile with JWT token"""
+        print("\n=== Testing User Profile ===")
+        try:
+            if not self.auth_token:
+                self.log_result("User Profile", False, "No auth token available")
+                return
+            
+            response = self.make_request("GET", "/auth/me")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "email" in data and data["email"] == TEST_USER_EMAIL:
+                    self.test_user_id = data.get("id")
+                    self.log_result("User Profile", True, f"Profile retrieved for user: {data['full_name']}")
+                else:
+                    self.log_result("User Profile", False, f"Unexpected profile data: {data}")
+            else:
+                self.log_result("User Profile", False, f"Status code: {response.status_code}, Response: {response.text}")
+        except Exception as e:
+            self.log_result("User Profile", False, f"Exception: {str(e)}")
+    
+    def test_jwt_validation(self):
+        """Test JWT token validation"""
+        print("\n=== Testing JWT Token Validation ===")
+        try:
+            # Test with valid token
+            if self.auth_token:
+                response = self.make_request("GET", "/auth/me")
+                if response.status_code == 200:
+                    self.log_result("JWT Validation (Valid Token)", True, "Valid token accepted")
+                else:
+                    self.log_result("JWT Validation (Valid Token)", False, f"Valid token rejected: {response.status_code}")
+            
+            # Test with invalid token
+            invalid_headers = {"Authorization": "Bearer invalid_token_here"}
+            response = self.make_request("GET", "/auth/me", headers=invalid_headers)
+            if response.status_code == 401:
+                self.log_result("JWT Validation (Invalid Token)", True, "Invalid token properly rejected")
+            else:
+                self.log_result("JWT Validation (Invalid Token)", False, f"Invalid token not rejected: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("JWT Validation", False, f"Exception: {str(e)}")
+    
+    def test_apartments_listing(self):
+        """Test apartments listing endpoint"""
+        print("\n=== Testing Apartments Listing ===")
+        try:
+            # Test basic listing
+            response = self.make_request("GET", "/apartments")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Apartments Listing (Basic)", True, f"Retrieved {len(data)} apartments")
+                    if data:
+                        self.test_apartment_id = data[0].get("id")
+                else:
+                    self.log_result("Apartments Listing (Basic)", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Apartments Listing (Basic)", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Apartments Listing (Basic)", False, f"Exception: {str(e)}")
+    
+    def test_apartments_filtering(self):
+        """Test apartments filtering"""
+        print("\n=== Testing Apartments Filtering ===")
+        try:
+            # Test price filter
+            response = self.make_request("GET", "/apartments", {"min_price": 2000, "max_price": 4000})
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Apartments Filter (Price)", True, f"Price filter returned {len(data)} apartments")
+            else:
+                self.log_result("Apartments Filter (Price)", False, f"Status code: {response.status_code}")
+            
+            # Test bedrooms filter
+            response = self.make_request("GET", "/apartments", {"bedrooms": 1})
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Apartments Filter (Bedrooms)", True, f"Bedrooms filter returned {len(data)} apartments")
+            else:
+                self.log_result("Apartments Filter (Bedrooms)", False, f"Status code: {response.status_code}")
+            
+            # Test borough filter
+            response = self.make_request("GET", "/apartments", {"borough": "Manhattan"})
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Apartments Filter (Borough)", True, f"Borough filter returned {len(data)} apartments")
+            else:
+                self.log_result("Apartments Filter (Borough)", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Apartments Filtering", False, f"Exception: {str(e)}")
+    
+    def test_apartments_pagination(self):
+        """Test apartments pagination"""
+        print("\n=== Testing Apartments Pagination ===")
+        try:
+            # Test pagination
+            response = self.make_request("GET", "/apartments", {"page": 1, "limit": 2})
+            if response.status_code == 200:
+                data = response.json()
+                if len(data) <= 2:
+                    self.log_result("Apartments Pagination", True, f"Pagination working, got {len(data)} apartments")
+                else:
+                    self.log_result("Apartments Pagination", False, f"Limit not respected, got {len(data)} apartments")
+            else:
+                self.log_result("Apartments Pagination", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Apartments Pagination", False, f"Exception: {str(e)}")
+    
+    def test_apartments_search(self):
+        """Test apartments search functionality"""
+        print("\n=== Testing Apartments Search ===")
+        try:
+            # Test search term
+            response = self.make_request("GET", "/apartments", {"search_term": "luxury"})
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Apartments Search", True, f"Search returned {len(data)} apartments")
+            else:
+                self.log_result("Apartments Search", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Apartments Search", False, f"Exception: {str(e)}")
+    
+    def test_apartment_details(self):
+        """Test individual apartment details"""
+        print("\n=== Testing Apartment Details ===")
+        try:
+            if not self.test_apartment_id:
+                self.log_result("Apartment Details", False, "No apartment ID available for testing")
+                return
+            
+            response = self.make_request("GET", f"/apartments/{self.test_apartment_id}")
+            if response.status_code == 200:
+                data = response.json()
+                if "id" in data and data["id"] == self.test_apartment_id:
+                    self.log_result("Apartment Details", True, f"Retrieved details for apartment: {data.get('title', 'Unknown')}")
+                else:
+                    self.log_result("Apartment Details", False, f"Unexpected apartment data: {data}")
+            else:
+                self.log_result("Apartment Details", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Apartment Details", False, f"Exception: {str(e)}")
+    
+    def test_apartment_stats(self):
+        """Test apartment statistics endpoint"""
+        print("\n=== Testing Apartment Statistics ===")
+        try:
+            response = self.make_request("GET", "/apartments/search/stats")
+            if response.status_code == 200:
+                data = response.json()
+                if "total_apartments" in data:
+                    self.log_result("Apartment Statistics", True, f"Stats retrieved: {data['total_apartments']} total apartments")
+                else:
+                    self.log_result("Apartment Statistics", False, f"Missing total_apartments in response: {data}")
+            else:
+                self.log_result("Apartment Statistics", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Apartment Statistics", False, f"Exception: {str(e)}")
+    
+    def test_favorites_functionality(self):
+        """Test user favorites functionality"""
+        print("\n=== Testing Favorites Functionality ===")
+        try:
+            if not self.auth_token:
+                self.log_result("Favorites", False, "No auth token available")
+                return
+            
+            if not self.test_apartment_id:
+                self.log_result("Favorites", False, "No apartment ID available for testing")
+                return
+            
+            # Add to favorites
+            response = self.make_request("POST", f"/users/favorites/{self.test_apartment_id}")
+            if response.status_code == 200:
+                self.log_result("Add Favorite", True, "Apartment added to favorites")
+            else:
+                self.log_result("Add Favorite", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Get favorites
+            response = self.make_request("GET", "/users/favorites")
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Get Favorites", True, f"Retrieved {len(data)} favorite apartments")
+                else:
+                    self.log_result("Get Favorites", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Get Favorites", False, f"Status code: {response.status_code}")
+            
+            # Remove from favorites
+            response = self.make_request("DELETE", f"/users/favorites/{self.test_apartment_id}")
+            if response.status_code == 200:
+                self.log_result("Remove Favorite", True, "Apartment removed from favorites")
+            else:
+                self.log_result("Remove Favorite", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Favorites Functionality", False, f"Exception: {str(e)}")
+    
+    def test_saved_searches(self):
+        """Test saved searches functionality"""
+        print("\n=== Testing Saved Searches ===")
+        try:
+            if not self.auth_token:
+                self.log_result("Saved Searches", False, "No auth token available")
+                return
+            
+            # Create saved search
+            search_data = {
+                "name": "Test Search",
+                "filters": {
+                    "min_price": 2000,
+                    "max_price": 4000,
+                    "bedrooms": 1,
+                    "borough": "Manhattan"
+                },
+                "alert_frequency": "daily"
+            }
+            
+            response = self.make_request("POST", "/users/saved-searches", search_data)
+            if response.status_code == 200:
+                data = response.json()
+                self.test_saved_search_id = data.get("id")
+                self.log_result("Create Saved Search", True, f"Created saved search: {data.get('name')}")
+            else:
+                self.log_result("Create Saved Search", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Get saved searches
+            response = self.make_request("GET", "/users/saved-searches")
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Get Saved Searches", True, f"Retrieved {len(data)} saved searches")
+                else:
+                    self.log_result("Get Saved Searches", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Get Saved Searches", False, f"Status code: {response.status_code}")
+            
+            # Delete saved search
+            if self.test_saved_search_id:
+                response = self.make_request("DELETE", f"/users/saved-searches/{self.test_saved_search_id}")
+                if response.status_code == 200:
+                    self.log_result("Delete Saved Search", True, "Saved search deleted successfully")
+                else:
+                    self.log_result("Delete Saved Search", False, f"Status code: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Saved Searches", False, f"Exception: {str(e)}")
+    
+    def test_data_scraping(self):
+        """Test data scraping endpoint"""
+        print("\n=== Testing Data Scraping ===")
+        try:
+            response = self.make_request("POST", "/admin/scrape")
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data:
+                    self.log_result("Data Scraping", True, f"Scraping completed: {data['message']}")
+                else:
+                    self.log_result("Data Scraping", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Data Scraping", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("Data Scraping", False, f"Exception: {str(e)}")
+    
+    def run_all_tests(self):
+        """Run all tests in sequence"""
+        print("🚀 Starting EasyRent.NYC Backend API Tests")
+        print(f"Testing against: {self.base_url}")
+        print("=" * 60)
+        
+        # Basic connectivity
+        self.test_health_check()
+        
+        # Authentication tests
+        self.test_user_registration()
+        self.test_user_login()
+        self.test_user_profile()
+        self.test_jwt_validation()
+        
+        # Apartment listing tests
+        self.test_apartments_listing()
+        self.test_apartments_filtering()
+        self.test_apartments_pagination()
+        self.test_apartments_search()
+        self.test_apartment_details()
+        self.test_apartment_stats()
+        
+        # User features tests
+        self.test_favorites_functionality()
+        self.test_saved_searches()
+        
+        # Data scraping tests
+        self.test_data_scraping()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print("🏁 TEST SUMMARY")
+        print("=" * 60)
+        print(f"✅ Passed: {self.results['passed']}")
+        print(f"❌ Failed: {self.results['failed']}")
+        print(f"📊 Total: {self.results['passed'] + self.results['failed']}")
+        
+        if self.results['errors']:
+            print("\n🔍 FAILED TESTS:")
+            for error in self.results['errors']:
+                print(f"   • {error}")
+        
+        success_rate = (self.results['passed'] / (self.results['passed'] + self.results['failed'])) * 100 if (self.results['passed'] + self.results['failed']) > 0 else 0
+        print(f"\n🎯 Success Rate: {success_rate:.1f}%")
+        
+        return self.results
+
+if __name__ == "__main__":
+    tester = EasyRentAPITester()
+    results = tester.run_all_tests()
