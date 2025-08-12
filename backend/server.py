@@ -156,7 +156,7 @@ async def scrape_streeteasy_apartments():
                 "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a"
             ],
             "contact_info": {
-                "phone": "(212) 555-0123",
+                "phone": "(646) 408-8048",
                 "email": "leasing@financialdistrict.com",
                 "broker": "Premium Realty"
             },
