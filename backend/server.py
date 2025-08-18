@@ -101,6 +101,33 @@ class SavedSearch(BaseModel):
     alert_frequency: str = "daily"  # daily, weekly, instant
     is_active: bool = True
 
+class Appointment(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    apartment_id: str
+    visitor_name: str
+    visitor_email: str
+    visitor_phone: str
+    appointment_date: datetime
+    appointment_time: str  # e.g., "10:00 AM", "2:30 PM"
+    duration_minutes: int = 60  # default 1 hour
+    status: str = "pending"  # pending, confirmed, completed, cancelled
+    notes: Optional[str] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+class AppointmentCreate(BaseModel):
+    apartment_id: str
+    visitor_name: str
+    visitor_email: str
+    visitor_phone: str
+    appointment_date: str  # YYYY-MM-DD format
+    appointment_time: str  # e.g., "10:00 AM"
+    notes: Optional[str] = None
+
+class AppointmentUpdate(BaseModel):
+    status: Optional[str] = None
+    notes: Optional[str] = None
+
 # Helper Functions
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
