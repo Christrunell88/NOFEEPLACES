@@ -1708,5 +1708,7 @@ export const Components = {
   AuthModal,
   UserDashboard,
   ApartmentDetails,
-  SavedSearches
+  SavedSearches,
+  CalendarBooking,
+  AdminAppointments
 };
