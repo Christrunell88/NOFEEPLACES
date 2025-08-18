@@ -59,6 +59,8 @@ class NoFeePlacesAPITester:
                 response = requests.get(url, headers=default_headers, params=data)
             elif method.upper() == "POST":
                 response = requests.post(url, json=data, headers=default_headers)
+            elif method.upper() == "PUT":
+                response = requests.put(url, json=data, headers=default_headers)
             elif method.upper() == "DELETE":
                 response = requests.delete(url, headers=default_headers)
             else:
