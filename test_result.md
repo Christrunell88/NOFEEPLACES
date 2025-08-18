@@ -207,3 +207,5 @@ test_plan:
 agent_communication:
     - agent: "testing"
       message: "Comprehensive backend testing completed successfully. All 21 test cases passed with 100% success rate. The EasyRent.NYC backend API is fully functional with proper authentication, apartment listings with filtering/pagination/search, user favorites management, saved searches functionality, data scraping capabilities, and robust database integration. No critical issues found."
+    - agent: "testing"
+      message: "TF Cornerstone listings verification completed successfully. All 29 test cases passed with 100% success rate. Confirmed 30 total apartment listings (20 existing + 10 new TFC listings) with proper data quality, neighborhood coverage across West Village, Midtown West, Upper East Side, Long Island City, Chelsea, Murray Hill, and Prospect Heights. All listings maintain standardized contact info (Chris Trunell, (646) 408-8048, info@places.nyc). Filtering functionality works correctly for TFC properties. Database scraping endpoint successfully populates all listings."
