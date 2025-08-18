@@ -170,7 +170,7 @@ const Hero = ({ searchStats }) => {
           </h1>
           <p className="text-xl mb-8 text-amber-200">
             Discover thousands of broker fee-free apartments across all five boroughs. 
-            Save money and find your ideal home with PLACES.
+            Save money and find your ideal home with NoFeePlaces.com.
           </p>
           <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
             <button 
