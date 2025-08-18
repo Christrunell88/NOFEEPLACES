@@ -189,6 +189,18 @@ backend:
           agent: "testing"
           comment: "MongoDB integration working properly. Data persistence verified through all CRUD operations. User data, apartment data, favorites, and saved searches are all correctly stored and retrieved."
 
+  - task: "Appointment Scheduling System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Complete appointment scheduling system working perfectly. All 15 appointment-related test cases passed: appointment creation with proper validation, business hours enforcement (10 AM - 7 PM), conflict detection preventing double booking, available time slots retrieval, appointment status updates (pending/confirmed/completed/cancelled), comprehensive filtering by apartment/status/date range, and proper data validation. All required fields present and validated correctly."
+
 frontend:
   # Frontend testing not performed as per instructions
 
