@@ -110,7 +110,8 @@ const {
   AuthModal,
   UserDashboard,
   ApartmentDetails,
-  SavedSearches
+  SavedSearches,
+  AdminAppointments
 } = Components;
 
 const Home = () => {
