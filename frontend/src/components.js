@@ -452,7 +452,248 @@ const ApartmentCard = ({ apartment }) => {
   );
 };
 
-// Authentication Modal Component with PLACES styling
+// Calendar Booking Component
+const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
+  const [availableSlots, setAvailableSlots] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    visitor_name: '',
+    visitor_email: '',
+    visitor_phone: '',
+    notes: ''
+  });
+
+  // Generate next 30 days for date selection
+  const generateDateOptions = () => {
+    const dates = [];
+    const today = new Date();
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      dates.push({
+        value: date.toISOString().split('T')[0],
+        label: date.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+          month: 'short', 
+          day: 'numeric' 
+        })
+      });
+    }
+    return dates;
+  };
+
+  // Fetch available time slots when date changes
+  useEffect(() => {
+    if (selectedDate) {
+      fetchAvailableSlots();
+    }
+  }, [selectedDate]);
+
+  const fetchAvailableSlots = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(`${API}/apartments/${apartmentId}/available-slots?date=${selectedDate}`);
+      setAvailableSlots(response.data.available_slots);
+    } catch (error) {
+      console.error('Error fetching available slots:', error);
+      setAvailableSlots([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setSelectedTime('');
+  };
+
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+    setShowBookingForm(true);
+  };
+
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const appointmentData = {
+        apartment_id: apartmentId,
+        appointment_date: selectedDate,
+        appointment_time: selectedTime,
+        ...bookingData
+      };
+
+      const response = await axios.post(`${API}/appointments`, appointmentData);
+      
+      // Reset form and close modal
+      setBookingData({
+        visitor_name: '',
+        visitor_email: '',
+        visitor_phone: '',
+        notes: ''
+      });
+      setShowBookingForm(false);
+      setSelectedDate('');
+      setSelectedTime('');
+      
+      if (onBookingComplete) {
+        onBookingComplete(response.data);
+      }
+
+      alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+    } catch (error) {
+      const errorMessage = error.response?.data?.detail || 'Failed to book appointment';
+      alert(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
+      <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center">
+        <svg className="w-5 h-5 mr-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Schedule a Viewing
+      </h3>
+
+      {/* Date Selection */}
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-slate-700 mb-2">Select Date</label>
+        <select
+          value={selectedDate}
+          onChange={(e) => handleDateChange(e.target.value)}
+          className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+        >
+          <option value="">Choose a date...</option>
+          {generateDateOptions().map(date => (
+            <option key={date.value} value={date.value}>{date.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Time Selection */}
+      {selectedDate && (
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-slate-700 mb-2">Available Times (10 AM - 7 PM)</label>
+          {loading ? (
+            <div className="flex justify-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-amber-600"></div>
+            </div>
+          ) : availableSlots.length > 0 ? (
+            <div className="grid grid-cols-3 gap-2">
+              {availableSlots.map(slot => (
+                <button
+                  key={slot}
+                  onClick={() => handleTimeSelect(slot)}
+                  className="px-3 py-2 text-sm border border-slate-300 rounded-lg hover:bg-amber-50 hover:border-amber-300 focus:ring-2 focus:ring-amber-500 transition-colors"
+                >
+                  {slot}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p className="text-slate-500 text-sm">No available time slots for this date.</p>
+          )}
+        </div>
+      )}
+
+      {/* Booking Form Modal */}
+      {showBookingForm && (
+        <div className="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h4 className="text-lg font-semibold text-slate-800">Book Appointment</h4>
+              <button
+                onClick={() => setShowBookingForm(false)}
+                className="text-slate-400 hover:text-slate-600"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="mb-4 p-3 bg-amber-50 rounded-lg">
+              <p className="text-sm text-slate-700">
+                <strong>Date:</strong> {new Date(selectedDate).toLocaleDateString()}<br />
+                <strong>Time:</strong> {selectedTime}
+              </p>
+            </div>
+
+            <form onSubmit={handleBookingSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  value={bookingData.visitor_name}
+                  onChange={(e) => setBookingData(prev => ({...prev, visitor_name: e.target.value}))}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                <input
+                  type="email"
+                  required
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  value={bookingData.visitor_email}
+                  onChange={(e) => setBookingData(prev => ({...prev, visitor_email: e.target.value}))}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  required
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  value={bookingData.visitor_phone}
+                  onChange={(e) => setBookingData(prev => ({...prev, visitor_phone: e.target.value}))}
+                />
+              </div>
+
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-slate-700 mb-2">Additional Notes (Optional)</label>
+                <textarea
+                  rows="3"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  value={bookingData.notes}
+                  onChange={(e) => setBookingData(prev => ({...prev, notes: e.target.value}))}
+                  placeholder="Any specific requirements or questions..."
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowBookingForm(false)}
+                  className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="flex-1 bg-amber-600 text-slate-800 py-2 px-4 rounded-lg hover:bg-amber-500 disabled:bg-amber-400 transition-colors font-semibold"
+                >
+                  {loading ? 'Booking...' : 'Confirm Booking'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 const AuthModal = ({ onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
