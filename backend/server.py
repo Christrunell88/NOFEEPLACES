@@ -539,6 +539,106 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.8607,
             "longitude": -73.9218,
             "source_url": "https://www.fortysixfifty.com"
+        },
+        {
+            "title": "Modern Studio at CD 280 - No Fee",
+            "address": "280 E 2nd St, New York, NY 10009",
+            "price": 2895,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 450,
+            "neighborhood": "East Village",
+            "borough": "Manhattan",
+            "description": "Stylish studio in trendy East Village location. Features modern kitchen with stainless steel appliances, hardwood floors, high ceilings, and large windows for abundant natural light. Walking distance to restaurants, nightlife, and subway stations.",
+            "amenities": ["Laundry", "Storage", "Rooftop Access", "Pet Friendly", "Bike Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1702014862053-946a122b920d",
+                "https://images.unsplash.com/photo-1675279200694-8529c73b1fd0"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=15),
+            "latitude": 40.7223,
+            "longitude": -73.9874,
+            "source_url": "https://manhattanskyline.com"
+        },
+        {
+            "title": "Luxury 1BR at Saranac - No Fee",
+            "address": "55 Murray St, New York, NY 10007",
+            "price": 4295,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 680,
+            "neighborhood": "Tribeca",
+            "borough": "Manhattan",
+            "description": "Sophisticated 1-bedroom in prestigious Tribeca building. Features floor-to-ceiling windows, granite countertops, stainless steel appliances, hardwood floors, and marble bathroom. Prime downtown location near subway and dining.",
+            "amenities": ["Doorman", "Fitness Center", "Roof Deck", "Laundry", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1632743441209-8a09b8a37e25",
+                "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=40),
+            "latitude": 40.7130,
+            "longitude": -74.0094,
+            "source_url": "https://manhattanskyline.com"
+        },
+        {
+            "title": "Spacious 1BR at The Murray Hill - No Fee",
+            "address": "145 E 35th St, New York, NY 10016",
+            "price": 3895,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 720,
+            "neighborhood": "Murray Hill",
+            "borough": "Manhattan",
+            "description": "Beautiful 1-bedroom apartment in convenient Murray Hill location. Modern kitchen, oversized windows, hardwood floors, and updated bathroom. Close to Grand Central, restaurants, and shopping. Perfect for professionals.",
+            "amenities": ["Elevator", "Laundry", "Storage", "Pet Friendly", "Near Transit"],
+            "images": [
+                "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92",
+                "https://images.unsplash.com/photo-1675279200694-8529c73b1fd0"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=20),
+            "latitude": 40.7454,
+            "longitude": -73.9778,
+            "source_url": "https://manhattanskyline.com"
+        },
+        {
+            "title": "Premium 2BR at Habitat Kips Bay - No Fee",
+            "address": "154 E 29th St, New York, NY 10016",
+            "price": 6295,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1150,
+            "neighborhood": "Kips Bay",
+            "borough": "Manhattan",
+            "description": "Stunning 2-bedroom, 2-bathroom residence in modern Kips Bay building. Features chef's kitchen with quartz countertops, in-unit washer/dryer, floor-to-ceiling windows, and contemporary finishes throughout. Building offers luxury amenities.",
+            "amenities": ["Concierge", "Fitness Center", "Rooftop Terrace", "Laundry In Unit", "Storage", "Pet Spa", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1675279200694-8529c73b1fd0",
+                "https://images.unsplash.com/photo-1632743441209-8a09b8a37e25"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=5),
+            "latitude": 40.7442,
+            "longitude": -73.9821,
+            "source_url": "https://manhattanskyline.com"
         }
     ]
     
