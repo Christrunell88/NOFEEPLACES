@@ -639,6 +639,256 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.7442,
             "longitude": -73.9821,
             "source_url": "https://manhattanskyline.com"
+        },
+        {
+            "title": "Luxury 3BR at West Coast - No Fee",
+            "address": "95 Horatio St, New York, NY 10014",
+            "price": 14895,
+            "bedrooms": 3,
+            "bathrooms": 3.0,
+            "sqft": 1650,
+            "neighborhood": "West Village",
+            "borough": "Manhattan",
+            "description": "Stunning 3-bedroom penthouse in the heart of West Village. Features floor-to-ceiling windows, premium finishes, chef's kitchen with Miele appliances, and private outdoor space. Located in TF Cornerstone's premier building with luxury amenities.",
+            "amenities": ["Doorman", "Fitness Center", "Rooftop Terrace", "Pet Friendly", "Storage", "Laundry In Unit", "Concierge"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
+                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=15),
+            "latitude": 40.7335,
+            "longitude": -74.0083,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Modern 2BR at TFC Hudson Yards - No Fee",
+            "address": "606 W 57th St, New York, NY 10019",
+            "price": 9200,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1200,
+            "neighborhood": "Midtown West",
+            "borough": "Manhattan",
+            "description": "Contemporary 2-bedroom apartment in Midtown West with stunning city views. Features modern kitchen, in-unit washer/dryer, and premium finishes throughout. Steps from Central Park and world-class dining.",
+            "amenities": ["Doorman", "Fitness Center", "Rooftop Deck", "Concierge", "Storage", "Laundry In Unit", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4",
+                "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=30),
+            "latitude": 40.7675,
+            "longitude": -73.9781,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Elegant 2BR at The Fairfax - No Fee",
+            "address": "201 E 69th St, New York, NY 10021",
+            "price": 8570,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1100,
+            "neighborhood": "Upper East Side",
+            "borough": "Manhattan",
+            "description": "Sophisticated 2-bedroom residence on the prestigious Upper East Side. Features hardwood floors, marble bathrooms, and gourmet kitchen. Located near Central Park, museums, and fine dining establishments.",
+            "amenities": ["Doorman", "Fitness Center", "Roof Garden", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688969-a5bfcd646154",
+                "https://images.unsplash.com/photo-1600566752355-35792bedcfea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=20),
+            "latitude": 40.7682,
+            "longitude": -73.9642,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Waterfront 2BR at TFC LIC - No Fee",
+            "address": "4720 Center Blvd, Long Island City, NY 11109",
+            "price": 7950,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1050,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Stunning waterfront 2-bedroom with panoramic Manhattan skyline views. Features floor-to-ceiling windows, modern kitchen with quartz countertops, and access to luxury building amenities. Easy commute to Manhattan.",
+            "amenities": ["Concierge", "Fitness Center", "Pool", "Rooftop Terrace", "River Views", "Pet Spa", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688684-e54e2b60f477",
+                "https://images.unsplash.com/photo-1600566753051-6a31aef4f932"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=10),
+            "latitude": 40.7505,
+            "longitude": -73.9445,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Premium 2BR at TFC Center Blvd - No Fee",
+            "address": "4610 Center Blvd, Long Island City, NY 11109",
+            "price": 7925,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1075,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Luxury 2-bedroom residence with East River views and premium finishes. Features chef's kitchen, spa-like bathrooms, and in-unit washer/dryer. Building offers world-class amenities and waterfront lifestyle.",
+            "amenities": ["Doorman", "Fitness Center", "Pool", "Rooftop Deck", "Concierge", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688893-c3d94ae24c1b",
+                "https://images.unsplash.com/photo-1600566753237-740dd14c6023"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.7511,
+            "longitude": -73.9441,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Modern 2BR at TFC 5203 Center Blvd - No Fee",
+            "address": "5203 Center Blvd, Long Island City, NY 11109",
+            "price": 7545,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1025,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Contemporary 2-bedroom apartment with stunning city and water views. Features modern appliances, hardwood floors, and floor-to-ceiling windows. Located in TF Cornerstone's premier LIC building with exceptional amenities.",
+            "amenities": ["Concierge", "Fitness Center", "Rooftop Pool", "BBQ Area", "Storage", "Pet Spa", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688622-25782b8df980",
+                "https://images.unsplash.com/photo-1600566752842-d2697d8db9e8"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=35),
+            "latitude": 40.7518,
+            "longitude": -73.9438,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Luxury Studio at TFC Chelsea - No Fee",
+            "address": "200 W 26th St, New York, NY 10001",
+            "price": 4895,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 650,
+            "neighborhood": "Chelsea",
+            "borough": "Manhattan",
+            "description": "Sophisticated studio in vibrant Chelsea neighborhood. Features high ceilings, modern kitchen with granite countertops, and premium finishes. Walking distance to High Line, Madison Square Garden, and excellent restaurants.",
+            "amenities": ["Doorman", "Fitness Center", "Rooftop Terrace", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688458-9d4d34394d80",
+                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=5),
+            "latitude": 40.7441,
+            "longitude": -73.9928,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Spacious 1BR at TFC Murray Hill - No Fee",
+            "address": "340 E 34th St, New York, NY 10016",
+            "price": 5295,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Murray Hill",
+            "borough": "Manhattan",
+            "description": "Bright 1-bedroom apartment in convenient Murray Hill location. Features oversized windows, modern kitchen, hardwood floors, and updated bathroom. Close to Grand Central, restaurants, and shopping.",
+            "amenities": ["Doorman", "Fitness Center", "Laundry", "Storage", "Pet Friendly", "Roof Deck"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688315-695c2369c847",
+                "https://images.unsplash.com/photo-1600566752734-d5c717b5ff83"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7454,
+            "longitude": -73.9778,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Premium Studio at TFC LIC Towers - No Fee",
+            "address": "4540 Center Blvd, Long Island City, NY 11109",
+            "price": 3895,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 525,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Modern studio with stunning Manhattan skyline views. Features efficient layout, premium finishes, stainless steel appliances, and floor-to-ceiling windows. Located in luxury building with resort-style amenities.",
+            "amenities": ["Concierge", "Fitness Center", "Pool", "Rooftop Terrace", "Storage", "Pet Spa", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688201-e90e0a60c5b7",
+                "https://images.unsplash.com/photo-1600566752734-d5c717b5ff83"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.7502,
+            "longitude": -73.9447,
+            "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Elegant 2BR at TFC Prospect Heights - No Fee",
+            "address": "595 Dean St, Brooklyn, NY 11238",
+            "price": 6295,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1150,
+            "neighborhood": "Prospect Heights",
+            "borough": "Brooklyn",
+            "description": "Beautiful 2-bedroom apartment in trendy Prospect Heights. Features modern kitchen with stainless steel appliances, hardwood floors, and large windows. Near Prospect Park, Barclays Center, and excellent dining options.",
+            "amenities": ["Doorman", "Fitness Center", "Rooftop Garden", "Storage", "Laundry", "Pet Friendly", "Bike Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1600607688067-1c78f2c6ef86",
+                "https://images.unsplash.com/photo-1600566752355-35792bedcfea"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=40),
+            "latitude": 40.6823,
+            "longitude": -73.9682,
+            "source_url": "https://tfc.com"
         }
     ]
     
