@@ -428,6 +428,205 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Data Scraping", False, f"Exception: {str(e)}")
     
+    def test_tfc_listings_count(self):
+        """Test that we have 30 total apartment listings including TFC properties"""
+        print("\n=== Testing TFC Listings Count ===")
+        try:
+            # First trigger scraping to ensure all data is populated
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code != 200:
+                self.log_result("TFC Scraping Setup", False, f"Scraping failed: {scrape_response.status_code}")
+                return
+            
+            # Get all apartments with high limit to ensure we get all
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code == 200:
+                apartments = response.json()
+                total_count = len(apartments)
+                
+                if total_count == 30:
+                    self.log_result("TFC Total Count", True, f"Found exactly 30 apartments as expected")
+                else:
+                    self.log_result("TFC Total Count", False, f"Expected 30 apartments, found {total_count}")
+                
+                # Count TFC listings specifically
+                tfc_count = 0
+                for apt in apartments:
+                    if apt.get("source_url") == "https://tfc.com":
+                        tfc_count += 1
+                
+                if tfc_count == 10:
+                    self.log_result("TFC Specific Count", True, f"Found exactly 10 TF Cornerstone listings")
+                else:
+                    self.log_result("TFC Specific Count", False, f"Expected 10 TFC listings, found {tfc_count}")
+                    
+            else:
+                self.log_result("TFC Listings Count", False, f"Status code: {response.status_code}")
+        except Exception as e:
+            self.log_result("TFC Listings Count", False, f"Exception: {str(e)}")
+    
+    def test_tfc_listings_data_quality(self):
+        """Test that TFC listings have proper data quality"""
+        print("\n=== Testing TFC Listings Data Quality ===")
+        try:
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("TFC Data Quality", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            tfc_apartments = [apt for apt in apartments if apt.get("source_url") == "https://tfc.com"]
+            
+            if not tfc_apartments:
+                self.log_result("TFC Data Quality", False, "No TFC apartments found")
+                return
+            
+            # Check data quality for each TFC apartment
+            quality_issues = []
+            required_fields = ["title", "address", "price", "bedrooms", "bathrooms", "sqft", "neighborhood", "borough", "description", "amenities", "contact_info"]
+            
+            for apt in tfc_apartments:
+                for field in required_fields:
+                    if field not in apt or not apt[field]:
+                        quality_issues.append(f"Missing {field} in apartment: {apt.get('title', 'Unknown')}")
+                
+                # Check contact info specifically
+                contact_info = apt.get("contact_info", {})
+                if contact_info.get("phone") != "(646) 408-8048":
+                    quality_issues.append(f"Wrong phone in {apt.get('title')}: {contact_info.get('phone')}")
+                if contact_info.get("email") != "info@places.nyc":
+                    quality_issues.append(f"Wrong email in {apt.get('title')}: {contact_info.get('email')}")
+                if contact_info.get("broker") != "Chris Trunell":
+                    quality_issues.append(f"Wrong broker in {apt.get('title')}: {contact_info.get('broker')}")
+            
+            if not quality_issues:
+                self.log_result("TFC Data Quality", True, f"All {len(tfc_apartments)} TFC listings have proper data quality")
+            else:
+                self.log_result("TFC Data Quality", False, f"Data quality issues: {'; '.join(quality_issues[:3])}...")
+                
+        except Exception as e:
+            self.log_result("TFC Data Quality", False, f"Exception: {str(e)}")
+    
+    def test_tfc_neighborhoods_coverage(self):
+        """Test that TFC listings cover expected neighborhoods"""
+        print("\n=== Testing TFC Neighborhoods Coverage ===")
+        try:
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("TFC Neighborhoods", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            tfc_apartments = [apt for apt in apartments if apt.get("source_url") == "https://tfc.com"]
+            
+            # Expected neighborhoods for TFC listings
+            expected_neighborhoods = {
+                "West Village", "Midtown West", "Upper East Side", 
+                "Long Island City", "Chelsea", "Murray Hill", "Prospect Heights"
+            }
+            
+            found_neighborhoods = set()
+            for apt in tfc_apartments:
+                neighborhood = apt.get("neighborhood")
+                if neighborhood:
+                    found_neighborhoods.add(neighborhood)
+            
+            # Check coverage
+            covered_neighborhoods = expected_neighborhoods.intersection(found_neighborhoods)
+            missing_neighborhoods = expected_neighborhoods - found_neighborhoods
+            
+            if len(covered_neighborhoods) >= 5:  # At least 5 of the 7 expected neighborhoods
+                self.log_result("TFC Neighborhoods Coverage", True, 
+                              f"Good neighborhood coverage: {', '.join(sorted(covered_neighborhoods))}")
+            else:
+                self.log_result("TFC Neighborhoods Coverage", False, 
+                              f"Poor coverage. Found: {', '.join(sorted(covered_neighborhoods))}, Missing: {', '.join(sorted(missing_neighborhoods))}")
+                
+        except Exception as e:
+            self.log_result("TFC Neighborhoods Coverage", False, f"Exception: {str(e)}")
+    
+    def test_tfc_filtering_functionality(self):
+        """Test that TFC listings can be properly filtered"""
+        print("\n=== Testing TFC Filtering Functionality ===")
+        try:
+            # Test filtering by neighborhood that should include TFC listings
+            response = self.make_request("GET", "/apartments", {"neighborhood": "West Village"})
+            if response.status_code == 200:
+                apartments = response.json()
+                west_village_tfc = [apt for apt in apartments if apt.get("source_url") == "https://tfc.com"]
+                if west_village_tfc:
+                    self.log_result("TFC Neighborhood Filter", True, f"Found {len(west_village_tfc)} TFC listings in West Village")
+                else:
+                    self.log_result("TFC Neighborhood Filter", False, "No TFC listings found in West Village filter")
+            else:
+                self.log_result("TFC Neighborhood Filter", False, f"Neighborhood filter failed: {response.status_code}")
+            
+            # Test filtering by price range that should include some TFC listings
+            response = self.make_request("GET", "/apartments", {"min_price": 5000, "max_price": 10000})
+            if response.status_code == 200:
+                apartments = response.json()
+                price_filtered_tfc = [apt for apt in apartments if apt.get("source_url") == "https://tfc.com"]
+                if price_filtered_tfc:
+                    self.log_result("TFC Price Filter", True, f"Found {len(price_filtered_tfc)} TFC listings in $5K-$10K range")
+                else:
+                    self.log_result("TFC Price Filter", False, "No TFC listings found in $5K-$10K price range")
+            else:
+                self.log_result("TFC Price Filter", False, f"Price filter failed: {response.status_code}")
+            
+            # Test filtering by borough
+            response = self.make_request("GET", "/apartments", {"borough": "Manhattan"})
+            if response.status_code == 200:
+                apartments = response.json()
+                manhattan_tfc = [apt for apt in apartments if apt.get("source_url") == "https://tfc.com"]
+                if manhattan_tfc:
+                    self.log_result("TFC Borough Filter", True, f"Found {len(manhattan_tfc)} TFC listings in Manhattan")
+                else:
+                    self.log_result("TFC Borough Filter", False, "No TFC listings found in Manhattan filter")
+            else:
+                self.log_result("TFC Borough Filter", False, f"Borough filter failed: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("TFC Filtering Functionality", False, f"Exception: {str(e)}")
+    
+    def test_standardized_contact_info(self):
+        """Test that all listings have standardized contact information"""
+        print("\n=== Testing Standardized Contact Info ===")
+        try:
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Standardized Contact Info", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            
+            # Check that all apartments have the standardized contact info
+            contact_issues = []
+            expected_phone = "(646) 408-8048"
+            expected_email = "info@places.nyc"
+            expected_broker = "Chris Trunell"
+            
+            for apt in apartments:
+                contact_info = apt.get("contact_info", {})
+                title = apt.get("title", "Unknown")
+                
+                if contact_info.get("phone") != expected_phone:
+                    contact_issues.append(f"Wrong phone in '{title}': {contact_info.get('phone')}")
+                if contact_info.get("email") != expected_email:
+                    contact_issues.append(f"Wrong email in '{title}': {contact_info.get('email')}")
+                if contact_info.get("broker") != expected_broker:
+                    contact_issues.append(f"Wrong broker in '{title}': {contact_info.get('broker')}")
+            
+            if not contact_issues:
+                self.log_result("Standardized Contact Info", True, f"All {len(apartments)} listings have standardized contact info")
+            else:
+                self.log_result("Standardized Contact Info", False, f"Contact info issues found: {len(contact_issues)} problems")
+                # Print first few issues for debugging
+                for issue in contact_issues[:3]:
+                    print(f"   • {issue}")
+                    
+        except Exception as e:
+            self.log_result("Standardized Contact Info", False, f"Exception: {str(e)}")
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
