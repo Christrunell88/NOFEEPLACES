@@ -487,7 +487,11 @@ class NoFeePlacesAPITester:
             
             for apt in tfc_apartments:
                 for field in required_fields:
-                    if field not in apt or not apt[field]:
+                    if field not in apt:
+                        quality_issues.append(f"Missing {field} in apartment: {apt.get('title', 'Unknown')}")
+                    elif field == "bedrooms" and apt[field] is None:
+                        quality_issues.append(f"Missing {field} in apartment: {apt.get('title', 'Unknown')}")
+                    elif field != "bedrooms" and not apt[field]:  # Allow 0 bedrooms for studios
                         quality_issues.append(f"Missing {field} in apartment: {apt.get('title', 'Unknown')}")
                 
                 # Check contact info specifically
