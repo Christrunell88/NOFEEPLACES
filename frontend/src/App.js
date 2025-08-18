@@ -332,6 +332,7 @@ function App() {
             <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/saved-searches" element={<SavedSearchesPage />} />
+            <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
           </Routes>
         </BrowserRouter>
       </div>
