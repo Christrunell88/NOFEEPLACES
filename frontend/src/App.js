@@ -317,6 +317,11 @@ const SavedSearchesPage = () => {
   return <SavedSearches />;
 };
 
+const AdminAppointmentsPage = () => {
+  // For now, no authentication check - but you can add admin role check here
+  return <AdminAppointments />;
+};
+
 function App() {
   return (
     <AuthProvider>
