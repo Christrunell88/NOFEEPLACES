@@ -341,7 +341,7 @@ const ApartmentCard = ({ apartment }) => {
   };
 
   const handleViewDetails = () => {
-    window.open(`/apartment/${apartment.id}`, '_blank');
+    window.location.href = `/apartment/${apartment.id}`;
   };
 
   return (
