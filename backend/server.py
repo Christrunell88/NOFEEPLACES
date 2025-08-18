@@ -697,7 +697,7 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def startup_event():
     """Initialize database and populate with sample data"""
-    logger.info("Starting EasyRent.NYC API...")
+    logger.info("Starting NoFeePlaces.com API...")
     
     # Create indexes for better performance
     await db.apartments.create_index([("neighborhood", 1), ("price", 1)])
