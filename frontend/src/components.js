@@ -694,6 +694,285 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     </div>
   );
 };
+
+// Admin Dashboard for Managing Appointments
+const AdminAppointments = () => {
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState({
+    status: '',
+    date_from: '',
+    date_to: '',
+    apartment_id: ''
+  });
+  const [apartments, setApartments] = useState([]);
+
+  useEffect(() => {
+    fetchAppointments();
+    fetchApartments();
+  }, [filter]);
+
+  const fetchAppointments = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      Object.entries(filter).forEach(([key, value]) => {
+        if (value) params.append(key, value);
+      });
+      params.append('limit', '100');
+
+      const response = await axios.get(`${API}/appointments?${params.toString()}`);
+      setAppointments(response.data);
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchApartments = async () => {
+    try {
+      const response = await axios.get(`${API}/apartments?limit=100`);
+      setApartments(response.data);
+    } catch (error) {
+      console.error('Error fetching apartments:', error);
+    }
+  };
+
+  const updateAppointmentStatus = async (appointmentId, status) => {
+    try {
+      await axios.put(`${API}/appointments/${appointmentId}`, { status });
+      fetchAppointments(); // Refresh the list
+      alert(`Appointment ${status} successfully`);
+    } catch (error) {
+      alert('Error updating appointment status');
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    const colors = {
+      pending: 'bg-yellow-100 text-yellow-800',
+      confirmed: 'bg-green-100 text-green-800',
+      completed: 'bg-blue-100 text-blue-800',
+      cancelled: 'bg-red-100 text-red-800'
+    };
+    
+    return `px-2 py-1 rounded-full text-xs font-medium ${colors[status] || 'bg-gray-100 text-gray-800'}`;
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const getApartmentTitle = (apartmentId) => {
+    const apartment = apartments.find(apt => apt.id === apartmentId);
+    return apartment ? apartment.title : 'Unknown Apartment';
+  };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-slate-800 mb-2">Appointment Management</h1>
+          <p className="text-slate-600">View and manage all apartment viewing appointments.</p>
+        </div>
+
+        {/* Filters */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6 border border-slate-200">
+          <h2 className="text-lg font-semibold text-slate-800 mb-4">Filters</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Status</label>
+              <select
+                value={filter.status}
+                onChange={(e) => setFilter(prev => ({...prev, status: e.target.value}))}
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+              >
+                <option value="">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">From Date</label>
+              <input
+                type="date"
+                value={filter.date_from}
+                onChange={(e) => setFilter(prev => ({...prev, date_from: e.target.value}))}
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">To Date</label>
+              <input
+                type="date"
+                value={filter.date_to}
+                onChange={(e) => setFilter(prev => ({...prev, date_to: e.target.value}))}
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Apartment</label>
+              <select
+                value={filter.apartment_id}
+                onChange={(e) => setFilter(prev => ({...prev, apartment_id: e.target.value}))}
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500"
+              >
+                <option value="">All Apartments</option>
+                {apartments.map(apt => (
+                  <option key={apt.id} value={apt.id}>
+                    {apt.title.substring(0, 50)}...
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          
+          <div className="mt-4 flex gap-2">
+            <button
+              onClick={() => setFilter({status: '', date_from: '', date_to: '', apartment_id: ''})}
+              className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50"
+            >
+              Clear Filters
+            </button>
+          </div>
+        </div>
+
+        {/* Appointments List */}
+        <div className="bg-white rounded-lg shadow-md border border-slate-200">
+          <div className="p-6 border-b border-slate-200">
+            <h2 className="text-lg font-semibold text-slate-800">
+              Appointments ({appointments.length})
+            </h2>
+          </div>
+          
+          {appointments.length > 0 ? (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Visitor
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Apartment
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Date & Time
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Contact
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-slate-200">
+                  {appointments.map((appointment) => (
+                    <tr key={appointment.id} className="hover:bg-slate-50">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div>
+                          <div className="text-sm font-medium text-slate-900">
+                            {appointment.visitor_name}
+                          </div>
+                          {appointment.notes && (
+                            <div className="text-sm text-slate-500">
+                              "{appointment.notes}"
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="text-sm text-slate-900 max-w-xs">
+                          {getApartmentTitle(appointment.apartment_id)}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-slate-900">
+                          {formatDate(appointment.appointment_date)}
+                        </div>
+                        <div className="text-sm text-slate-500">
+                          {appointment.appointment_time}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-slate-900">
+                          {appointment.visitor_email}
+                        </div>
+                        <div className="text-sm text-slate-500">
+                          {appointment.visitor_phone}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className={getStatusBadge(appointment.status)}>
+                          {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        {appointment.status === 'pending' && (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => updateAppointmentStatus(appointment.id, 'confirmed')}
+                              className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"
+                            >
+                              Confirm
+                            </button>
+                            <button
+                              onClick={() => updateAppointmentStatus(appointment.id, 'cancelled')}
+                              className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        )}
+                        {appointment.status === 'confirmed' && (
+                          <button
+                            onClick={() => updateAppointmentStatus(appointment.id, 'completed')}
+                            className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"
+                          >
+                            Mark Complete
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="p-12 text-center">
+              <svg className="w-16 h-16 mx-auto text-slate-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <h3 className="text-lg font-semibold text-slate-800 mb-2">No appointments found</h3>
+              <p className="text-slate-600">No appointments match your current filters.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Authentication Modal Component with PLACES styling
 const AuthModal = ({ onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
