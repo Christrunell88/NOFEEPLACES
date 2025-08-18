@@ -23,6 +23,7 @@ class NoFeePlacesAPITester:
         self.test_user_id = None
         self.test_apartment_id = None
         self.test_saved_search_id = None
+        self.test_appointment_id = None
         self.results = {
             "passed": 0,
             "failed": 0,
