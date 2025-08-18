@@ -439,6 +439,106 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.6664,
             "longitude": -73.9814,
             "source_url": "https://streeteasy.com/building/145-7th-avenue"
+        },
+        {
+            "title": "Luxury Studio at Forty Six Fifty - No Fee",
+            "address": "4650 Broadway, New York, NY 10040",
+            "price": 3150,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 501,
+            "neighborhood": "Hudson Heights",
+            "borough": "Manhattan",
+            "description": "Brand new luxury studio with 9ft+ ceilings, luxury white oak vinyl flooring, oversized windows, in-home Bosch washer/dryer, and smart keyless entry. Kitchen features GE stainless steel appliances and Calacatta Capri quartz countertops. Bathroom includes custom oak vanity and Kohler fixtures.",
+            "amenities": ["Gym", "Rooftop Terrace", "Game Room", "Pet Spa", "Parking", "Doorman", "Package Room", "Basketball Court"],
+            "images": [
+                "https://images.unsplash.com/photo-1643768664580-d0b82b710837",
+                "https://images.unsplash.com/photo-1680503146454-0fe569cef4eb"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=45),
+            "latitude": 40.8607,
+            "longitude": -73.9218,
+            "source_url": "https://www.fortysixfifty.com"
+        },
+        {
+            "title": "Modern 1BR at Forty Six Fifty - No Fee",
+            "address": "4650 Broadway, New York, NY 10040", 
+            "price": 3695,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 647,
+            "neighborhood": "Hudson Heights",
+            "borough": "Manhattan",
+            "description": "Stunning new 1-bedroom with floor-to-ceiling windows overlooking Fort Tryon Park. Features luxury finishes, in-unit washer/dryer, designer kitchen with quartz countertops, and spa-like bathroom. Smart home technology throughout.",
+            "amenities": ["Fort Tryon Park Views", "Gym", "Rooftop Pool", "Co-working Space", "Pet Spa", "Yoga Room", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1662454419736-de132ff75638",
+                "https://images.pexels.com/photos/33479043/pexels-photo-33479043.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=60),
+            "latitude": 40.8607,
+            "longitude": -73.9218,
+            "source_url": "https://www.fortysixfifty.com"
+        },
+        {
+            "title": "Spacious 2BR at Forty Six Fifty - No Fee",
+            "address": "4650 Broadway, New York, NY 10040",
+            "price": 5295,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1103,
+            "neighborhood": "Hudson Heights", 
+            "borough": "Manhattan",
+            "description": "Expansive 2-bedroom, 2-bathroom residence with stunning views of The Cloisters and Hudson River. Features premium white oak flooring, gourmet kitchen with GE appliances, master suite with walk-in closet, and private outdoor space access.",
+            "amenities": ["Hudson River Views", "Fitness Center", "Rooftop Terrace", "BBQ Grills", "Children's Playroom", "Concierge", "Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1751998816246-c63d182770c0",
+                "https://images.unsplash.com/photo-1715985160020-d8cd6fdc8ba9"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=1),
+            "latitude": 40.8607,
+            "longitude": -73.9218,
+            "source_url": "https://www.fortysixfifty.com"
+        },
+        {
+            "title": "Premium 2BR at Forty Six Fifty - No Fee",
+            "address": "4650 Broadway, New York, NY 10040",
+            "price": 5565,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1103,
+            "neighborhood": "Hudson Heights",
+            "borough": "Manhattan", 
+            "description": "Top-floor premium 2-bedroom with panoramic city and park views. Luxury finishes include Calacatta Capri quartz, custom cabinetry, Bosch appliances, and designer bathroom fixtures. Access to exclusive rooftop amenities.",
+            "amenities": ["Panoramic Views", "Rooftop Access", "Fitness Center", "Game Lounge", "Pet Friendly", "Parking", "Smart Home Tech"],
+            "images": [
+                "https://images.unsplash.com/photo-1638454668466-e8dbd5462f20",
+                "https://images.pexels.com/photos/33479111/pexels-photo-33479111.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc", 
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.8607,
+            "longitude": -73.9218,
+            "source_url": "https://www.fortysixfifty.com"
         }
     ]
     
