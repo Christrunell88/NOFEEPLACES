@@ -981,6 +981,14 @@ class NoFeePlacesAPITester:
         self.test_favorites_functionality()
         self.test_saved_searches()
         
+        # Appointment scheduling tests
+        self.test_appointment_creation()
+        self.test_available_time_slots()
+        self.test_appointment_retrieval()
+        self.test_appointment_status_updates()
+        self.test_appointment_data_validation()
+        self.test_appointment_cancellation()
+        
         # Data scraping tests
         self.test_data_scraping()
         
