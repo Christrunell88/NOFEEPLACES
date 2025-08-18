@@ -438,7 +438,7 @@ const ApartmentCard = ({ apartment }) => {
         
         <div className="flex justify-between items-center">
           <span className="text-sm text-green-600 font-medium">
-            {apartment.available_date ? new Date(apartment.available_date).toLocaleDateString() : 'Available Now'}
+            Available Now
           </span>
           <button 
             onClick={handleViewDetails}
