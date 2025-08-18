@@ -631,6 +631,329 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Standardized Contact Info", False, f"Exception: {str(e)}")
     
+    def test_appointment_creation(self):
+        """Test appointment creation endpoint"""
+        print("\n=== Testing Appointment Creation ===")
+        try:
+            if not self.test_apartment_id:
+                self.log_result("Appointment Creation", False, "No apartment ID available for testing")
+                return
+            
+            # Test valid appointment creation
+            from datetime import datetime, timedelta
+            tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+            
+            appointment_data = {
+                "apartment_id": self.test_apartment_id,
+                "visitor_name": "Sarah Johnson",
+                "visitor_email": "sarah.johnson@email.com",
+                "visitor_phone": "+1-555-123-4567",
+                "appointment_date": tomorrow,
+                "appointment_time": "2:00 PM",
+                "notes": "Looking for a 1-bedroom apartment for immediate move-in"
+            }
+            
+            response = self.make_request("POST", "/appointments", appointment_data)
+            if response.status_code == 200:
+                data = response.json()
+                if "id" in data and data.get("visitor_name") == "Sarah Johnson":
+                    self.test_appointment_id = data["id"]
+                    self.log_result("Appointment Creation (Valid)", True, f"Created appointment for {data['visitor_name']}")
+                else:
+                    self.log_result("Appointment Creation (Valid)", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Appointment Creation (Valid)", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Test business hours constraint (before 10 AM)
+            early_appointment = appointment_data.copy()
+            early_appointment["appointment_time"] = "9:00 AM"
+            
+            response = self.make_request("POST", "/appointments", early_appointment)
+            if response.status_code == 400:
+                self.log_result("Business Hours Constraint (Early)", True, "Correctly rejected 9 AM appointment")
+            else:
+                self.log_result("Business Hours Constraint (Early)", False, f"Should reject 9 AM appointment, got: {response.status_code}")
+            
+            # Test business hours constraint (after 7 PM)
+            late_appointment = appointment_data.copy()
+            late_appointment["appointment_time"] = "8:00 PM"
+            
+            response = self.make_request("POST", "/appointments", late_appointment)
+            if response.status_code == 400:
+                self.log_result("Business Hours Constraint (Late)", True, "Correctly rejected 8 PM appointment")
+            else:
+                self.log_result("Business Hours Constraint (Late)", False, f"Should reject 8 PM appointment, got: {response.status_code}")
+            
+            # Test conflict detection (same time slot)
+            if hasattr(self, 'test_appointment_id'):
+                conflict_appointment = appointment_data.copy()
+                conflict_appointment["visitor_name"] = "John Smith"
+                conflict_appointment["visitor_email"] = "john.smith@email.com"
+                
+                response = self.make_request("POST", "/appointments", conflict_appointment)
+                if response.status_code == 409:
+                    self.log_result("Conflict Detection", True, "Correctly detected time slot conflict")
+                else:
+                    self.log_result("Conflict Detection", False, f"Should detect conflict, got: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Appointment Creation", False, f"Exception: {str(e)}")
+    
+    def test_available_time_slots(self):
+        """Test available time slots endpoint"""
+        print("\n=== Testing Available Time Slots ===")
+        try:
+            if not self.test_apartment_id:
+                self.log_result("Available Time Slots", False, "No apartment ID available for testing")
+                return
+            
+            # Test getting available slots for tomorrow
+            from datetime import datetime, timedelta
+            tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+            
+            response = self.make_request("GET", f"/apartments/{self.test_apartment_id}/available-slots", {"date": tomorrow})
+            if response.status_code == 200:
+                data = response.json()
+                if "available_slots" in data and isinstance(data["available_slots"], list):
+                    slots = data["available_slots"]
+                    # Should have slots from 10 AM to 6 PM (9 total slots) minus any booked
+                    if len(slots) >= 8:  # At least 8 slots should be available (allowing for 1 booked)
+                        self.log_result("Available Time Slots (Valid Date)", True, f"Found {len(slots)} available slots")
+                    else:
+                        self.log_result("Available Time Slots (Valid Date)", False, f"Expected at least 8 slots, got {len(slots)}")
+                else:
+                    self.log_result("Available Time Slots (Valid Date)", False, f"Unexpected response format: {data}")
+            else:
+                self.log_result("Available Time Slots (Valid Date)", False, f"Status code: {response.status_code}")
+            
+            # Test getting slots for past date (should return empty)
+            yesterday = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+            response = self.make_request("GET", f"/apartments/{self.test_apartment_id}/available-slots", {"date": yesterday})
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("available_slots") == []:
+                    self.log_result("Available Time Slots (Past Date)", True, "Correctly returned empty slots for past date")
+                else:
+                    self.log_result("Available Time Slots (Past Date)", False, f"Should return empty for past date, got: {data}")
+            else:
+                self.log_result("Available Time Slots (Past Date)", False, f"Status code: {response.status_code}")
+            
+            # Test invalid date format
+            response = self.make_request("GET", f"/apartments/{self.test_apartment_id}/available-slots", {"date": "invalid-date"})
+            if response.status_code == 400:
+                self.log_result("Available Time Slots (Invalid Date)", True, "Correctly rejected invalid date format")
+            else:
+                self.log_result("Available Time Slots (Invalid Date)", False, f"Should reject invalid date, got: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Available Time Slots", False, f"Exception: {str(e)}")
+    
+    def test_appointment_retrieval(self):
+        """Test appointment retrieval with filters"""
+        print("\n=== Testing Appointment Retrieval ===")
+        try:
+            # Test getting all appointments
+            response = self.make_request("GET", "/appointments")
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Get All Appointments", True, f"Retrieved {len(data)} appointments")
+                else:
+                    self.log_result("Get All Appointments", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Get All Appointments", False, f"Status code: {response.status_code}")
+            
+            # Test filtering by apartment ID
+            if self.test_apartment_id:
+                response = self.make_request("GET", "/appointments", {"apartment_id": self.test_apartment_id})
+                if response.status_code == 200:
+                    data = response.json()
+                    if isinstance(data, list):
+                        self.log_result("Filter by Apartment ID", True, f"Found {len(data)} appointments for apartment")
+                    else:
+                        self.log_result("Filter by Apartment ID", False, f"Expected list, got: {type(data)}")
+                else:
+                    self.log_result("Filter by Apartment ID", False, f"Status code: {response.status_code}")
+            
+            # Test filtering by status
+            response = self.make_request("GET", "/appointments", {"status": "pending"})
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Filter by Status", True, f"Found {len(data)} pending appointments")
+                else:
+                    self.log_result("Filter by Status", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Filter by Status", False, f"Status code: {response.status_code}")
+            
+            # Test date range filtering
+            from datetime import datetime, timedelta
+            today = datetime.now().strftime("%Y-%m-%d")
+            tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
+            
+            response = self.make_request("GET", "/appointments", {"date_from": today, "date_to": tomorrow})
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Filter by Date Range", True, f"Found {len(data)} appointments in date range")
+                else:
+                    self.log_result("Filter by Date Range", False, f"Expected list, got: {type(data)}")
+            else:
+                self.log_result("Filter by Date Range", False, f"Status code: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Appointment Retrieval", False, f"Exception: {str(e)}")
+    
+    def test_appointment_status_updates(self):
+        """Test appointment status updates"""
+        print("\n=== Testing Appointment Status Updates ===")
+        try:
+            if not hasattr(self, 'test_appointment_id') or not self.test_appointment_id:
+                self.log_result("Appointment Status Updates", False, "No appointment ID available for testing")
+                return
+            
+            # Test updating status to confirmed
+            update_data = {
+                "status": "confirmed",
+                "notes": "Appointment confirmed by property manager"
+            }
+            
+            response = self.make_request("PUT", f"/appointments/{self.test_appointment_id}", update_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("status") == "confirmed":
+                    self.log_result("Update Status to Confirmed", True, "Successfully updated status to confirmed")
+                else:
+                    self.log_result("Update Status to Confirmed", False, f"Status not updated correctly: {data.get('status')}")
+            else:
+                self.log_result("Update Status to Confirmed", False, f"Status code: {response.status_code}")
+            
+            # Test updating status to completed
+            update_data = {"status": "completed"}
+            response = self.make_request("PUT", f"/appointments/{self.test_appointment_id}", update_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("status") == "completed":
+                    self.log_result("Update Status to Completed", True, "Successfully updated status to completed")
+                else:
+                    self.log_result("Update Status to Completed", False, f"Status not updated correctly: {data.get('status')}")
+            else:
+                self.log_result("Update Status to Completed", False, f"Status code: {response.status_code}")
+            
+            # Test invalid status
+            invalid_update = {"status": "invalid_status"}
+            response = self.make_request("PUT", f"/appointments/{self.test_appointment_id}", invalid_update)
+            if response.status_code == 400:
+                self.log_result("Invalid Status Update", True, "Correctly rejected invalid status")
+            else:
+                self.log_result("Invalid Status Update", False, f"Should reject invalid status, got: {response.status_code}")
+            
+            # Test updating non-existent appointment
+            fake_id = "fake-appointment-id-12345"
+            response = self.make_request("PUT", f"/appointments/{fake_id}", {"status": "confirmed"})
+            if response.status_code == 404:
+                self.log_result("Update Non-existent Appointment", True, "Correctly returned 404 for non-existent appointment")
+            else:
+                self.log_result("Update Non-existent Appointment", False, f"Should return 404, got: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Appointment Status Updates", False, f"Exception: {str(e)}")
+    
+    def test_appointment_data_validation(self):
+        """Test appointment data includes all required fields"""
+        print("\n=== Testing Appointment Data Validation ===")
+        try:
+            if not hasattr(self, 'test_appointment_id') or not self.test_appointment_id:
+                self.log_result("Appointment Data Validation", False, "No appointment ID available for testing")
+                return
+            
+            # Get the appointment and verify all required fields
+            response = self.make_request("GET", f"/appointments/{self.test_appointment_id}")
+            if response.status_code == 200:
+                data = response.json()
+                
+                required_fields = [
+                    "id", "apartment_id", "visitor_name", "visitor_email", "visitor_phone",
+                    "appointment_date", "appointment_time", "status", "created_at", "updated_at"
+                ]
+                
+                missing_fields = []
+                for field in required_fields:
+                    if field not in data:
+                        missing_fields.append(field)
+                
+                if not missing_fields:
+                    self.log_result("Appointment Required Fields", True, "All required fields present in appointment data")
+                else:
+                    self.log_result("Appointment Required Fields", False, f"Missing fields: {', '.join(missing_fields)}")
+                
+                # Verify data types and values
+                validation_issues = []
+                
+                if not isinstance(data.get("visitor_name"), str) or not data.get("visitor_name"):
+                    validation_issues.append("visitor_name should be non-empty string")
+                
+                if not isinstance(data.get("visitor_email"), str) or "@" not in data.get("visitor_email", ""):
+                    validation_issues.append("visitor_email should be valid email")
+                
+                if not isinstance(data.get("visitor_phone"), str) or not data.get("visitor_phone"):
+                    validation_issues.append("visitor_phone should be non-empty string")
+                
+                if data.get("status") not in ["pending", "confirmed", "completed", "cancelled"]:
+                    validation_issues.append(f"status should be valid value, got: {data.get('status')}")
+                
+                if not validation_issues:
+                    self.log_result("Appointment Data Types", True, "All appointment data types are valid")
+                else:
+                    self.log_result("Appointment Data Types", False, f"Validation issues: {'; '.join(validation_issues)}")
+                
+            else:
+                self.log_result("Appointment Data Validation", False, f"Failed to get appointment: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Appointment Data Validation", False, f"Exception: {str(e)}")
+    
+    def test_appointment_cancellation(self):
+        """Test appointment cancellation"""
+        print("\n=== Testing Appointment Cancellation ===")
+        try:
+            if not hasattr(self, 'test_appointment_id') or not self.test_appointment_id:
+                self.log_result("Appointment Cancellation", False, "No appointment ID available for testing")
+                return
+            
+            # Test cancelling appointment
+            response = self.make_request("DELETE", f"/appointments/{self.test_appointment_id}")
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and "cancelled" in data["message"].lower():
+                    self.log_result("Cancel Appointment", True, "Successfully cancelled appointment")
+                else:
+                    self.log_result("Cancel Appointment", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Cancel Appointment", False, f"Status code: {response.status_code}")
+            
+            # Verify appointment is cancelled
+            response = self.make_request("GET", f"/appointments/{self.test_appointment_id}")
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("status") == "cancelled":
+                    self.log_result("Verify Cancellation", True, "Appointment status updated to cancelled")
+                else:
+                    self.log_result("Verify Cancellation", False, f"Status not updated to cancelled: {data.get('status')}")
+            else:
+                self.log_result("Verify Cancellation", False, f"Failed to verify cancellation: {response.status_code}")
+            
+            # Test cancelling non-existent appointment
+            fake_id = "fake-appointment-id-12345"
+            response = self.make_request("DELETE", f"/appointments/{fake_id}")
+            if response.status_code == 404:
+                self.log_result("Cancel Non-existent Appointment", True, "Correctly returned 404 for non-existent appointment")
+            else:
+                self.log_result("Cancel Non-existent Appointment", False, f"Should return 404, got: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Appointment Cancellation", False, f"Exception: {str(e)}")
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
