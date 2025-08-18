@@ -31,7 +31,7 @@ JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-change-this-in-produc
 JWT_ALGORITHM = 'HS256'
 JWT_EXPIRATION_HOURS = 24
 
-app = FastAPI(title="EasyRent.NYC API", version="1.0.0")
+app = FastAPI(title="NoFeePlaces.com API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer()
 
