@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-EasyRent.NYC Backend API Testing Suite
+NoFeePlaces.com Backend API Testing Suite
 Tests all backend endpoints for authentication, apartments, user features, and data scraping
 """
 
