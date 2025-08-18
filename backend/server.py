@@ -1073,7 +1073,176 @@ async def get_search_stats():
         "price_stats": price_stats[0] if price_stats else {}
     }
 
-# User Favorites Routes
+# Appointment Routes
+@api_router.post("/appointments", response_model=Appointment)
+async def create_appointment(appointment_data: AppointmentCreate):
+    # Check if apartment exists
+    apartment = await db.apartments.find_one({"id": appointment_data.apartment_id})
+    if not apartment:
+        raise HTTPException(status_code=404, detail="Apartment not found")
+    
+    # Parse the appointment date and time
+    try:
+        appointment_datetime = datetime.strptime(
+            f"{appointment_data.appointment_date} {appointment_data.appointment_time}",
+            "%Y-%m-%d %I:%M %p"
+        )
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid date or time format")
+    
+    # Check if the time slot is available (10 AM to 7 PM)
+    hour = appointment_datetime.hour
+    if hour < 10 or hour >= 19:
+        raise HTTPException(status_code=400, detail="Appointments are only available between 10 AM and 7 PM")
+    
+    # Check for conflicts (same apartment, same date/time)
+    existing = await db.appointments.find_one({
+        "apartment_id": appointment_data.apartment_id,
+        "appointment_date": appointment_datetime,
+        "status": {"$in": ["pending", "confirmed"]}
+    })
+    
+    if existing:
+        raise HTTPException(status_code=409, detail="Time slot is already booked")
+    
+    # Create appointment
+    appointment = Appointment(
+        apartment_id=appointment_data.apartment_id,
+        visitor_name=appointment_data.visitor_name,
+        visitor_email=appointment_data.visitor_email,
+        visitor_phone=appointment_data.visitor_phone,
+        appointment_date=appointment_datetime,
+        appointment_time=appointment_data.appointment_time,
+        notes=appointment_data.notes
+    )
+    
+    await db.appointments.insert_one(appointment.dict())
+    return appointment
+
+@api_router.get("/appointments", response_model=List[Appointment])
+async def get_appointments(
+    apartment_id: Optional[str] = Query(None),
+    status: Optional[str] = Query(None),
+    date_from: Optional[str] = Query(None),
+    date_to: Optional[str] = Query(None),
+    page: int = Query(1, ge=1),
+    limit: int = Query(20, ge=1, le=100)
+):
+    # Build filter query
+    query = {}
+    
+    if apartment_id:
+        query["apartment_id"] = apartment_id
+    
+    if status:
+        query["status"] = status
+    
+    if date_from or date_to:
+        date_filter = {}
+        if date_from:
+            date_filter["$gte"] = datetime.strptime(date_from, "%Y-%m-%d")
+        if date_to:
+            date_filter["$lte"] = datetime.strptime(date_to, "%Y-%m-%d") + timedelta(days=1)
+        query["appointment_date"] = date_filter
+    
+    # Calculate skip for pagination
+    skip = (page - 1) * limit
+    
+    # Execute query
+    appointments_cursor = db.appointments.find(query).skip(skip).limit(limit).sort("appointment_date", 1)
+    appointments = await appointments_cursor.to_list(length=limit)
+    
+    return [Appointment(**apt) for apt in appointments]
+
+@api_router.get("/appointments/{appointment_id}", response_model=Appointment)
+async def get_appointment(appointment_id: str):
+    appointment = await db.appointments.find_one({"id": appointment_id})
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Appointment not found")
+    return Appointment(**appointment)
+
+@api_router.put("/appointments/{appointment_id}", response_model=Appointment)
+async def update_appointment(appointment_id: str, update_data: AppointmentUpdate):
+    appointment = await db.appointments.find_one({"id": appointment_id})
+    if not appointment:
+        raise HTTPException(status_code=404, detail="Appointment not found")
+    
+    # Prepare update fields
+    update_fields = {"updated_at": datetime.utcnow()}
+    
+    if update_data.status:
+        if update_data.status not in ["pending", "confirmed", "completed", "cancelled"]:
+            raise HTTPException(status_code=400, detail="Invalid status")
+        update_fields["status"] = update_data.status
+    
+    if update_data.notes is not None:
+        update_fields["notes"] = update_data.notes
+    
+    # Update appointment
+    await db.appointments.update_one(
+        {"id": appointment_id},
+        {"$set": update_fields}
+    )
+    
+    # Return updated appointment
+    updated_appointment = await db.appointments.find_one({"id": appointment_id})
+    return Appointment(**updated_appointment)
+
+@api_router.delete("/appointments/{appointment_id}")
+async def cancel_appointment(appointment_id: str):
+    result = await db.appointments.update_one(
+        {"id": appointment_id},
+        {"$set": {"status": "cancelled", "updated_at": datetime.utcnow()}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Appointment not found")
+    
+    return {"message": "Appointment cancelled successfully"}
+
+@api_router.get("/apartments/{apartment_id}/available-slots")
+async def get_available_slots(
+    apartment_id: str,
+    date: str = Query(..., description="Date in YYYY-MM-DD format")
+):
+    # Check if apartment exists
+    apartment = await db.apartments.find_one({"id": apartment_id})
+    if not apartment:
+        raise HTTPException(status_code=404, detail="Apartment not found")
+    
+    try:
+        target_date = datetime.strptime(date, "%Y-%m-%d")
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid date format. Use YYYY-MM-DD")
+    
+    # Don't allow booking in the past
+    if target_date.date() < datetime.now().date():
+        return {"available_slots": []}
+    
+    # Get existing appointments for this apartment and date
+    existing_appointments = await db.appointments.find({
+        "apartment_id": apartment_id,
+        "appointment_date": {
+            "$gte": target_date,
+            "$lt": target_date + timedelta(days=1)
+        },
+        "status": {"$in": ["pending", "confirmed"]}
+    }).to_list(length=100)
+    
+    # Generate time slots from 10 AM to 7 PM (every hour)
+    all_slots = []
+    for hour in range(10, 19):  # 10 AM to 6 PM (last slot)
+        time_str = f"{hour % 12 if hour % 12 != 0 else 12}:00 {'PM' if hour >= 12 else 'AM'}"
+        all_slots.append(time_str)
+    
+    # Remove booked slots
+    booked_times = set()
+    for appointment in existing_appointments:
+        booked_times.add(appointment["appointment_time"])
+    
+    available_slots = [slot for slot in all_slots if slot not in booked_times]
+    
+    return {"available_slots": available_slots}
 @api_router.post("/users/favorites/{apartment_id}")
 async def add_favorite(apartment_id: str, current_user: User = Depends(get_current_user)):
     # Check if apartment exists
