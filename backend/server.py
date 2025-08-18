@@ -669,7 +669,7 @@ async def trigger_scraping():
 # Basic routes
 @api_router.get("/")
 async def root():
-    return {"message": "EasyRent.NYC API - Your no-fee apartment finder"}
+    return {"message": "NoFeePlaces.com API - Your no-fee apartment finder"}
 
 @api_router.get("/health")
 async def health_check():
