@@ -714,4 +714,4 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     client.close()
-    logger.info("EasyRent.NYC API shutting down...")
+    logger.info("NoFeePlaces.com API shutting down...")
