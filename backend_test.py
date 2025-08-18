@@ -657,6 +657,13 @@ class NoFeePlacesAPITester:
         # Data scraping tests
         self.test_data_scraping()
         
+        # TF Cornerstone specific tests
+        self.test_tfc_listings_count()
+        self.test_tfc_listings_data_quality()
+        self.test_tfc_neighborhoods_coverage()
+        self.test_tfc_filtering_functionality()
+        self.test_standardized_contact_info()
+        
         # Print summary
         print("\n" + "=" * 60)
         print("🏁 TEST SUMMARY")
