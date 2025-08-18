@@ -1097,7 +1097,7 @@ const Footer = () => {
         </div>
             <p className="text-amber-200 mb-4">
               Your trusted partner for finding no-fee apartments in New York City. 
-              Save thousands on broker fees with our verified listings.
+              Save thousands on broker fees with NoFeePlaces.com.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">
