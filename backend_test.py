@@ -430,7 +430,7 @@ class NoFeePlacesAPITester:
     
     def run_all_tests(self):
         """Run all tests in sequence"""
-        print("🚀 Starting EasyRent.NYC Backend API Tests")
+        print("🚀 Starting NoFeePlaces.com Backend API Tests")
         print(f"Testing against: {self.base_url}")
         print("=" * 60)
         
