@@ -828,9 +828,6 @@ const ApartmentDetails = ({ apartmentId }) => {
                   </div>
 
                   <div className="mt-6 pt-6 border-t border-slate-200">
-                    <p className="text-sm text-slate-600">
-                      <strong>Available:</strong> {new Date(apartment.available_date).toLocaleDateString()}
-                    </p>
                     <p className="text-sm text-slate-600 mt-1">
                       <strong>Neighborhood:</strong> {apartment.neighborhood}, {apartment.borough}
                     </p>
