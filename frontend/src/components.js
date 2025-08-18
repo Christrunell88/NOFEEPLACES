@@ -1075,6 +1075,16 @@ const ApartmentDetails = ({ apartmentId }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Calendar Booking Section */}
+              <div className="col-span-2 mt-8">
+                <CalendarBooking 
+                  apartmentId={apartment.id}
+                  onBookingComplete={(booking) => {
+                    console.log('Booking completed:', booking);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
