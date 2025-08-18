@@ -16,7 +16,7 @@ TEST_USER_EMAIL = "testuser@nofeeplaces.com"
 TEST_USER_PASSWORD = "SecurePassword123!"
 TEST_USER_NAME = "John Doe"
 
-class EasyRentAPITester:
+class NoFeePlacesAPITester:
     def __init__(self):
         self.base_url = BASE_URL
         self.auth_token = None
@@ -477,5 +477,5 @@ class EasyRentAPITester:
         return self.results
 
 if __name__ == "__main__":
-    tester = EasyRentAPITester()
+    tester = NoFeePlacesAPITester()
     results = tester.run_all_tests()
