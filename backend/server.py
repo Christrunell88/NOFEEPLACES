@@ -1266,6 +1266,231 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.6914,
             "longitude": -73.9826,
             "source_url": "https://thedimebrooklyn.com"
+        },
+        {
+            "title": "Modern Studio at Astoria Cove Queens - No Fee",
+            "address": "21-10 45th Ave, Astoria, NY 11105", 
+            "price": 3295,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 520,
+            "neighborhood": "Astoria",
+            "borough": "Queens",
+            "description": "Contemporary studio in vibrant Astoria with Manhattan skyline views. Features modern kitchen, high ceilings, and access to building amenities. Leasing office on-site with owner-paid commissions.",
+            "amenities": ["Fitness Center", "Rooftop Deck", "Doorman", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc", 
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7589,
+            "longitude": -73.9442,
+            "source_url": "https://astoriacove.com"
+        },
+        {
+            "title": "Spacious Studio at Williamsburg Edge - No Fee",
+            "address": "22 N 6th St, Brooklyn, NY 11249",
+            "price": 3595,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 580,
+            "neighborhood": "Williamsburg", 
+            "borough": "Brooklyn",
+            "description": "Designer studio in trendy Williamsburg with exposed brick and modern finishes. Walking distance to Manhattan Bridge and vibrant nightlife. Direct leasing office with no broker fees.",
+            "amenities": ["Rooftop Terrace", "Fitness Center", "Storage", "Laundry", "Pet Friendly", "Bike Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e",
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.7130,
+            "longitude": -73.9618,
+            "source_url": "https://williamsburgedge.com"
+        },
+        {
+            "title": "Cozy 1BR at Forest Hills Gardens - No Fee",
+            "address": "112-20 72nd Dr, Forest Hills, NY 11375",
+            "price": 3395,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 650,
+            "neighborhood": "Forest Hills",
+            "borough": "Queens",
+            "description": "Charming 1-bedroom in prestigious Forest Hills Gardens. Features hardwood floors, updated kitchen, and garden views. Quiet residential setting with easy Manhattan access.",
+            "amenities": ["Garden", "Doorman", "Storage", "Laundry", "Pet Friendly", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.7187,
+            "longitude": -73.8448,
+            "source_url": "https://foresthillsgardens.com"
+        },
+        {
+            "title": "Bright Studio at Greenpoint Loft - No Fee",
+            "address": "67 West St, Brooklyn, NY 11222",
+            "price": 3695,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 550,
+            "neighborhood": "Greenpoint",
+            "borough": "Brooklyn", 
+            "description": "Industrial-style studio in artistic Greenpoint with high ceilings and large windows. Near waterfront parks and trendy cafes. Leasing office offers owner-paid commission structure.",
+            "amenities": ["High Ceilings", "Fitness Center", "Rooftop Access", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=15),
+            "latitude": 40.7309,
+            "longitude": -73.9537,
+            "source_url": "https://greenpointloft.com"
+        },
+        {
+            "title": "Modern 1BR at Sunnyside Plaza - No Fee",
+            "address": "43-10 Queens Blvd, Sunnyside, NY 11104",
+            "price": 3495,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 680,
+            "neighborhood": "Sunnyside",
+            "borough": "Queens",
+            "description": "Updated 1-bedroom in convenient Sunnyside location. Features modern appliances, hardwood floors, and great natural light. Easy subway access to Manhattan with direct leasing office.",
+            "amenities": ["Doorman", "Fitness Center", "Storage", "Laundry", "Pet Friendly", "Parking"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.unsplash.com/photo-1714153542012-6164546db890"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=22),
+            "latitude": 40.7506,
+            "longitude": -73.9219,
+            "source_url": "https://sunnysideplaza.com"
+        },
+        {
+            "title": "Stylish Studio at Bed-Stuy Lofts - No Fee",
+            "address": "455 Marcus Garvey Blvd, Brooklyn, NY 11216",
+            "price": 3795,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 500,
+            "neighborhood": "Bedford-Stuyvesant",
+            "borough": "Brooklyn",
+            "description": "Hip studio in trendy Bed-Stuy with exposed brick walls and modern amenities. Great neighborhood restaurants and nightlife. Building managed directly by owner with no broker fees.",
+            "amenities": ["Exposed Brick", "Fitness Center", "Rooftop Deck", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e",
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=19),
+            "latitude": 40.6892,
+            "longitude": -73.9441,
+            "source_url": "https://bedstuylofts.com"
+        },
+        {
+            "title": "Comfortable 1BR at Ridgewood Heights - No Fee", 
+            "address": "60-15 Palmetto St, Ridgewood, NY 11385",
+            "price": 3395,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 700,
+            "neighborhood": "Ridgewood",
+            "borough": "Queens",
+            "description": "Spacious 1-bedroom in up-and-coming Ridgewood. Features updated kitchen, good closet space, and quiet residential street. Great value with owner-managed building.",
+            "amenities": ["Updated Kitchen", "Storage", "Laundry", "Pet Friendly", "Parking", "Garden Access"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=31),
+            "latitude": 40.7022,
+            "longitude": -73.8962,
+            "source_url": "https://ridgewoodheights.com"
+        },
+        {
+            "title": "Renovated Studio at Crown Heights Modern - No Fee",
+            "address": "1205 Eastern Pkwy, Brooklyn, NY 11213",
+            "price": 3595,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 520,
+            "neighborhood": "Crown Heights",
+            "borough": "Brooklyn",
+            "description": "Newly renovated studio in vibrant Crown Heights near Prospect Park. Features modern finishes, stainless steel appliances, and great natural light. Direct leasing office available.",
+            "amenities": ["Near Prospect Park", "Fitness Center", "Storage", "Laundry", "Pet Friendly", "Bike Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=13),
+            "latitude": 40.6643,
+            "longitude": -73.9424,
+            "source_url": "https://crownheightsmodern.com"
+        },
+        {
+            "title": "Bright 1BR at Elmhurst Gardens - No Fee",
+            "address": "86-12 Broadway, Elmhurst, NY 11373",
+            "price": 3295,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 650,
+            "neighborhood": "Elmhurst",
+            "borough": "Queens",
+            "description": "Well-maintained 1-bedroom in diverse Elmhurst neighborhood. Features hardwood floors, updated bathroom, and excellent transportation access. Owner-managed building with no fees.",
+            "amenities": ["Hardwood Floors", "Storage", "Laundry", "Pet Friendly", "Parking", "Garden"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.unsplash.com/photo-1714153542012-6164546db890"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=27),
+            "latitude": 40.7424,
+            "longitude": -73.8821,
+            "source_url": "https://elmhurstgardens.com"
         }
     ]
     
