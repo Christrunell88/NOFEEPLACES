@@ -221,7 +221,7 @@ const Hero = ({ searchStats }) => {
   );
 };
 
-// Enhanced Search Filters Component with luxury styling
+// Compact Search Component inspired by StreetEasy
 const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, searchStats }) => {
   const neighborhoods = searchStats?.top_neighborhoods?.map(n => n._id) || [
     'Financial District', 'Midtown East', 'Brooklyn Heights', 'Long Island City', 
@@ -231,40 +231,34 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
 
   return (
-    <section id="search-section" className="search-section glass-dark border-b border-white/10 py-8 w-full relative -mt-20 z-20">
+    <section id="search-section" className="relative -mt-16 z-20 pb-8">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          {/* Title */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold heading-luxury mb-2">Start Your Search</h2>
-            <p className="text-slate-300">Find your perfect no-fee apartment across NYC</p>
-          </div>
-
-          {/* Main Search Bar */}
-          <div className="mb-6">
-            <div className="max-w-3xl mx-auto relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+        <div className="max-w-4xl mx-auto">
+          {/* Compact Search Bar - StreetEasy Style */}
+          <div className="glass-dark rounded-2xl p-4 shadow-luxury">
+            <div className="flex flex-col lg:flex-row gap-3">
+              {/* Main Search Input */}
+              <div className="flex-1">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg className="h-5 w-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search neighborhoods, addresses..."
+                    className="input-luxury w-full pl-12 pr-4 py-3 text-base"
+                    value={filters.search_term}
+                    onChange={(e) => onFilterChange('search_term', e.target.value)}
+                  />
+                </div>
               </div>
-              <input
-                type="text"
-                placeholder="Search by address, neighborhood, or area..."
-                className="input-luxury w-full pl-12 pr-4 py-4 text-lg placeholder:text-slate-400 shadow-luxury"
-                value={filters.search_term}
-                onChange={(e) => onFilterChange('search_term', e.target.value)}
-              />
-            </div>
-          </div>
-          
-          {/* Filter Grid */}
-          <div className="glass rounded-2xl p-6 shadow-luxury">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">Borough</label>
+
+              {/* Location Filter */}
+              <div className="w-full lg:w-48">
                 <select
-                  className="input-luxury w-full"
+                  className="input-luxury w-full py-3"
                   value={filters.borough}
                   onChange={(e) => onFilterChange('borough', e.target.value)}
                 >
@@ -274,73 +268,75 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
                   ))}
                 </select>
               </div>
-              
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">Neighborhood</label>
-                <select
-                  className="input-luxury w-full"
-                  value={filters.neighborhood}
-                  onChange={(e) => onFilterChange('neighborhood', e.target.value)}
-                >
-                  <option value="">All Areas</option>
-                  {neighborhoods.map(neighborhood => (
-                    <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
-                  ))}
-                </select>
-              </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">Min Price</label>
+              {/* Price Range */}
+              <div className="flex gap-2 w-full lg:w-80">
                 <input
                   type="number"
-                  placeholder="Min Price"
-                  className="input-luxury w-full"
+                  placeholder="Min"
+                  className="input-luxury w-full py-3 text-center"
                   value={filters.min_price}
                   onChange={(e) => onFilterChange('min_price', e.target.value)}
                 />
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">Max Price</label>
+                <div className="flex items-center px-2">
+                  <span className="text-slate-400">–</span>
+                </div>
                 <input
                   type="number"
-                  placeholder="Max Price"
-                  className="input-luxury w-full"
+                  placeholder="Max"
+                  className="input-luxury w-full py-3 text-center"
                   value={filters.max_price}
                   onChange={(e) => onFilterChange('max_price', e.target.value)}
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">Bedrooms</label>
+              {/* Bedrooms */}
+              <div className="w-full lg:w-32">
                 <select
-                  className="input-luxury w-full"
+                  className="input-luxury w-full py-3"
                   value={filters.bedrooms}
                   onChange={(e) => onFilterChange('bedrooms', e.target.value)}
                 >
-                  <option value="">Any</option>
+                  <option value="">Beds</option>
                   <option value="0">Studio</option>
-                  <option value="1">1 BR</option>
-                  <option value="2">2 BR</option>
-                  <option value="3">3+ BR</option>
+                  <option value="1">1+</option>
+                  <option value="2">2+</option>
+                  <option value="3">3+</option>
                 </select>
               </div>
-            </div>
 
-            {/* Action Buttons */}
-            <div className="flex justify-center space-x-4 mt-6">
-              <button 
-                onClick={onClearFilters}
-                className="btn-secondary px-6 py-2 hover-lift"
-              >
-                Clear Filters
-              </button>
-              <button className="btn-primary px-8 py-2 hover-lift animate-glow">
-                Search Apartments
+              {/* Search Button */}
+              <button className="btn-primary px-8 py-3 hover-lift animate-glow whitespace-nowrap">
+                Search
                 <svg className="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
+            </div>
+
+            {/* Advanced Filters Toggle */}
+            <div className="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
+              <div className="flex items-center space-x-4 text-sm">
+                <button 
+                  onClick={onClearFilters}
+                  className="text-slate-400 hover:text-amber-400 transition-colors"
+                >
+                  Clear filters
+                </button>
+                <span className="text-slate-500">•</span>
+                <span className="text-slate-400">
+                  {searchStats?.total_apartments || '30'} apartments found
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span className="text-xs text-slate-500">Sort by:</span>
+                <select className="bg-transparent text-amber-400 text-sm border-none focus:outline-none cursor-pointer">
+                  <option value="newest">Newest</option>
+                  <option value="price_low">Price: Low to High</option>
+                  <option value="price_high">Price: High to Low</option>
+                  <option value="size">Size</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
