@@ -129,6 +129,19 @@ class AppointmentUpdate(BaseModel):
     status: Optional[str] = None
     notes: Optional[str] = None
 
+class ChatMessage(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    session_id: str
+    message: str
+    response: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    apartment_context: Optional[str] = None
+
+class ChatRequest(BaseModel):
+    message: str
+    session_id: Optional[str] = None
+    apartment_id: Optional[str] = None
+
 # Helper Functions
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
