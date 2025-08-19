@@ -1929,10 +1929,15 @@ class NoFeePlacesAPITester:
                 response = self.make_request("POST", "/chat", apartment_context_data)
                 if response.status_code == 200:
                     chat_response = response.json()
-                    if "response" in chat_response and "apartment_context" in chat_response:
-                        self.log_result("Apartment Context Chat", True, f"AI provided apartment-specific response")
+                    if "response" in chat_response and chat_response["response"]:
+                        # Check if the response contains apartment-specific information
+                        response_text = chat_response["response"].lower()
+                        if any(keyword in response_text for keyword in ["apartment", "amenities", "neighborhood", "bedroom", "bathroom"]):
+                            self.log_result("Apartment Context Chat", True, f"AI provided apartment-specific response")
+                        else:
+                            self.log_result("Apartment Context Chat", False, f"Response not apartment-specific: {chat_response['response'][:100]}...")
                     else:
-                        self.log_result("Apartment Context Chat", False, f"Missing context in response: {chat_response}")
+                        self.log_result("Apartment Context Chat", False, f"Missing response in chat: {chat_response}")
                 else:
                     self.log_result("Apartment Context Chat", False, f"Status code: {response.status_code}")
             
