@@ -320,7 +320,24 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
 const ApartmentCard = ({ apartment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  // Check if apartment is in user's favorites on mount
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      if (isAuthenticated && user) {
+        try {
+          const response = await axios.get(`${API}/users/favorites`);
+          const userFavorites = response.data;
+          setIsFavorited(userFavorites.some(fav => fav.id === apartment.id));
+        } catch (error) {
+          console.error('Failed to check favorite status:', error);
+        }
+      }
+    };
+
+    checkFavoriteStatus();
+  }, [apartment.id, isAuthenticated, user]);
 
   const handleFavorite = async (e) => {
     e.stopPropagation();
@@ -339,6 +356,7 @@ const ApartmentCard = ({ apartment }) => {
       }
     } catch (error) {
       console.error('Failed to update favorite:', error);
+      alert('Failed to update favorite. Please try again.');
     }
   };
 
