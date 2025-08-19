@@ -2605,7 +2605,7 @@ const FavoritesPage = () => {
                           Call
                         </button>
                         <button
-                          onClick={() => window.location.href = `/apartment/${apartment.id}`}
+                          onClick={() => navigate(`/apartment/${apartment.id}`)}
                           className="btn-primary text-xs px-3 py-2 hover-lift"
                         >
                           View Details
