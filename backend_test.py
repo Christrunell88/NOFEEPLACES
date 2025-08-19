@@ -1115,6 +1115,9 @@ class NoFeePlacesAPITester:
         # Data scraping tests
         self.test_data_scraping()
         
+        # Scraping and image update verification (as requested)
+        self.test_scraping_and_image_updates()
+        
         # TF Cornerstone specific tests
         self.test_tfc_listings_count()
         self.test_tfc_listings_data_quality()
