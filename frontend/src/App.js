@@ -114,7 +114,9 @@ const {
   AdminAppointments,
   AIChatbot,
   FavoritesPage,
-  ApartmentComparison
+  ApartmentComparison,
+  ToastProvider,
+  ErrorBoundary
 } = Components;
 
 const Home = () => {
