@@ -2376,6 +2376,7 @@ const FavoritesPage = () => {
   const [selectedForComparison, setSelectedForComparison] = useState([]);
   const [showComparison, setShowComparison] = useState(false);
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {
