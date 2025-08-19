@@ -316,6 +316,169 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   );
 };
 
+// Enhanced Error Handling Component
+const ErrorBoundary = ({ children, fallback }) => {
+  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const handleError = (error) => {
+      setHasError(true);
+      setError(error);
+      console.error('ErrorBoundary caught an error:', error);
+    };
+
+    window.addEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', (event) => {
+      handleError(event.reason);
+    });
+
+    return () => {
+      window.removeEventListener('error', handleError);
+      window.removeEventListener('unhandledrejection', handleError);
+    };
+  }, []);
+
+  if (hasError) {
+    if (fallback) {
+      return fallback(error, () => {
+        setHasError(false);
+        setError(null);
+      });
+    }
+    
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-semibold text-slate-800 mb-2">Something went wrong</h2>
+          <p className="text-slate-600 mb-4">We're sorry, but an unexpected error occurred. Please try refreshing the page.</p>
+          <button 
+            onClick={() => window.location.reload()}
+            className="btn-primary px-6 py-3"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return children;
+};
+
+// Toast Notification Component
+const Toast = ({ message, type = 'info', isVisible, onClose }) => {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
+  if (!isVisible) return null;
+
+  const icons = {
+    success: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+      </svg>
+    ),
+    error: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    ),
+    warning: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    info: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    )
+  };
+
+  const colors = {
+    success: 'bg-green-500 text-white',
+    error: 'bg-red-500 text-white',
+    warning: 'bg-yellow-500 text-black',
+    info: 'bg-blue-500 text-white'
+  };
+
+  return (
+    <div className={`fixed top-4 right-4 z-50 flex items-center px-4 py-3 rounded-lg shadow-luxury animate-slide-up ${colors[type]}`}>
+      <div className="mr-3">
+        {icons[type]}
+      </div>
+      <p className="font-medium">{message}</p>
+      <button 
+        onClick={onClose}
+        className="ml-4 hover:opacity-70 transition-opacity"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  );
+};
+
+// Toast Context for global toast management
+const ToastContext = React.createContext();
+
+export const useToast = () => {
+  const context = React.useContext(ToastContext);
+  if (!context) {
+    throw new Error('useToast must be used within a ToastProvider');
+  }
+  return context;
+};
+
+export const ToastProvider = ({ children }) => {
+  const [toasts, setToasts] = useState([]);
+
+  const addToast = (message, type = 'info') => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message, type }]);
+  };
+
+  const removeToast = (id) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  };
+
+  const value = {
+    addToast,
+    success: (message) => addToast(message, 'success'),
+    error: (message) => addToast(message, 'error'),
+    warning: (message) => addToast(message, 'warning'),
+    info: (message) => addToast(message, 'info')
+  };
+
+  return (
+    <ToastContext.Provider value={value}>
+      {children}
+      {toasts.map(toast => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          isVisible={true}
+          onClose={() => removeToast(toast.id)}
+        />
+      ))}
+    </ToastContext.Provider>
+  );
+};
+
 // Lazy Loading Image Component with Optimization
 const LazyImage = ({ src, alt, className, ...props }) => {
   const [isLoaded, setIsLoaded] = useState(false);
