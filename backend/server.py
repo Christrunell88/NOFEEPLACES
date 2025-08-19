@@ -1508,11 +1508,12 @@ async def scrape_rentals():
     streeteasy_apartments = await scrape_streeteasy_apartments()
     all_apartments.extend(streeteasy_apartments)
     
+    # Clear existing apartments to ensure fresh data with updated email addresses
+    await db.apartments.delete_many({})
+    
     # Store in database
     for apartment in all_apartments:
-        existing = await db.apartments.find_one({"address": apartment.address, "price": apartment.price})
-        if not existing:
-            await db.apartments.insert_one(apartment.dict())
+        await db.apartments.insert_one(apartment.dict())
     
     return len(all_apartments)
 
