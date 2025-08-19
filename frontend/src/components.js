@@ -2092,5 +2092,6 @@ export const Components = {
   ApartmentDetails,
   SavedSearches,
   CalendarBooking,
-  AdminAppointments
+  AdminAppointments,
+  AIChatbot
 };
