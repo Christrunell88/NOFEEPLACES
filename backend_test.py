@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://nycapartments.preview.emergentagent.com/api"
+BASE_URL = "https://9baa349b-86eb-4d82-b63e-aa2a6cd5417c.preview.emergentagent.com/api"
 TEST_USER_EMAIL = "testuser@nofeeplaces.com"
 TEST_USER_PASSWORD = "SecurePassword123!"
 TEST_USER_NAME = "John Doe"
