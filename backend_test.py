@@ -1245,6 +1245,180 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Appointment Cancellation", False, f"Exception: {str(e)}")
     
+    def test_new_affordable_listings_verification(self):
+        """Test the addition of 10 new affordable apartment listings in $3,200-$3,800 range"""
+        print("\n=== Testing New 10 Affordable Apartment Listings ($3,200-$3,800) ===")
+        try:
+            # First, trigger the scraping endpoint to add new affordable listings
+            print("Triggering scraping endpoint to add new affordable listings...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("New Affordable Listings Scraping", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("New Affordable Listings Scraping", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait a moment for database updates
+            time.sleep(2)
+            
+            # Get all apartments to verify total count is now 54 (44 previous + 10 new affordable)
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            total_count = len(apartments)
+            
+            # Verify we now have 54 apartments (44 previous + 10 new affordable)
+            if total_count == 54:
+                self.log_result("Total Apartment Count (54)", True, f"Confirmed 54 total apartments (44 previous + 10 new affordable)")
+            else:
+                self.log_result("Total Apartment Count (54)", False, f"Expected 54 apartments, found {total_count}")
+            
+            # Check for specific new affordable apartments mentioned in the request
+            expected_affordable_apartments = {
+                "Astoria Cove Queens": {"price": 3295, "address": "21-10 45th Ave"},
+                "Elmhurst Gardens": {"price": 3295, "address": ""},  # Address not specified in request
+                "Forest Hills Gardens": {"price": 3395, "address": "112-20 72nd Dr"},
+                "Ridgewood Heights": {"price": 3395, "address": ""},  # Address not specified
+                "Sunnyside Plaza": {"price": 3495, "address": ""},  # Address not specified
+                "Crown Heights Modern": {"price": 3595, "address": ""},  # Address not specified
+                "Williamsburg Edge": {"price": 3595, "address": "22 N 6th St"},
+                "Greenpoint Loft": {"price": 3695, "address": "67 West St"},
+                "Bed-Stuy Lofts": {"price": 3795, "address": ""},  # Address not specified
+                "The Dime Brooklyn": {"price": 3795, "address": "85 Flatbush Ave"}
+            }
+            
+            found_affordable_apartments = {}
+            for apt in apartments:
+                title = apt.get("title", "")
+                price = apt.get("price", 0)
+                address = apt.get("address", "")
+                
+                for building_name, expected_data in expected_affordable_apartments.items():
+                    # Check if building name is in title or if price matches and address matches
+                    if (building_name.lower() in title.lower() or 
+                        (price == expected_data["price"] and 
+                         (not expected_data["address"] or expected_data["address"] in address))):
+                        found_affordable_apartments[building_name] = {
+                            "title": title,
+                            "address": address,
+                            "price": price,
+                            "bedrooms": apt.get("bedrooms"),
+                            "neighborhood": apt.get("neighborhood"),
+                            "borough": apt.get("borough")
+                        }
+                        break
+            
+            if len(found_affordable_apartments) >= 8:  # At least 8 of the 10 expected apartments
+                self.log_result("Specific Affordable Apartments Check", True, f"Found {len(found_affordable_apartments)}/10 expected affordable apartments")
+                for building, details in found_affordable_apartments.items():
+                    print(f"   ✓ {building}: {details['title']} - ${details['price']:,} ({details['neighborhood']}, {details['borough']})")
+            else:
+                self.log_result("Specific Affordable Apartments Check", False, f"Only found {len(found_affordable_apartments)}/10 expected affordable apartments")
+                for building in found_affordable_apartments:
+                    print(f"   ✓ Found: {building}")
+                missing = set(expected_affordable_apartments.keys()) - set(found_affordable_apartments.keys())
+                for building in missing:
+                    print(f"   ✗ Missing: {building}")
+            
+            # Verify price range now includes strong selection in $3,200-$3,800 range
+            affordable_range_apartments = [apt for apt in apartments if 3200 <= apt.get("price", 0) <= 3800]
+            
+            if len(affordable_range_apartments) >= 10:
+                self.log_result("$3,200-$3,800 Price Range Coverage", True, f"Found {len(affordable_range_apartments)} apartments in target affordable range")
+            else:
+                self.log_result("$3,200-$3,800 Price Range Coverage", False, f"Only found {len(affordable_range_apartments)} apartments in $3,200-$3,800 range")
+            
+            # Verify all new affordable listings have proper amenities
+            affordable_without_amenities = []
+            for apt in affordable_range_apartments:
+                amenities = apt.get("amenities", [])
+                if not amenities or len(amenities) == 0:
+                    affordable_without_amenities.append(apt.get("title", "Unknown"))
+            
+            if len(affordable_without_amenities) == 0:
+                self.log_result("Affordable Apartments Amenities Check", True, f"All {len(affordable_range_apartments)} affordable apartments have amenities")
+            else:
+                self.log_result("Affordable Apartments Amenities Check", False, f"{len(affordable_without_amenities)} affordable apartments missing amenities")
+            
+            # Verify all affordable listings are in NYC neighborhoods
+            non_nyc_apartments = []
+            nyc_boroughs = {"Manhattan", "Brooklyn", "Queens", "Bronx", "Staten Island"}
+            
+            for apt in affordable_range_apartments:
+                borough = apt.get("borough", "")
+                if borough not in nyc_boroughs:
+                    non_nyc_apartments.append(f"{apt.get('title', 'Unknown')} - {borough}")
+            
+            if len(non_nyc_apartments) == 0:
+                self.log_result("NYC Neighborhoods Check", True, f"All {len(affordable_range_apartments)} affordable apartments are in NYC boroughs")
+            else:
+                self.log_result("NYC Neighborhoods Check", False, f"{len(non_nyc_apartments)} apartments not in NYC boroughs")
+            
+            # Verify all affordable listings have proper contact info (no broker fees)
+            contact_issues = []
+            expected_phone = "(646) 408-8048"
+            expected_email = "info@places.nyc"
+            expected_broker = "Chris Trunell"
+            
+            for apt in affordable_range_apartments:
+                contact_info = apt.get("contact_info", {})
+                title = apt.get("title", "Unknown")
+                
+                if contact_info.get("phone") != expected_phone:
+                    contact_issues.append(f"Wrong phone in '{title}': {contact_info.get('phone')}")
+                if contact_info.get("email") != expected_email:
+                    contact_issues.append(f"Wrong email in '{title}': {contact_info.get('email')}")
+                if contact_info.get("broker") != expected_broker:
+                    contact_issues.append(f"Wrong broker in '{title}': {contact_info.get('broker')}")
+            
+            if not contact_issues:
+                self.log_result("Affordable Apartments Contact Info", True, f"All {len(affordable_range_apartments)} affordable apartments have proper no-fee contact info")
+            else:
+                self.log_result("Affordable Apartments Contact Info", False, f"Contact info issues found: {len(contact_issues)} problems")
+            
+            # Check that apartments target young professionals and budget-conscious renters
+            young_professional_features = ["Gym", "Fitness Center", "Rooftop", "Storage", "Laundry", "Pet Friendly", "Near Subway", "Near Transit"]
+            apartments_with_yp_features = []
+            
+            for apt in affordable_range_apartments:
+                amenities = apt.get("amenities", [])
+                yp_feature_count = sum(1 for amenity in amenities if any(feature.lower() in amenity.lower() for feature in young_professional_features))
+                if yp_feature_count >= 2:  # At least 2 young professional features
+                    apartments_with_yp_features.append({
+                        "title": apt.get("title"),
+                        "price": apt.get("price"),
+                        "yp_features": yp_feature_count
+                    })
+            
+            if len(apartments_with_yp_features) >= 8:  # At least 8 apartments with young professional features
+                self.log_result("Young Professional Features", True, f"Found {len(apartments_with_yp_features)} affordable apartments with young professional amenities")
+            else:
+                self.log_result("Young Professional Features", False, f"Only found {len(apartments_with_yp_features)} affordable apartments with young professional amenities")
+            
+            # Print summary of findings
+            print(f"\n   📊 AFFORDABLE LISTINGS SUMMARY:")
+            print(f"   • Total Apartments: {total_count}")
+            print(f"   • Affordable Range ($3,200-$3,800): {len(affordable_range_apartments)}")
+            print(f"   • Specific Buildings Found: {len(found_affordable_apartments)}/10 expected")
+            print(f"   • Young Professional Features: {len(apartments_with_yp_features)}")
+            print(f"   • All in NYC Boroughs: {len(affordable_range_apartments) - len(non_nyc_apartments)}")
+            print(f"   • Proper No-Fee Contact Info: {len(affordable_range_apartments) - len(contact_issues)}")
+            
+            # Show price distribution in affordable range
+            price_distribution = {}
+            for apt in affordable_range_apartments:
+                price_bucket = f"${apt.get('price', 0):,}"
+                price_distribution[price_bucket] = price_distribution.get(price_bucket, 0) + 1
+            
+            print(f"   • Price Distribution: {dict(sorted(price_distribution.items()))}")
+            
+        except Exception as e:
+            self.log_result("New Affordable Listings Verification", False, f"Exception: {str(e)}")
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
