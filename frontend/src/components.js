@@ -117,9 +117,9 @@ const Header = () => {
             <div className="flex flex-col space-y-4">
               {isAuthenticated ? (
                 <>
-                  <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Dashboard</a>
-                  <a href="/favorites" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Favorites</a>
-                  <a href="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Saved Searches</a>
+                  <Link to="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Dashboard</Link>
+                  <Link to="/favorites" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Favorites</Link>
+                  <Link to="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Saved Searches</Link>
                   <button 
                     onClick={logout}
                     className="text-left text-slate-200 hover:text-amber-400 transition-colors font-medium"
