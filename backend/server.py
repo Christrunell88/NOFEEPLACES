@@ -151,6 +151,7 @@ class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
     apartment_id: Optional[str] = None
+    context: Optional[str] = None
 
 # Helper Functions
 def hash_password(password: str) -> str:
