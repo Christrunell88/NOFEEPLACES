@@ -349,7 +349,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   );
 };
 
-// Enhanced Apartment Card Component with PLACES styling
+// Enhanced Apartment Card Component with luxury styling
 const ApartmentCard = ({ apartment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -380,39 +380,46 @@ const ApartmentCard = ({ apartment }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer border border-slate-200">
-      <div className="relative" onClick={handleViewDetails}>
-        <div className="aspect-w-16 aspect-h-9 bg-gray-200">
+    <div className="card-luxury hover:shadow-glow transition-all duration-500 cursor-pointer group animate-slide-up">
+      <div className="relative overflow-hidden rounded-2xl mb-4" onClick={handleViewDetails}>
+        <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-slate-200 to-slate-300">
           <img
             src={apartment.images?.[0] || apartment.image}
             alt={apartment.title}
-            className={`w-full h-48 object-cover transition-opacity duration-300 ${
+            className={`w-full h-56 object-cover transition-all duration-500 group-hover:scale-110 ${
               isImageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={() => setIsImageLoaded(true)}
           />
           {!isImageLoaded && (
-            <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300 animate-pulse flex items-center justify-center">
+              <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2-2z" />
               </svg>
             </div>
           )}
+          
+          {/* Gradient overlay for better text visibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
-        <div className="absolute top-3 left-3">
-          <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            No Fee
+        {/* No Fee Badge */}
+        <div className="absolute top-4 left-4">
+          <span className="badge badge-success animate-glow">
+            NO FEE
           </span>
         </div>
         
-        <div className="absolute top-3 right-3">
+        {/* Favorite Button */}
+        <div className="absolute top-4 right-4">
           <button 
             onClick={handleFavorite}
-            className="bg-white bg-opacity-80 hover:bg-opacity-100 p-2 rounded-full transition-all"
+            className="glass p-3 rounded-full transition-all hover:scale-110 hover:shadow-glow"
           >
             <svg 
-              className={`w-5 h-5 ${isFavorited ? 'text-red-500 fill-current' : 'text-gray-600 hover:text-red-500'}`} 
+              className={`w-5 h-5 transition-colors ${
+                isFavorited ? 'text-red-400 fill-current' : 'text-white hover:text-red-400'
+              }`} 
               fill={isFavorited ? 'currentColor' : 'none'} 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -421,65 +428,86 @@ const ApartmentCard = ({ apartment }) => {
             </svg>
           </button>
         </div>
+
+        {/* Price Tag */}
+        <div className="absolute bottom-4 right-4">
+          <div className="glass-dark px-4 py-2 rounded-lg">
+            <span className="text-2xl font-bold gradient-text">
+              ${apartment.price?.toLocaleString() || apartment.price}
+            </span>
+            <span className="text-slate-300 text-sm ml-1">/mo</span>
+          </div>
+        </div>
       </div>
       
-      <div className="p-4">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold text-slate-800 line-clamp-2">
+      <div className="px-2">
+        <div className="mb-3">
+          <h3 className="text-xl font-bold text-slate-100 mb-2 line-clamp-2 group-hover:text-amber-400 transition-colors">
             {apartment.title}
           </h3>
-          <span className="text-xl font-bold text-amber-600 ml-2">
-            ${apartment.price?.toLocaleString() || apartment.price}
-          </span>
+          <p className="text-slate-400 text-sm flex items-center">
+            <svg className="w-4 h-4 mr-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            {apartment.address}
+          </p>
         </div>
         
-        <p className="text-slate-600 text-sm mb-3">
-          {apartment.address}
-        </p>
-        
-        <div className="flex items-center space-x-4 text-sm text-slate-500 mb-3">
-          <div className="flex items-center">
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-            </svg>
-            {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}
-          </div>
-          <div className="flex items-center">
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-            </svg>
-            {apartment.bathrooms} bath
-          </div>
-          <div className="flex items-center">
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-            </svg>
-            {apartment.sqft} sq ft
+        {/* Property Details */}
+        <div className="flex items-center justify-between mb-4 text-sm text-slate-300">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+              </svg>
+              <span className="font-medium">
+                {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+              </svg>
+              <span className="font-medium">{apartment.bathrooms} bath</span>
+            </div>
+            <div className="flex items-center">
+              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+              </svg>
+              <span className="font-medium">{apartment.sqft} sq ft</span>
+            </div>
           </div>
         </div>
         
-        <div className="flex flex-wrap gap-1 mb-3">
+        {/* Amenities */}
+        <div className="flex flex-wrap gap-2 mb-4">
           {apartment.amenities?.slice(0, 3).map((amenity, index) => (
-            <span key={index} className="bg-slate-100 text-slate-600 px-2 py-1 rounded-full text-xs">
+            <span key={index} className="bg-white/5 text-slate-300 px-3 py-1 rounded-full text-xs font-medium border border-white/10">
               {amenity}
             </span>
           ))}
           {apartment.amenities?.length > 3 && (
-            <span className="bg-slate-100 text-slate-600 px-2 py-1 rounded-full text-xs">
+            <span className="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full text-xs font-medium border border-amber-500/30">
               +{apartment.amenities.length - 3} more
             </span>
           )}
         </div>
         
-        <div className="flex justify-between items-center">
-          <span className="text-sm text-green-600 font-medium">
-            Available Now
-          </span>
+        {/* Action Bar */}
+        <div className="flex justify-between items-center pt-4 border-t border-white/10">
+          <div className="flex items-center">
+            <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+            <span className="text-sm text-green-400 font-medium">Available Now</span>
+          </div>
           <button 
             onClick={handleViewDetails}
-            className="bg-amber-600 text-slate-800 px-4 py-2 rounded-lg hover:bg-amber-500 transition-colors text-sm font-medium"
+            className="btn-primary text-sm px-6 py-2 hover-lift"
           >
             View Details
+            <svg className="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </button>
         </div>
       </div>
