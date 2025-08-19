@@ -602,7 +602,6 @@ const ApartmentCard = ({ apartment }) => {
   };
 
   const handleViewDetails = () => {
-    const navigate = useNavigate();
     navigate(`/apartment/${apartment.id}`);
   };
 
