@@ -1615,6 +1615,9 @@ class NoFeePlacesAPITester:
         # Data scraping tests
         self.test_data_scraping()
         
+        # NEW: Email Update Verification (as requested)
+        self.test_email_update_verification()
+        
         # NEW: Test 15 luxury apartment listings verification (as requested)
         self.test_new_luxury_listings_verification()
         
