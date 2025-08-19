@@ -829,8 +829,8 @@ async def scrape_streeteasy_apartments():
             "description": "Sophisticated studio in vibrant Chelsea neighborhood. Features high ceilings, modern kitchen with granite countertops, and premium finishes. Walking distance to High Line, Madison Square Garden, and excellent restaurants.",
             "amenities": ["Doorman", "Fitness Center", "Rooftop Terrace", "Storage", "Laundry", "Pet Friendly"],
             "images": [
-                "https://images.unsplash.com/photo-1600607688458-9d4d34394d80",
-                "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3"
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
@@ -854,8 +854,8 @@ async def scrape_streeteasy_apartments():
             "description": "Bright 1-bedroom apartment in convenient Murray Hill location. Features oversized windows, modern kitchen, hardwood floors, and updated bathroom. Close to Grand Central, restaurants, and shopping.",
             "amenities": ["Doorman", "Fitness Center", "Laundry", "Storage", "Pet Friendly", "Roof Deck"],
             "images": [
-                "https://images.unsplash.com/photo-1600607688315-695c2369c847",
-                "https://images.unsplash.com/photo-1600566752734-d5c717b5ff83"
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
