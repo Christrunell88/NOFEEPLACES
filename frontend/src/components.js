@@ -150,54 +150,69 @@ const Header = () => {
 };
 
 // Enhanced Hero Component with PLACES Branding
+// Enhanced Hero Component with luxury styling
 const Hero = ({ searchStats }) => {
   return (
     <section 
-      className="hero-section relative bg-cover bg-center bg-no-repeat h-96 w-full"
+      className="hero-section relative bg-cover bg-center bg-no-repeat min-h-screen w-full flex items-center animate-slide-up"
       style={{
-        backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.8)), url('https://images.unsplash.com/photo-1514565131-fce0801e5785')`
+        backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.75)), url('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=2070')`
       }}
     >
-      <div className="container mx-auto px-4 h-full flex items-center">
-        <div className="max-w-2xl text-amber-100">
-          <h1 className="text-5xl font-bold mb-4 leading-tight">
-            Find Your Perfect Place in NYC
-          </h1>
-          <p className="text-xl mb-8 text-amber-200">
-            Discover thousands of broker fee-free apartments across all five boroughs. 
-            Save money and find your ideal home with NoFeePlaces.com.
-          </p>
-          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-            <button 
-              onClick={() => document.getElementById('search-section')?.scrollIntoView({behavior: 'smooth'})}
-              className="bg-amber-600 text-slate-800 px-8 py-3 rounded-lg hover:bg-amber-500 transition-colors font-semibold"
-            >
-              Start Searching
-            </button>
-            <button className="bg-transparent border-2 border-amber-100 text-amber-100 px-8 py-3 rounded-lg hover:bg-amber-100 hover:text-slate-800 transition-colors font-semibold">
-              Learn More
-            </button>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-slide-up">
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight heading-luxury">
+              Find Your Perfect
+              <span className="block gradient-text animate-glow">
+                NYC Home
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-12 text-slate-300 max-w-3xl mx-auto leading-relaxed">
+              Discover thousands of <span className="text-accent font-semibold">broker fee-free</span> apartments across all five boroughs. 
+              Save money and find your ideal home with the most trusted platform in NYC.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+              <button 
+                onClick={() => document.getElementById('search-section')?.scrollIntoView({behavior: 'smooth'})}
+                className="btn-primary text-lg px-10 py-4 text-slate-800 font-bold hover-lift animate-glow"
+              >
+                Start Your Search
+                <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+              <button className="btn-secondary text-lg px-10 py-4 font-semibold hover-lift">
+                View All Listings
+                <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Enhanced Stats overlay with PLACES colors */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-slate-800 to-slate-700 text-amber-100 py-4">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-3 text-center">
-            <div>
-              <div className="text-2xl font-bold text-amber-200">{searchStats?.total_apartments || '3'}+</div>
-              <div className="text-sm text-amber-300">No Fee Apartments</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-amber-200">100%</div>
-              <div className="text-sm text-amber-300">Verified Listings</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-amber-200">
-                ${searchStats?.price_stats?.avg_price ? Math.round(searchStats.price_stats.avg_price / 1000) + 'K' : '4K'}
+      {/* Enhanced floating stats with glassmorphism */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl mx-auto px-4">
+        <div className="glass rounded-2xl p-6 shadow-luxury animate-float">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div className="group hover-lift">
+              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">
+                {searchStats?.total_apartments || '30'}+
               </div>
-              <div className="text-sm text-amber-300">Avg. Savings</div>
+              <div className="text-sm text-slate-300 font-medium">Premium No-Fee Apartments</div>
+            </div>
+            <div className="group hover-lift">
+              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">100%</div>
+              <div className="text-sm text-slate-300 font-medium">Verified Luxury Listings</div>
+            </div>
+            <div className="group hover-lift">
+              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">
+                ${searchStats?.price_stats?.avg_price ? Math.round(searchStats.price_stats.avg_price / 1000) + 'K' : '5K'}
+              </div>
+              <div className="text-sm text-slate-300 font-medium">Average Annual Savings</div>
             </div>
           </div>
         </div>
