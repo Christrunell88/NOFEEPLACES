@@ -484,7 +484,6 @@ Thank you!`);
           
         {/* Gradient overlay for better text visibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      </div>
         
         {/* No Fee Badge */}
         <div className="absolute top-4 left-4">
@@ -521,6 +520,7 @@ Thank you!`);
             <span className="text-slate-300 text-sm ml-1">/mo</span>
           </div>
         </div>
+      </div>
       </div>
       
       <div className="px-2">
