@@ -277,7 +277,7 @@ const Home = () => {
               </span>
               <button
                 onClick={() => setCurrentPage(prev => prev + 1)}
-                disabled={apartments.length < 20}
+                disabled={apartments.length < 50}
                 className="px-4 py-2 bg-amber-600 text-slate-800 rounded-lg hover:bg-amber-500 disabled:bg-slate-300 disabled:cursor-not-allowed transition-colors font-semibold"
               >
                 Next
