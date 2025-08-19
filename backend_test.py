@@ -1830,7 +1830,7 @@ class NoFeePlacesAPITester:
                 "visitor_email": "emily.rodriguez@email.com",
                 "visitor_phone": "+1-555-987-6543",
                 "appointment_date": tomorrow,
-                "appointment_time": "3:00 PM",
+                "appointment_time": "11:30 AM",  # Changed to avoid conflicts
                 "notes": "Interested in immediate move-in. Looking for pet-friendly apartment."
             }
             
