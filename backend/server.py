@@ -879,8 +879,8 @@ async def scrape_streeteasy_apartments():
             "description": "Modern studio with stunning Manhattan skyline views. Features efficient layout, premium finishes, stainless steel appliances, and floor-to-ceiling windows. Located in luxury building with resort-style amenities.",
             "amenities": ["Concierge", "Fitness Center", "Pool", "Rooftop Terrace", "Storage", "Pet Spa", "Parking"],
             "images": [
-                "https://images.unsplash.com/photo-1600607688201-e90e0a60c5b7",
-                "https://images.unsplash.com/photo-1600566752734-d5c717b5ff83"
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
