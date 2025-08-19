@@ -2089,6 +2089,14 @@ async def create_appointment(appointment_data: AppointmentCreate):
     )
     
     await db.appointments.insert_one(appointment.dict())
+    
+    # Send email confirmation
+    try:
+        await send_appointment_confirmation_email(appointment.dict(), apartment)
+    except Exception as e:
+        print(f"Failed to send email confirmation: {e}")
+        # Don't fail the appointment creation if email fails
+    
     return appointment
 
 @api_router.get("/appointments", response_model=List[Appointment])
