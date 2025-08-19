@@ -221,7 +221,7 @@ const Hero = ({ searchStats }) => {
   );
 };
 
-// Advanced Search Filters Component with PLACES styling - Simplified
+// Enhanced Search Filters Component with luxury styling
 const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, searchStats }) => {
   const neighborhoods = searchStats?.top_neighborhoods?.map(n => n._id) || [
     'Financial District', 'Midtown East', 'Brooklyn Heights', 'Long Island City', 
@@ -231,93 +231,118 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, search
   const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
 
   return (
-    <section id="search-section" className="search-section bg-slate-800 border-b border-slate-700 py-4 w-full">
+    <section id="search-section" className="search-section glass-dark border-b border-white/10 py-8 w-full relative -mt-20 z-20">
       <div className="container mx-auto px-4">
-        {/* Main Search Bar */}
-        <div className="mb-3">
-          <div className="max-w-2xl mx-auto">
-            <input
-              type="text"
-              placeholder="Search by address, neighborhood, or area..."
-              className="w-full px-4 py-3 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-lg"
-              value={filters.search_term}
-              onChange={(e) => onFilterChange('search_term', e.target.value)}
-            />
-          </div>
-        </div>
-        
-        {/* Compact Filter Row */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
-          <div>
-            <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
-              value={filters.borough}
-              onChange={(e) => onFilterChange('borough', e.target.value)}
-            >
-              <option value="">All Boroughs</option>
-              {boroughs.map(borough => (
-                <option key={borough} value={borough}>{borough}</option>
-              ))}
-            </select>
-          </div>
-          
-          <div>
-            <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
-              value={filters.neighborhood}
-              onChange={(e) => onFilterChange('neighborhood', e.target.value)}
-            >
-              <option value="">All Areas</option>
-              {neighborhoods.map(neighborhood => (
-                <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
-              ))}
-            </select>
+        <div className="max-w-6xl mx-auto">
+          {/* Title */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold heading-luxury mb-2">Start Your Search</h2>
+            <p className="text-slate-300">Find your perfect no-fee apartment across NYC</p>
           </div>
 
-          <div>
-            <input
-              type="number"
-              placeholder="Min Price"
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-sm"
-              value={filters.min_price}
-              onChange={(e) => onFilterChange('min_price', e.target.value)}
-            />
+          {/* Main Search Bar */}
+          <div className="mb-6">
+            <div className="max-w-3xl mx-auto relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search by address, neighborhood, or area..."
+                className="input-luxury w-full pl-12 pr-4 py-4 text-lg placeholder:text-slate-400 shadow-luxury"
+                value={filters.search_term}
+                onChange={(e) => onFilterChange('search_term', e.target.value)}
+              />
+            </div>
           </div>
           
-          <div>
-            <input
-              type="number"
-              placeholder="Max Price"
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-amber-300 text-sm"
-              value={filters.max_price}
-              onChange={(e) => onFilterChange('max_price', e.target.value)}
-            />
+          {/* Filter Grid */}
+          <div className="glass rounded-2xl p-6 shadow-luxury">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Borough</label>
+                <select
+                  className="input-luxury w-full"
+                  value={filters.borough}
+                  onChange={(e) => onFilterChange('borough', e.target.value)}
+                >
+                  <option value="">All Boroughs</option>
+                  {boroughs.map(borough => (
+                    <option key={borough} value={borough}>{borough}</option>
+                  ))}
+                </select>
+              </div>
+              
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Neighborhood</label>
+                <select
+                  className="input-luxury w-full"
+                  value={filters.neighborhood}
+                  onChange={(e) => onFilterChange('neighborhood', e.target.value)}
+                >
+                  <option value="">All Areas</option>
+                  {neighborhoods.map(neighborhood => (
+                    <option key={neighborhood} value={neighborhood}>{neighborhood}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Min Price</label>
+                <input
+                  type="number"
+                  placeholder="Min Price"
+                  className="input-luxury w-full"
+                  value={filters.min_price}
+                  onChange={(e) => onFilterChange('min_price', e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Max Price</label>
+                <input
+                  type="number"
+                  placeholder="Max Price"
+                  className="input-luxury w-full"
+                  value={filters.max_price}
+                  onChange={(e) => onFilterChange('max_price', e.target.value)}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Bedrooms</label>
+                <select
+                  className="input-luxury w-full"
+                  value={filters.bedrooms}
+                  onChange={(e) => onFilterChange('bedrooms', e.target.value)}
+                >
+                  <option value="">Any</option>
+                  <option value="0">Studio</option>
+                  <option value="1">1 BR</option>
+                  <option value="2">2 BR</option>
+                  <option value="3">3+ BR</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-center space-x-4 mt-6">
+              <button 
+                onClick={onClearFilters}
+                className="btn-secondary px-6 py-2 hover-lift"
+              >
+                Clear Filters
+              </button>
+              <button className="btn-primary px-8 py-2 hover-lift animate-glow">
+                Search Apartments
+                <svg className="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
           </div>
-          
-          <div>
-            <select
-              className="w-full px-3 py-2 border border-slate-600 bg-slate-700 text-amber-100 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm"
-              value={filters.bedrooms}
-              onChange={(e) => onFilterChange('bedrooms', e.target.value)}
-            >
-              <option value="">Bedrooms</option>
-              <option value="0">Studio</option>
-              <option value="1">1 BR</option>
-              <option value="2">2 BR</option>
-              <option value="3">3 BR</option>
-              <option value="4">4+ BR</option>
-            </select>
-          </div>
-        </div>
-        
-        {/* Clear Filters Button */}
-        <div className="text-center mt-3">
-          <button 
-            onClick={onClearFilters}
-            className="text-amber-200 hover:text-amber-100 text-sm underline"
-          >
-            Clear all filters
-          </button>
         </div>
       </div>
     </section>
