@@ -189,17 +189,17 @@ backend:
           agent: "testing"
           comment: "MongoDB integration working properly. Data persistence verified through all CRUD operations. User data, apartment data, favorites, and saved searches are all correctly stored and retrieved."
 
-  - task: "Apartment Count Issue Investigation"
+  - task: "Appointment Scheduling System"
     implemented: true
     working: true
-    file: "/app/frontend/src/App.js"
+    file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
         - working: true
           agent: "testing"
-          comment: "APARTMENT COUNT ISSUE INVESTIGATION COMPLETED: Root cause identified and FIXED. The issue was frontend pagination limiting results to 20 apartments instead of showing all 30. Backend API was correctly returning all 30 apartments (20 original + 10 TFC listings) when limit parameter was set properly. Fixed by updating frontend App.js line 150 from 'limit: 20' to 'limit: 50' and adjusting pagination logic. All 30 apartments now display correctly including all 10 TF Cornerstone listings. Issue resolved successfully."
+          comment: "Complete appointment scheduling system working perfectly. All 15 appointment-related test cases passed: appointment creation with proper validation, business hours enforcement (10 AM - 7 PM), conflict detection preventing double booking, available time slots retrieval, appointment status updates (pending/confirmed/completed/cancelled), comprehensive filtering by apartment/status/date range, and proper data validation. All required fields present and validated correctly."
 
   - task: "Scraping and Image Update Verification"
     implemented: true
