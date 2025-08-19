@@ -179,8 +179,8 @@ async def scrape_streeteasy_apartments():
             "description": "Stunning 1-bedroom apartment with floor-to-ceiling windows and premium finishes. Located in the heart of the Financial District with easy access to all major subway lines.",
             "amenities": ["Gym", "Doorman", "Rooftop Deck", "Pet Friendly", "Laundry", "Parking"],
             "images": [
-                "https://images.unsplash.com/photo-1594295800284-990f74bb6928",
-                "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a"
+                "https://images.unsplash.com/photo-1714153542012-6164546db890?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxOWUMlMjBhcGFydG1lbnQlMjBpbnRlcmlvcnxlbnwwfHx8fDE3NTU2MzQ5NjV8MA&ixlib=rb-4.1.0&q=85",
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
