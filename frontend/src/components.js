@@ -521,7 +521,6 @@ Thank you!`);
           </div>
         </div>
       </div>
-      </div>
       
       <div className="px-2">
         <div className="mb-3">
