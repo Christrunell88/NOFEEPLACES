@@ -1948,6 +1948,103 @@ async def get_search_stats():
         "price_stats": price_stats[0] if price_stats else {}
     }
 
+# Email service for appointment confirmations
+async def send_appointment_confirmation_email(appointment_data: dict, apartment_data: dict):
+    """Send appointment confirmation email to visitor and broker"""
+    
+    if not EMAIL_PASSWORD:
+        # Email not configured, skip sending
+        print("Email not configured, skipping email notification")
+        return
+    
+    try:
+        # Email content for visitor
+        visitor_subject = f"Apartment Viewing Confirmed - {apartment_data['title']}"
+        visitor_body = f"""
+        Dear {appointment_data['visitor_name']},
+
+        Your apartment viewing has been confirmed! Here are the details:
+
+        🏠 Property: {apartment_data['title']}
+        📍 Address: {apartment_data['address']}
+        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+        🕐 Time: {appointment_data['appointment_time']}
+        💰 Rent: ${apartment_data['price']:,}/month
+        📋 Status: {appointment_data['status'].title()}
+
+        Please arrive on time and bring a valid ID. If you need to reschedule or cancel, please contact us as soon as possible.
+
+        Contact Information:
+        📞 Phone: (646) 408-8048
+        ✉️ Email: chris@places.nyc
+
+        Looking forward to showing you this amazing no-fee apartment!
+
+        Best regards,
+        Chris Trunell
+        Places No Fee
+        """
+
+        # Email content for broker
+        broker_subject = f"New Apartment Viewing Scheduled - {apartment_data['title']}"
+        broker_body = f"""
+        New apartment viewing scheduled:
+
+        🏠 Property: {apartment_data['title']}
+        📍 Address: {apartment_data['address']}
+        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+        🕐 Time: {appointment_data['appointment_time']}
+
+        Visitor Information:
+        👤 Name: {appointment_data['visitor_name']}
+        📞 Phone: {appointment_data['visitor_phone']}
+        ✉️ Email: {appointment_data['visitor_email']}
+        📝 Notes: {appointment_data.get('notes', 'No additional notes')}
+
+        Appointment ID: {appointment_data['id']}
+        Status: {appointment_data['status'].title()}
+        """
+
+        # Send email to visitor
+        await send_email(
+            to_email=appointment_data['visitor_email'],
+            subject=visitor_subject,
+            body=visitor_body
+        )
+
+        # Send email to broker
+        await send_email(
+            to_email='chris@places.nyc',
+            subject=broker_subject,
+            body=broker_body
+        )
+        
+    except Exception as e:
+        print(f"Failed to send appointment confirmation email: {e}")
+
+async def send_email(to_email: str, subject: str, body: str):
+    """Send email using SMTP"""
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = EMAIL_USER
+        msg['To'] = to_email
+        msg['Subject'] = subject
+        
+        msg.attach(MIMEText(body, 'plain'))
+        
+        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+        if EMAIL_USE_TLS:
+            server.starttls()
+        server.login(EMAIL_USER, EMAIL_PASSWORD)
+        text = msg.as_string()
+        server.sendmail(EMAIL_USER, to_email, text)
+        server.quit()
+        
+        print(f"Email sent successfully to {to_email}")
+    except Exception as e:
+        print(f"Failed to send email to {to_email}: {e}")
+        raise
+
 # Appointment Routes
 @api_router.post("/appointments", response_model=Appointment)
 async def create_appointment(appointment_data: AppointmentCreate):
