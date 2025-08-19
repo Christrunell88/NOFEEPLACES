@@ -2466,7 +2466,7 @@ const ApartmentComparison = ({ apartments, onClose }) => {
           {apartments.map((apartment, index) => (
             <div key={apartment.id} className="text-center">
               <div className="relative mb-4">
-                <img
+                <LazyImage
                   src={apartment.images?.[0] || apartment.image}
                   alt={apartment.title}
                   className="w-full h-48 object-cover rounded-lg"
