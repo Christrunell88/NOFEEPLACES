@@ -795,6 +795,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     visitor_phone: '',
     notes: ''
   });
+  const toast = useToast && useToast();
 
   // Generate next 30 days for date selection
   const generateDateOptions = () => {
