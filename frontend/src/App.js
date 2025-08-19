@@ -112,7 +112,9 @@ const {
   ApartmentDetails,
   SavedSearches,
   AdminAppointments,
-  AIChatbot
+  AIChatbot,
+  FavoritesPage,
+  ApartmentComparison
 } = Components;
 
 const Home = () => {
