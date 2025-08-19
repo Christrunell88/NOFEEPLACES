@@ -6,44 +6,37 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // Header Component with New PLACES Branding
+// Enhanced Header Component with luxury styling
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
 
   return (
-    <header className="bg-slate-800 shadow-sm border-b border-slate-700">
+    <header className="sticky top-0 z-50 glass-dark border-b border-white/10">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-3">
-            {/* PLACES Logo - Using exact provided image */}
-            <div className="w-12 h-12 flex items-center justify-center">
-              {/* Using SVG version of your logo design */}
+          <div className="flex items-center space-x-3 animate-slide-right">
+            <div className="w-12 h-12 flex items-center justify-center animate-float">
               <svg 
                 viewBox="0 0 200 200" 
-                className="w-10 h-10 text-amber-100" 
+                className="w-10 h-10 text-amber-400 shadow-glow" 
                 fill="currentColor" 
                 stroke="currentColor" 
                 strokeWidth="4"
               >
-                {/* Hand holding buildings - based on your logo */}
                 <g transform="translate(50, 80)">
-                  {/* Hand outline */}
                   <path 
                     d="M20 40 Q15 35 15 30 Q15 25 20 20 Q25 15 35 15 Q40 15 45 20 Q50 15 60 15 Q70 15 75 20 Q80 25 80 30 Q80 35 75 40 L75 50 Q70 60 60 60 L40 60 Q30 60 25 50 Z" 
                     fill="none" 
                     stroke="currentColor" 
                     strokeWidth="6"
                   />
-                  
-                  {/* House */}
                   <g transform="translate(25, -25)">
                     <path d="M10 25 L20 15 L30 25" fill="none" strokeWidth="4"/>
                     <rect x="15" y="20" width="10" height="15" fill="none" strokeWidth="4"/>
                     <rect x="18" y="28" width="4" height="7" fill="none" strokeWidth="2"/>
                   </g>
-                  
-                  {/* Building */}
                   <g transform="translate(45, -35)">
                     <rect x="0" y="10" width="15" height="25" fill="none" strokeWidth="4"/>
                     <rect x="3" y="13" width="2" height="2" fill="currentColor"/>
@@ -63,36 +56,37 @@ const Header = () => {
               </svg>
             </div>
             <div className="text-left">
-              <div className="text-xl font-bold text-amber-100 leading-tight">Places</div>
-              <div className="text-xs text-amber-200 leading-tight -mt-1">No Fee</div>
+              <div className="text-2xl font-bold heading-luxury leading-tight">Places</div>
+              <div className="text-xs text-accent font-semibold leading-tight -mt-1">No Fee</div>
             </div>
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-amber-100 hover:text-amber-200 transition-colors">Browse Apartments</a>
-            <a href="#" className="text-amber-100 hover:text-amber-200 transition-colors">Neighborhoods</a>
-            <a href="#" className="text-amber-100 hover:text-amber-200 transition-colors">No Fee Guide</a>
+            <a href="/" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Browse Apartments</a>
+            <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Neighborhoods</a>
+            <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">No Fee Guide</a>
+            <a href="/admin/appointments" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Admin</a>
             
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
-                <a href="/dashboard" className="text-amber-100 hover:text-amber-200 transition-colors">Dashboard</a>
-                <a href="/saved-searches" className="text-amber-100 hover:text-amber-200 transition-colors">Saved Searches</a>
+                <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Dashboard</a>
+                <a href="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Saved Searches</a>
                 <div className="relative group">
-                  <button className="flex items-center space-x-2 text-amber-100 hover:text-amber-200 transition-colors">
-                    <div className="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center">
+                  <button className="flex items-center space-x-2 text-slate-200 hover:text-amber-400 transition-colors">
+                    <div className="w-8 h-8 gradient-gold rounded-full flex items-center justify-center animate-glow">
                       <span className="text-slate-800 text-sm font-semibold">
                         {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                       </span>
                     </div>
-                    <span>{user?.full_name?.split(' ')[0] || 'User'}</span>
+                    <span className="font-medium">{user?.full_name?.split(' ')[0] || 'User'}</span>
                   </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg border border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="py-1">
-                      <a href="/dashboard" className="block px-4 py-2 text-sm text-amber-100 hover:bg-slate-700">Dashboard</a>
-                      <a href="/saved-searches" className="block px-4 py-2 text-sm text-amber-100 hover:bg-slate-700">Saved Searches</a>
+                  <div className="absolute right-0 mt-2 w-48 glass-dark rounded-lg shadow-luxury border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                    <div className="py-2">
+                      <a href="/dashboard" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Dashboard</a>
+                      <a href="/saved-searches" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Saved Searches</a>
                       <button 
                         onClick={logout}
-                        className="block w-full text-left px-4 py-2 text-sm text-amber-100 hover:bg-slate-700"
+                        className="block w-full text-left px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors"
                       >
                         Sign Out
                       </button>
@@ -103,7 +97,7 @@ const Header = () => {
             ) : (
               <button 
                 onClick={() => setShowAuthModal(true)}
-                className="bg-amber-600 text-slate-800 px-4 py-2 rounded-lg hover:bg-amber-500 transition-colors font-semibold"
+                className="btn-primary text-sm px-6 py-2 animate-glow"
               >
                 Sign In
               </button>
@@ -111,7 +105,7 @@ const Header = () => {
           </nav>
 
           <button 
-            className="md:hidden text-amber-100"
+            className="md:hidden text-slate-200 hover:text-amber-400 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,17 +115,18 @@ const Header = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-700">
+          <div className="md:hidden py-4 border-t border-white/10 glass-dark animate-slide-up">
             <div className="flex flex-col space-y-4">
-              <a href="/" className="text-amber-100 hover:text-amber-200 transition-colors">Browse Apartments</a>
-              <a href="#" className="text-amber-100 hover:text-amber-200 transition-colors">Neighborhoods</a>
+              <a href="/" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Browse Apartments</a>
+              <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Neighborhoods</a>
+              <a href="/admin/appointments" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Admin</a>
               {isAuthenticated ? (
                 <>
-                  <a href="/dashboard" className="text-amber-100 hover:text-amber-200 transition-colors">Dashboard</a>
-                  <a href="/saved-searches" className="text-amber-100 hover:text-amber-200 transition-colors">Saved Searches</a>
+                  <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Dashboard</a>
+                  <a href="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Saved Searches</a>
                   <button 
                     onClick={logout}
-                    className="text-left text-amber-100 hover:text-amber-200 transition-colors"
+                    className="text-left text-slate-200 hover:text-amber-400 transition-colors font-medium"
                   >
                     Sign Out
                   </button>
@@ -139,7 +134,7 @@ const Header = () => {
               ) : (
                 <button 
                   onClick={() => setShowAuthModal(true)}
-                  className="bg-amber-600 text-slate-800 px-4 py-2 rounded-lg hover:bg-amber-500 transition-colors w-fit font-semibold"
+                  className="btn-primary text-sm px-6 py-2 w-fit"
                 >
                   Sign In
                 </button>
