@@ -375,6 +375,15 @@ const ApartmentCard = ({ apartment }) => {
     window.location.href = `/apartment/${apartment.id}`;
   };
 
+  const handleCallAgent = (e) => {
+    e.stopPropagation();
+    if (apartment.contact_info?.phone) {
+      window.open(`tel:${apartment.contact_info.phone}`, '_self');
+    } else {
+      alert('Contact information not available');
+    }
+  };
+
   return (
     <div className="card-luxury hover:shadow-glow transition-all duration-500 cursor-pointer group animate-slide-up">
       <div className="relative overflow-hidden rounded-2xl mb-4" onClick={handleViewDetails}>
