@@ -310,6 +310,16 @@ const DashboardPage = () => {
   return <UserDashboard user={user} />;
 };
 
+const SavedSearchesPage = () => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+  
+  return <SavedSearches />;
+};
+
 const FavoritesPageRoute = () => {
   const { isAuthenticated } = useAuth();
   
