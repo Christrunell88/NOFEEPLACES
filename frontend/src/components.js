@@ -561,6 +561,7 @@ const ApartmentCard = ({ apartment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
 
   // Check if apartment is in user's favorites on mount
   useEffect(() => {
