@@ -2788,5 +2788,9 @@ export const Components = {
   AIChatbot,
   FavoritesPage,
   ApartmentComparison,
-  LazyImage
+  LazyImage,
+  ErrorBoundary,
+  Toast,
+  ToastProvider,
+  useToast
 };
