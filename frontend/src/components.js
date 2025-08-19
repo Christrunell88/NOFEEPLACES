@@ -63,9 +63,6 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Browse Apartments</a>
-            <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Neighborhoods</a>
-            <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">No Fee Guide</a>
-            <a href="/admin/appointments" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Admin</a>
             
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
