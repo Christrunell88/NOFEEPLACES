@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the EasyRent.NYC backend API with comprehensive testing including authentication, apartment listings, user features, database verification, and data scraping functionality."
+user_problem_statement: "Test the EasyRent.NYC backend API with comprehensive testing including authentication, apartment listings, user features, database verification, and data scraping functionality. NEW REQUEST: Test the addition of 10 new affordable apartment listings in the $3,200-$3,800 price range targeting young professionals and budget-conscious renters."
 
 backend:
   - task: "User Authentication System"
