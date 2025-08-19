@@ -2760,7 +2760,7 @@ const ApartmentComparison = ({ apartments, onClose }) => {
             {apartments.map((apartment) => (
               <button
                 key={apartment.id}
-                onClick={() => window.location.href = `/apartment/${apartment.id}`}
+                onClick={() => navigate(`/apartment/${apartment.id}`)}
                 className="btn-primary px-6 py-3 hover-lift"
               >
                 View {apartment.title.split(' ')[0]} Details
