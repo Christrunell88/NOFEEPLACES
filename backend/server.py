@@ -1833,6 +1833,105 @@ async def get_available_slots(
     available_slots = [slot for slot in all_slots if slot not in booked_times]
     
     return {"available_slots": available_slots}
+
+# Chat Routes
+@api_router.post("/chat")
+async def chat_with_ai(request: ChatRequest):
+    try:
+        # Generate session ID if not provided
+        session_id = request.session_id or str(uuid.uuid4())
+        
+        # Get apartment context if apartment_id is provided
+        apartment_context = ""
+        if request.apartment_id:
+            apartment = await db.apartments.find_one({"id": request.apartment_id})
+            if apartment:
+                apartment_context = f"""
+Current apartment context:
+- Title: {apartment['title']}
+- Address: {apartment['address']}
+- Price: ${apartment['price']}/month
+- Bedrooms: {apartment['bedrooms']} {'Studio' if apartment['bedrooms'] == 0 else 'bedroom(s)'}
+- Bathrooms: {apartment['bathrooms']}
+- Square feet: {apartment['sqft']}
+- Neighborhood: {apartment['neighborhood']}, {apartment['borough']}
+- Amenities: {', '.join(apartment.get('amenities', []))}
+- Contact: {apartment['contact_info']['broker']} at {apartment['contact_info']['phone']} or {apartment['contact_info']['email']}
+"""
+
+        # Create system message for real estate assistant
+        system_message = f"""You are a helpful AI assistant for NoFeePlaces.com, a premium no-fee apartment rental platform in NYC. 
+
+Your role is to help potential tenants with leasing questions about our luxury apartments across Manhattan, Brooklyn, and Queens. 
+
+Key Information:
+- We specialize in NO BROKER FEE apartments
+- All our properties have on-site leasing offices with owner-paid commissions
+- We have 53+ luxury apartments ranging from $2,600-$14,895/month
+- Contact person: Chris Trunell at (646) 408-8048 or chris@places.nyc
+- Users can schedule viewings directly through our website calendar
+
+Common Questions & Answers:
+- Documents needed: Photo ID, proof of income (3 recent pay stubs or employment letter), bank statements, references
+- Application process: Submit application online, income verification, background check, lease signing
+- Guarantors: Yes, we accept guarantors with 80x monthly rent annual income
+- Pets: Most buildings are pet-friendly with additional deposit
+- Move-in costs: First month, security deposit, broker fee is WAIVED
+- Viewing availability: 10 AM to 7 PM daily through our booking system
+
+Be conversational, helpful, and professional. Always encourage users to contact Chris Trunell for specific questions or to schedule viewings.
+
+{apartment_context}"""
+
+        # Initialize LLM chat
+        api_key = os.environ.get('EMERGENT_LLM_KEY')
+        if not api_key:
+            raise HTTPException(status_code=500, detail="AI service not configured")
+            
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=session_id,
+            system_message=system_message
+        ).with_model("openai", "gpt-4o-mini")
+
+        # Create user message
+        user_message = UserMessage(text=request.message)
+        
+        # Get AI response
+        ai_response = await chat.send_message(user_message)
+        
+        # Save chat message to database
+        chat_message = ChatMessage(
+            session_id=session_id,
+            message=request.message,
+            response=ai_response,
+            apartment_context=request.apartment_id
+        )
+        
+        await db.chat_messages.insert_one(chat_message.dict())
+        
+        return {
+            "response": ai_response,
+            "session_id": session_id,
+            "message_id": chat_message.id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Chat service error: {str(e)}")
+
+@api_router.get("/chat/history/{session_id}")
+async def get_chat_history(session_id: str):
+    try:
+        messages = await db.chat_messages.find(
+            {"session_id": session_id}
+        ).sort("created_at", 1).to_list(length=50)
+        
+        return [ChatMessage(**msg) for msg in messages]
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve chat history: {str(e)}")
+
+# User Favorites Routes
 @api_router.post("/users/favorites/{apartment_id}")
 async def add_favorite(apartment_id: str, current_user: User = Depends(get_current_user)):
     # Check if apartment exists
