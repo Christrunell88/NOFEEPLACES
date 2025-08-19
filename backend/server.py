@@ -35,6 +35,13 @@ JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-change-this-in-produc
 JWT_ALGORITHM = 'HS256'
 JWT_EXPIRATION_HOURS = 24
 
+# Email Configuration
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USER = os.environ.get('EMAIL_USER', 'chris@places.nyc')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
+
 app = FastAPI(title="NoFeePlaces.com API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer()
