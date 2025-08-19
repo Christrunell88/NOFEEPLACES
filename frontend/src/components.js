@@ -384,6 +384,30 @@ const ApartmentCard = ({ apartment }) => {
     }
   };
 
+  const handleEmailAgent = (e) => {
+    e.stopPropagation();
+    if (apartment.contact_info?.email) {
+      const subject = encodeURIComponent(`Inquiry about ${apartment.title} - ${apartment.address}`);
+      const body = encodeURIComponent(`Hi Chris,
+
+I'm interested in learning more about this apartment:
+
+${apartment.title}
+${apartment.address}
+${apartment.bedrooms === 0 ? 'Studio' : apartment.bedrooms + ' bedroom'}, ${apartment.bathrooms} bathroom
+$${apartment.price?.toLocaleString()}/month
+${apartment.sqft} sq ft
+
+Please let me know about availability and when I can schedule a viewing.
+
+Thank you!`);
+      
+      window.open(`mailto:${apartment.contact_info.email}?subject=${subject}&body=${body}`, '_self');
+    } else {
+      alert('Contact information not available');
+    }
+  };
+
   return (
     <div className="card-luxury hover:shadow-glow transition-all duration-500 cursor-pointer group animate-slide-up">
       <div className="relative overflow-hidden rounded-2xl mb-4" onClick={handleViewDetails}>
