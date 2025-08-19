@@ -875,10 +875,21 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
         onBookingComplete(response.data);
       }
 
-      alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+      // Show success notification
+      if (toast) {
+        toast.success('Appointment booked successfully! You will receive a confirmation email shortly.');
+      } else {
+        alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+      }
     } catch (error) {
       const errorMessage = error.response?.data?.detail || 'Failed to book appointment';
-      alert(errorMessage);
+      
+      // Show error notification
+      if (toast) {
+        toast.error(errorMessage);
+      } else {
+        alert(errorMessage);
+      }
     } finally {
       setLoading(false);
     }
