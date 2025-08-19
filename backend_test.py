@@ -634,6 +634,174 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Standardized Contact Info", False, f"Exception: {str(e)}")
     
+    def test_new_luxury_listings_verification(self):
+        """Test the addition of 15 new luxury apartment listings as requested"""
+        print("\n=== Testing New 15 Luxury Apartment Listings ===")
+        try:
+            # First, trigger the scraping endpoint to add new listings
+            print("Triggering scraping endpoint to add new luxury listings...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("New Luxury Listings Scraping", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("New Luxury Listings Scraping", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait a moment for database updates
+            time.sleep(2)
+            
+            # Get all apartments to verify total count is now 45 (30 previous + 15 new)
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            total_count = len(apartments)
+            
+            # Verify we now have 45 apartments (30 previous + 15 new)
+            if total_count == 45:
+                self.log_result("Total Apartment Count (45)", True, f"Confirmed 45 total apartments (30 previous + 15 new)")
+            else:
+                self.log_result("Total Apartment Count (45)", False, f"Expected 45 apartments, found {total_count}")
+            
+            # Verify price range spans from $3,495 to $14,895
+            prices = [apt.get("price", 0) for apt in apartments if apt.get("price")]
+            if prices:
+                min_price = min(prices)
+                max_price = max(prices)
+                
+                if min_price == 3495 and max_price == 14895:
+                    self.log_result("Price Range Verification", True, f"Price range confirmed: ${min_price:,} to ${max_price:,}")
+                else:
+                    self.log_result("Price Range Verification", False, f"Expected $3,495-$14,895, found ${min_price:,}-${max_price:,}")
+            else:
+                self.log_result("Price Range Verification", False, "No price data found")
+            
+            # Check for specific new buildings mentioned in the request
+            expected_buildings = {
+                "The Orchard LIC": "2748 Jackson Ave",
+                "SoMa Financial District": "25 Water St", 
+                "The Bold LIC": "2701 Jackson Ave",
+                "Alloy Block Brooklyn": "505 State St",
+                "Essex Crossing LES": "145 Clinton St",
+                "One Manhattan Square": "252 South St",
+                "520 Fifth Avenue": "520 Fifth Ave"
+            }
+            
+            found_buildings = {}
+            for apt in apartments:
+                title = apt.get("title", "")
+                address = apt.get("address", "")
+                
+                for building_name, expected_address in expected_buildings.items():
+                    if building_name.lower() in title.lower() or expected_address in address:
+                        found_buildings[building_name] = {
+                            "title": title,
+                            "address": address,
+                            "price": apt.get("price"),
+                            "bedrooms": apt.get("bedrooms")
+                        }
+            
+            if len(found_buildings) >= 7:  # All 7 specific buildings mentioned
+                self.log_result("Specific Buildings Check", True, f"Found {len(found_buildings)}/7 expected buildings")
+                for building, details in found_buildings.items():
+                    print(f"   ✓ {building}: {details['title']} - ${details['price']:,}")
+            else:
+                self.log_result("Specific Buildings Check", False, f"Only found {len(found_buildings)}/7 expected buildings")
+                for building in found_buildings:
+                    print(f"   ✓ Found: {building}")
+                missing = set(expected_buildings.keys()) - set(found_buildings.keys())
+                for building in missing:
+                    print(f"   ✗ Missing: {building}")
+            
+            # Verify all new listings have proper amenities
+            apartments_without_amenities = []
+            for apt in apartments:
+                amenities = apt.get("amenities", [])
+                if not amenities or len(amenities) == 0:
+                    apartments_without_amenities.append(apt.get("title", "Unknown"))
+            
+            if len(apartments_without_amenities) == 0:
+                self.log_result("Amenities Check", True, f"All {total_count} apartments have amenities")
+            else:
+                self.log_result("Amenities Check", False, f"{len(apartments_without_amenities)} apartments missing amenities")
+            
+            # Verify all listings have proper images
+            apartments_without_images = []
+            apartments_with_proper_images = 0
+            
+            for apt in apartments:
+                images = apt.get("images", [])
+                title = apt.get("title", "Unknown")
+                
+                if not images or len(images) == 0:
+                    apartments_without_images.append(title)
+                else:
+                    # Check if images are from proper sources
+                    has_quality_images = any("unsplash.com" in img or "pexels.com" in img for img in images)
+                    if has_quality_images:
+                        apartments_with_proper_images += 1
+            
+            if len(apartments_without_images) == 0:
+                self.log_result("Images Check", True, f"All {total_count} apartments have images")
+            else:
+                self.log_result("Images Check", False, f"{len(apartments_without_images)} apartments missing images")
+            
+            # Verify all listings have proper contact info (leasing offices with owner-paid commissions)
+            contact_issues = []
+            expected_phone = "(646) 408-8048"
+            expected_email = "info@places.nyc"
+            expected_broker = "Chris Trunell"
+            
+            for apt in apartments:
+                contact_info = apt.get("contact_info", {})
+                title = apt.get("title", "Unknown")
+                
+                if contact_info.get("phone") != expected_phone:
+                    contact_issues.append(f"Wrong phone in '{title}': {contact_info.get('phone')}")
+                if contact_info.get("email") != expected_email:
+                    contact_issues.append(f"Wrong email in '{title}': {contact_info.get('email')}")
+                if contact_info.get("broker") != expected_broker:
+                    contact_issues.append(f"Wrong broker in '{title}': {contact_info.get('broker')}")
+            
+            if not contact_issues:
+                self.log_result("Contact Info Check", True, f"All {total_count} listings have proper leasing office contact info")
+            else:
+                self.log_result("Contact Info Check", False, f"Contact info issues found: {len(contact_issues)} problems")
+            
+            # Check for luxury features in new listings
+            luxury_features = ["Pool", "Spa", "Concierge", "Doorman", "Fitness Center", "Rooftop", "Golf Simulator", "Theater"]
+            luxury_apartments = []
+            
+            for apt in apartments:
+                amenities = apt.get("amenities", [])
+                luxury_count = sum(1 for amenity in amenities if any(feature.lower() in amenity.lower() for feature in luxury_features))
+                if luxury_count >= 3:  # At least 3 luxury features
+                    luxury_apartments.append({
+                        "title": apt.get("title"),
+                        "price": apt.get("price"),
+                        "luxury_amenities": luxury_count
+                    })
+            
+            if len(luxury_apartments) >= 15:  # At least 15 luxury apartments
+                self.log_result("Luxury Features Check", True, f"Found {len(luxury_apartments)} apartments with luxury amenities")
+            else:
+                self.log_result("Luxury Features Check", False, f"Only found {len(luxury_apartments)} apartments with luxury amenities")
+            
+            # Print summary of findings
+            print(f"\n   📊 SUMMARY:")
+            print(f"   • Total Apartments: {total_count}")
+            print(f"   • Price Range: ${min(prices):,} - ${max(prices):,}")
+            print(f"   • Buildings Found: {len(found_buildings)}/7 expected")
+            print(f"   • Luxury Apartments: {len(luxury_apartments)}")
+            print(f"   • Apartments with Images: {total_count - len(apartments_without_images)}")
+            print(f"   • Apartments with Amenities: {total_count - len(apartments_without_amenities)}")
+            
+        except Exception as e:
+            self.log_result("New Luxury Listings Verification", False, f"Exception: {str(e)}")
+
     def test_scraping_and_image_updates(self):
         """Test scraping endpoint and verify image updates for specific apartments"""
         print("\n=== Testing Scraping and Image Updates ===")
