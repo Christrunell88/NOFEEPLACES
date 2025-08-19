@@ -115,8 +115,6 @@ const Header = () => {
           <div className="md:hidden py-4 border-t border-white/10 glass-dark animate-slide-up">
             <div className="flex flex-col space-y-4">
               <a href="/" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Browse Apartments</a>
-              <a href="#" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Neighborhoods</a>
-              <a href="/admin/appointments" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Admin</a>
               {isAuthenticated ? (
                 <>
                   <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Dashboard</a>
