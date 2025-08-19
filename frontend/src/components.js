@@ -65,9 +65,9 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
-                <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Dashboard</a>
-                <a href="/favorites" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Favorites</a>
-                <a href="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Saved Searches</a>
+                <Link to="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Dashboard</Link>
+                <Link to="/favorites" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Favorites</Link>
+                <Link to="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Saved Searches</Link>
                 <div className="relative group">
                   <button className="flex items-center space-x-2 text-slate-200 hover:text-amber-400 transition-colors">
                     <div className="w-8 h-8 gradient-gold rounded-full flex items-center justify-center animate-glow">
@@ -79,9 +79,9 @@ const Header = () => {
                   </button>
                   <div className="absolute right-0 mt-2 w-48 glass-dark rounded-lg shadow-luxury border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                     <div className="py-2">
-                      <a href="/dashboard" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Dashboard</a>
-                      <a href="/favorites" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Favorites</a>
-                      <a href="/saved-searches" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Saved Searches</a>
+                      <Link to="/dashboard" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Dashboard</Link>
+                      <Link to="/favorites" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Favorites</Link>
+                      <Link to="/saved-searches" className="block px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors">Saved Searches</Link>
                       <button 
                         onClick={logout}
                         className="block w-full text-left px-4 py-2 text-sm text-slate-200 hover:text-amber-400 hover:bg-white/5 transition-colors"
