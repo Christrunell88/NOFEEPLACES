@@ -111,7 +111,8 @@ const {
   UserDashboard,
   ApartmentDetails,
   SavedSearches,
-  AdminAppointments
+  AdminAppointments,
+  AIChatbot
 } = Components;
 
 const Home = () => {
