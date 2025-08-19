@@ -634,6 +634,126 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Standardized Contact Info", False, f"Exception: {str(e)}")
     
+    def test_scraping_and_image_updates(self):
+        """Test scraping endpoint and verify image updates for specific apartments"""
+        print("\n=== Testing Scraping and Image Updates ===")
+        try:
+            # First, trigger the scraping endpoint
+            print("Triggering scraping endpoint...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("Scraping Trigger", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("Scraping Trigger", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait a moment for database updates
+            time.sleep(2)
+            
+            # Get all apartments to verify count and images
+            response = self.make_request("GET", "/apartments", {"limit": 50})
+            if response.status_code != 200:
+                self.log_result("Post-Scraping Apartment Count", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            total_count = len(apartments)
+            
+            # Verify we still have 30 apartments
+            if total_count == 30:
+                self.log_result("Post-Scraping Apartment Count", True, f"Confirmed 30 apartments exist after scraping")
+            else:
+                self.log_result("Post-Scraping Apartment Count", False, f"Expected 30 apartments, found {total_count}")
+            
+            # Check specific apartment: 201 E 69th St (should show modern apartment interior)
+            fairfax_apt = None
+            for apt in apartments:
+                if "201 E 69th St" in apt.get("address", ""):
+                    fairfax_apt = apt
+                    break
+            
+            if fairfax_apt:
+                images = fairfax_apt.get("images", [])
+                if images and len(images) > 0:
+                    # Check if images are proper apartment interiors (not house exteriors)
+                    has_proper_images = any("pexels" in img or "unsplash" in img for img in images)
+                    if has_proper_images:
+                        self.log_result("201 E 69th St Images", True, f"Found proper apartment interior images: {len(images)} images")
+                    else:
+                        self.log_result("201 E 69th St Images", False, f"Images may not be proper apartment interiors: {images[:2]}")
+                else:
+                    self.log_result("201 E 69th St Images", False, "No images found for 201 E 69th St apartment")
+            else:
+                self.log_result("201 E 69th St Images", False, "Could not find 201 E 69th St apartment")
+            
+            # Check lower-priced apartments like $3,895 studio
+            studio_apartments = [apt for apt in apartments if apt.get("price", 0) == 3895 and apt.get("bedrooms", -1) == 0]
+            if studio_apartments:
+                studio_apt = studio_apartments[0]
+                studio_images = studio_apt.get("images", [])
+                if studio_images and len(studio_images) > 0:
+                    self.log_result("$3,895 Studio Images", True, f"Studio apartment has {len(studio_images)} images: {studio_apt.get('title', 'Unknown')}")
+                else:
+                    self.log_result("$3,895 Studio Images", False, f"Studio apartment missing images: {studio_apt.get('title', 'Unknown')}")
+            else:
+                # Look for any studio around that price range
+                studios_near_price = [apt for apt in apartments if apt.get("bedrooms", -1) == 0 and 3800 <= apt.get("price", 0) <= 4000]
+                if studios_near_price:
+                    studio_apt = studios_near_price[0]
+                    studio_images = studio_apt.get("images", [])
+                    if studio_images:
+                        self.log_result("Lower-Priced Studio Images", True, f"Found studio with images: ${studio_apt.get('price')} - {len(studio_images)} images")
+                    else:
+                        self.log_result("Lower-Priced Studio Images", False, f"Studio missing images: ${studio_apt.get('price')}")
+                else:
+                    self.log_result("Lower-Priced Studio Images", False, "Could not find $3,895 studio or similar priced studio")
+            
+            # Verify all apartments have proper images
+            apartments_without_images = []
+            apartments_with_proper_images = 0
+            
+            for apt in apartments:
+                images = apt.get("images", [])
+                title = apt.get("title", "Unknown")
+                
+                if not images or len(images) == 0:
+                    apartments_without_images.append(title)
+                else:
+                    # Check if images are from proper sources (not generic/wrong images)
+                    has_quality_images = any("unsplash.com" in img or "pexels.com" in img for img in images)
+                    if has_quality_images:
+                        apartments_with_proper_images += 1
+            
+            if len(apartments_without_images) == 0:
+                self.log_result("All Apartments Have Images", True, f"All {total_count} apartments have images")
+            else:
+                self.log_result("All Apartments Have Images", False, f"{len(apartments_without_images)} apartments missing images")
+            
+            # Check image quality across all apartments
+            if apartments_with_proper_images >= 25:  # At least 25 out of 30 should have quality images
+                self.log_result("Image Quality Check", True, f"{apartments_with_proper_images} apartments have proper quality images")
+            else:
+                self.log_result("Image Quality Check", False, f"Only {apartments_with_proper_images} apartments have proper quality images")
+            
+            # Print summary of image sources for debugging
+            image_sources = {}
+            for apt in apartments:
+                images = apt.get("images", [])
+                for img in images:
+                    if "unsplash.com" in img:
+                        image_sources["unsplash"] = image_sources.get("unsplash", 0) + 1
+                    elif "pexels.com" in img:
+                        image_sources["pexels"] = image_sources.get("pexels", 0) + 1
+                    else:
+                        domain = img.split("/")[2] if len(img.split("/")) > 2 else "unknown"
+                        image_sources[domain] = image_sources.get(domain, 0) + 1
+            
+            print(f"   Image sources breakdown: {image_sources}")
+            
+        except Exception as e:
+            self.log_result("Scraping and Image Updates", False, f"Exception: {str(e)}")
+    
     def test_appointment_creation(self):
         """Test appointment creation endpoint"""
         print("\n=== Testing Appointment Creation ===")
