@@ -916,6 +916,356 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.6823,
             "longitude": -73.9682,
             "source_url": "https://tfc.com"
+        },
+        {
+            "title": "Luxury 1BR at The Orchard LIC - No Fee",
+            "address": "2748 Jackson Ave, Long Island City, NY 11101",
+            "price": 4695,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 720,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Modern 1-bedroom at the prestigious Orchard tower. Floor-to-ceiling windows with Manhattan skyline views. Premium amenities including pool, fitness center, and rooftop terrace. Direct leasing office.",
+            "amenities": ["Concierge", "Pool", "Fitness Center", "Rooftop Terrace", "Dog Park", "Game Room", "Basketball Court", "Theater"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=14),
+            "latitude": 40.7505,
+            "longitude": -73.9320,
+            "source_url": "https://theorchardlic.com"
+        },
+        {
+            "title": "Spacious 2BR at SoMa Financial District - No Fee",
+            "address": "25 Water St, New York, NY 10004",
+            "price": 7295,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1250,
+            "neighborhood": "Financial District",
+            "borough": "Manhattan",
+            "description": "Stunning 2-bedroom in NYC's largest office-to-residential conversion. Features premium finishes, spa-like amenities, and convenient FiDi location. Leasing office on-site with owner-paid commission.",
+            "amenities": ["Spa", "Sauna", "Indoor Pool", "Outdoor Pool", "Fitness Center", "Game Lounge", "Atrium", "Storage"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=21),
+            "latitude": 40.7047,
+            "longitude": -74.0089,
+            "source_url": "https://25waterstreet.com"
+        },
+        {
+            "title": "Modern Studio at The Bold LIC - No Fee",
+            "address": "2701 Jackson Ave, Long Island City, NY 11101",
+            "price": 3495,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 520,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Contemporary studio in The Bold with climbing wall gym and golf simulator. Brand new building with direct leasing office. Owner pays all commissions. Perfect for young professionals.",
+            "amenities": ["Climbing Wall", "Golf Simulator", "Coworking Lounge", "Party Room", "Media Room", "Clubhouse", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=8),
+            "latitude": 40.7511,
+            "longitude": -73.9315,
+            "source_url": "https://theboldlic.com"
+        },
+        {
+            "title": "Premium 3BR at Alloy Block Brooklyn - No Fee",
+            "address": "505 State St, Brooklyn, NY 11217",
+            "price": 12895,
+            "bedrooms": 3,
+            "bathrooms": 2.5,
+            "sqft": 1650,
+            "neighborhood": "Boerum Hill",
+            "borough": "Brooklyn",
+            "description": "Luxury 3-bedroom in NYC's first all-electric skyscraper. Features roof terrace with swimming pool, yoga room, and screening room. Direct leasing office with owner-paid commissions.",
+            "amenities": ["Swimming Pool", "Roof Terrace", "Yoga Room", "Screening Room", "Children's Playroom", "Fitness Center", "Lounge"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1600607688969-a5bfcd646154"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=35),
+            "latitude": 40.6890,
+            "longitude": -73.9758,
+            "source_url": "https://alloyblock.com"
+        },
+        {
+            "title": "Sophisticated 1BR at Sven LIC - No Fee",
+            "address": "29-59 Northern Blvd, Long Island City, NY 11101",
+            "price": 4295,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 680,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Designer 1-bedroom at Sven tower with East River views. Features private library, co-working space, and children's playroom. Direct leasing with owner-paid commission structure.",
+            "amenities": ["Outdoor Pool", "Private Library", "Co-working Space", "Children's Playroom", "Fitness Center", "Concierge", "Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=16),
+            "latitude": 40.7525,
+            "longitude": -73.9291,
+            "source_url": "https://svenlic.com"
+        },
+        {
+            "title": "Elegant 2BR at Essex Crossing LES - No Fee",
+            "address": "145 Clinton St, New York, NY 10002",
+            "price": 8195,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1180,
+            "neighborhood": "Lower East Side",
+            "borough": "Manhattan",
+            "description": "Beautiful 2-bedroom in the vibrant Essex Crossing development. Walking distance to food hall, cinema, and museum. On-site leasing office with owner-paid commission policy.",
+            "amenities": ["Rooftop Terrace", "Fitness Center", "Lounge", "Storage", "Bike Storage", "Pet Friendly", "Doorman"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=28),
+            "latitude": 40.7184,
+            "longitude": -73.9857,
+            "source_url": "https://essexcrossing.com"
+        },
+        {
+            "title": "Luxury Studio at One Manhattan Square - No Fee",
+            "address": "252 South St, New York, NY 10002",
+            "price": 5495,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 610,
+            "neighborhood": "Two Bridges",
+            "borough": "Manhattan",
+            "description": "Exquisite studio at the prestigious One Manhattan Square. Features world-class amenities including spa, multiple pools, and panoramic city views. Direct leasing office available.",
+            "amenities": ["Spa", "Multiple Pools", "Tennis Court", "Golf Simulator", "Rock Climbing Wall", "Bowling Alley", "Movie Theater", "Concierge"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=19),
+            "latitude": 40.7103,
+            "longitude": -73.9969,
+            "source_url": "https://onemanhattansquare.com"
+        },
+        {
+            "title": "Modern 1BR at 520 Fifth Avenue - No Fee",
+            "address": "520 Fifth Ave, New York, NY 10036",
+            "price": 6895,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Midtown",
+            "borough": "Manhattan",
+            "description": "Sophisticated 1-bedroom in the iconic 520 Fifth Avenue supertall. Premium finishes with Central Park proximity. Leasing office handles all rentals with owner-paid commissions.",
+            "amenities": ["Doorman", "Fitness Center", "Rooftop Terrace", "Storage", "Concierge", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.unsplash.com/photo-1714153542012-6164546db890"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=42),
+            "latitude": 40.7527,
+            "longitude": -73.9772,
+            "source_url": "https://520fifthavenue.com"
+        },
+        {
+            "title": "Spacious 2BR at 262 Fifth Avenue - No Fee",
+            "address": "262 Fifth Ave, New York, NY 10001",
+            "price": 9595,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1320,
+            "neighborhood": "NoMad",
+            "borough": "Manhattan",
+            "description": "Luxury 2-bedroom in the prestigious 262 Fifth Avenue with Madison Square Park views. Premium amenities and finishes throughout. Direct leasing with owner-paid broker fees.",
+            "amenities": ["Doorman", "Fitness Center", "Roof Deck", "Storage", "Laundry", "Pet Friendly", "Concierge"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=33),
+            "latitude": 40.7447,
+            "longitude": -73.9883,
+            "source_url": "https://262fifthavenue.com"
+        },
+        {
+            "title": "Premium 1BR at 55 Broad Street - No Fee",
+            "address": "55 Broad St, New York, NY 10004",
+            "price": 5895,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 780,
+            "neighborhood": "Financial District",
+            "borough": "Manhattan",
+            "description": "Contemporary 1-bedroom in converted office building in FiDi. Features modern amenities and convenient location near South Street Seaport. On-site leasing office.",
+            "amenities": ["Fitness Center", "Lounge", "Rooftop Terrace", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=26),
+            "latitude": 40.7056,
+            "longitude": -74.0097,
+            "source_url": "https://55broadstreet.com"
+        },
+        {
+            "title": "Luxury Studio at 10 Nevins Brooklyn - No Fee",
+            "address": "10 Nevins St, Brooklyn, NY 11217",
+            "price": 4195,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 580,
+            "neighborhood": "Fort Greene",
+            "borough": "Brooklyn",
+            "description": "Designer studio at 10 Nevins with premium finishes and Brooklyn Bridge views. Features rooftop terrace and fitness center. Direct leasing office with no broker fees.",
+            "amenities": ["Rooftop Terrace", "Fitness Center", "Doorman", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=11),
+            "latitude": 40.6895,
+            "longitude": -73.9808,
+            "source_url": "https://10nevins.com"
+        },
+        {
+            "title": "Modern 2BR at The Harrison LIC - No Fee",
+            "address": "26-26 Jackson Ave, Long Island City, NY 11101",
+            "price": 6795,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1100,
+            "neighborhood": "Long Island City",
+            "borough": "Queens",
+            "description": "Contemporary 2-bedroom at The Harrison with Manhattan skyline views. Features premium amenities and waterfront location. Leasing office on-site with owner-paid commissions.",
+            "amenities": ["Waterfront", "Fitness Center", "Rooftop Deck", "Concierge", "Storage", "Pet Spa", "Parking"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=38),
+            "latitude": 40.7501,
+            "longitude": -73.9445,
+            "source_url": "https://theharrisonlic.com"
+        },
+        {
+            "title": "Elegant 1BR at Brooklyn Point - No Fee",
+            "address": "138 Willoughby St, Brooklyn, NY 11201",
+            "price": 5595,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 720,
+            "neighborhood": "Downtown Brooklyn",
+            "borough": "Brooklyn",
+            "description": "Sophisticated 1-bedroom at Brooklyn Point with Manhattan views. Features infinity pool, spa, and premium amenities. Direct leasing office with owner-paid broker fees.",
+            "amenities": ["Infinity Pool", "Spa", "Fitness Center", "Rooftop Garden", "Doorman", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=24),
+            "latitude": 40.6934,
+            "longitude": -73.9857,
+            "source_url": "https://brooklynpoint.com"
+        },
+        {
+            "title": "Premium Studio at The Dime Brooklyn - No Fee",
+            "address": "85 Flatbush Ave, Brooklyn, NY 11217",
+            "price": 3795,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 490,
+            "neighborhood": "Downtown Brooklyn",
+            "borough": "Brooklyn",
+            "description": "Chic studio at The Dime with industrial design and modern amenities. Features rooftop terrace and fitness center. On-site leasing office handles all rentals directly.",
+            "amenities": ["Rooftop Terrace", "Fitness Center", "Lounge", "Storage", "Laundry", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "info@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=9),
+            "latitude": 40.6914,
+            "longitude": -73.9826,
+            "source_url": "https://thedimebrooklyn.com"
         }
     ]
     
