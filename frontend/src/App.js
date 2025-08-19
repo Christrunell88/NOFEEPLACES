@@ -335,6 +335,9 @@ function App() {
             <Route path="/saved-searches" element={<SavedSearchesPage />} />
             <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
           </Routes>
+          
+          {/* AI Chatbot - Available on all pages */}
+          <AIChatbot />
         </BrowserRouter>
       </div>
     </AuthProvider>
