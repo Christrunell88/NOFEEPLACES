@@ -2251,14 +2251,14 @@ Current apartment context:
 """
 
         # Create system message for real estate assistant
-        system_message = f"""You are a helpful AI assistant for NoFeePlaces.com, a premium no-fee apartment rental platform in NYC. 
+        system_message = request.context or f"""You are a helpful AI assistant for NoFeePlaces.com, a premium no-fee apartment rental platform in NYC. 
 
 Your role is to help potential tenants with leasing questions about our luxury apartments across Manhattan, Brooklyn, and Queens. 
 
 Key Information:
 - We specialize in NO BROKER FEE apartments
 - All our properties have on-site leasing offices with owner-paid commissions
-- We have 53+ luxury apartments ranging from $2,600-$14,895/month
+- We have 64+ luxury apartments ranging from $2,600-$14,895/month
 - Contact person: Chris Trunell at (646) 408-8048 or chris@places.nyc
 - Users can schedule viewings directly through our website calendar
 
