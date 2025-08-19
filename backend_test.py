@@ -1786,6 +1786,9 @@ class NoFeePlacesAPITester:
         # NEW: Test 10 affordable apartment listings verification (as requested)
         self.test_new_affordable_listings_verification()
         
+        # NEW: Test 12 luxury no-fee apartments in $2,800-$4,200 range (as requested)
+        self.test_new_luxury_no_fee_apartments_verification()
+        
         # Scraping and image update verification (as requested)
         self.test_scraping_and_image_updates()
         
