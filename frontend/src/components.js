@@ -2505,12 +2505,12 @@ const FavoritesPage = () => {
             </div>
             <h3 className="text-lg font-semibold text-slate-800 mb-2">No favorites yet</h3>
             <p className="text-slate-600 mb-4">Start browsing apartments to save your favorites!</p>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="btn-primary px-6 py-3 inline-block"
             >
               Browse Apartments
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
