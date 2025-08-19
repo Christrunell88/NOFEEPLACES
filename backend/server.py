@@ -1505,6 +1505,281 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.7424,
             "longitude": -73.8821,
             "source_url": "https://elmhurstgardens.com"
+        },
+        {
+            "title": "Luxury Studio at The Paris UWS - No Fee",
+            "address": "752 West End Ave, New York, NY 10025",
+            "price": 3795,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 480,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Elegant studio at The Paris with modern finishes and 24-hour attended lobby. Near Riverside Park and Central Park. Direct leasing office with owner-paid commission structure.",
+            "amenities": ["24-Hour Lobby", "Fitness Center", "Children's Playroom", "Rooftop Terrace", "Storage", "Laundry"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=16),
+            "latitude": 40.7905,
+            "longitude": -73.9729,
+            "source_url": "https://stellarmanagement.com/theparisnewyork"
+        },
+        {
+            "title": "Modern 1BR at Ocean Financial District - No Fee",
+            "address": "1 West St, New York, NY 10004",
+            "price": 3150,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 720,
+            "neighborhood": "Financial District",
+            "borough": "Manhattan",
+            "description": "Contemporary 1-bedroom at Ocean with fitness center and outdoor plaza. Features modern appliances and stunning harbor views. Leasing office offers no-fee rentals with owner-paid commissions.",
+            "amenities": ["Harbor Views", "Fitness Center", "Outdoor Plaza", "Laundry on Every Floor", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=21),
+            "latitude": 40.7047,
+            "longitude": -74.0149,
+            "source_url": "https://oceanapartments.com"
+        },
+        {
+            "title": "Spacious 1BR at PLG Linden - No Fee",
+            "address": "123 Linden Blvd, Brooklyn, NY 11226",
+            "price": 2894,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 680,
+            "neighborhood": "Prospect-Lefferts Gardens",
+            "borough": "Brooklyn",
+            "description": "Beautiful 1-bedroom at PLG with indoor pool and golf simulator. Premium amenities and rooftop lounge with neighborhood views. Direct leasing with no broker fees.",
+            "amenities": ["Indoor Pool", "Golf Simulator", "Fitness Center", "Rooftop Lounge", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.6596,
+            "longitude": -73.9442,
+            "source_url": "https://plglinden.com"
+        },
+        {
+            "title": "Designer 1BR at The Caroline Chelsea - No Fee",
+            "address": "60 W 23rd St, New York, NY 10010",
+            "price": 4195,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Chelsea",
+            "borough": "Manhattan",
+            "description": "Luxury 1-bedroom at The Caroline with open living spaces and high-end appliances. Features concierge service, game room, and landscaped roof deck. Owner-paid commission structure.",
+            "amenities": ["Concierge", "Game Room", "Children's Playroom", "Courtyard", "Landscaped Roof Deck", "Fitness Center"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=29),
+            "latitude": 40.7433,
+            "longitude": -73.9927,
+            "source_url": "https://thecarolinechelsea.com"
+        },
+        {
+            "title": "Modern 2BR at 60 Water DUMBO - No Fee",
+            "address": "60 Water St, Brooklyn, NY 11201",
+            "price": 4195,
+            "bedrooms": 2,
+            "bathrooms": 1.0,
+            "sqft": 950,
+            "neighborhood": "DUMBO",
+            "borough": "Brooklyn",
+            "description": "Luxury 2-bedroom in DUMBO with floor-to-ceiling windows and panoramic views. Features high-end appliances, fitness center, and 24-hour concierge. Direct leasing office available.",
+            "amenities": ["Panoramic Views", "24-Hour Concierge", "Fitness Center", "Roof Deck", "High-End Appliances", "Storage"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=33),
+            "latitude": 40.7022,
+            "longitude": -73.9897,
+            "source_url": "https://60waterstreet.com"
+        },
+        {
+            "title": "Bright Studio at 420 West 42nd - No Fee",
+            "address": "420 W 42nd St, New York, NY 10036",
+            "price": 3495,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 520,
+            "neighborhood": "Midtown West",
+            "borough": "Manhattan",
+            "description": "Renovated studio in Midtown West with modern finishes and landscaped outdoor space. Features fitness center and central laundry. Owner-managed building with no broker fees.",
+            "amenities": ["Landscaped Outdoor Space", "Fitness Center", "Central Laundry", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7589,
+            "longitude": -73.9891,
+            "source_url": "https://420west42nd.com"
+        },
+        {
+            "title": "Spacious 1BR at 50 Clarkson PLG - No Fee",
+            "address": "50 Clarkson Ave, Brooklyn, NY 11226",
+            "price": 2935,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 700,
+            "neighborhood": "Prospect-Lefferts Gardens",
+            "borough": "Brooklyn",
+            "description": "Modern 1-bedroom in Prospect-Lefferts Gardens with co-working space and media lounge. Features fitness center and rooftop courtyard. Direct leasing with owner-paid commissions.",
+            "amenities": ["Co-working Space", "Media Lounge", "Fitness Center", "Rooftop Courtyard", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.6547,
+            "longitude": -73.9514,
+            "source_url": "https://50clarksonave.com"
+        },
+        {
+            "title": "Luxury 1BR at Glenwood Manhattan - No Fee",
+            "address": "301 E 22nd St, New York, NY 10010",
+            "price": 3895,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 680,
+            "neighborhood": "Gramercy",
+            "borough": "Manhattan",
+            "description": "Premium 1-bedroom by Glenwood Management with resident lounge and landscaped gardens. Features fitness center and 24-hour doorman. No-fee luxury living in prime location.",
+            "amenities": ["24-Hour Doorman", "Resident Lounge", "Landscaped Gardens", "Fitness Center", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=19),
+            "latitude": 40.7371,
+            "longitude": -73.9834,
+            "source_url": "https://glenwoodnyc.com"
+        },
+        {
+            "title": "Modern 1BR at 1134 Fulton Bed-Stuy - No Fee",
+            "address": "1134 Fulton St, Brooklyn, NY 11238",
+            "price": 3163,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 650,
+            "neighborhood": "Bedford-Stuyvesant",
+            "borough": "Brooklyn",
+            "description": "Contemporary 1-bedroom in Bedford-Stuyvesant with pet spa and media room. Features fitness center, courtyard, and roof deck. Leasing office offers owner-paid commission structure.",
+            "amenities": ["Pet Spa", "Media Room", "Fitness Center", "Package Room", "Courtyard", "Roof Deck"],
+            "images": [
+                "https://images.unsplash.com/photo-1714153542012-6164546db890",
+                "https://images.unsplash.com/photo-1632119580908-ae947d4c7691"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=31),
+            "latitude": 40.6815,
+            "longitude": -73.9442,
+            "source_url": "https://1134fulton.com"
+        },
+        {
+            "title": "Designer 2BR at 100 Ainslie Williamsburg - No Fee",
+            "address": "100 Ainslie St, Brooklyn, NY 11249",
+            "price": 3926,
+            "bedrooms": 2,
+            "bathrooms": 1.0,
+            "sqft": 900,
+            "neighborhood": "East Williamsburg",
+            "borough": "Brooklyn",
+            "description": "Stylish 2-bedroom in East Williamsburg with furnished roof deck and bike room. Features fitness center and laundry facilities. Direct leasing office with no broker fees.",
+            "amenities": ["Furnished Roof Deck", "Bike Room", "Fitness Center", "Laundry Room", "Storage", "Pet Friendly"],
+            "images": [
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1714153542012-6164546db890"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=38),
+            "latitude": 40.7151,
+            "longitude": -73.9486,
+            "source_url": "https://100ainslie.com"
+        },
+        {
+            "title": "Elegant 1BR at Flatbush Beverley - No Fee",
+            "address": "2201 Beverley Rd, Brooklyn, NY 11226",
+            "price": 2950,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 620,
+            "neighborhood": "Flatbush",
+            "borough": "Brooklyn",
+            "description": "Beautiful 1-bedroom in Flatbush with updated kitchen and hardwood floors. Features laundry facilities and storage options. Owner-managed building with direct leasing office.",
+            "amenities": ["Updated Kitchen", "Hardwood Floors", "Laundry Facilities", "Storage", "Pet Friendly", "Garden Access"],
+            "images": [
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec",
+                "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg"
+            ],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "chris@places.nyc",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=14),
+            "latitude": 40.6418,
+            "longitude": -73.9614,
+            "source_url": "https://flatbushbeverley.com"
         }
     ]
     
