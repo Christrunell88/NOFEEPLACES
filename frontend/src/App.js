@@ -339,23 +339,27 @@ const AdminAppointmentsPage = () => {
 
 function App() {
   return (
-    <AuthProvider>
-      <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/favorites" element={<FavoritesPageRoute />} />
-            <Route path="/saved-searches" element={<SavedSearchesPage />} />
-            <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
-          </Routes>
-          
-          {/* AI Chatbot - Available on all pages */}
-          <AIChatbot />
-        </BrowserRouter>
-      </div>
-    </AuthProvider>
+    <ErrorBoundary>
+      <ToastProvider>
+        <AuthProvider>
+          <div className="App">
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/favorites" element={<FavoritesPageRoute />} />
+                <Route path="/saved-searches" element={<SavedSearchesPage />} />
+                <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
+              </Routes>
+              
+              {/* AI Chatbot - Available on all pages */}
+              <AIChatbot />
+            </BrowserRouter>
+          </div>
+        </AuthProvider>
+      </ToastProvider>
+    </ErrorBoundary>
   );
 }
 
