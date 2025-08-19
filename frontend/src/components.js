@@ -2335,7 +2335,7 @@ const FavoritesPage = () => {
 
                   {/* Apartment Card Content */}
                   <div className="relative overflow-hidden rounded-2xl mb-4">
-                    <img
+                    <LazyImage
                       src={apartment.images?.[0] || apartment.image}
                       alt={apartment.title}
                       className="w-full h-56 object-cover"
