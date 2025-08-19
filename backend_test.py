@@ -1419,6 +1419,164 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("New Affordable Listings Verification", False, f"Exception: {str(e)}")
     
+    def test_email_update_verification(self):
+        """Test that all apartments now have chris@places.nyc email addresses"""
+        print("\n=== Testing Email Update to chris@places.nyc ===")
+        try:
+            # First, trigger the scraping endpoint to update the database
+            print("Triggering scraping endpoint to update email addresses...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("Email Update Scraping", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("Email Update Scraping", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait a moment for database updates
+            time.sleep(2)
+            
+            # Get all apartments to verify email addresses
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Email Update Verification", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            total_count = len(apartments)
+            
+            # Verify we have 53 apartments as expected
+            if total_count == 53:
+                self.log_result("Total Apartment Count (53)", True, f"Confirmed 53 total apartments")
+            else:
+                self.log_result("Total Apartment Count (53)", False, f"Expected 53 apartments, found {total_count}")
+            
+            # Check that all apartments have the updated email: chris@places.nyc
+            email_issues = []
+            phone_issues = []
+            broker_issues = []
+            
+            expected_email = "chris@places.nyc"
+            expected_phone = "(646) 408-8048"
+            expected_broker = "Chris Trunell"
+            
+            apartments_with_correct_email = 0
+            apartments_with_correct_phone = 0
+            apartments_with_correct_broker = 0
+            
+            for apt in apartments:
+                contact_info = apt.get("contact_info", {})
+                title = apt.get("title", "Unknown")
+                
+                # Check email
+                if contact_info.get("email") == expected_email:
+                    apartments_with_correct_email += 1
+                else:
+                    email_issues.append(f"Wrong email in '{title}': {contact_info.get('email')}")
+                
+                # Check phone
+                if contact_info.get("phone") == expected_phone:
+                    apartments_with_correct_phone += 1
+                else:
+                    phone_issues.append(f"Wrong phone in '{title}': {contact_info.get('phone')}")
+                
+                # Check broker
+                if contact_info.get("broker") == expected_broker:
+                    apartments_with_correct_broker += 1
+                else:
+                    broker_issues.append(f"Wrong broker in '{title}': {contact_info.get('broker')}")
+            
+            # Verify email addresses
+            if apartments_with_correct_email == total_count:
+                self.log_result("All Apartments Have chris@places.nyc Email", True, f"All {total_count} apartments have correct email: {expected_email}")
+            else:
+                self.log_result("All Apartments Have chris@places.nyc Email", False, f"Only {apartments_with_correct_email}/{total_count} apartments have correct email")
+                # Print first few issues for debugging
+                for issue in email_issues[:3]:
+                    print(f"   • {issue}")
+            
+            # Verify phone numbers
+            if apartments_with_correct_phone == total_count:
+                self.log_result("All Apartments Have Correct Phone", True, f"All {total_count} apartments have correct phone: {expected_phone}")
+            else:
+                self.log_result("All Apartments Have Correct Phone", False, f"Only {apartments_with_correct_phone}/{total_count} apartments have correct phone")
+            
+            # Verify broker names
+            if apartments_with_correct_broker == total_count:
+                self.log_result("All Apartments Have Correct Broker", True, f"All {total_count} apartments have correct broker: {expected_broker}")
+            else:
+                self.log_result("All Apartments Have Correct Broker", False, f"Only {apartments_with_correct_broker}/{total_count} apartments have correct broker")
+            
+            # Test specific API endpoints return correct email addresses
+            # Test individual apartment details
+            if apartments:
+                sample_apartment = apartments[0]
+                apartment_id = sample_apartment.get("id")
+                
+                if apartment_id:
+                    response = self.make_request("GET", f"/apartments/{apartment_id}")
+                    if response.status_code == 200:
+                        apt_data = response.json()
+                        contact_info = apt_data.get("contact_info", {})
+                        if contact_info.get("email") == expected_email:
+                            self.log_result("Individual Apartment API Email", True, f"Individual apartment API returns correct email: {expected_email}")
+                        else:
+                            self.log_result("Individual Apartment API Email", False, f"Individual apartment API returns wrong email: {contact_info.get('email')}")
+                    else:
+                        self.log_result("Individual Apartment API Email", False, f"Failed to get individual apartment: {response.status_code}")
+            
+            # Test apartment search returns correct email addresses
+            response = self.make_request("GET", "/apartments", {"search_term": "luxury"})
+            if response.status_code == 200:
+                search_results = response.json()
+                if search_results:
+                    search_email_correct = all(
+                        apt.get("contact_info", {}).get("email") == expected_email 
+                        for apt in search_results
+                    )
+                    if search_email_correct:
+                        self.log_result("Search Results Email", True, f"All {len(search_results)} search results have correct email")
+                    else:
+                        self.log_result("Search Results Email", False, f"Some search results have incorrect email")
+                else:
+                    self.log_result("Search Results Email", True, "No search results to verify (acceptable)")
+            else:
+                self.log_result("Search Results Email", False, f"Search API failed: {response.status_code}")
+            
+            # Test filtered results return correct email addresses
+            response = self.make_request("GET", "/apartments", {"borough": "Manhattan", "limit": 10})
+            if response.status_code == 200:
+                filtered_results = response.json()
+                if filtered_results:
+                    filter_email_correct = all(
+                        apt.get("contact_info", {}).get("email") == expected_email 
+                        for apt in filtered_results
+                    )
+                    if filter_email_correct:
+                        self.log_result("Filtered Results Email", True, f"All {len(filtered_results)} filtered results have correct email")
+                    else:
+                        self.log_result("Filtered Results Email", False, f"Some filtered results have incorrect email")
+                else:
+                    self.log_result("Filtered Results Email", True, "No filtered results to verify (acceptable)")
+            else:
+                self.log_result("Filtered Results Email", False, f"Filter API failed: {response.status_code}")
+            
+            # Print summary
+            print(f"\n   📊 EMAIL UPDATE SUMMARY:")
+            print(f"   • Total Apartments: {total_count}")
+            print(f"   • Apartments with chris@places.nyc: {apartments_with_correct_email}")
+            print(f"   • Apartments with correct phone: {apartments_with_correct_phone}")
+            print(f"   • Apartments with correct broker: {apartments_with_correct_broker}")
+            print(f"   • Email Update Success Rate: {(apartments_with_correct_email/total_count)*100:.1f}%")
+            
+            if apartments_with_correct_email == total_count:
+                print(f"   ✅ SUCCESS: All apartment inquiries will now go to chris@places.nyc")
+            else:
+                print(f"   ⚠️  WARNING: {total_count - apartments_with_correct_email} apartments still have old email addresses")
+            
+        except Exception as e:
+            self.log_result("Email Update Verification", False, f"Exception: {str(e)}")
+    
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
