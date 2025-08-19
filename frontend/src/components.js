@@ -62,8 +62,6 @@ const Header = () => {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Browse Apartments</a>
-            
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium hover-lift">Dashboard</a>
