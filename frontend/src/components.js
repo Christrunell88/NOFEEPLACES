@@ -601,7 +601,8 @@ const ApartmentCard = ({ apartment }) => {
   };
 
   const handleViewDetails = () => {
-    window.location.href = `/apartment/${apartment.id}`;
+    const navigate = useNavigate();
+    navigate(`/apartment/${apartment.id}`);
   };
 
   const handleCallAgent = (e) => {
