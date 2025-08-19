@@ -193,30 +193,6 @@ const Hero = ({ searchStats }) => {
           </div>
         </div>
       </div>
-      
-      {/* Enhanced floating stats with glassmorphism */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl mx-auto px-4">
-        <div className="glass rounded-2xl p-6 shadow-luxury animate-float">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div className="group hover-lift">
-              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">
-                {searchStats?.total_apartments || '30'}+
-              </div>
-              <div className="text-sm text-slate-300 font-medium">Premium No-Fee Apartments</div>
-            </div>
-            <div className="group hover-lift">
-              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">100%</div>
-              <div className="text-sm text-slate-300 font-medium">Verified Luxury Listings</div>
-            </div>
-            <div className="group hover-lift">
-              <div className="text-3xl font-bold gradient-text mb-2 animate-glow">
-                ${searchStats?.price_stats?.avg_price ? Math.round(searchStats.price_stats.avg_price / 1000) + 'K' : '5K'}
-              </div>
-              <div className="text-sm text-slate-300 font-medium">Average Annual Savings</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
