@@ -2172,4 +2172,5 @@ class NoFeePlacesAPITester:
 
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
-    results = tester.run_all_tests()
+    # Run enhanced features tests as requested in the review
+    results = tester.run_enhanced_features_tests()
