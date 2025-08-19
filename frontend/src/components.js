@@ -2150,43 +2150,73 @@ const Footer = () => {
   );
 };
 
-// AI Chatbot Component
-const AIChatbot = ({ apartmentId = null }) => {
+// Enhanced AI Chatbot Component with Context Awareness
+const AIChatbot = ({ apartmentId = null, apartment = null }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
-
+  const [apartmentContext, setApartmentContext] = useState(null);
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
   useEffect(() => {
-    scrollToBottom();
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [messages]);
+
+  // Fetch apartment details for context if apartmentId is provided
+  useEffect(() => {
+    const fetchApartmentContext = async () => {
+      if (apartmentId && !apartment) {
+        try {
+          const response = await axios.get(`${API}/apartments/${apartmentId}`);
+          setApartmentContext(response.data);
+        } catch (error) {
+          console.error('Failed to fetch apartment context:', error);
+        }
+      } else if (apartment) {
+        setApartmentContext(apartment);
+      }
+    };
+
+    fetchApartmentContext();
+  }, [apartmentId, apartment]);
 
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
 
-    const userMessage = inputMessage;
+    const userMessage = inputMessage.trim();
     setInputMessage('');
-    setIsLoading(true);
 
     // Add user message to chat
-    setMessages(prev => [...prev, { type: 'user', content: userMessage, timestamp: new Date() }]);
+    setMessages(prev => [...prev, { 
+      type: 'user', 
+      content: userMessage, 
+      timestamp: new Date() 
+    }]);
+
+    setIsLoading(true);
 
     try {
+      // Create enhanced context for AI
+      let contextInfo = "You are an AI assistant for NoFeePlaces.com, a no-fee apartment rental platform in NYC. You help users with apartment searches, rental information, and scheduling viewings. ";
+      
+      if (apartmentContext) {
+        contextInfo += `\n\nCurrent apartment context: ${apartmentContext.title} at ${apartmentContext.address}, ${apartmentContext.bedrooms === 0 ? 'Studio' : apartmentContext.bedrooms + ' bedroom'} for $${apartmentContext.price}/month. Amenities: ${apartmentContext.amenities?.join(', ') || 'N/A'}. Contact: Chris Trunell at (646) 408-8048 or chris@places.nyc.`;
+      }
+      
+      contextInfo += "\n\nAlways be helpful, professional, and encouraging. If asked about specific apartments not in context, suggest they browse our full listings at nofeeplaces.com or contact Chris directly.";
+
       const response = await axios.post(`${API}/chat`, {
         message: userMessage,
         session_id: sessionId,
-        apartment_id: apartmentId
+        context: contextInfo
       });
 
-      // Set session ID from response
-      if (!sessionId) {
+      // Store session ID for conversation continuity
+      if (response.data.session_id && !sessionId) {
         setSessionId(response.data.session_id);
       }
 
@@ -2201,7 +2231,7 @@ const AIChatbot = ({ apartmentId = null }) => {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, { 
         type: 'ai', 
-        content: 'Sorry, I\'m having trouble connecting right now. Please try calling Chris at (646) 408-8048 for immediate assistance.', 
+        content: 'Sorry, I\'m having trouble connecting right now. Please try calling Chris at (646) 408-8048 for immediate assistance with your rental needs.', 
         timestamp: new Date() 
       }]);
     } finally {
@@ -2219,12 +2249,18 @@ const AIChatbot = ({ apartmentId = null }) => {
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen && messages.length === 0) {
-      // Add welcome message when first opened
+      // Add welcome message when first opened with apartment context
+      let welcomeMessage = "Hi! I'm your NoFeePlaces.com assistant. I can help with questions about our no-fee apartments, application process, and scheduling viewings.";
+      
+      if (apartmentContext) {
+        welcomeMessage = `Hi! I see you're looking at ${apartmentContext.title}. I'm here to help answer questions about this apartment and our no-fee rental process. What would you like to know?`;
+      } else {
+        welcomeMessage += " How can I assist you today?";
+      }
+      
       setMessages([{
         type: 'ai',
-        content: apartmentId 
-          ? "Hi! I'm here to help with questions about this apartment and our no-fee rentals. What would you like to know?"
-          : "Hi! I'm your NoFeePlaces.com assistant. I can help with questions about our no-fee apartments, application process, and scheduling viewings. How can I assist you today?",
+        content: welcomeMessage,
         timestamp: new Date()
       }]);
     }
