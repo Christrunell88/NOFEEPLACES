@@ -729,8 +729,8 @@ async def scrape_streeteasy_apartments():
             "description": "Sophisticated 2-bedroom residence on the prestigious Upper East Side. Features hardwood floors, marble bathrooms, and gourmet kitchen. Located near Central Park, museums, and fine dining establishments.",
             "amenities": ["Doorman", "Fitness Center", "Roof Garden", "Storage", "Laundry", "Pet Friendly"],
             "images": [
-                "https://images.unsplash.com/photo-1600607688969-a5bfcd646154",
-                "https://images.unsplash.com/photo-1600566752355-35792bedcfea"
+                "https://images.pexels.com/photos/9954175/pexels-photo-9954175.jpeg",
+                "https://images.unsplash.com/photo-1632830025328-cce71800b9ec"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
