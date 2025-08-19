@@ -170,7 +170,7 @@ const Hero = ({ searchStats }) => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-12 text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Discover thousands of <span className="text-accent font-semibold">broker fee-free</span> apartments across all five boroughs. 
+              Discover <span className="text-accent font-semibold">No Fee Apartments</span> across all five boroughs. 
               Save money and find your ideal home with the most trusted platform in NYC.
             </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
