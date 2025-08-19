@@ -237,6 +237,18 @@ backend:
           agent: "testing"
           comment: "NEW AFFORDABLE LISTINGS VERIFICATION COMPLETED: Successfully tested addition of 10 new affordable apartment listings in $3,200-$3,800 range with 93.0% success rate (66/71 tests passed). SCRAPING ENDPOINT WORKING: Successfully triggered POST /api/admin/scrape which populated database with affordable listings. SPECIFIC APARTMENTS CONFIRMED: Found 8/10 expected affordable apartments including Astoria Cove Queens ($3,295), Elmhurst Gardens ($3,295), Forest Hills Gardens ($3,395), Ridgewood Heights ($3,395), Crown Heights Modern ($3,595), Williamsburg Edge ($3,595), Greenpoint Loft ($3,695), Bed-Stuy Lofts ($3,795), and The Dime Brooklyn ($3,795). PRICE RANGE COVERAGE: Found 15 apartments in target $3,200-$3,800 range with excellent price distribution. DATA QUALITY VERIFIED: All 15 affordable apartments have proper amenities, NYC neighborhood locations (Queens, Brooklyn, Manhattan), and standardized no-fee contact info (Chris Trunell, (646) 408-8048, info@places.nyc). YOUNG PROFESSIONAL FEATURES: 14/15 apartments have amenities targeting young professionals (gym, rooftop, storage, laundry, pet-friendly). Total database now contains 53 apartments. Minor: Expected 54 total but found 53, indicating successful addition of affordable units to existing luxury inventory."
 
+  - task: "Email Update to chris@places.nyc"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "EMAIL UPDATE VERIFICATION COMPLETED: Successfully verified that all 53 apartments now have the updated email contact: chris@places.nyc. Triggered POST /api/admin/scrape endpoint which properly updated the database by clearing old records and inserting fresh data with correct email addresses. Confirmed that all contact info includes: Phone: (646) 408-8048, Email: chris@places.nyc (updated from info@places.nyc), Broker: Chris Trunell. Tested API endpoints (individual apartment details, search results, filtered results) and all return correct email addresses. Email update success rate: 100.0%. All apartment inquiries will now go to chris@places.nyc instead of the generic info email. Fixed scraping function to properly update existing data rather than just adding new records. Testing completed successfully with 8/8 email-related test cases passing."
+
 frontend:
   # Frontend testing not performed as per instructions
 
