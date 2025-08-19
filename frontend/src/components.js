@@ -1251,6 +1251,7 @@ const ApartmentDetails = ({ apartmentId }) => {
   const [apartment, setApartment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showContactModal, setShowContactModal] = useState(false);
 
   useEffect(() => {
     fetchApartmentDetails();
@@ -1264,6 +1265,44 @@ const ApartmentDetails = ({ apartmentId }) => {
       console.error('Failed to fetch apartment details:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleContactAgent = () => {
+    if (apartment?.contact_info?.phone) {
+      // Open phone dialer
+      window.open(`tel:${apartment.contact_info.phone}`, '_self');
+    } else {
+      setShowContactModal(true);
+    }
+  };
+
+  const handleScheduleTour = () => {
+    // Scroll to the calendar booking section
+    const calendarSection = document.getElementById('calendar-booking');
+    if (calendarSection) {
+      calendarSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleEmailContact = () => {
+    if (apartment?.contact_info?.email) {
+      const subject = encodeURIComponent(`Inquiry about ${apartment.title} - ${apartment.address}`);
+      const body = encodeURIComponent(`Hi ${apartment.contact_info.broker || 'there'},
+
+I'm interested in learning more about the apartment at ${apartment.address}. 
+
+Property Details:
+- ${apartment.title}
+- ${apartment.bedrooms === 0 ? 'Studio' : apartment.bedrooms + ' bedroom'}, ${apartment.bathrooms} bathroom
+- $${apartment.price?.toLocaleString()}/month
+- ${apartment.sqft} sq ft
+
+Please let me know about availability and when I can schedule a viewing.
+
+Thank you!`);
+      
+      window.open(`mailto:${apartment.contact_info.email}?subject=${subject}&body=${body}`, '_self');
     }
   };
 
