@@ -117,6 +117,7 @@ const Header = () => {
               {isAuthenticated ? (
                 <>
                   <a href="/dashboard" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Dashboard</a>
+                  <a href="/favorites" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Favorites</a>
                   <a href="/saved-searches" className="text-slate-200 hover:text-amber-400 transition-colors font-medium">Saved Searches</a>
                   <button 
                     onClick={logout}
