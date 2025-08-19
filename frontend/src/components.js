@@ -2576,5 +2576,6 @@ export const Components = {
   AdminAppointments,
   AIChatbot,
   FavoritesPage,
-  ApartmentComparison
+  ApartmentComparison,
+  LazyImage
 };
