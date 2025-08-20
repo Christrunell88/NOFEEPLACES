@@ -2135,6 +2135,11 @@ class NoFeePlacesAPITester:
         # Data scraping tests
         self.test_data_scraping()
         
+        # NEW: Related Rentals Scraping Tests (as requested in review)
+        self.test_related_rentals_scraping_integration()
+        self.test_related_rentals_integration_with_existing_system()
+        self.test_related_rentals_specific_price_points()
+        
         # NEW: Email Update Verification (as requested)
         self.test_email_update_verification()
         
