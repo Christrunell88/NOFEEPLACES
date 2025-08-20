@@ -152,7 +152,7 @@ const Home = () => {
       });
       
       params.append('page', currentPage);
-      params.append('limit', 50);
+      params.append('limit', 100);
 
       const response = await axios.get(`${API}/apartments?${params}`);
       setApartments(response.data);
