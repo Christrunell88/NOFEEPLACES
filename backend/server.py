@@ -2073,6 +2073,10 @@ async def scrape_rentals():
     streeteasy_apartments = await scrape_streeteasy_apartments()
     all_apartments.extend(streeteasy_apartments)
     
+    # Add Related Rentals apartments
+    relatedrentals_apartments = await scrape_relatedrentals_apartments()
+    all_apartments.extend(relatedrentals_apartments)
+    
     # Clear existing apartments to ensure fresh data with updated email addresses
     await db.apartments.delete_many({})
     
