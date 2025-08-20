@@ -102,7 +102,210 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the enhanced PLACES No Fee backend API with focus on the new user experience and performance improvements implemented: Enhanced Features to Test: 1. Favorites/Wishlist System, 2. Enhanced Calendar Booking with Email Confirmations, 3. Enhanced AI Chatbot with Context Awareness, 4. General API Health with 64 apartment listings"
+user_problem_statement: "Test the newly added Related Rentals scraping functionality for PLACES No Fee platform: 1. Related Rentals Scraping Integration, 2. Data Quality Verification, 3. Integration with Existing System, 4. Source Attribution"
+
+backend:
+  - task: "Related Rentals Scraping Integration"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "RELATED RENTALS SCRAPING INTEGRATION COMPLETED: All 19 test cases passed with 100% success rate. Successfully triggered POST /api/admin/scrape endpoint which populated database with 10 new Related Rentals apartments in the $3,800-$5,400 price range. SCRAPING ENDPOINT WORKING: Apartment count increased by exactly 10 as expected. SOURCE ATTRIBUTION VERIFIED: All 10 apartments have source_url = 'https://relatedrentals.com'. SPECIFIC PROPERTIES CONFIRMED: Found all 10/10 expected properties including The Tate Chelsea ($4,495), Abington House Hudson Yards ($4,495), The Westport Midtown ($4,650), Riverwalk Heights Roosevelt Island ($4,400), Related Hudson Point ($5,200), Related West Side ($5,100), Related Tribeca Park ($5,300), Related Chelsea Point ($3,950), Related Columbus Circle ($5,350), and Related Greenwich Village ($4,850). PRICE RANGE VERIFIED: All apartments within $3,950-$5,350 range (target $3,800-$5,400). NEIGHBORHOOD COVERAGE: Excellent coverage across 9 neighborhoods - Chelsea, Columbus Circle, Greenwich Village, Hell's Kitchen, Hudson Yards, Lincoln Square, Midtown West, Roosevelt Island, Tribeca. DATA QUALITY PERFECT: All apartments have proper amenities, images, contact info (Chris Trunell, (646) 408-8048, chris@places.nyc), and geographical coordinates. Total database now contains 74 apartments (64 existing + 10 Related Rentals)."
+
+  - task: "Related Rentals Integration with Existing System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "RELATED RENTALS INTEGRATION TESTING COMPLETED: All 6 integration test cases passed with 100% success rate. MIXED LISTINGS VERIFIED: GET /api/apartments returns both 10 Related Rentals + 64 other listings properly. FILTERING INTEGRATION: Neighborhood filter found 2 Related Rentals in Chelsea, price filter found 5 Related Rentals in $4K-$5K range, borough filtering works correctly. SEARCH FUNCTIONALITY: Search term 'luxury' includes 2 Related Rentals properties in results. APARTMENT DETAILS: Individual apartment details endpoint works perfectly for Related Rentals listings. STATISTICS INTEGRATION: Statistics endpoint properly includes Related Rentals data showing 74 total apartments. All existing system functionality seamlessly integrates with new Related Rentals properties."
+
+  - task: "Related Rentals Data Quality and Price Points"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "RELATED RENTALS DATA QUALITY VERIFICATION COMPLETED: All 4 data quality test cases passed with 100% success rate. SPECIFIC PRICE POINTS CONFIRMED: Found all 9/9 expected price points ($3,950, $4,400, $4,495, $4,650, $4,850, $5,100, $5,200, $5,300, $5,350) exactly matching review request specifications. PRICE DISTRIBUTION: All 10 apartments fall within target $3,800-$5,400 range. DATA COMPLETENESS: All apartments have required fields (title, address, price, bedrooms, bathrooms, sqft, neighborhood, borough, description, amenities, images, contact_info, latitude, longitude). CONTACT INFO STANDARDIZED: All apartments have proper contact information (Chris Trunell, (646) 408-8048, chris@places.nyc). AMENITIES AND IMAGES: All apartments have proper amenities and high-quality images populated. GEOGRAPHICAL DATA: All apartments have proper latitude/longitude coordinates for mapping functionality."
+
+  - task: "Enhanced Favorites/Wishlist System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "ENHANCED FAVORITES SYSTEM TESTING COMPLETED: All 6 test cases passed with 100% success rate. Successfully tested POST /api/users/favorites/{apartment_id} for adding apartments to favorites, DELETE /api/users/favorites/{apartment_id} for removing favorites, and GET /api/users/favorites for retrieving user's favorite apartments. Verified favorites persist across user sessions with proper authentication. All favorite apartments contain complete data including id, title, price, address, and neighborhood. Session persistence confirmed - favorites maintain state across multiple requests. Full CRUD operations working perfectly."
+
+  - task: "Enhanced Calendar Booking with Email Confirmations"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "ENHANCED CALENDAR BOOKING TESTING COMPLETED: All 6 test cases passed with 100% success rate. Successfully tested POST /api/appointments with enhanced visitor information capture (visitor_name, visitor_email, visitor_phone, notes). Business hours validation working correctly - properly rejects appointments before 10 AM and after 7 PM. Conflict detection prevents double bookings with 409 status code. All appointment data includes complete visitor information. Email confirmation system configured (logs show 'Email not configured, skipping email notification' - system ready for email service integration). Appointment creation triggers email confirmation process."
+
+  - task: "Enhanced AI Chatbot with Context Awareness"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "ENHANCED AI CHATBOT TESTING COMPLETED: All 4 test cases passed with 100% success rate. Successfully tested POST /api/chat with context parameter and apartment-specific context. AI responses are contextually relevant and apartment-specific when apartment_id is provided. Conversation continuity maintained with session_id parameter. AI properly handles different context types (apartment_details, apartment_search). Chat system includes comprehensive real estate knowledge base with NoFeePlaces.com specific information, contact details (Chris Trunell, (646) 408-8048, chris@places.nyc), and proper apartment data integration. Session management and message persistence working correctly."
+
+  - task: "General API Health and Data Consistency"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "GENERAL API HEALTH TESTING COMPLETED: All 6 test cases passed with 100% success rate. Confirmed 74 apartment listings (64 existing + 10 Related Rentals) with consistent data across all apartments. All apartments contain required fields (id, title, address, price, bedrooms, bathrooms, neighborhood, borough). Authentication system integrity verified - protected endpoints accessible with valid tokens, invalid tokens properly rejected with 401 status. Error handling improvements confirmed - invalid apartment IDs return 404, malformed request data returns 400/422. All existing apartment endpoints working correctly including filtering, search, and details retrieval."
+
+  - task: "User Authentication System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "All authentication endpoints working perfectly. User registration, login, JWT token validation, and user profile retrieval all pass. JWT tokens are properly validated and invalid tokens are correctly rejected."
+
+  - task: "Apartment Listings API"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "All apartment listing endpoints working correctly. Basic listing returns apartments, filtering by price/bedrooms/borough works, pagination is functional, search functionality works, and individual apartment details retrieval is successful. Confirmed 74 total apartments (64 existing + 10 Related Rentals) with consistent data quality."
+
+  - task: "Apartment Search and Statistics"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Search functionality with search_term parameter works correctly. Statistics endpoint returns proper data including total apartments count (74) and neighborhood/price statistics including Related Rentals data."
+
+  - task: "User Favorites Management"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Complete CRUD operations for favorites working. Users can add apartments to favorites, retrieve their favorites list, and remove apartments from favorites. All operations require proper authentication."
+
+  - task: "Saved Searches Functionality"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Full saved searches functionality implemented and working. Users can create saved searches with filters, retrieve their saved searches, and delete saved searches. All operations are properly authenticated."
+
+  - task: "Data Scraping System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Admin scraping endpoint working correctly. Successfully triggers apartment data collection including Related Rentals integration and returns appropriate response with count of apartments found (74 total)."
+
+  - task: "Database Integration"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "MongoDB integration working properly. Data persistence verified through all CRUD operations. User data, apartment data (including Related Rentals), favorites, and saved searches are all correctly stored and retrieved."
+
+  - task: "Appointment Scheduling System"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "Complete appointment scheduling system working perfectly. All 15 appointment-related test cases passed: appointment creation with proper validation, business hours enforcement (10 AM - 7 PM), conflict detection preventing double booking, available time slots retrieval, appointment status updates (pending/confirmed/completed/cancelled), comprehensive filtering by apartment/status/date range, and proper data validation. All required fields present and validated correctly."
+
+frontend:
+  # Frontend testing not performed as per instructions
+
+metadata:
+  created_by: "testing_agent"
+  version: "1.0"
+  test_sequence: 4
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Related Rentals Scraping Integration"
+    - "Related Rentals Integration with Existing System"
+    - "Related Rentals Data Quality and Price Points"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "testing"
+      message: "RELATED RENTALS SCRAPING FUNCTIONALITY TESTING COMPLETED: Comprehensive testing of newly added Related Rentals scraping functionality completed with 100% success rate (19/19 tests passed). SCRAPING INTEGRATION WORKING: Successfully triggered POST /api/admin/scrape endpoint which populated database with exactly 10 new Related Rentals apartments in the specified $3,800-$5,400 price range. All apartments have proper source attribution (https://relatedrentals.com). SPECIFIC PROPERTIES CONFIRMED: Found all expected properties including The Tate Chelsea, Abington House Hudson Yards, The Westport Midtown, and others with correct pricing ($4,495, $4,650, $5,200, $5,300, etc.). NEIGHBORHOOD COVERAGE EXCELLENT: All 9 expected neighborhoods covered (Chelsea, Hudson Yards, Midtown West, Roosevelt Island, Hell's Kitchen, Lincoln Square, Tribeca, Columbus Circle, Greenwich Village). DATA QUALITY PERFECT: All apartments have proper amenities, images, standardized contact info (Chris Trunell, (646) 408-8048, chris@places.nyc), and geographical coordinates. INTEGRATION SEAMLESS: Related Rentals apartments integrate perfectly with existing system - filtering, search, apartment details, and statistics all work correctly. Total database now contains 74 apartments (64 existing + 10 Related Rentals). All requirements from review request successfully implemented and tested."
 
 backend:
   - task: "Enhanced Favorites/Wishlist System"
