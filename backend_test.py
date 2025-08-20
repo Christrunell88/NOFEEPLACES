@@ -1419,6 +1419,344 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("New Affordable Listings Verification", False, f"Exception: {str(e)}")
     
+    def test_related_rentals_scraping_integration(self):
+        """Test Related Rentals scraping integration and data quality"""
+        print("\n=== Testing Related Rentals Scraping Integration ===")
+        try:
+            # Get initial apartment count
+            initial_response = self.make_request("GET", "/apartments", {"limit": 100})
+            if initial_response.status_code != 200:
+                self.log_result("Related Rentals Initial Count", False, f"Failed to get initial apartments: {initial_response.status_code}")
+                return
+            
+            initial_apartments = initial_response.json()
+            initial_count = len(initial_apartments)
+            
+            # Trigger scraping to add Related Rentals apartments
+            print("Triggering scraping endpoint to add Related Rentals apartments...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("Related Rentals Scraping Trigger", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("Related Rentals Scraping Trigger", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait for database updates
+            time.sleep(2)
+            
+            # Get updated apartment count
+            updated_response = self.make_request("GET", "/apartments", {"limit": 100})
+            if updated_response.status_code != 200:
+                self.log_result("Related Rentals Updated Count", False, f"Failed to get updated apartments: {updated_response.status_code}")
+                return
+            
+            updated_apartments = updated_response.json()
+            updated_count = len(updated_apartments)
+            
+            # Verify apartment count increased by 10 (Related Rentals apartments)
+            expected_increase = 10
+            actual_increase = updated_count - initial_count
+            
+            if actual_increase >= expected_increase:
+                self.log_result("Related Rentals Count Increase", True, f"Apartment count increased by {actual_increase} (expected {expected_increase})")
+            else:
+                self.log_result("Related Rentals Count Increase", False, f"Count increased by {actual_increase}, expected {expected_increase}")
+            
+            # Filter Related Rentals apartments
+            related_rentals_apartments = [
+                apt for apt in updated_apartments 
+                if apt.get("source_url") == "https://relatedrentals.com"
+            ]
+            
+            if len(related_rentals_apartments) >= 10:
+                self.log_result("Related Rentals Source Attribution", True, f"Found {len(related_rentals_apartments)} Related Rentals apartments")
+            else:
+                self.log_result("Related Rentals Source Attribution", False, f"Expected at least 10 Related Rentals apartments, found {len(related_rentals_apartments)}")
+            
+            # Verify price range ($3,800-$5,400)
+            price_range_valid = True
+            price_issues = []
+            
+            for apt in related_rentals_apartments:
+                price = apt.get("price", 0)
+                if price < 3800 or price > 5400:
+                    price_range_valid = False
+                    price_issues.append(f"{apt.get('title', 'Unknown')}: ${price}")
+            
+            if price_range_valid and related_rentals_apartments:
+                prices = [apt.get("price", 0) for apt in related_rentals_apartments]
+                min_price = min(prices)
+                max_price = max(prices)
+                self.log_result("Related Rentals Price Range", True, f"All apartments in $3,800-$5,400 range (${min_price}-${max_price})")
+            else:
+                self.log_result("Related Rentals Price Range", False, f"Price range issues: {'; '.join(price_issues[:3])}")
+            
+            # Check for specific Related Rentals properties
+            expected_properties = {
+                "The Tate Chelsea": "535 W 23rd St",
+                "Abington House": "515 W 29th St", 
+                "The Westport Midtown": "500 W 43rd St",
+                "Riverwalk Heights Roosevelt Island": "405 Main St",
+                "Related Hudson Point": "625 W 42nd St",
+                "Related West Side": "1865 Broadway",
+                "Related Tribeca Park": "225 Rector Pl",
+                "Related Chelsea Point": "515 W 18th St",
+                "Related Columbus Circle": "200 W 60th St",
+                "Related Greenwich Village": "85 4th Ave"
+            }
+            
+            found_properties = {}
+            for apt in related_rentals_apartments:
+                title = apt.get("title", "")
+                address = apt.get("address", "")
+                
+                for prop_name, expected_address in expected_properties.items():
+                    if prop_name.lower() in title.lower() or expected_address in address:
+                        found_properties[prop_name] = {
+                            "title": title,
+                            "address": address,
+                            "price": apt.get("price"),
+                            "neighborhood": apt.get("neighborhood")
+                        }
+            
+            if len(found_properties) >= 8:  # At least 8 of the 10 expected properties
+                self.log_result("Related Rentals Specific Properties", True, f"Found {len(found_properties)}/10 expected properties")
+                for prop, details in list(found_properties.items())[:3]:
+                    print(f"   ✓ {prop}: ${details['price']} in {details['neighborhood']}")
+            else:
+                self.log_result("Related Rentals Specific Properties", False, f"Only found {len(found_properties)}/10 expected properties")
+            
+            # Verify neighborhood coverage
+            expected_neighborhoods = {
+                "Chelsea", "Hudson Yards", "Midtown West", "Roosevelt Island", 
+                "Hell's Kitchen", "Lincoln Square", "Tribeca", "Columbus Circle", "Greenwich Village"
+            }
+            
+            found_neighborhoods = set()
+            for apt in related_rentals_apartments:
+                neighborhood = apt.get("neighborhood")
+                if neighborhood:
+                    found_neighborhoods.add(neighborhood)
+            
+            covered_neighborhoods = expected_neighborhoods.intersection(found_neighborhoods)
+            if len(covered_neighborhoods) >= 6:  # At least 6 of the 9 expected neighborhoods
+                self.log_result("Related Rentals Neighborhood Coverage", True, 
+                              f"Good coverage: {', '.join(sorted(covered_neighborhoods))}")
+            else:
+                self.log_result("Related Rentals Neighborhood Coverage", False, 
+                              f"Poor coverage. Found: {', '.join(sorted(covered_neighborhoods))}")
+            
+            # Verify data quality for Related Rentals apartments
+            data_quality_issues = []
+            required_fields = ["title", "address", "price", "bedrooms", "bathrooms", "sqft", 
+                             "neighborhood", "borough", "description", "amenities", "images", 
+                             "contact_info", "latitude", "longitude"]
+            
+            for apt in related_rentals_apartments:
+                for field in required_fields:
+                    if field not in apt or not apt[field]:
+                        if field == "bedrooms" and apt.get(field) == 0:  # Allow 0 bedrooms for studios
+                            continue
+                        data_quality_issues.append(f"Missing {field} in {apt.get('title', 'Unknown')}")
+                
+                # Verify contact info standardization
+                contact_info = apt.get("contact_info", {})
+                if contact_info.get("phone") != "(646) 408-8048":
+                    data_quality_issues.append(f"Wrong phone in {apt.get('title')}")
+                if contact_info.get("email") != "chris@places.nyc":
+                    data_quality_issues.append(f"Wrong email in {apt.get('title')}")
+                if contact_info.get("broker") != "Chris Trunell":
+                    data_quality_issues.append(f"Wrong broker in {apt.get('title')}")
+                
+                # Verify geographical data
+                if not apt.get("latitude") or not apt.get("longitude"):
+                    data_quality_issues.append(f"Missing coordinates in {apt.get('title')}")
+            
+            if not data_quality_issues:
+                self.log_result("Related Rentals Data Quality", True, f"All {len(related_rentals_apartments)} apartments have proper data quality")
+            else:
+                self.log_result("Related Rentals Data Quality", False, f"Data quality issues: {len(data_quality_issues)} problems")
+                for issue in data_quality_issues[:3]:
+                    print(f"   • {issue}")
+            
+            # Verify amenities are properly populated
+            apartments_without_amenities = []
+            for apt in related_rentals_apartments:
+                amenities = apt.get("amenities", [])
+                if not amenities or len(amenities) == 0:
+                    apartments_without_amenities.append(apt.get("title", "Unknown"))
+            
+            if len(apartments_without_amenities) == 0:
+                self.log_result("Related Rentals Amenities", True, f"All Related Rentals apartments have amenities")
+            else:
+                self.log_result("Related Rentals Amenities", False, f"{len(apartments_without_amenities)} apartments missing amenities")
+            
+            # Verify images are properly populated
+            apartments_without_images = []
+            for apt in related_rentals_apartments:
+                images = apt.get("images", [])
+                if not images or len(images) == 0:
+                    apartments_without_images.append(apt.get("title", "Unknown"))
+            
+            if len(apartments_without_images) == 0:
+                self.log_result("Related Rentals Images", True, f"All Related Rentals apartments have images")
+            else:
+                self.log_result("Related Rentals Images", False, f"{len(apartments_without_images)} apartments missing images")
+            
+            print(f"\n   📊 RELATED RENTALS SUMMARY:")
+            print(f"   • Total Related Rentals Apartments: {len(related_rentals_apartments)}")
+            if related_rentals_apartments:
+                prices = [apt.get("price", 0) for apt in related_rentals_apartments]
+                print(f"   • Price Range: ${min(prices) if prices else 0} - ${max(prices) if prices else 0}")
+            print(f"   • Properties Found: {len(found_properties)}/10 expected")
+            print(f"   • Neighborhoods Covered: {len(covered_neighborhoods)}/9 expected")
+            print(f"   • Data Quality Issues: {len(data_quality_issues)}")
+            
+        except Exception as e:
+            self.log_result("Related Rentals Scraping Integration", False, f"Exception: {str(e)}")
+
+    def test_related_rentals_integration_with_existing_system(self):
+        """Test that Related Rentals apartments integrate properly with existing system"""
+        print("\n=== Testing Related Rentals Integration with Existing System ===")
+        try:
+            # Test GET /api/apartments returns both existing and Related Rentals listings
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Integration - All Apartments", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            related_rentals_count = len([apt for apt in apartments if apt.get("source_url") == "https://relatedrentals.com"])
+            other_count = len(apartments) - related_rentals_count
+            
+            if related_rentals_count > 0 and other_count > 0:
+                self.log_result("Integration - Mixed Listings", True, f"Found {related_rentals_count} Related Rentals + {other_count} other listings")
+            else:
+                self.log_result("Integration - Mixed Listings", False, f"Related Rentals: {related_rentals_count}, Others: {other_count}")
+            
+            # Test filtering works with Related Rentals properties
+            # Filter by Chelsea neighborhood (should include Related Rentals properties)
+            response = self.make_request("GET", "/apartments", {"neighborhood": "Chelsea"})
+            if response.status_code == 200:
+                chelsea_apartments = response.json()
+                chelsea_related_rentals = [apt for apt in chelsea_apartments if apt.get("source_url") == "https://relatedrentals.com"]
+                
+                if chelsea_related_rentals:
+                    self.log_result("Integration - Neighborhood Filter", True, f"Found {len(chelsea_related_rentals)} Related Rentals in Chelsea filter")
+                else:
+                    self.log_result("Integration - Neighborhood Filter", False, "No Related Rentals found in Chelsea neighborhood filter")
+            else:
+                self.log_result("Integration - Neighborhood Filter", False, f"Neighborhood filter failed: {response.status_code}")
+            
+            # Test price range filtering includes Related Rentals
+            response = self.make_request("GET", "/apartments", {"min_price": 4000, "max_price": 5000})
+            if response.status_code == 200:
+                price_filtered = response.json()
+                price_related_rentals = [apt for apt in price_filtered if apt.get("source_url") == "https://relatedrentals.com"]
+                
+                if price_related_rentals:
+                    self.log_result("Integration - Price Filter", True, f"Found {len(price_related_rentals)} Related Rentals in $4K-$5K range")
+                else:
+                    self.log_result("Integration - Price Filter", False, "No Related Rentals found in $4K-$5K price filter")
+            else:
+                self.log_result("Integration - Price Filter", False, f"Price filter failed: {response.status_code}")
+            
+            # Test search functionality includes Related Rentals
+            response = self.make_request("GET", "/apartments", {"search_term": "luxury"})
+            if response.status_code == 200:
+                search_results = response.json()
+                search_related_rentals = [apt for apt in search_results if apt.get("source_url") == "https://relatedrentals.com"]
+                
+                if search_related_rentals:
+                    self.log_result("Integration - Search Function", True, f"Found {len(search_related_rentals)} Related Rentals in 'luxury' search")
+                else:
+                    self.log_result("Integration - Search Function", False, "No Related Rentals found in 'luxury' search")
+            else:
+                self.log_result("Integration - Search Function", False, f"Search failed: {response.status_code}")
+            
+            # Test apartment details endpoint works for Related Rentals listings
+            related_rentals_apartments = [apt for apt in apartments if apt.get("source_url") == "https://relatedrentals.com"]
+            if related_rentals_apartments:
+                test_apartment = related_rentals_apartments[0]
+                apartment_id = test_apartment.get("id")
+                
+                response = self.make_request("GET", f"/apartments/{apartment_id}")
+                if response.status_code == 200:
+                    details = response.json()
+                    if details.get("source_url") == "https://relatedrentals.com":
+                        self.log_result("Integration - Apartment Details", True, f"Successfully retrieved Related Rentals apartment details: {details.get('title')}")
+                    else:
+                        self.log_result("Integration - Apartment Details", False, "Retrieved apartment is not from Related Rentals")
+                else:
+                    self.log_result("Integration - Apartment Details", False, f"Failed to get apartment details: {response.status_code}")
+            else:
+                self.log_result("Integration - Apartment Details", False, "No Related Rentals apartments available for testing")
+            
+            # Test statistics endpoint includes Related Rentals data
+            response = self.make_request("GET", "/apartments/search/stats")
+            if response.status_code == 200:
+                stats = response.json()
+                total_apartments = stats.get("total_apartments", 0)
+                
+                if total_apartments >= related_rentals_count:
+                    self.log_result("Integration - Statistics", True, f"Statistics include Related Rentals data: {total_apartments} total apartments")
+                else:
+                    self.log_result("Integration - Statistics", False, f"Statistics may not include Related Rentals: {total_apartments} total")
+            else:
+                self.log_result("Integration - Statistics", False, f"Statistics endpoint failed: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Related Rentals Integration with Existing System", False, f"Exception: {str(e)}")
+
+    def test_related_rentals_specific_price_points(self):
+        """Test specific price points mentioned in the review request"""
+        print("\n=== Testing Related Rentals Specific Price Points ===")
+        try:
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Related Rentals Price Points", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            related_rentals_apartments = [
+                apt for apt in apartments 
+                if apt.get("source_url") == "https://relatedrentals.com"
+            ]
+            
+            # Expected price points from the review request
+            expected_prices = [4495, 4650, 5200, 5300, 4400, 5100, 3950, 5350, 4850]
+            
+            found_prices = []
+            price_matches = {}
+            
+            for apt in related_rentals_apartments:
+                price = apt.get("price", 0)
+                found_prices.append(price)
+                
+                if price in expected_prices:
+                    price_matches[price] = apt.get("title", "Unknown")
+            
+            if len(price_matches) >= 6:  # At least 6 of the 9 expected price points
+                self.log_result("Related Rentals Specific Prices", True, f"Found {len(price_matches)}/9 expected price points")
+                for price, title in list(price_matches.items())[:3]:
+                    print(f"   ✓ ${price}: {title}")
+            else:
+                self.log_result("Related Rentals Specific Prices", False, f"Only found {len(price_matches)}/9 expected price points")
+            
+            # Verify price distribution within the $3,800-$5,400 range
+            prices_in_range = [p for p in found_prices if 3800 <= p <= 5400]
+            if len(prices_in_range) == len(found_prices) and found_prices:
+                self.log_result("Related Rentals Price Distribution", True, f"All {len(found_prices)} apartments in target range")
+            else:
+                self.log_result("Related Rentals Price Distribution", False, f"{len(prices_in_range)}/{len(found_prices)} apartments in target range")
+            
+            print(f"   Found prices: {sorted(found_prices)}")
+            print(f"   Expected prices: {sorted(expected_prices)}")
+            
+        except Exception as e:
+            self.log_result("Related Rentals Specific Price Points", False, f"Exception: {str(e)}")
+
     def test_email_update_verification(self):
         """Test that all apartments now have chris@places.nyc email addresses"""
         print("\n=== Testing Email Update to chris@places.nyc ===")
