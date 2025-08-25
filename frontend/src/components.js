@@ -18,7 +18,6 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <img src="/places-logo.png" alt="Places No Fee" className="h-8 w-auto" />
-            <span className="text-xl font-semibold text-gray-900">Places No Fee</span>
           </Link>
 
           {/* Desktop Navigation */}
