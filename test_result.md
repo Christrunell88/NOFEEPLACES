@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the newly added Related Rentals scraping functionality for PLACES No Fee platform: 1. Related Rentals Scraping Integration, 2. Data Quality Verification, 3. Integration with Existing System, 4. Source Attribution"
+user_problem_statement: "Perform comprehensive button testing across the entire PLACES No Fee application. Test all interactive elements and buttons to ensure functionality after recent changes (orange theme, address hiding, etc.)"
 
 backend:
   - task: "Related Rentals Scraping Integration"
