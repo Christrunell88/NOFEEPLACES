@@ -293,7 +293,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Luxury 1BR at Related Hudson Point - No Fee",
+            "title": "Luxury 1BR at Hudson Point - No Fee",
             "address": "625 W 42nd St, New York, NY 10036",
             "price": 5200,
             "bedrooms": 1,
