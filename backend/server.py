@@ -343,7 +343,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Elegant 1BR at Related Tribeca Park - No Fee",
+            "title": "Elegant 1BR at Tribeca Park - No Fee",
             "address": "225 Rector Pl, New York, NY 10280",
             "price": 5300,
             "bedrooms": 1,
