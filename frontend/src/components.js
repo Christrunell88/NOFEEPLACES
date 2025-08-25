@@ -1357,10 +1357,10 @@ const AuthModal = ({ onClose }) => {
         </div>
 
         {isLogin && (
-          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-700 font-medium mb-1">Demo Account:</p>
-            <p className="text-xs text-blue-600">Email: testuser@nofeeplaces.com</p>
-            <p className="text-xs text-blue-600">Password: SecurePassword123!</p>
+          <div className="mt-4 p-3 bg-orange-50 rounded-lg">
+            <p className="text-sm text-orange-700 font-medium mb-1">Demo Account:</p>
+            <p className="text-xs text-orange-600">Email: testuser@nofeeplaces.com</p>
+            <p className="text-xs text-orange-600">Password: SecurePassword123!</p>
           </div>
         )}
       </div>
