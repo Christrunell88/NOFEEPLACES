@@ -300,6 +300,11 @@ const Home = () => {
       </main>
 
       <Footer />
+
+      {/* Authentication Modal */}
+      {showAuthModal && (
+        <AuthModal onClose={() => setShowAuthModal(false)} />
+      )}
     </div>
   );
 };
