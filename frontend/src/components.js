@@ -2270,11 +2270,11 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
             
             {isLoading && (
               <div className="flex justify-start">
-                <div className="glass border border-white/10 px-4 py-2 rounded-2xl">
+                <div className="bg-white border border-gray-200 px-4 py-2 rounded-2xl shadow-sm">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                   </div>
                 </div>
               </div>
@@ -2283,7 +2283,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
           </div>
 
           {/* Chat Input */}
-          <div className="p-4 border-t border-white/10">
+          <div className="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
             <div className="flex space-x-2">
               <input
                 type="text"
@@ -2291,13 +2291,13 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about apartments, applications, viewings..."
-                className="flex-1 input-luxury py-2 text-sm"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none text-sm"
                 disabled={isLoading}
               />
               <button
                 onClick={sendMessage}
                 disabled={!inputMessage.trim() || isLoading}
-                className="btn-primary px-4 py-2 text-sm hover-lift disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
