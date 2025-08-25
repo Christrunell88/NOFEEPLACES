@@ -549,7 +549,6 @@ const LazyImage = ({ src, alt, className, ...props }) => {
 
 // Enhanced Apartment Card Component with luxury styling
 const ApartmentCard = ({ apartment }) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isFavorited, setIsFavorited] = useState(false);
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
@@ -596,67 +595,31 @@ const ApartmentCard = ({ apartment }) => {
     navigate(`/apartment/${apartment.id}`);
   };
 
-  const handleCallAgent = (e) => {
-    e.stopPropagation();
-    if (apartment.contact_info?.phone) {
-      window.open(`tel:${apartment.contact_info.phone}`, '_self');
-    } else {
-      alert('Contact information not available');
-    }
-  };
-
-  const handleEmailAgent = (e) => {
-    e.stopPropagation();
-    if (apartment.contact_info?.email) {
-      const subject = encodeURIComponent(`Inquiry about ${apartment.title} - ${apartment.address}`);
-      const body = encodeURIComponent(`Hi Chris,
-
-I'm interested in learning more about this apartment:
-
-${apartment.title}
-${apartment.address}
-${apartment.bedrooms === 0 ? 'Studio' : apartment.bedrooms + ' bedroom'}, ${apartment.bathrooms} bathroom
-$${apartment.price?.toLocaleString()}/month
-${apartment.sqft} sq ft
-
-Please let me know about availability and when I can schedule a viewing.
-
-Thank you!`);
-      
-      window.open(`mailto:${apartment.contact_info.email}?subject=${subject}&body=${body}`, '_self');
-    } else {
-      alert('Contact information not available');
-    }
-  };
-
   return (
-    <div className="card-luxury hover:shadow-glow transition-all duration-500 cursor-pointer group animate-slide-up">
-      <div className="relative overflow-hidden rounded-2xl mb-4" onClick={handleViewDetails}>
+    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
+      <div className="relative">
         <LazyImage
           src={apartment.images?.[0] || apartment.image}
           alt={apartment.title}
-          className="w-full h-56 object-cover transition-all duration-500 group-hover:scale-110"
+          className="w-full h-48 object-cover"
         />
-          
-        {/* Gradient overlay for better text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
         {/* No Fee Badge */}
-        <div className="absolute top-4 left-4">
-          <span className="badge badge-success animate-glow">
+        <div className="absolute top-3 left-3">
+          <span className="bg-green-600 text-white text-xs font-medium px-2 py-1 rounded">
             NO FEE
           </span>
         </div>
         
         {/* Favorite Button */}
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-3 right-3">
           <button 
             onClick={handleFavorite}
-            className="glass p-3 rounded-full transition-all hover:scale-110 hover:shadow-glow"
+            className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-md transition-all"
           >
             <svg 
-              className={`w-5 h-5 transition-colors ${
-                isFavorited ? 'text-red-400 fill-current' : 'text-white hover:text-red-400'
+              className={`w-5 h-5 ${
+                isFavorited ? 'text-red-500 fill-current' : 'text-gray-400 hover:text-red-500'
               }`} 
               fill={isFavorited ? 'currentColor' : 'none'} 
               stroke="currentColor" 
@@ -667,108 +630,70 @@ Thank you!`);
           </button>
         </div>
 
-        {/* Price Tag */}
-        <div className="absolute bottom-4 right-4">
-          <div className="glass-dark px-4 py-2 rounded-lg">
-            <span className="text-2xl font-bold gradient-text">
+        {/* Price */}
+        <div className="absolute bottom-3 right-3">
+          <div className="bg-white bg-opacity-95 px-3 py-1 rounded shadow-md">
+            <span className="text-lg font-bold text-gray-900">
               ${apartment.price?.toLocaleString() || apartment.price}
             </span>
-            <span className="text-slate-300 text-sm ml-1">/mo</span>
+            <span className="text-gray-600 text-sm">/mo</span>
           </div>
         </div>
       </div>
-      
-      <div className="px-2">
-        <div className="mb-3">
-          <h3 className="text-xl font-bold text-slate-100 mb-2 line-clamp-2 group-hover:text-amber-400 transition-colors">
-            {apartment.title}
-          </h3>
-          <p className="text-slate-400 text-sm flex items-center">
-            <svg className="w-4 h-4 mr-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            {apartment.address}
-          </p>
-        </div>
-        
+
+      <div className="p-4">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{apartment.title}</h3>
+        <p className="text-gray-600 text-sm mb-3 flex items-center">
+          <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          {apartment.address}
+        </p>
+
         {/* Property Details */}
-        <div className="flex items-center justify-between mb-4 text-sm text-slate-300">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
-              </svg>
-              <span className="font-medium">
-                {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}
-              </span>
-            </div>
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
-              </svg>
-              <span className="font-medium">{apartment.bathrooms} bath</span>
-            </div>
-            <div className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-              </svg>
-              <span className="font-medium">{apartment.sqft} sq ft</span>
-            </div>
-          </div>
+        <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+          <span className="font-medium">
+            {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}
+          </span>
+          <span className="font-medium">{apartment.bathrooms} bath</span>
+          <span className="font-medium">{apartment.sqft} sq ft</span>
         </div>
-        
-        {/* Amenities */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {apartment.amenities?.slice(0, 3).map((amenity, index) => (
-            <span key={index} className="bg-white/5 text-slate-300 px-3 py-1 rounded-full text-xs font-medium border border-white/10">
-              {amenity}
-            </span>
-          ))}
-          {apartment.amenities?.length > 3 && (
-            <span className="bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full text-xs font-medium border border-amber-500/30">
-              +{apartment.amenities.length - 3} more
-            </span>
-          )}
+
+        {/* Status */}
+        <div className="flex items-center mb-4">
+          <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+          <span className="text-sm font-medium text-green-700">Available Now</span>
         </div>
-        
-        {/* Action Bar */}
-        <div className="flex justify-between items-center pt-4 border-t border-white/10">
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-            <span className="text-sm text-green-400 font-medium">Available Now</span>
-          </div>
-          <div className="flex gap-2">
-            <button 
-              onClick={handleCallAgent}
-              className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-500 transition-colors text-xs font-medium hover-lift flex items-center"
-              title="Call Chris Trunell"
+
+        {/* Action Buttons */}
+        <div className="flex justify-between items-center pt-3 border-t border-gray-200">
+          <div className="flex space-x-2">
+            <button
+              onClick={() => window.open(`tel:${apartment.contact_info?.phone}`, '_self')}
+              className="flex items-center bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors text-sm font-medium"
             >
-              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               Call
             </button>
-            <button 
-              onClick={handleEmailAgent}
-              className="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-500 transition-colors text-xs font-medium hover-lift flex items-center"
-              title="Email chris@places.nyc"
+            <button
+              onClick={() => window.open(`mailto:${apartment.contact_info?.email}?subject=Interested in ${apartment.title}&body=Hi, I'm interested in learning more about ${apartment.title} at ${apartment.address}.`)}
+              className="flex items-center bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition-colors text-sm font-medium"
             >
-              <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a1 1 0 001.42 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               Email
             </button>
-            <button 
-              onClick={handleViewDetails}
-              className="btn-primary text-xs px-3 py-2 hover-lift"
-            >
-              Details
-              <svg className="w-3 h-3 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </button>
           </div>
+          <button
+            onClick={handleViewDetails}
+            className="text-gray-600 hover:text-gray-900 text-sm font-medium border border-gray-300 px-3 py-2 rounded hover:border-gray-400 transition-colors"
+          >
+            Details
+          </button>
         </div>
       </div>
     </div>
