@@ -16,8 +16,27 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <img src="/places-logo.png" alt="Places No Fee" className="h-8 w-auto" />
+          <Link to="/" className="flex items-center space-x-3">
+            {/* Cool Custom Logo Design */}
+            <div className="relative">
+              {/* Logo Icon - Modern Building/Key Design */}
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l8-8m0 0V6l-2 2-2-2m4 2L14 8m-6 8V10l1-1 1 1v6" />
+                </svg>
+              </div>
+              {/* Background glow effect */}
+              <div className="absolute inset-0 w-10 h-10 bg-orange-400 rounded-lg opacity-20 blur-sm -z-10"></div>
+            </div>
+            
+            {/* Logo Text */}
+            <div className="flex flex-col">
+              <div className="flex items-center space-x-1">
+                <span className="text-2xl font-bold text-gray-900 tracking-tight">No Fee</span>
+                <span className="text-lg font-semibold text-orange-500">Places</span>
+              </div>
+              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1">NYC RENTALS</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
