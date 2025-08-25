@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://apartmentfinder.preview.emergentagent.com/api"
+BASE_URL = "https://feefree-places.preview.emergentagent.com/api"
 
 class AuthInvestigator:
     def __init__(self):
