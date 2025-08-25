@@ -16,26 +16,24 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
+          <Link to="/" className="flex items-center space-x-3 group">
             {/* Cool Custom Logo Design */}
-            <div className="relative">
+            <div className="relative logo-glow">
               {/* Logo Icon - Modern Building/Key Design */}
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-all duration-300 group-hover:scale-105">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l8-8m0 0V6l-2 2-2-2m4 2L14 8m-6 8V10l1-1 1 1v6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              {/* Background glow effect */}
-              <div className="absolute inset-0 w-10 h-10 bg-orange-400 rounded-lg opacity-20 blur-sm -z-10"></div>
             </div>
             
             {/* Logo Text */}
             <div className="flex flex-col">
               <div className="flex items-center space-x-1">
-                <span className="text-2xl font-bold text-gray-900 tracking-tight">No Fee</span>
-                <span className="text-lg font-semibold text-orange-500">Places</span>
+                <span className="text-2xl font-bold text-gray-900 tracking-tight group-hover:text-gray-800 transition-colors">No Fee</span>
+                <span className="text-lg font-semibold text-orange-500 group-hover:text-orange-600 transition-colors">Places</span>
               </div>
-              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1">NYC RENTALS</span>
+              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1 group-hover:text-gray-600 transition-colors">NYC RENTALS</span>
             </div>
           </Link>
 
