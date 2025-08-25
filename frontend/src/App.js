@@ -134,6 +134,8 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalApartments, setTotalApartments] = useState(0);
   const [searchStats, setSearchStats] = useState(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
 
   useEffect(() => {
     fetchApartments();
