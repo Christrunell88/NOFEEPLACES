@@ -393,7 +393,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Premium 1BR at Related Columbus Circle - No Fee",
+            "title": "Premium 1BR at Columbus Circle - No Fee",
             "address": "200 W 60th St, New York, NY 10023",
             "price": 5350,
             "bedrooms": 1,
