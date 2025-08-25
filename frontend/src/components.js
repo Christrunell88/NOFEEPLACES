@@ -1858,57 +1858,12 @@ const ApartmentDetails = ({ apartmentId }) => {
         </div>
       </div>
 
-      {/* Contact Modal */}
-      {showContactModal && (
-        <div className="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center z-50">
-          <div className="glass-dark rounded-2xl p-6 max-w-md w-full mx-4 shadow-luxury">
-            <div className="flex justify-between items-center mb-4">
-              <h4 className="text-lg font-semibold text-slate-100">Contact Information</h4>
-              <button
-                onClick={() => setShowContactModal(false)}
-                className="text-slate-400 hover:text-slate-200 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {apartment?.contact_info && (
-              <div className="space-y-4 mb-6">
-                <div className="text-center p-4 glass rounded-lg">
-                  <h5 className="font-semibold text-amber-400 mb-2">{apartment.contact_info.broker}</h5>
-                  <div className="space-y-2">
-                    <p className="text-slate-300">📞 {apartment.contact_info.phone}</p>
-                    <p className="text-slate-300">📧 {apartment.contact_info.email}</p>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col gap-3">
-                  <button 
-                    onClick={handleContactAgent}
-                    className="btn-primary w-full py-2 text-sm hover-lift"
-                  >
-                    Call Now
-                  </button>
-                  <button 
-                    onClick={handleEmailContact}
-                    className="btn-secondary w-full py-2 text-sm hover-lift"
-                  >
-                    Send Email
-                  </button>
-                  <button 
-                    onClick={() => setShowContactModal(false)}
-                    className="text-slate-400 hover:text-slate-200 text-sm transition-colors"
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Email Contact Modal */}
+      <EmailContactModal 
+        isOpen={showContactModal}
+        onClose={() => setShowContactModal(false)}
+        apartment={apartment}
+      />
     </div>
   );
 };
