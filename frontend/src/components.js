@@ -2845,5 +2845,6 @@ export const Components = {
   ErrorBoundary,
   Toast,
   ToastProvider,
-  useToast
+  useToast,
+  EmailContactModal
 };
