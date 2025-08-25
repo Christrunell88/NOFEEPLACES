@@ -30,6 +30,27 @@ body {
   z-index: 50;
 }
 
+/* Cool Logo Animations */
+.logo-glow {
+  position: relative;
+}
+
+.logo-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, #f97316, #ea580c);
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.logo-glow:hover::after {
+  opacity: 0.3;
+}
+
 /* Professional button styles */
 .btn-primary {
   background: #2563eb;
@@ -72,8 +93,17 @@ body {
   }
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
 .animate-slide-up {
   animation: slideInUp 0.6s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
 }
 
 /* Professional text colors */
