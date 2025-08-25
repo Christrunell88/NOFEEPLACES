@@ -1320,7 +1320,7 @@ const AuthModal = ({ onClose }) => {
               type="email"
               required
               placeholder="your.email@example.com"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
               value={formData.email}
               onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
             />
