@@ -368,7 +368,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Luxury Studio at Related Chelsea Point - No Fee",
+            "title": "Luxury Studio at Chelsea Point - No Fee",
             "address": "515 W 18th St, New York, NY 10011",
             "price": 3950,
             "bedrooms": 0,
