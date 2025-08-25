@@ -184,127 +184,135 @@ const Hero = ({ onSearchSubmit }) => {
   );
 };
 
-// Compact Search Component inspired by StreetEasy
-const AdvancedSearchFilters = ({ filters, onFilterChange, onClearFilters, searchStats }) => {
-  const neighborhoods = searchStats?.top_neighborhoods?.map(n => n._id) || [
-    'Financial District', 'Midtown East', 'Brooklyn Heights', 'Long Island City', 
-    'Upper East Side', 'Chelsea', 'SoHo', 'Williamsburg'
-  ];
+// Professional Search Filters Component
+const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
+  const handleFilterChange = (key, value) => {
+    onFilterChange({
+      ...filters,
+      [key]: value
+    });
+  };
 
   return (
-    <section id="search-section" className="relative -mt-16 z-20 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          {/* Compact Search Bar - StreetEasy Style */}
-          <div className="glass-dark rounded-2xl p-4 shadow-luxury">
-            <div className="flex flex-col lg:flex-row gap-3">
-              {/* Main Search Input */}
-              <div className="flex-1">
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <svg className="h-5 w-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search neighborhoods, addresses..."
-                    className="input-luxury w-full pl-12 pr-4 py-3 text-base"
-                    value={filters.search_term}
-                    onChange={(e) => onFilterChange('search_term', e.target.value)}
-                  />
-                </div>
-              </div>
+    <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-gray-900">
+            {apartmentCount || 0} No Fee Apartments Available
+          </h2>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
+          >
+            {isExpanded ? 'Hide Filters' : 'Show Filters'}
+            <svg 
+              className={`w-4 h-4 ml-1 transition-transform ${isExpanded ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
 
-              {/* Location Filter */}
-              <div className="w-full lg:w-48">
-                <select
-                  className="input-luxury w-full py-3"
-                  value={filters.borough}
-                  onChange={(e) => onFilterChange('borough', e.target.value)}
-                >
-                  <option value="">All Boroughs</option>
-                  {boroughs.map(borough => (
-                    <option key={borough} value={borough}>{borough}</option>
-                  ))}
-                </select>
-              </div>
+        {/* Quick Filters - Always Visible */}
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="flex items-center space-x-2">
+            <label className="text-sm font-medium text-gray-700">Location:</label>
+            <input
+              type="text"
+              placeholder="Enter neighborhood"
+              value={filters.location || ''}
+              onChange={(e) => handleFilterChange('location', e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            />
+          </div>
 
-              {/* Price Range */}
-              <div className="flex gap-2 w-full lg:w-80">
-                <input
-                  type="number"
-                  placeholder="Min"
-                  className="input-luxury w-full py-3 text-center"
-                  value={filters.min_price}
-                  onChange={(e) => onFilterChange('min_price', e.target.value)}
-                />
-                <div className="flex items-center px-2">
-                  <span className="text-slate-400">–</span>
-                </div>
-                <input
-                  type="number"
-                  placeholder="Max"
-                  className="input-luxury w-full py-3 text-center"
-                  value={filters.max_price}
-                  onChange={(e) => onFilterChange('max_price', e.target.value)}
-                />
-              </div>
+          <div className="flex items-center space-x-2">
+            <label className="text-sm font-medium text-gray-700">Max Price:</label>
+            <select
+              value={filters.max_price || ''}
+              onChange={(e) => handleFilterChange('max_price', e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            >
+              <option value="">Any Price</option>
+              <option value="3000">Up to $3,000</option>
+              <option value="4000">Up to $4,000</option>
+              <option value="5000">Up to $5,000</option>
+              <option value="6000">Up to $6,000</option>
+              <option value="8000">Up to $8,000</option>
+              <option value="10000">Up to $10,000</option>
+            </select>
+          </div>
 
-              {/* Bedrooms */}
-              <div className="w-full lg:w-32">
-                <select
-                  className="input-luxury w-full py-3"
-                  value={filters.bedrooms}
-                  onChange={(e) => onFilterChange('bedrooms', e.target.value)}
-                >
-                  <option value="">Beds</option>
-                  <option value="0">Studio</option>
-                  <option value="1">1+</option>
-                  <option value="2">2+</option>
-                  <option value="3">3+</option>
-                </select>
-              </div>
-
-              {/* Search Button */}
-              <button className="btn-primary px-8 py-3 hover-lift animate-glow whitespace-nowrap">
-                Search
-                <svg className="w-4 h-4 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Advanced Filters Toggle */}
-            <div className="flex justify-between items-center mt-3 pt-3 border-t border-white/10">
-              <div className="flex items-center space-x-4 text-sm">
-                <button 
-                  onClick={onClearFilters}
-                  className="text-slate-400 hover:text-amber-400 transition-colors"
-                >
-                  Clear filters
-                </button>
-                <span className="text-slate-500">•</span>
-                <span className="text-slate-400">
-                  {searchStats?.total_apartments || '30'} apartments found
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xs text-slate-500">Sort by:</span>
-                <select className="bg-transparent text-amber-400 text-sm border-none focus:outline-none cursor-pointer">
-                  <option value="newest">Newest</option>
-                  <option value="price_low">Price: Low to High</option>
-                  <option value="price_high">Price: High to Low</option>
-                  <option value="size">Size</option>
-                </select>
-              </div>
-            </div>
+          <div className="flex items-center space-x-2">
+            <label className="text-sm font-medium text-gray-700">Bedrooms:</label>
+            <select
+              value={filters.bedrooms || ''}
+              onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
+              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            >
+              <option value="">Any</option>
+              <option value="0">Studio</option>
+              <option value="1">1 Bedroom</option>
+              <option value="2">2+ Bedrooms</option>
+            </select>
           </div>
         </div>
+
+        {/* Expanded Filters */}
+        {isExpanded && (
+          <div className="mt-4 pt-4 border-t border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Borough</label>
+              <select
+                value={filters.borough || ''}
+                onChange={(e) => handleFilterChange('borough', e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              >
+                <option value="">All Boroughs</option>
+                <option value="Manhattan">Manhattan</option>
+                <option value="Brooklyn">Brooklyn</option>
+                <option value="Queens">Queens</option>
+                <option value="Bronx">Bronx</option>
+                <option value="Staten Island">Staten Island</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+              <select
+                value={filters.bathrooms || ''}
+                onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              >
+                <option value="">Any</option>
+                <option value="1">1+ Bathroom</option>
+                <option value="2">2+ Bathrooms</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+              <select
+                value={filters.sort_by || ''}
+                onChange={(e) => handleFilterChange('sort_by', e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              >
+                <option value="">Default</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="bedrooms_asc">Bedrooms: Low to High</option>
+                <option value="bedrooms_desc">Bedrooms: High to Low</option>
+              </select>
+            </div>
+          </div>
+        )}
       </div>
-    </section>
+    </div>
   );
 };
 
