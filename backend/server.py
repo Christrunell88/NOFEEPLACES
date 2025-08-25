@@ -318,7 +318,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Modern 1BR at Related West Side - No Fee",
+            "title": "Modern 1BR at West Side - No Fee",
             "address": "1865 Broadway, New York, NY 10023",
             "price": 5100,
             "bedrooms": 1,
