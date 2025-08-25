@@ -103,47 +103,80 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   );
 };
 
-// Enhanced Hero Component with PLACES Branding
-// Enhanced Hero Component with luxury styling
-const Hero = ({ searchStats }) => {
+// Professional Hero Section
+const Hero = ({ onSearchSubmit }) => {
+  const [searchLocation, setSearchLocation] = useState('');
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (onSearchSubmit) {
+      onSearchSubmit({ location: searchLocation });
+    }
+  };
+
   return (
-    <section 
-      className="hero-section relative bg-cover bg-center bg-no-repeat min-h-screen w-full flex items-center animate-slide-up"
-      style={{
-        backgroundImage: `linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.75)), url('https://images.unsplash.com/photo-1514565131-fce0801e5785?q=80&w=2070')`
-      }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20"></div>
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="animate-slide-up">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight heading-luxury">
-              Find Your Perfect
-              <span className="block gradient-text animate-glow">
-                NYC Home
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-12 text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Discover <span className="text-accent font-semibold">No Fee Apartments</span> across all five boroughs. 
-              Save money and find your ideal home with the most trusted platform in NYC.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <button 
-                onClick={() => document.getElementById('search-section')?.scrollIntoView({behavior: 'smooth'})}
-                className="btn-primary text-lg px-10 py-4 text-slate-800 font-bold hover-lift animate-glow"
-              >
-                Start Your Search
-                <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-              <button className="btn-secondary text-lg px-10 py-4 font-semibold hover-lift">
-                View All Listings
-                <svg className="w-5 h-5 ml-2 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </button>
+    <section className="bg-gray-50 py-16">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          No Fee Apartments in NYC
+        </h1>
+        <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+          Find luxury apartments across Manhattan, Brooklyn, and Queens with zero broker fees. 
+          Direct from property owners and management companies.
+        </p>
+
+        {/* Search Bar */}
+        <div className="max-w-2xl mx-auto">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 p-4 bg-white rounded-lg shadow-md border border-gray-200">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search by neighborhood, address, or subway stop..."
+                value={searchLocation}
+                onChange={(e) => setSearchLocation(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              />
             </div>
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium whitespace-nowrap"
+            >
+              Search Apartments
+            </button>
+          </form>
+        </div>
+
+        {/* Key Features */}
+        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Broker Fees</h3>
+            <p className="text-gray-600">Save thousands with apartments that don't charge broker fees</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Prime Locations</h3>
+            <p className="text-gray-600">Manhattan, Brooklyn, and Queens luxury buildings</p>
+          </div>
+          
+          <div className="text-center">
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a4 4 0 118 0v4m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Verified Listings</h3>
+            <p className="text-gray-600">All apartments verified with property management</p>
           </div>
         </div>
       </div>
