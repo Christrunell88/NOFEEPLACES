@@ -2325,6 +2325,81 @@ async def send_email(to_email: str, subject: str, body: str):
         print(f"Failed to send email to {to_email}: {e}")
         raise
 
+# Contact/Email Routes
+@api_router.post("/contact/apartment")
+async def send_apartment_inquiry(request: ContactRequest):
+    """Send apartment inquiry email to agent"""
+    try:
+        # Email content for the agent (Chris)
+        agent_subject = f"New Inquiry - {request.apartment_title}"
+        agent_body = f"""
+        New apartment inquiry from {request.name}:
+
+        🏠 Property: {request.apartment_title}
+        📍 Address: {request.apartment_address}
+        💰 Price: ${request.apartment_price:,}/month
+        
+        Contact Information:
+        👤 Name: {request.name}
+        📞 Phone: {request.phone}
+        ✉️ Email: {request.email}
+        
+        Message:
+        {request.message}
+        
+        Please respond to {request.email} or call {request.phone}.
+        
+        Sent via NoFeePlaces.com
+        """
+
+        # Email content for the prospective tenant
+        tenant_subject = f"We received your inquiry about {request.apartment_title}"
+        tenant_body = f"""
+        Hi {request.name},
+
+        Thank you for your interest in {request.apartment_title}!
+
+        We have received your inquiry and Chris will get back to you within 24 hours. Here are the details of your inquiry:
+
+        🏠 Property: {request.apartment_title}
+        📍 Address: {request.apartment_address}
+        💰 Rent: ${request.apartment_price:,}/month
+        
+        Your Message: {request.message}
+
+        In the meantime, feel free to:
+        • Browse more apartments at NoFeePlaces.com
+        • Call us directly at (646) 408-8048
+        • Email us at chris@places.nyc
+
+        We look forward to helping you find your perfect no-fee apartment!
+
+        Best regards,
+        Chris Trunell
+        NoFeePlaces.com
+        (646) 408-8048
+        """
+
+        # Send email to agent
+        await send_email(
+            to_email='chris@places.nyc',
+            subject=agent_subject,
+            body=agent_body
+        )
+
+        # Send confirmation email to tenant
+        await send_email(
+            to_email=request.email,
+            subject=tenant_subject,
+            body=tenant_body
+        )
+
+        return {"message": "Email sent successfully"}
+        
+    except Exception as e:
+        print(f"Failed to send contact email: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send email")
+
 # Appointment Routes
 @api_router.post("/appointments", response_model=Appointment)
 async def create_appointment(appointment_data: AppointmentCreate):
