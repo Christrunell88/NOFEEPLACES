@@ -208,8 +208,7 @@ const Home = () => {
       <AdvancedSearchFilters 
         filters={searchFilters} 
         onFilterChange={handleFilterChange}
-        onClearFilters={clearFilters}
-        searchStats={searchStats}
+        apartmentCount={totalApartments}
       />
       
       <main className="main-content container mx-auto px-4 py-8">
