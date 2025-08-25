@@ -873,6 +873,13 @@ const ApartmentCard = ({ apartment }) => {
           </button>
         </div>
       </div>
+
+      {/* Email Contact Modal */}
+      <EmailContactModal 
+        isOpen={showEmailModal}
+        onClose={() => setShowEmailModal(false)}
+        apartment={apartment}
+      />
     </div>
   );
 };
