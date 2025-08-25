@@ -1278,15 +1278,15 @@ const AuthModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900 bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-lg">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-slate-800">
-            {isLogin ? 'Sign In to PLACES' : 'Join PLACES'}
+          <h2 className="text-2xl font-bold text-gray-900">
+            {isLogin ? 'Sign In to Places' : 'Join Places'}
           </h2>
           <button 
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600"
+            className="text-gray-400 hover:text-gray-600"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -1303,11 +1303,11 @@ const AuthModal = ({ onClose }) => {
         <form onSubmit={handleSubmit}>
           {!isLogin && (
             <div className="mb-4">
-              <label className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
               <input
                 type="text"
                 required
-                className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 value={formData.fullName}
                 onChange={(e) => setFormData(prev => ({...prev, fullName: e.target.value}))}
               />
@@ -1315,22 +1315,24 @@ const AuthModal = ({ onClose }) => {
           )}
 
           <div className="mb-4">
-            <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
             <input
               type="email"
               required
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              placeholder="your.email@example.com"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.email}
               onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
             />
           </div>
 
           <div className="mb-6">
-            <label className="block text-sm font-medium text-slate-700 mb-2">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
             <input
               type="password"
               required
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              placeholder="Enter your password"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               value={formData.password}
               onChange={(e) => setFormData(prev => ({...prev, password: e.target.value}))}
             />
@@ -1339,20 +1341,28 @@ const AuthModal = ({ onClose }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-amber-600 text-slate-800 py-2 px-4 rounded-lg hover:bg-amber-500 disabled:bg-amber-400 transition-colors font-semibold"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors font-medium"
           >
             {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
           </button>
         </form>
 
-        <div className="text-center mt-4">
+        <div className="text-center mt-6">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-amber-600 hover:text-amber-800 text-sm"
+            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
           >
-            {isLogin ? "Don't have an account? Join PLACES" : "Already have an account? Sign in"}
+            {isLogin ? "Don't have an account? Join Places" : "Already have an account? Sign in"}
           </button>
         </div>
+
+        {isLogin && (
+          <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+            <p className="text-sm text-blue-700 font-medium mb-1">Demo Account:</p>
+            <p className="text-xs text-blue-600">Email: testuser@nofeeplaces.com</p>
+            <p className="text-xs text-blue-600">Password: SecurePassword123!</p>
+          </div>
+        )}
       </div>
     </div>
   );
