@@ -418,7 +418,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Sophisticated 1BR at Related Greenwich Village - No Fee",
+            "title": "Sophisticated 1BR at Greenwich Village - No Fee",
             "address": "85 4th Ave, New York, NY 10003",
             "price": 4850,
             "bedrooms": 1,
