@@ -725,6 +725,7 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
 // Enhanced Apartment Card Component with luxury styling
 const ApartmentCard = ({ apartment }) => {
   const [isFavorited, setIsFavorited] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
