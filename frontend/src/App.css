@@ -1,7 +1,7 @@
 /* Modern, sexy styling for NoFeePlaces.com */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-/* Global styles */
+/* Professional global styles */
 * {
   margin: 0;
   padding: 0;
@@ -9,14 +9,13 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #ffffff;
+  color: #1f2937;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* Animated background */
 /* Professional color scheme and typography */
 .App {
   min-height: 100vh;
