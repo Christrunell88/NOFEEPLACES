@@ -147,6 +147,16 @@ class ChatMessage(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     apartment_context: Optional[str] = None
 
+class ContactRequest(BaseModel):
+    apartment_id: str
+    apartment_title: str
+    apartment_address: str
+    apartment_price: int
+    name: str
+    email: str
+    phone: str
+    message: str
+
 class ChatRequest(BaseModel):
     message: str
     session_id: Optional[str] = None
