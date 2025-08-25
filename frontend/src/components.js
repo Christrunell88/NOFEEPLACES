@@ -1350,7 +1350,7 @@ const AuthModal = ({ onClose }) => {
         <div className="text-center mt-6">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+            className="text-orange-500 hover:text-orange-600 text-sm font-medium"
           >
             {isLogin ? "Don't have an account? Join Places" : "Already have an account? Sign in"}
           </button>
