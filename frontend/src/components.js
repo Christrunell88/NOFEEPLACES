@@ -173,61 +173,8 @@ const Hero = ({ onSearchSubmit }) => {
         </div>
       </div>
     </section>
-    
-    {/* SEO Content Section */}
-    <section className="bg-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
-            Find Your Perfect No Fee Apartment in New York City
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-8 text-left">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">No Broker Fee Apartments NYC</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Skip the broker fees and save thousands on your next apartment rental. Our platform connects you directly 
-                with <strong>NYC apartments no broker fee</strong> from verified property owners and management companies 
-                across all five boroughs.
-              </p>
-              
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Popular Neighborhoods:</h4>
-              <ul className="text-gray-700 space-y-2">
-                <li>• Manhattan: Upper East Side, Chelsea, Midtown West, Financial District</li>
-                <li>• Brooklyn: Williamsburg, DUMBO, Park Slope, Bedford-Stuyvesant</li>
-                <li>• Queens: Long Island City, Astoria, Forest Hills, Ridgewood</li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Why Choose No Fee Places NYC?</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                <strong>No fee places NYC</strong> specializes in <strong>New York no fee apartments</strong> that 
-                eliminate expensive broker fees. Every listing is verified, and our expert team helps you secure 
-                your dream apartment without the traditional NYC rental hassles.
-              </p>
-              
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Our Promise:</h4>
-              <ul className="text-gray-700 space-y-2">
-                <li>• 100% verified <strong>no fee rentals NYC</strong></li>
-                <li>• Direct contact with property owners</li>
-                <li>• Expert guidance from Chris Trunell</li>
-                <li>• Same-day apartment viewings available</li>
-                <li>• No hidden fees or surprise charges</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="mt-12 p-6 bg-blue-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Ready to Find Your No Fee Apartment?</h3>
-            <p className="text-gray-700 mb-4">
-              Browse our exclusive collection of <strong>no broker fee apartments NYC</strong> and schedule viewings today. 
-              Contact our expert agent Chris Trunell at (646) 408-8048 or chris@places.nyc for personalized assistance.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+  );
+};
   );
 };
 
