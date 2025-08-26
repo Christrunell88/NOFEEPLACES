@@ -919,13 +919,14 @@ const ApartmentCard = ({ apartment }) => {
   );
 };
 
-// Calendar Booking Component
+// Modern Calendar Booking Component
 const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
   const [availableSlots, setAvailableSlots] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showBookingForm, setShowBookingForm] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const [bookingData, setBookingData] = useState({
     visitor_name: '',
     visitor_email: '',
@@ -934,23 +935,56 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   });
   const toast = useToast && useToast();
 
-  // Generate next 30 days for date selection
-  const generateDateOptions = () => {
-    const dates = [];
-    const today = new Date();
-    for (let i = 0; i < 30; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      dates.push({
-        value: date.toISOString().split('T')[0],
-        label: date.toLocaleDateString('en-US', { 
-          weekday: 'short', 
-          month: 'short', 
-          day: 'numeric' 
-        })
+  // Modern calendar date generation
+  const getDaysInMonth = (date) => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    const startDate = new Date(firstDay);
+    startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
+    
+    const days = [];
+    const currentDate = new Date(startDate);
+    
+    // Generate 42 days (6 weeks) for consistent calendar grid
+    for (let i = 0; i < 42; i++) {
+      const day = new Date(currentDate);
+      const isCurrentMonth = day.getMonth() === month;
+      const isToday = day.toDateString() === new Date().toDateString();
+      const isPast = day < new Date().setHours(0, 0, 0, 0);
+      const isSelected = selectedDate && day.toDateString() === selectedDate.toDateString();
+      
+      days.push({
+        date: day,
+        dayNumber: day.getDate(),
+        isCurrentMonth,
+        isToday,
+        isPast,
+        isSelected,
+        dateString: day.toISOString().split('T')[0]
       });
+      
+      currentDate.setDate(currentDate.getDate() + 1);
     }
-    return dates;
+    
+    return days;
+  };
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  // Navigate months
+  const previousMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
+  };
+
+  const nextMonth = () => {
+    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
   };
 
   // Fetch available time slots when date changes
@@ -963,7 +997,8 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   const fetchAvailableSlots = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/apartments/${apartmentId}/available-slots?date=${selectedDate}`);
+      const dateString = selectedDate.toISOString().split('T')[0];
+      const response = await axios.get(`${API}/apartments/${apartmentId}/available-slots?date=${dateString}`);
       setAvailableSlots(response.data.available_slots);
     } catch (error) {
       console.error('Error fetching available slots:', error);
@@ -973,9 +1008,11 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     }
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleDateSelect = (day) => {
+    if (day.isPast || !day.isCurrentMonth) return;
+    setSelectedDate(day.date);
     setSelectedTime('');
+    setShowBookingForm(false);
   };
 
   const handleTimeSelect = (time) => {
@@ -990,7 +1027,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     try {
       const appointmentData = {
         apartment_id: apartmentId,
-        appointment_date: selectedDate,
+        appointment_date: selectedDate.toISOString().split('T')[0],
         appointment_time: selectedTime,
         ...bookingData
       };
@@ -1005,7 +1042,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
         notes: ''
       });
       setShowBookingForm(false);
-      setSelectedDate('');
+      setSelectedDate(null);
       setSelectedTime('');
       
       if (onBookingComplete) {
@@ -1014,9 +1051,9 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
 
       // Show success notification
       if (toast) {
-        toast.success('Appointment booked successfully! You will receive a confirmation email shortly.');
+        toast.success('Appointment scheduled! Calendar invite sent to your email and our agent.');
       } else {
-        alert('Appointment booked successfully! You will receive a confirmation email shortly.');
+        alert('Appointment scheduled! Calendar invite sent to your email and our agent.');
       }
     } catch (error) {
       const errorMessage = error.response?.data?.detail || 'Failed to book appointment';
@@ -1031,6 +1068,208 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
       setLoading(false);
     }
   };
+
+  const days = getDaysInMonth(currentMonth);
+
+  return (
+    <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-lg">
+      <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+        <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mr-3">
+          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+        Schedule Your Viewing
+      </h3>
+
+      {/* Modern Calendar Header */}
+      <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={previousMonth}
+          className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+        >
+          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        
+        <h4 className="text-xl font-semibold text-gray-900">
+          {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+        </h4>
+        
+        <button
+          onClick={nextMonth}
+          className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+        >
+          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Week Day Headers */}
+      <div className="grid grid-cols-7 gap-1 mb-2">
+        {weekDays.map(day => (
+          <div key={day} className="text-center py-2 text-sm font-medium text-gray-500">
+            {day}
+          </div>
+        ))}
+      </div>
+
+      {/* Modern Calendar Grid */}
+      <div className="grid grid-cols-7 gap-1 mb-6">
+        {days.map((day, index) => (
+          <button
+            key={index}
+            onClick={() => handleDateSelect(day)}
+            disabled={day.isPast || !day.isCurrentMonth}
+            className={`
+              h-12 w-full text-sm rounded-xl transition-all duration-200 hover:scale-105
+              ${day.isCurrentMonth 
+                ? day.isPast
+                  ? 'text-gray-300 cursor-not-allowed'
+                  : day.isSelected
+                    ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                    : day.isToday
+                      ? 'bg-blue-100 text-blue-800 font-bold hover:bg-blue-200'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                : 'text-gray-300'
+              }
+            `}
+          >
+            {day.dayNumber}
+          </button>
+        ))}
+      </div>
+
+      {/* Selected Date Display */}
+      {selectedDate && (
+        <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
+          <p className="text-blue-800 font-medium text-center">
+            Selected: {selectedDate.toLocaleDateString('en-US', { 
+              weekday: 'long', 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </p>
+        </div>
+      )}
+
+      {/* Time Selection */}
+      {selectedDate && (
+        <div className="mb-6">
+          <label className="block text-sm font-semibold text-gray-700 mb-3">Available Times</label>
+          {loading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-2 text-gray-600">Loading available times...</span>
+            </div>
+          ) : availableSlots.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {availableSlots.map(slot => (
+                <button
+                  key={slot}
+                  onClick={() => handleTimeSelect(slot)}
+                  className={`
+                    py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200
+                    ${selectedTime === slot
+                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                      : 'bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:scale-105'
+                    }
+                  `}
+                >
+                  {slot}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              No available slots for this date
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Modern Booking Form */}
+      {showBookingForm && (
+        <div className="border-t border-gray-200 pt-6">
+          <h4 className="text-lg font-semibold text-gray-900 mb-4">Booking Details</h4>
+          <form onSubmit={handleBookingSubmit} className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={bookingData.visitor_name}
+                  onChange={(e) => setBookingData({...bookingData, visitor_name: e.target.value})}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={bookingData.visitor_email}
+                  onChange={(e) => setBookingData({...bookingData, visitor_email: e.target.value})}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+              <input
+                type="tel"
+                required
+                value={bookingData.visitor_phone}
+                onChange={(e) => setBookingData({...bookingData, visitor_phone: e.target.value})}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                placeholder="Enter your phone number"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
+              <textarea
+                value={bookingData.notes}
+                onChange={(e) => setBookingData({...bookingData, notes: e.target.value})}
+                rows={3}
+                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                placeholder="Any specific requirements or questions..."
+              />
+            </div>
+            <div className="flex gap-3 pt-4">
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg"
+              >
+                {loading ? (
+                  <span className="flex items-center justify-center">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    Booking...
+                  </span>
+                ) : 'Confirm Booking'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowBookingForm(false)}
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
