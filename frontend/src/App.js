@@ -205,7 +205,7 @@ const Home = () => {
         logout={logout}
         setShowAuthModal={setShowAuthModal}
       />
-      <Hero searchStats={searchStats} />
+      <Hero />
       <SEOContentSection />
       <AdvancedSearchFilters 
         filters={searchFilters} 
