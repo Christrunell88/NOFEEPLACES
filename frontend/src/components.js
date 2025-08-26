@@ -226,7 +226,7 @@ const SEOContentSection = () => {
             <h3 className="text-xl font-semibold text-gray-900 mb-4">Ready to Find Your No Fee Apartment?</h3>
             <p className="text-gray-700 mb-4">
               Browse our exclusive collection of <strong>no broker fee apartments NYC</strong> and schedule viewings today. 
-              Contact our expert agent Chris Trunell at (646) 408-8048 or chris@places.nyc for personalized assistance.
+              Contact our expert agent Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com for personalized assistance.
             </p>
           </div>
         </div>
