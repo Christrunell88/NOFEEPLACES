@@ -2863,6 +2863,7 @@ const ApartmentComparison = ({ apartments, onClose }) => {
 export const Components = {
   Header,
   Hero,
+  SEOContentSection,
   AdvancedSearchFilters,
   ApartmentCard,
   MapView,
