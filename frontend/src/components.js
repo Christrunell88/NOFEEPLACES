@@ -131,12 +131,20 @@ const Hero = ({ onSearchSubmit }) => {
   };
 
   return (
-    <section className="bg-gray-50 py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+    <section 
+      className="relative py-20 md:py-28 overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1601740581507-68b2097fb749?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <div className="container mx-auto px-4 text-center relative z-10">
+        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
           No Fee Apartments in NYC
         </h1>
-        <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+        <p className="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto drop-shadow-md leading-relaxed">
           Find luxury apartments across Manhattan, Brooklyn, and Queens with zero broker fees. 
           Direct from property owners and management companies.
         </p>
