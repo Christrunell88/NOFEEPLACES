@@ -2291,7 +2291,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
       let contextInfo = "You are an AI assistant for NoFeePlaces.com, a no-fee apartment rental platform in NYC. You help users with apartment searches, rental information, and scheduling viewings. ";
       
       if (apartmentContext) {
-        contextInfo += `\n\nCurrent apartment context: ${apartmentContext.title} at ${apartmentContext.address}, ${apartmentContext.bedrooms === 0 ? 'Studio' : apartmentContext.bedrooms + ' bedroom'} for $${apartmentContext.price}/month. Amenities: ${apartmentContext.amenities?.join(', ') || 'N/A'}. Contact: Chris Trunell at (646) 408-8048 or chris@places.nyc.`;
+        contextInfo += `\n\nCurrent apartment context: ${apartmentContext.title} at ${apartmentContext.address}, ${apartmentContext.bedrooms === 0 ? 'Studio' : apartmentContext.bedrooms + ' bedroom'} for $${apartmentContext.price}/month. Amenities: ${apartmentContext.amenities?.join(', ') || 'N/A'}. Contact: Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com.`;
       }
       
       contextInfo += "\n\nAlways be helpful, professional, and encouraging. If asked about specific apartments not in context, suggest they browse our full listings at nofeeplaces.com or contact Chris directly.";
