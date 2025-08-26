@@ -157,7 +157,7 @@ const Hero = ({ onSearchSubmit }) => {
             <div className="flex-1">
               <input
                 type="text"
-                placeholder="Search by neighborhood, address, or subway stop..."
+                placeholder="Search no fee apartments by neighborhood, address, or subway stop..."
                 value={searchLocation}
                 onChange={(e) => setSearchLocation(e.target.value)}
                 className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg"
