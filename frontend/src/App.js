@@ -216,7 +216,7 @@ const Home = () => {
       <main className="main-content container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-slate-800">
-            {loading ? 'Searching...' : `${totalApartments} No Fee Apartments Available`}
+            {loading ? 'Searching No Fee Apartments NYC...' : `${totalApartments} No Broker Fee Apartments NYC Available`}
           </h2>
           <div className="flex space-x-2">
             <button 
