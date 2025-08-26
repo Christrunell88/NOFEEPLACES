@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Main pages -->
+    <url>
+        <loc>https://nofeeplaces.com/</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/apartments</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- SEO targeted pages -->
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-manhattan</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-brooklyn</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-queens</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Neighborhood pages -->
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/upper-east-side</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/chelsea</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/williamsburg</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/dumbo</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/queens/long-island-city</loc>
+        <lastmod>2025-08-26</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>
