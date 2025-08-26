@@ -120,16 +120,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 };
 
 // Professional Hero Section
-const Hero = ({ onSearchSubmit }) => {
-  const [searchLocation, setSearchLocation] = useState('');
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (onSearchSubmit) {
-      onSearchSubmit({ location: searchLocation });
-    }
-  };
-
+const Hero = () => {
   return (
     <section 
       className="relative py-32 md:py-40 overflow-hidden"
@@ -141,7 +132,7 @@ const Hero = ({ onSearchSubmit }) => {
       }}
     >
       <div className="container mx-auto px-4 text-center relative z-10 h-full flex flex-col justify-center">
-        <div className="mb-20">
+        <div>
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
             No Fee Apartments in NYC
           </h1>
@@ -149,27 +140,6 @@ const Hero = ({ onSearchSubmit }) => {
             Discover luxury <strong>no broker fee apartments NYC</strong> across Manhattan, Brooklyn, and Queens. 
             Browse exclusive <strong>no fee rentals NYC</strong> directly from property owners and management companies.
           </p>
-        </div>
-
-        {/* Search Bar - Positioned Lower */}
-        <div className="max-w-xl mx-auto">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 p-4 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20">
-            <div className="flex-1">
-              <input
-                type="text"
-                placeholder="Search no fee apartments by neighborhood, address, or subway stop..."
-                value={searchLocation}
-                onChange={(e) => setSearchLocation(e.target.value)}
-                className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-base"
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm"
-            >
-              Search Apartments
-            </button>
-          </form>
         </div>
       </div>
     </section>
