@@ -171,36 +171,36 @@ const Hero = ({ onSearchSubmit }) => {
         </div>
 
         {/* Key Features */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-4xl mx-auto">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-5xl mx-auto">
+          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">No Broker Fees</h3>
-            <p className="text-gray-600">Save thousands with apartments that don't charge broker fees</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">No Broker Fees</h3>
+            <p className="text-gray-700 leading-relaxed">Save thousands with apartments that don't charge broker fees</p>
           </div>
           
-          <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Prime Locations</h3>
-            <p className="text-gray-600">Manhattan, Brooklyn, and Queens luxury buildings</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Prime Locations</h3>
+            <p className="text-gray-700 leading-relaxed">Manhattan, Brooklyn, and Queens luxury buildings</p>
           </div>
           
-          <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a4 4 0 118 0v4m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Verified Listings</h3>
-            <p className="text-gray-600">All apartments verified with property management</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-3">Verified Listings</h3>
+            <p className="text-gray-700 leading-relaxed">All apartments verified with property management</p>
           </div>
         </div>
       </div>
