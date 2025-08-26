@@ -3812,6 +3812,12 @@ class NoFeePlacesAPITester:
         print(f"Testing against: {self.base_url}")
         print("=" * 60)
         
+        # PRIORITY: Waterline Square Apartments Verification (as requested)
+        print("\n" + "=" * 60)
+        print("🏢 WATERLINE SQUARE APARTMENTS VERIFICATION (PRIORITY)")
+        print("=" * 60)
+        self.test_waterline_square_apartments_verification()
+        
         # Basic connectivity
         self.test_health_check()
         
