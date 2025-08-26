@@ -2753,6 +2753,11 @@ class NoFeePlacesAPITester:
         # Scraping and image update verification (as requested)
         self.test_scraping_and_image_updates()
         
+        # NEW: Gmail SMTP Configuration Tests (as requested in review)
+        self.test_gmail_smtp_configuration()
+        self.test_email_from_address_verification()
+        self.test_backend_email_logs()
+        
         # NEW: Email Contact Functionality Tests (as requested in review)
         self.test_email_contact_functionality()
         
