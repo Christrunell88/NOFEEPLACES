@@ -2756,6 +2756,9 @@ class NoFeePlacesAPITester:
         # NEW: Email Contact Functionality Tests (as requested in review)
         self.test_email_contact_functionality()
         
+        # NEW: Real Email Delivery Tests (as requested in review)
+        self.test_real_email_delivery()
+        
         # TF Cornerstone specific tests
         self.test_tfc_listings_count()
         self.test_tfc_listings_data_quality()
