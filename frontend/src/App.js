@@ -206,6 +206,7 @@ const Home = () => {
         setShowAuthModal={setShowAuthModal}
       />
       <Hero searchStats={searchStats} />
+      <SEOContentSection />
       <AdvancedSearchFilters 
         filters={searchFilters} 
         onFilterChange={handleFilterChange}
