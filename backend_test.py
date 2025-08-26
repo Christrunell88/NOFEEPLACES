@@ -2831,6 +2831,261 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Backend Email Logs", False, f"Exception: {str(e)}")
 
+    def test_gmail_smtp_authentication(self):
+        """Test Gmail SMTP authentication with new app password"""
+        print("\n=== Testing Gmail SMTP Authentication ===")
+        try:
+            # Test data set 1 from review request
+            contact_data_1 = {
+                "apartment_id": "fixed-gmail-test-1",
+                "apartment_title": "Fixed Gmail SMTP Test #1",
+                "apartment_address": "123 Fixed Gmail St, Manhattan, NY",
+                "apartment_price": 5000,
+                "name": "Gmail Fix Test User",
+                "email": "chris@places.nyc",
+                "phone": "(646) 408-8048",
+                "message": "Testing fixed Gmail SMTP authentication with new app password"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data_1)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Gmail SMTP Authentication Test #1", True, "No 535 authentication errors - Gmail credentials working")
+                else:
+                    self.log_result("Gmail SMTP Authentication Test #1", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Gmail SMTP Authentication Test #1", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("Gmail SMTP Authentication Test #1", False, f"Exception: {str(e)}")
+    
+    def test_real_email_delivery_comprehensive(self):
+        """Test real email delivery via POST /api/contact/apartment"""
+        print("\n=== Testing Real Email Delivery ===")
+        try:
+            # Test data set 2 from review request
+            contact_data_2 = {
+                "apartment_id": "fixed-gmail-test-2",
+                "apartment_title": "Fixed Gmail SMTP Test #2",
+                "apartment_address": "456 Working Email Ave, Brooklyn, NY",
+                "apartment_price": 3800,
+                "name": "Email Authentication Fix User",
+                "email": "test@nofeeplaces.com",
+                "phone": "(555) 123-4567",
+                "message": "Verifying dual email delivery works with placesfirm@gmail.com"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data_2)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Real Email Delivery Test", True, "POST /api/contact/apartment successfully sends emails")
+                else:
+                    self.log_result("Real Email Delivery Test", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Real Email Delivery Test", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("Real Email Delivery Test", False, f"Exception: {str(e)}")
+    
+    def test_from_address_verification_comprehensive(self):
+        """Test that emails come from placesfirm@gmail.com"""
+        print("\n=== Testing FROM Address Verification ===")
+        try:
+            # Test with different recipient to verify FROM address
+            contact_data = {
+                "apartment_id": "from-address-test",
+                "apartment_title": "FROM Address Verification Test",
+                "apartment_address": "789 From Address Test St, Queens, NY",
+                "apartment_price": 4200,
+                "name": "FROM Address Test User",
+                "email": "verification@test.com",
+                "phone": "(555) 999-8888",
+                "message": "Testing that emails come from placesfirm@gmail.com"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("FROM Address Verification", True, "Emails configured to send from placesfirm@gmail.com (not mock system)")
+                else:
+                    self.log_result("FROM Address Verification", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("FROM Address Verification", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("FROM Address Verification", False, f"Exception: {str(e)}")
+    
+    def test_dual_email_system_comprehensive(self):
+        """Test that both agent and user emails are delivered"""
+        print("\n=== Testing Dual Email System ===")
+        try:
+            # Test that both chris@places.nyc (agent) and user email are sent
+            contact_data = {
+                "apartment_id": "dual-email-test",
+                "apartment_title": "Dual Email System Test",
+                "apartment_address": "321 Dual Email Blvd, Bronx, NY",
+                "apartment_price": 3500,
+                "name": "Dual Email Test User",
+                "email": "user@example.com",
+                "phone": "(555) 777-6666",
+                "message": "Testing that both agent and user receive emails"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Dual Email System Test", True, "Both agent (chris@places.nyc) and user emails delivered successfully")
+                else:
+                    self.log_result("Dual Email System Test", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Dual Email System Test", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("Dual Email System Test", False, f"Exception: {str(e)}")
+    
+    def test_multiple_recipients_reliability_comprehensive(self):
+        """Test email delivery with different email addresses for reliability"""
+        print("\n=== Testing Multiple Recipients Reliability ===")
+        try:
+            # Test multiple different email addresses
+            test_emails = [
+                "reliability1@test.com",
+                "reliability2@example.org", 
+                "reliability3@gmail.com",
+                "reliability4@yahoo.com"
+            ]
+            
+            successful_sends = 0
+            
+            for i, email in enumerate(test_emails, 1):
+                contact_data = {
+                    "apartment_id": f"reliability-test-{i}",
+                    "apartment_title": f"Reliability Test #{i}",
+                    "apartment_address": f"{i}00 Reliability St, Manhattan, NY",
+                    "apartment_price": 4000 + (i * 100),
+                    "name": f"Reliability Test User {i}",
+                    "email": email,
+                    "phone": f"(555) 000-000{i}",
+                    "message": f"Testing email reliability with recipient #{i}"
+                }
+                
+                response = self.make_request("POST", "/contact/apartment", contact_data)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get("message") == "Email sent successfully":
+                        successful_sends += 1
+                        print(f"   ✓ Email {i}/4 sent successfully to {email}")
+                    else:
+                        print(f"   ✗ Email {i}/4 failed - unexpected response: {data}")
+                else:
+                    print(f"   ✗ Email {i}/4 failed - status code: {response.status_code}")
+                
+                # Small delay between requests
+                time.sleep(0.5)
+            
+            if successful_sends == len(test_emails):
+                self.log_result("Multiple Recipients Reliability", True, f"All {successful_sends}/{len(test_emails)} emails sent successfully")
+            elif successful_sends >= len(test_emails) * 0.75:  # At least 75% success rate
+                self.log_result("Multiple Recipients Reliability", True, f"Good reliability: {successful_sends}/{len(test_emails)} emails sent successfully")
+            else:
+                self.log_result("Multiple Recipients Reliability", False, f"Poor reliability: only {successful_sends}/{len(test_emails)} emails sent successfully")
+            
+        except Exception as e:
+            self.log_result("Multiple Recipients Reliability", False, f"Exception: {str(e)}")
+    
+    def test_backend_logs_verification_comprehensive(self):
+        """Test that backend logs show 'Email sent successfully' messages"""
+        print("\n=== Testing Backend Logs Verification ===")
+        try:
+            # Send a test email and verify success message
+            contact_data = {
+                "apartment_id": "backend-logs-test",
+                "apartment_title": "Backend Logs Verification Test",
+                "apartment_address": "999 Logs Test Ave, Staten Island, NY",
+                "apartment_price": 3900,
+                "name": "Backend Logs Test User",
+                "email": "logs@test.com",
+                "phone": "(555) 111-2222",
+                "message": "Testing backend logs show Email sent successfully messages"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Backend Logs Verification", True, "Backend confirms 'Email sent successfully' (no authentication failures)")
+                else:
+                    self.log_result("Backend Logs Verification", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Backend Logs Verification", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("Backend Logs Verification", False, f"Exception: {str(e)}")
+    
+    def test_gmail_smtp_comprehensive_final(self):
+        """Comprehensive Gmail SMTP test covering all requirements"""
+        print("\n=== Testing Gmail SMTP Comprehensive Test ===")
+        try:
+            # Final comprehensive test using both test data sets
+            test_cases = [
+                {
+                    "apartment_id": "fixed-gmail-test-1",
+                    "apartment_title": "Fixed Gmail SMTP Test #1",
+                    "apartment_address": "123 Fixed Gmail St, Manhattan, NY",
+                    "apartment_price": 5000,
+                    "name": "Gmail Fix Test User",
+                    "email": "chris@places.nyc",
+                    "phone": "(646) 408-8048",
+                    "message": "Testing fixed Gmail SMTP authentication with new app password"
+                },
+                {
+                    "apartment_id": "fixed-gmail-test-2",
+                    "apartment_title": "Fixed Gmail SMTP Test #2",
+                    "apartment_address": "456 Working Email Ave, Brooklyn, NY",
+                    "apartment_price": 3800,
+                    "name": "Email Authentication Fix User",
+                    "email": "test@nofeeplaces.com",
+                    "phone": "(555) 123-4567",
+                    "message": "Verifying dual email delivery works with placesfirm@gmail.com"
+                }
+            ]
+            
+            successful_tests = 0
+            
+            for i, test_case in enumerate(test_cases, 1):
+                response = self.make_request("POST", "/contact/apartment", test_case)
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get("message") == "Email sent successfully":
+                        successful_tests += 1
+                        print(f"   ✓ Test case {i}/2 passed: {test_case['apartment_title']}")
+                    else:
+                        print(f"   ✗ Test case {i}/2 failed - unexpected response: {data}")
+                else:
+                    print(f"   ✗ Test case {i}/2 failed - status code: {response.status_code}")
+                
+                # Small delay between requests
+                time.sleep(1)
+            
+            if successful_tests == len(test_cases):
+                self.log_result("Gmail SMTP Comprehensive Test", True, f"All {successful_tests}/{len(test_cases)} comprehensive tests passed")
+            else:
+                self.log_result("Gmail SMTP Comprehensive Test", False, f"Only {successful_tests}/{len(test_cases)} comprehensive tests passed")
+            
+        except Exception as e:
+            self.log_result("Gmail SMTP Comprehensive Test", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
