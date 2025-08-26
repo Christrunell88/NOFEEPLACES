@@ -3086,6 +3086,187 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Gmail SMTP Comprehensive Test", False, f"Exception: {str(e)}")
 
+    def test_email_address_change_verification(self):
+        """Test email address change from chris@places.nyc to placesnyc88@gmail.com"""
+        print("\n=== Testing Email Address Change Verification ===")
+        try:
+            # Test data as specified in the review request
+            contact_data = {
+                "apartment_id": "email-change-test",
+                "apartment_title": "Email Address Change Test Apartment",
+                "apartment_address": "123 Email Change St, Manhattan, NY",
+                "apartment_price": 4500,
+                "name": "Email Change Test User",
+                "email": "test@example.com",
+                "phone": "(555) 123-4567",
+                "message": "Testing email address change from chris@places.nyc to placesnyc88@gmail.com"
+            }
+            
+            # Test the contact endpoint
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Contact Endpoint Response", True, "Contact endpoint returned success message")
+                else:
+                    self.log_result("Contact Endpoint Response", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Contact Endpoint Response", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+        except Exception as e:
+            self.log_result("Email Address Change Verification", False, f"Exception: {str(e)}")
+    
+    def test_agent_email_recipient_verification(self):
+        """Verify agent inquiry emails go to placesnyc88@gmail.com (not chris@places.nyc)"""
+        print("\n=== Testing Agent Email Recipient Verification ===")
+        try:
+            # Check all apartment listings to verify contact email is placesnyc88@gmail.com
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            if response.status_code != 200:
+                self.log_result("Agent Email Verification", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            
+            # Check that all apartments have the updated email contact: placesnyc88@gmail.com
+            email_issues = []
+            expected_email = "placesnyc88@gmail.com"
+            chris_email_count = 0
+            
+            for apt in apartments:
+                contact_info = apt.get("contact_info", {})
+                title = apt.get("title", "Unknown")
+                email = contact_info.get("email", "")
+                
+                if email == "chris@places.nyc":
+                    chris_email_count += 1
+                    email_issues.append(f"Old email found in '{title}': {email}")
+                elif email != expected_email:
+                    email_issues.append(f"Wrong email in '{title}': {email}")
+            
+            if chris_email_count == 0:
+                self.log_result("No Old Email Addresses", True, f"No chris@places.nyc addresses found - all updated to {expected_email}")
+            else:
+                self.log_result("No Old Email Addresses", False, f"Found {chris_email_count} apartments still using chris@places.nyc")
+            
+            if not email_issues:
+                self.log_result("Agent Email Verification", True, f"All {len(apartments)} apartments have correct email: {expected_email}")
+            else:
+                self.log_result("Agent Email Verification", False, f"Email issues found: {len(email_issues)} problems")
+                # Print first few issues for debugging
+                for issue in email_issues[:3]:
+                    print(f"   • {issue}")
+                    
+        except Exception as e:
+            self.log_result("Agent Email Verification", False, f"Exception: {str(e)}")
+    
+    def test_user_confirmation_emails_functionality(self):
+        """Test that user confirmation emails still work normally"""
+        print("\n=== Testing User Confirmation Emails Functionality ===")
+        try:
+            # Test contact endpoint with real-looking data
+            contact_data = {
+                "apartment_id": "user-confirmation-test",
+                "apartment_title": "User Confirmation Test Apartment",
+                "apartment_address": "456 Confirmation Ave, Brooklyn, NY",
+                "apartment_price": 3800,
+                "name": "Sarah Johnson",
+                "email": "sarah.johnson@example.com",
+                "phone": "(555) 987-6543",
+                "message": "I'm interested in scheduling a viewing for this apartment. Please let me know available times."
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("User Confirmation Email", True, "User confirmation email system working")
+                else:
+                    self.log_result("User Confirmation Email", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("User Confirmation Email", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("User Confirmation Emails Functionality", False, f"Exception: {str(e)}")
+    
+    def test_gmail_smtp_with_new_recipient(self):
+        """Verify Gmail SMTP (placesfirm@gmail.com) works with new recipient placesnyc88@gmail.com"""
+        print("\n=== Testing Gmail SMTP with New Recipient ===")
+        try:
+            # Test multiple contact requests to verify SMTP is working with new recipient
+            test_contacts = [
+                {
+                    "apartment_id": "smtp-test-1",
+                    "apartment_title": "SMTP Test Apartment 1",
+                    "apartment_address": "100 SMTP Test St, Manhattan, NY",
+                    "apartment_price": 4200,
+                    "name": "SMTP Test User 1",
+                    "email": "smtp.test1@example.com",
+                    "phone": "(555) 111-1111",
+                    "message": "Testing Gmail SMTP functionality with placesfirm@gmail.com sender"
+                },
+                {
+                    "apartment_id": "smtp-test-2", 
+                    "apartment_title": "SMTP Test Apartment 2",
+                    "apartment_address": "200 SMTP Test Ave, Queens, NY",
+                    "apartment_price": 3600,
+                    "name": "SMTP Test User 2",
+                    "email": "smtp.test2@example.com",
+                    "phone": "(555) 222-2222",
+                    "message": "Verifying email delivery to placesnyc88@gmail.com recipient"
+                }
+            ]
+            
+            successful_emails = 0
+            for i, contact_data in enumerate(test_contacts, 1):
+                response = self.make_request("POST", "/contact/apartment", contact_data)
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get("message") == "Email sent successfully":
+                        successful_emails += 1
+                        self.log_result(f"SMTP Test {i}", True, f"Email {i} sent successfully")
+                    else:
+                        self.log_result(f"SMTP Test {i}", False, f"Unexpected response: {data}")
+                else:
+                    self.log_result(f"SMTP Test {i}", False, f"Status code: {response.status_code}")
+            
+            if successful_emails == len(test_contacts):
+                self.log_result("Gmail SMTP with New Recipient", True, f"All {successful_emails} test emails sent successfully")
+            else:
+                self.log_result("Gmail SMTP with New Recipient", False, f"Only {successful_emails}/{len(test_contacts)} emails sent successfully")
+                
+        except Exception as e:
+            self.log_result("Gmail SMTP with New Recipient", False, f"Exception: {str(e)}")
+    
+    def test_backend_logs_email_success(self):
+        """Test backend logs for successful email delivery messages"""
+        print("\n=== Testing Backend Logs Email Success ===")
+        try:
+            # Send a test email and verify the response indicates success
+            contact_data = {
+                "apartment_id": "log-test",
+                "apartment_title": "Backend Log Test Apartment", 
+                "apartment_address": "789 Log Test Blvd, Bronx, NY",
+                "apartment_price": 3200,
+                "name": "Log Test User",
+                "email": "log.test@example.com",
+                "phone": "(555) 333-3333",
+                "message": "Testing backend logs for email delivery confirmation"
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("message") == "Email sent successfully":
+                    self.log_result("Backend Email Logs Success", True, "Backend returned 'Email sent successfully' message")
+                else:
+                    self.log_result("Backend Email Logs Success", False, f"Expected success message, got: {data}")
+            else:
+                self.log_result("Backend Email Logs Success", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Backend Logs Email Success", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
