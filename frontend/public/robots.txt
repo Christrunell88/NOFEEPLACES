@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# SEO-friendly pages
+Allow: /apartments
+Allow: /search
+Allow: /neighborhoods
+
+# Block admin areas
+Disallow: /admin
+Disallow: /api
+Disallow: /dashboard
+
+# Sitemap location
+Sitemap: https://nofeeplaces.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
