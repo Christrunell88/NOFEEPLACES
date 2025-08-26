@@ -3638,6 +3638,12 @@ class NoFeePlacesAPITester:
         self.test_appointment_data_validation()
         self.test_appointment_cancellation()
         
+        # MODERN CALENDAR AND CALENDAR INVITES TESTING (as requested in review)
+        print("\n" + "=" * 60)
+        print("📅 MODERN CALENDAR FUNCTIONALITY TESTING (PRIORITY)")
+        print("=" * 60)
+        self.test_modern_calendar_functionality()
+        
         # Data scraping tests
         self.test_data_scraping()
         
