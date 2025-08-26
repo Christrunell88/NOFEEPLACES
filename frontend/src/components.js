@@ -152,20 +152,20 @@ const Hero = ({ onSearchSubmit }) => {
         </div>
 
         {/* Search Bar - Positioned Lower */}
-        <div className="max-w-2xl mx-auto">
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 p-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20">
+        <div className="max-w-xl mx-auto">
+          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 p-4 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20">
             <div className="flex-1">
               <input
                 type="text"
                 placeholder="Search no fee apartments by neighborhood, address, or subway stop..."
                 value={searchLocation}
                 onChange={(e) => setSearchLocation(e.target.value)}
-                className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg"
+                className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-base"
               />
             </div>
             <button
               type="submit"
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 font-semibold whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm"
             >
               Search Apartments
             </button>
