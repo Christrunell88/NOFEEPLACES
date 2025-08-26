@@ -3409,6 +3409,7 @@ class NoFeePlacesAPITester:
         
         # Authentication tests
         self.test_user_registration()
+        self.test_user_registration_email_notifications()  # NEW: Email notification testing
         self.test_user_login()
         self.test_user_profile()
         self.test_jwt_validation()
