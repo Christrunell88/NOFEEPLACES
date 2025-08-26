@@ -2632,6 +2632,9 @@ class NoFeePlacesAPITester:
         # Scraping and image update verification (as requested)
         self.test_scraping_and_image_updates()
         
+        # NEW: Email Contact Functionality Tests (as requested in review)
+        self.test_email_contact_functionality()
+        
         # TF Cornerstone specific tests
         self.test_tfc_listings_count()
         self.test_tfc_listings_data_quality()
