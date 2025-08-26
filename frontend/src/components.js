@@ -2219,8 +2219,18 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-slate-700 mt-8 pt-8 text-center text-amber-200">
-          <p>&copy; 2025 NoFeePlaces.com. All rights reserved. | Privacy Policy | Terms of Service</p>
+        <div className="border-t border-slate-700 mt-8 pt-8">
+          <div className="text-center text-amber-200 mb-4">
+            <p className="mb-2">
+              <strong>No Fee Places NYC</strong> - Your trusted source for <strong>no broker fee apartments NYC</strong>
+            </p>
+            <p className="text-sm">
+              Specializing in <strong>no fee rentals NYC</strong>, <strong>NYC apartments no broker fee</strong>, and <strong>New York no fee apartments</strong> across Manhattan, Brooklyn, and Queens.
+            </p>
+          </div>
+          <div className="text-center text-amber-200 text-sm">
+            <p>&copy; 2025 NoFeePlaces.com. All rights reserved. | <a href="#" className="hover:text-amber-100">Privacy Policy</a> | <a href="#" className="hover:text-amber-100">Terms of Service</a></p>
+          </div>
         </div>
       </div>
     </footer>
