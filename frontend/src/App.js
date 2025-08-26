@@ -102,6 +102,7 @@ const AuthProvider = ({ children }) => {
 const { 
   Header, 
   Hero, 
+  SEOContentSection,
   AdvancedSearchFilters, 
   ApartmentCard, 
   MapView, 
