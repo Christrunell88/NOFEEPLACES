@@ -176,58 +176,125 @@ const Hero = ({ onSearchSubmit }) => {
   );
 };
 
-// SEO Content Section Component
+// SEO Content Section Component with Collapsible Sections
 const SEOContentSection = () => {
+  const [expandedSections, setExpandedSections] = useState({});
+
+  const toggleSection = (sectionKey) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey]
+    }));
+  };
+
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-8">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             Find Your Perfect No Fee Apartment in New York City
           </h2>
           
-          <div className="grid md:grid-cols-2 gap-8 text-left">
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">No Broker Fee Apartments NYC</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Skip the broker fees and save thousands on your next apartment rental. Our platform connects you directly 
-                with <strong>NYC apartments no broker fee</strong> from verified property owners and management companies 
-                across all five boroughs.
-              </p>
+          {/* Compact Button Layout */}
+          <div className="grid md:grid-cols-3 gap-4 mb-6">
+            {/* No Broker Fee Apartments Section */}
+            <div className="text-left">
+              <button
+                onClick={() => toggleSection('noBrokerFee')}
+                className="w-full p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-left transition-colors duration-200 flex items-center justify-between"
+              >
+                <span className="font-semibold text-gray-900">No Broker Fee Apartments NYC</span>
+                <svg 
+                  className={`w-5 h-5 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
               
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Popular Neighborhoods:</h4>
-              <ul className="text-gray-700 space-y-2">
-                <li>• Manhattan: Upper East Side, Chelsea, Midtown West, Financial District</li>
-                <li>• Brooklyn: Williamsburg, DUMBO, Park Slope, Bedford-Stuyvesant</li>
-                <li>• Queens: Long Island City, Astoria, Forest Hills, Ridgewood</li>
-              </ul>
+              {expandedSections.noBrokerFee && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    Skip the broker fees and save thousands on your next apartment rental. Our platform connects you directly 
+                    with <strong>NYC apartments no broker fee</strong> from verified property owners and management companies 
+                    across all five boroughs.
+                  </p>
+                  
+                  <h4 className="font-semibold text-gray-900 mb-2">Popular Neighborhoods:</h4>
+                  <ul className="text-gray-700 text-sm space-y-1">
+                    <li>• Manhattan: Upper East Side, Chelsea, Midtown West, Financial District</li>
+                    <li>• Brooklyn: Williamsburg, DUMBO, Park Slope, Bedford-Stuyvesant</li>
+                    <li>• Queens: Long Island City, Astoria, Forest Hills, Ridgewood</li>
+                  </ul>
+                </div>
+              )}
             </div>
             
-            <div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Why Choose No Fee Places NYC?</h3>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                <strong>No fee places NYC</strong> specializes in <strong>New York no fee apartments</strong> that 
-                eliminate expensive broker fees. Every listing is verified, and our expert team helps you secure 
-                your dream apartment without the traditional NYC rental hassles.
-              </p>
+            {/* Why Choose Us Section */}
+            <div className="text-left">
+              <button
+                onClick={() => toggleSection('whyChoose')}
+                className="w-full p-4 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 text-left transition-colors duration-200 flex items-center justify-between"
+              >
+                <span className="font-semibold text-gray-900">Why Choose No Fee Places NYC?</span>
+                <svg 
+                  className={`w-5 h-5 transition-transform ${expandedSections.whyChoose ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
               
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Our Promise:</h4>
-              <ul className="text-gray-700 space-y-2">
-                <li>• 100% verified <strong>no fee rentals NYC</strong></li>
-                <li>• Direct contact with property owners</li>
-                <li>• Expert guidance from Chris Trunell</li>
-                <li>• Same-day apartment viewings available</li>
-                <li>• No hidden fees or surprise charges</li>
-              </ul>
+              {expandedSections.whyChoose && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <p className="text-gray-700 leading-relaxed mb-4">
+                    <strong>No fee places NYC</strong> specializes in <strong>New York no fee apartments</strong> that 
+                    eliminate expensive broker fees. Every listing is verified, and our expert team helps you secure 
+                    your dream apartment without the traditional NYC rental hassles.
+                  </p>
+                  
+                  <h4 className="font-semibold text-gray-900 mb-2">Our Promise:</h4>
+                  <ul className="text-gray-700 text-sm space-y-1">
+                    <li>• 100% verified <strong>no fee rentals NYC</strong></li>
+                    <li>• Direct contact with property owners</li>
+                    <li>• Expert guidance from Chris Trunell</li>
+                    <li>• Same-day apartment viewings available</li>
+                    <li>• No hidden fees or surprise charges</li>
+                  </ul>
+                </div>
+              )}
             </div>
-          </div>
-          
-          <div className="mt-12 p-6 bg-blue-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Ready to Find Your No Fee Apartment?</h3>
-            <p className="text-gray-700 mb-4">
-              Browse our exclusive collection of <strong>no broker fee apartments NYC</strong> and schedule viewings today. 
-              Contact our expert agent Chris Trunell at (646) 408-8048 or chris@places.nyc for personalized assistance.
-            </p>
+
+            {/* Contact Section */}
+            <div className="text-left">
+              <button
+                onClick={() => toggleSection('contact')}
+                className="w-full p-4 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 text-left transition-colors duration-200 flex items-center justify-between"
+              >
+                <span className="font-semibold text-gray-900">Ready to Find Your Apartment?</span>
+                <svg 
+                  className={`w-5 h-5 transition-transform ${expandedSections.contact ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {expandedSections.contact && (
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <p className="text-gray-700 text-sm mb-4">
+                    Browse our exclusive collection of <strong>no broker fee apartments NYC</strong> and schedule viewings today. 
+                    Contact our expert agent Chris Trunell at (646) 408-8048 or chris@places.nyc for personalized assistance.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
