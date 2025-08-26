@@ -967,12 +967,7 @@ const ApartmentCard = ({ apartment }) => {
               Email
             </button>
           </div>
-          <button
-            onClick={handleViewDetails}
-            className="text-gray-600 hover:text-gray-900 text-sm font-medium border border-gray-300 px-3 py-2 rounded hover:border-gray-400 transition-colors"
-          >
-            Details
-          </button>
+          <span className="text-xs text-gray-500 italic">Click image for details</span>
         </div>
       </div>
 
