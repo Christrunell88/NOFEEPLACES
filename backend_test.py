@@ -2435,6 +2435,145 @@ class NoFeePlacesAPITester:
         
         return self.results
 
+    def test_email_contact_functionality(self):
+        """Test the apartment email contact system functionality"""
+        print("\n=== Testing Email Contact Functionality ===")
+        try:
+            # Test data as specified in the review request
+            contact_data = {
+                "apartment_id": "test-123",
+                "apartment_title": "Test Apartment",
+                "apartment_address": "123 Test St, Brooklyn, NY",
+                "apartment_price": 3000,
+                "name": "John Test User",
+                "email": "john.test@example.com",
+                "phone": "(555) 123-4567",
+                "message": "I'm interested in this apartment"
+            }
+            
+            # Test successful contact submission
+            response = self.make_request("POST", "/contact/apartment", contact_data)
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and "successfully" in data["message"].lower():
+                    self.log_result("Contact Endpoint (Valid Request)", True, "Contact form submitted successfully")
+                else:
+                    self.log_result("Contact Endpoint (Valid Request)", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Contact Endpoint (Valid Request)", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Test missing required fields - apartment_id
+            incomplete_data = contact_data.copy()
+            del incomplete_data["apartment_id"]
+            
+            response = self.make_request("POST", "/contact/apartment", incomplete_data)
+            if response.status_code in [400, 422]:  # Should reject missing required field
+                self.log_result("Contact Validation (Missing apartment_id)", True, "Correctly rejected missing apartment_id")
+            else:
+                self.log_result("Contact Validation (Missing apartment_id)", False, f"Should reject missing apartment_id, got: {response.status_code}")
+            
+            # Test missing required fields - name
+            incomplete_data = contact_data.copy()
+            del incomplete_data["name"]
+            
+            response = self.make_request("POST", "/contact/apartment", incomplete_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Missing name)", True, "Correctly rejected missing name")
+            else:
+                self.log_result("Contact Validation (Missing name)", False, f"Should reject missing name, got: {response.status_code}")
+            
+            # Test missing required fields - email
+            incomplete_data = contact_data.copy()
+            del incomplete_data["email"]
+            
+            response = self.make_request("POST", "/contact/apartment", incomplete_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Missing email)", True, "Correctly rejected missing email")
+            else:
+                self.log_result("Contact Validation (Missing email)", False, f"Should reject missing email, got: {response.status_code}")
+            
+            # Test invalid email format
+            invalid_email_data = contact_data.copy()
+            invalid_email_data["email"] = "invalid-email-format"
+            
+            response = self.make_request("POST", "/contact/apartment", invalid_email_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Invalid email)", True, "Correctly rejected invalid email format")
+            else:
+                self.log_result("Contact Validation (Invalid email)", False, f"Should reject invalid email, got: {response.status_code}")
+            
+            # Test missing required fields - phone
+            incomplete_data = contact_data.copy()
+            del incomplete_data["phone"]
+            
+            response = self.make_request("POST", "/contact/apartment", incomplete_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Missing phone)", True, "Correctly rejected missing phone")
+            else:
+                self.log_result("Contact Validation (Missing phone)", False, f"Should reject missing phone, got: {response.status_code}")
+            
+            # Test missing required fields - message
+            incomplete_data = contact_data.copy()
+            del incomplete_data["message"]
+            
+            response = self.make_request("POST", "/contact/apartment", incomplete_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Missing message)", True, "Correctly rejected missing message")
+            else:
+                self.log_result("Contact Validation (Missing message)", False, f"Should reject missing message, got: {response.status_code}")
+            
+            # Test invalid price (negative)
+            invalid_price_data = contact_data.copy()
+            invalid_price_data["apartment_price"] = -1000
+            
+            response = self.make_request("POST", "/contact/apartment", invalid_price_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Invalid price)", True, "Correctly rejected negative price")
+            else:
+                self.log_result("Contact Validation (Invalid price)", False, f"Should reject negative price, got: {response.status_code}")
+            
+            # Test empty string fields
+            empty_fields_data = contact_data.copy()
+            empty_fields_data["name"] = ""
+            
+            response = self.make_request("POST", "/contact/apartment", empty_fields_data)
+            if response.status_code in [400, 422]:
+                self.log_result("Contact Validation (Empty name)", True, "Correctly rejected empty name")
+            else:
+                self.log_result("Contact Validation (Empty name)", False, f"Should reject empty name, got: {response.status_code}")
+            
+            # Test with different apartment data to verify flexibility
+            different_apartment_data = {
+                "apartment_id": "luxury-456",
+                "apartment_title": "Luxury 2BR in Manhattan",
+                "apartment_address": "456 Park Ave, New York, NY 10016",
+                "apartment_price": 5500,
+                "name": "Sarah Wilson",
+                "email": "sarah.wilson@email.com",
+                "phone": "+1 (212) 555-9876",
+                "message": "I would like to schedule a viewing for this beautiful apartment. I'm looking to move in next month."
+            }
+            
+            response = self.make_request("POST", "/contact/apartment", different_apartment_data)
+            if response.status_code == 200:
+                data = response.json()
+                if "message" in data and "successfully" in data["message"].lower():
+                    self.log_result("Contact Endpoint (Different Data)", True, "Contact form works with different apartment data")
+                else:
+                    self.log_result("Contact Endpoint (Different Data)", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Contact Endpoint (Different Data)", False, f"Status code: {response.status_code}")
+            
+            print(f"\n   📧 EMAIL CONTACT SYSTEM VERIFICATION:")
+            print(f"   • Mock email system should be logging emails instead of sending")
+            print(f"   • Check backend logs for '[MOCK EMAIL]' messages")
+            print(f"   • Two emails should be logged per contact: one to agent, one confirmation to user")
+            print(f"   • Agent email should go to: chris@places.nyc")
+            print(f"   • User confirmation should go to the provided email address")
+            
+        except Exception as e:
+            self.log_result("Email Contact Functionality", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
