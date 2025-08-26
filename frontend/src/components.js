@@ -132,25 +132,27 @@ const Hero = ({ onSearchSubmit }) => {
 
   return (
     <section 
-      className="relative py-20 md:py-28 overflow-hidden"
+      className="relative py-32 md:py-40 overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1601740581507-68b2097fb749?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1601740581507-68b2097fb749?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center top',
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
-          No Fee Apartments in NYC
-        </h1>
-        <p className="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto drop-shadow-md leading-relaxed">
-          Find luxury apartments across Manhattan, Brooklyn, and Queens with zero broker fees. 
-          Direct from property owners and management companies.
-        </p>
+      <div className="container mx-auto px-4 text-center relative z-10 h-full flex flex-col justify-center">
+        <div className="mb-20">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+            No Fee Apartments in NYC
+          </h1>
+          <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto drop-shadow-md leading-relaxed">
+            Find luxury apartments across Manhattan, Brooklyn, and Queens with zero broker fees. 
+            Direct from property owners and management companies.
+          </p>
+        </div>
 
-        {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-8">
+        {/* Search Bar - Positioned Lower */}
+        <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 p-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-2xl border border-white/20">
             <div className="flex-1">
               <input
@@ -168,40 +170,6 @@ const Hero = ({ onSearchSubmit }) => {
               Search Apartments
             </button>
           </form>
-        </div>
-
-        {/* Key Features */}
-        <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-5xl mx-auto">
-          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">No Broker Fees</h3>
-            <p className="text-gray-700 leading-relaxed">Save thousands with apartments that don't charge broker fees</p>
-          </div>
-          
-          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Prime Locations</h3>
-            <p className="text-gray-700 leading-relaxed">Manhattan, Brooklyn, and Queens luxury buildings</p>
-          </div>
-          
-          <div className="text-center bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a4 4 0 118 0v4m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-3">Verified Listings</h3>
-            <p className="text-gray-700 leading-relaxed">All apartments verified with property management</p>
-          </div>
         </div>
       </div>
     </section>
