@@ -3325,6 +3325,16 @@ class NoFeePlacesAPITester:
         # Scraping and image update verification (as requested)
         self.test_scraping_and_image_updates()
         
+        # NEW: Email Address Change Tests (as requested in review)
+        print("\n" + "=" * 50)
+        print("📧 EMAIL ADDRESS CHANGE TESTING (PRIORITY)")
+        print("=" * 50)
+        self.test_email_address_change_verification()
+        self.test_agent_email_recipient_verification()
+        self.test_user_confirmation_emails_functionality()
+        self.test_gmail_smtp_with_new_recipient()
+        self.test_backend_logs_email_success()
+        
         # NEW: Gmail SMTP Configuration Tests (as requested in review)
         print("\n" + "=" * 50)
         print("📧 GMAIL SMTP TESTING (PRIORITY)")
