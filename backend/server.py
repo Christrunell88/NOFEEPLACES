@@ -38,7 +38,7 @@ JWT_EXPIRATION_HOURS = 24
 # Email Configuration
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
-EMAIL_USER = os.environ.get('EMAIL_USER', 'chris@places.nyc')
+EMAIL_USER = os.environ.get('EMAIL_USER', 'placesnyc88@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
 
