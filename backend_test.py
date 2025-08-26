@@ -2916,5 +2916,32 @@ class NoFeePlacesAPITester:
 
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
-    # Run enhanced features tests as requested in the review
-    results = tester.run_enhanced_features_tests()
+    # Run Gmail SMTP tests as requested in the review
+    print("🚀 Starting Gmail SMTP Configuration Tests")
+    print(f"Testing against: {tester.base_url}")
+    print("=" * 60)
+    
+    # Run authentication first to get token
+    tester.test_user_registration()
+    tester.test_user_login()
+    
+    # Run Gmail SMTP specific tests
+    tester.test_gmail_smtp_configuration()
+    tester.test_email_from_address_verification()
+    tester.test_backend_email_logs()
+    
+    # Print summary
+    print("\n" + "=" * 60)
+    print("🏁 GMAIL SMTP TEST SUMMARY")
+    print("=" * 60)
+    print(f"✅ Passed: {tester.results['passed']}")
+    print(f"❌ Failed: {tester.results['failed']}")
+    print(f"📊 Total: {tester.results['passed'] + tester.results['failed']}")
+    
+    if tester.results['errors']:
+        print("\n🔍 FAILED TESTS:")
+        for error in tester.results['errors']:
+            print(f"   • {error}")
+    
+    success_rate = (tester.results['passed'] / (tester.results['passed'] + tester.results['failed'])) * 100 if (tester.results['passed'] + tester.results['failed']) > 0 else 0
+    print(f"\n🎯 Success Rate: {success_rate:.1f}%")
