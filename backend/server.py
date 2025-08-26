@@ -2275,9 +2275,9 @@ async def get_search_stats():
         "price_stats": price_stats[0] if price_stats else {}
     }
 
-# Email service for appointment confirmations
+# Enhanced Email service for appointment confirmations with calendar invites
 async def send_appointment_confirmation_email(appointment_data: dict, apartment_data: dict):
-    """Send appointment confirmation email to visitor and broker"""
+    """Send appointment confirmation email with calendar invites to visitor and broker"""
     
     if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
         # Email not configured, use mock email
@@ -2286,68 +2286,182 @@ async def send_appointment_confirmation_email(appointment_data: dict, apartment_
         print(f"[MOCK EMAIL] Apartment: {apartment_data['title']}")
         print(f"[MOCK EMAIL] Date: {appointment_data['appointment_date']}")
         return
-    
+
+    def create_calendar_event(appointment_data: dict, apartment_data: dict):
+        """Create an iCal calendar event"""
+        cal = Calendar()
+        cal.add('prodid', '-//PLACES No Fee//Apartment Viewing//EN')
+        cal.add('version', '2.0')
+        cal.add('calscale', 'GREGORIAN')
+
+        event = Event()
+        
+        # Event details
+        event.add('uid', f"appointment-{appointment_data['id']}@nofeeplaces.com")
+        event.add('summary', f"Apartment Viewing - {apartment_data['title']}")
+        
+        # Parse the appointment date and time
+        appointment_datetime = appointment_data['appointment_date']
+        if isinstance(appointment_datetime, str):
+            appointment_datetime = datetime.fromisoformat(appointment_datetime.replace('Z', '+00:00'))
+        
+        # Set timezone to Eastern Time (NYC)
+        eastern = pytz.timezone('US/Eastern')
+        if appointment_datetime.tzinfo is None:
+            appointment_datetime = eastern.localize(appointment_datetime)
+        
+        # Event duration (1 hour)
+        end_time = appointment_datetime + timedelta(hours=1)
+        
+        event.add('dtstart', appointment_datetime)
+        event.add('dtend', end_time)
+        event.add('location', apartment_data['address'])
+        
+        # Detailed description
+        description = f"""
+Apartment Viewing Details:
+
+Property: {apartment_data['title']}
+Address: {apartment_data['address']}
+Rent: ${apartment_data['price']:,}/month
+Bedrooms: {apartment_data.get('bedrooms', 'N/A')}
+Bathrooms: {apartment_data.get('bathrooms', 'N/A')}
+
+Visitor: {appointment_data['visitor_name']}
+Phone: {appointment_data['visitor_phone']}
+Email: {appointment_data['visitor_email']}
+
+Notes: {appointment_data.get('notes', 'No additional notes')}
+
+Contact Chris Trunell at (646) 408-8048 if you need to reschedule.
+
+Best regards,
+PLACES No Fee
+        """.strip()
+        
+        event.add('description', description)
+        
+        # Add attendees
+        event.add('attendee', f"MAILTO:{appointment_data['visitor_email']}")
+        event.add('attendee', f"MAILTO:placesnyc88@gmail.com")
+        
+        # Organizer
+        event.add('organizer', f"MAILTO:placesnyc88@gmail.com")
+        
+        # Add event to calendar
+        cal.add_component(event)
+        
+        return cal.to_ical()
+
+    async def send_email_with_calendar(to_email: str, subject: str, body: str, calendar_data: bytes):
+        """Send email with calendar attachment"""
+        try:
+            msg = MIMEMultipart()
+            msg['From'] = EMAIL_USER
+            msg['To'] = to_email
+            msg['Subject'] = subject
+            
+            # Add body
+            msg.attach(MIMEText(body, 'plain'))
+            
+            # Add calendar attachment
+            cal_attachment = MIMEBase('text', 'calendar')
+            cal_attachment.set_payload(calendar_data)
+            encoders.encode_base64(cal_attachment)
+            cal_attachment.add_header(
+                'Content-Disposition',
+                'attachment; filename="appointment.ics"'
+            )
+            cal_attachment.add_header('Content-Type', 'text/calendar; method=REQUEST')
+            msg.attach(cal_attachment)
+            
+            # Send email
+            server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+            if EMAIL_USE_TLS:
+                server.starttls()
+            server.login(EMAIL_USER, EMAIL_PASSWORD)
+            text = msg.as_string()
+            server.sendmail(EMAIL_USER, to_email, text)
+            server.quit()
+            
+            print(f"Email with calendar invite sent successfully to {to_email}")
+        except Exception as e:
+            print(f"Failed to send email with calendar to {to_email}: {e}")
+            raise
     
     try:
+        # Create calendar invite
+        calendar_data = create_calendar_event(appointment_data, apartment_data)
+        
         # Email content for visitor
-        visitor_subject = f"Apartment Viewing Confirmed - {apartment_data['title']}"
+        visitor_subject = f"🏠 Apartment Viewing Confirmed - {apartment_data['title']}"
         visitor_body = f"""
-        Dear {appointment_data['visitor_name']},
+Dear {appointment_data['visitor_name']},
 
-        Your apartment viewing has been confirmed! Here are the details:
+Your apartment viewing has been confirmed! Here are the details:
 
-        🏠 Property: {apartment_data['title']}
-        📍 Address: {apartment_data['address']}
-        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
-        🕐 Time: {appointment_data['appointment_time']}
-        💰 Rent: ${apartment_data['price']:,}/month
-        📋 Status: {appointment_data['status'].title()}
+🏠 Property: {apartment_data['title']}
+📍 Address: {apartment_data['address']}
+📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+🕐 Time: {appointment_data['appointment_time']}
+💰 Rent: ${apartment_data['price']:,}/month
+📋 Status: {appointment_data['status'].title()}
 
-        Please arrive on time and bring a valid ID. If you need to reschedule or cancel, please contact us as soon as possible.
+📅 CALENDAR INVITE: Please find the calendar invite (.ics file) attached to this email. 
+Add it to your calendar to receive reminders!
 
-        Contact Information:
-        📞 Phone: (646) 408-8048
-        ✉️ Email: placesnyc88@gmail.com
+Please arrive on time and bring a valid ID. If you need to reschedule or cancel, please contact us as soon as possible.
 
-        Looking forward to showing you this amazing no-fee apartment!
+Contact Information:
+📞 Phone: (646) 408-8048
+✉️ Email: placesnyc88@gmail.com
 
-        Best regards,
-        Chris Trunell
-        Places No Fee
+Looking forward to showing you this amazing no-fee apartment!
+
+Best regards,
+Chris Trunell
+PLACES No Fee
+NoFeePlaces.com
         """
 
         # Email content for broker
-        broker_subject = f"New Apartment Viewing Scheduled - {apartment_data['title']}"
+        broker_subject = f"📅 New Apartment Viewing Scheduled - {apartment_data['title']}"
         broker_body = f"""
-        New apartment viewing scheduled:
+New apartment viewing scheduled:
 
-        🏠 Property: {apartment_data['title']}
-        📍 Address: {apartment_data['address']}
-        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
-        🕐 Time: {appointment_data['appointment_time']}
+🏠 Property: {apartment_data['title']}
+📍 Address: {apartment_data['address']}
+📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+🕐 Time: {appointment_data['appointment_time']}
 
-        Visitor Information:
-        👤 Name: {appointment_data['visitor_name']}
-        📞 Phone: {appointment_data['visitor_phone']}
-        ✉️ Email: {appointment_data['visitor_email']}
-        📝 Notes: {appointment_data.get('notes', 'No additional notes')}
+Visitor Information:
+👤 Name: {appointment_data['visitor_name']}
+📞 Phone: {appointment_data['visitor_phone']}
+✉️ Email: {appointment_data['visitor_email']}
+📝 Notes: {appointment_data.get('notes', 'No additional notes')}
 
-        Appointment ID: {appointment_data['id']}
-        Status: {appointment_data['status'].title()}
+📅 CALENDAR INVITE: Calendar event attached for your scheduling system.
+
+Appointment ID: {appointment_data['id']}
+Status: {appointment_data['status'].title()}
+
+Created via NoFeePlaces.com
         """
 
-        # Send email to visitor
-        await send_email(
+        # Send email with calendar invite to visitor
+        await send_email_with_calendar(
             to_email=appointment_data['visitor_email'],
             subject=visitor_subject,
-            body=visitor_body
+            body=visitor_body,
+            calendar_data=calendar_data
         )
 
-        # Send email to broker
-        await send_email(
+        # Send email with calendar invite to broker
+        await send_email_with_calendar(
             to_email='placesnyc88@gmail.com',
             subject=broker_subject,
-            body=broker_body
+            body=broker_body,
+            calendar_data=calendar_data
         )
         
     except Exception as e:
