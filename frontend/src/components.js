@@ -134,9 +134,9 @@ const Hero = ({ onSearchSubmit }) => {
     <section 
       className="relative py-32 md:py-40 overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1601740581507-68b2097fb749?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80&crop=faces&fp-x=0.5&fp-y=0.3')`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg?auto=compress&cs=tinysrgb&w=2340&h=1560')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center 30%',
+        backgroundPosition: 'center center',
         backgroundRepeat: 'no-repeat'
       }}
     >
