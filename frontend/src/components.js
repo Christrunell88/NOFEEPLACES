@@ -875,11 +875,11 @@ const ApartmentCard = ({ apartment }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
-      <div className="relative">
+      <div className="relative cursor-pointer" onClick={handleViewDetails}>
         <LazyImage
           src={apartment.images?.[0] || apartment.image}
           alt={apartment.title}
-          className="w-full h-48 object-cover"
+          className="w-full h-48 object-cover hover:opacity-95 transition-opacity duration-200"
         />
         
         {/* No Fee Badge */}
