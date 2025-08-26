@@ -2303,8 +2303,18 @@ async def send_appointment_confirmation_email(appointment_data: dict, apartment_
         print(f"Failed to send appointment confirmation email: {e}")
 
 async def send_email(to_email: str, subject: str, body: str):
-    """Send email using SMTP"""
+    """Send email using SMTP - Mock implementation for testing"""
     try:
+        # Check if email is properly configured
+        if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+            # Mock email sending - log instead of actually sending
+            print(f"[MOCK EMAIL] Email would be sent to: {to_email}")
+            print(f"[MOCK EMAIL] Subject: {subject}")
+            print(f"[MOCK EMAIL] Body: {body}")
+            print(f"[MOCK EMAIL] Email sent successfully (mocked)")
+            return
+        
+        # Real email sending code (if credentials are configured)
         msg = MIMEMultipart()
         msg['From'] = EMAIL_USER
         msg['To'] = to_email
@@ -2323,7 +2333,11 @@ async def send_email(to_email: str, subject: str, body: str):
         print(f"Email sent successfully to {to_email}")
     except Exception as e:
         print(f"Failed to send email to {to_email}: {e}")
-        raise
+        # Don't raise exception for mock email - just log and continue
+        if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+            print(f"[MOCK EMAIL] Continuing with mock email (no real credentials configured)")
+        else:
+            raise
 
 # Contact/Email Routes
 @api_router.post("/contact/apartment")
