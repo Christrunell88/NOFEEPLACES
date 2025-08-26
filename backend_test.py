@@ -3203,7 +3203,20 @@ if __name__ == "__main__":
     tester.test_user_registration()
     tester.test_user_login()
     
-    # Run Gmail SMTP specific tests
+    # Run Gmail SMTP specific tests (NEW COMPREHENSIVE TESTS)
+    print("\n📧 GMAIL SMTP COMPREHENSIVE TESTING")
+    print("=" * 60)
+    tester.test_gmail_smtp_authentication()
+    tester.test_real_email_delivery_comprehensive()
+    tester.test_from_address_verification_comprehensive()
+    tester.test_dual_email_system_comprehensive()
+    tester.test_multiple_recipients_reliability_comprehensive()
+    tester.test_backend_logs_verification_comprehensive()
+    tester.test_gmail_smtp_comprehensive_final()
+    
+    # Run original Gmail SMTP tests for compatibility
+    print("\n📧 ORIGINAL GMAIL SMTP TESTS")
+    print("=" * 60)
     tester.test_gmail_smtp_configuration()
     tester.test_email_from_address_verification()
     tester.test_backend_email_logs()
