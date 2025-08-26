@@ -2159,136 +2159,54 @@ const LoadingSpinner = () => {
   );
 };
 
-// Enhanced Footer Component with PLACES styling
+// Clean Footer Component - Essentials Only
 const Footer = () => {
   return (
     <footer className="bg-slate-800 text-amber-100">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 flex items-center justify-center">
-                {/* Using same SVG logo design */}
-                <svg 
-                  viewBox="0 0 200 200" 
-                  className="w-10 h-10 text-amber-100" 
-                  fill="currentColor" 
-                  stroke="currentColor" 
-                  strokeWidth="4"
-                >
-                  {/* Hand holding buildings - based on your logo */}
-                  <g transform="translate(50, 80)">
-                    {/* Hand outline */}
-                    <path 
-                      d="M20 40 Q15 35 15 30 Q15 25 20 20 Q25 15 35 15 Q40 15 45 20 Q50 15 60 15 Q70 15 75 20 Q80 25 80 30 Q80 35 75 40 L75 50 Q70 60 60 60 L40 60 Q30 60 25 50 Z" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="6"
-                    />
-                    
-                    {/* House */}
-                    <g transform="translate(25, -25)">
-                      <path d="M10 25 L20 15 L30 25" fill="none" strokeWidth="4"/>
-                      <rect x="15" y="20" width="10" height="15" fill="none" strokeWidth="4"/>
-                      <rect x="18" y="28" width="4" height="7" fill="none" strokeWidth="2"/>
-                    </g>
-                    
-                    {/* Building */}
-                    <g transform="translate(45, -35)">
-                      <rect x="0" y="10" width="15" height="25" fill="none" strokeWidth="4"/>
-                      <rect x="3" y="13" width="2" height="2" fill="currentColor"/>
-                      <rect x="7" y="13" width="2" height="2" fill="currentColor"/>
-                      <rect x="11" y="13" width="2" height="2" fill="currentColor"/>
-                      <rect x="3" y="17" width="2" height="2" fill="currentColor"/>
-                      <rect x="7" y="17" width="2" height="2" fill="currentColor"/>
-                      <rect x="11" y="17" width="2" height="2" fill="currentColor"/>
-                      <rect x="3" y="21" width="2" height="2" fill="currentColor"/>
-                      <rect x="7" y="21" width="2" height="2" fill="currentColor"/>
-                      <rect x="11" y="21" width="2" height="2" fill="currentColor"/>
-                      <rect x="3" y="25" width="2" height="2" fill="currentColor"/>
-                      <rect x="7" y="25" width="2" height="2" fill="currentColor"/>
-                      <rect x="11" y="25" width="2" height="2" fill="currentColor"/>
-                    </g>
-                  </g>
+      <div className="container mx-auto px-4 py-8">
+        {/* Main Footer Content */}
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+          
+          {/* Left: Logo & Description */}
+          <div className="text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start space-x-3 mb-3">
+              <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <div className="text-left">
-                <div className="text-xl font-bold text-amber-100 leading-tight">Places</div>
-                <div className="text-xs text-amber-200 leading-tight -mt-1">No Fee</div>
+              <div>
+                <div className="text-lg font-bold text-amber-100">No Fee Places</div>
+                <div className="text-xs text-amber-200 -mt-1">NYC RENTALS</div>
               </div>
             </div>
-            <p className="text-amber-200 mb-4">
-              Your trusted partner for finding no-fee apartments in New York City. 
-              Save thousands on broker fees with NoFeePlaces.com.
+            <p className="text-sm text-amber-200 max-w-sm">
+              Your trusted source for <strong>no broker fee apartments NYC</strong>
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                </svg>
-              </a>
-              <a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                </svg>
-              </a>
-            </div>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/" className="text-amber-200 hover:text-amber-100 transition-colors">Browse Apartments</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Guide</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Neighborhoods</a></li>
-              <li><a href="/dashboard" className="text-amber-200 hover:text-amber-100 transition-colors">Dashboard</a></li>
-              <li><a href="/saved-searches" className="text-amber-200 hover:text-amber-100 transition-colors">Saved Searches</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">No Fee Apartments by Borough</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Manhattan</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Brooklyn</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Queens</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Bronx</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">NYC No Broker Fee Rentals</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Contact</h3>
-            <ul className="space-y-2 text-amber-200">
-              <li className="flex items-center">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+          {/* Center: Essential Contact */}
+          <div className="text-center">
+            <div className="space-y-2 text-sm text-amber-200">
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                placesnyc88@gmail.com
-              </li>
-              <li className="flex items-center">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span>placesnyc88@gmail.com</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                (646) 408-8048
-              </li>
-              <li className="flex items-start">
-                <svg className="w-4 h-4 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                New York, NY
-              </li>
-            </ul>
+                <span>(646) 408-8048</span>
+              </div>
+            </div>
           </div>
-        </div>
-            <p className="text-amber-200 mb-4">
-              Your trusted partner for finding <strong>no-fee apartments</strong> in New York City. Save 
-              thousands on broker fees with NoFeePlaces.com.
-            </p>
-            <div className="flex space-x-4">
+
+          {/* Right: Social Media */}
+          <div className="text-center">
+            <div className="text-sm text-amber-200 mb-3">Follow Us</div>
+            <div className="flex justify-center space-x-4">
               {/* Facebook */}
               <a 
                 href="https://www.facebook.com/NoFeePlacesNYC" 
@@ -2350,72 +2268,18 @@ const Footer = () => {
                 aria-label="Subscribe to our YouTube channel"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.30 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
             </div>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/" className="text-amber-200 hover:text-amber-100 transition-colors">Browse Apartments</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Guide</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Neighborhoods</a></li>
-              <li><a href="/dashboard" className="text-amber-200 hover:text-amber-100 transition-colors">Dashboard</a></li>
-              <li><a href="/saved-searches" className="text-amber-200 hover:text-amber-100 transition-colors">Saved Searches</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Popular Areas</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Manhattan</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Brooklyn</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Queens</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Bronx</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Staten Island</a></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Contact</h3>
-            <ul className="space-y-2 text-amber-200">
-              <li className="flex items-center">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                placesnyc88@gmail.com
-              </li>
-              <li className="flex items-center">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                (646) 408-8048
-              </li>
-              <li className="flex items-start">
-                <svg className="w-4 h-4 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                New York, NY
-              </li>
-            </ul>
-          </div>
         </div>
-        
-        <div className="border-t border-slate-700 mt-8 pt-8">
-          <div className="text-center text-amber-200 mb-4">
-            <p className="mb-2">
-              <strong>No Fee Places NYC</strong> - Your trusted source for <strong>no broker fee apartments NYC</strong>
-            </p>
-            <p className="text-sm">
-              Specializing in <strong>no fee rentals NYC</strong>, <strong>NYC apartments no broker fee</strong>, and <strong>New York no fee apartments</strong> across Manhattan, Brooklyn, and Queens.
-            </p>
-          </div>
-          <div className="text-center text-amber-200 text-sm">
-            <p>&copy; 2025 NoFeePlaces.com. All rights reserved. | <a href="#" className="hover:text-amber-100">Privacy Policy</a> | <a href="#" className="hover:text-amber-100">Terms of Service</a></p>
-          </div>
+
+        {/* Bottom: Copyright */}
+        <div className="border-t border-slate-700 mt-6 pt-4 text-center">
+          <p className="text-sm text-amber-200">
+            &copy; 2025 NoFeePlaces.com. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
