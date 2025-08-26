@@ -2114,6 +2114,49 @@ async def register(user_data: UserCreate):
     
     await db.users.insert_one(user_dict)
     
+    # Send new user notification email to placesnyc88@gmail.com
+    try:
+        registration_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
+        
+        # Email content for new user notification
+        notification_subject = f"New User Registration - {user_data.full_name}"
+        notification_body = f"""
+        🎉 NEW USER REGISTRATION 🎉
+        
+        A new user has just signed up for NoFeePlaces.com!
+        
+        📋 User Details:
+        👤 Full Name: {user_data.full_name}
+        ✉️ Email: {user_data.email}
+        🕐 Registration Time: {registration_time}
+        🆔 User ID: {user.id}
+        
+        🌐 Platform: NoFeePlaces.com
+        📱 User can now:
+        • Browse no-fee apartments
+        • Save favorites
+        • Schedule viewings
+        • Contact agents directly
+        
+        This user is now part of our growing community of NYC apartment hunters!
+        
+        ---
+        Sent automatically from NoFeePlaces.com Registration System
+        """
+
+        # Send notification email
+        await send_email(
+            to_email='placesnyc88@gmail.com',
+            subject=notification_subject,
+            body=notification_body
+        )
+        
+        print(f"New user registration notification sent for: {user_data.full_name} ({user_data.email})")
+        
+    except Exception as e:
+        print(f"Failed to send registration notification email: {e}")
+        # Don't fail registration if email fails - just log the error
+    
     # Create and return token
     access_token = create_access_token(user.id, user.email)
     return Token(access_token=access_token, token_type="bearer")
