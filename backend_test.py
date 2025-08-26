@@ -3145,6 +3145,18 @@ class NoFeePlacesAPITester:
         self.test_scraping_and_image_updates()
         
         # NEW: Gmail SMTP Configuration Tests (as requested in review)
+        print("\n" + "=" * 50)
+        print("📧 GMAIL SMTP TESTING (PRIORITY)")
+        print("=" * 50)
+        self.test_gmail_smtp_authentication()
+        self.test_real_email_delivery_comprehensive()
+        self.test_from_address_verification_comprehensive()
+        self.test_dual_email_system_comprehensive()
+        self.test_multiple_recipients_reliability_comprehensive()
+        self.test_backend_logs_verification_comprehensive()
+        self.test_gmail_smtp_comprehensive_final()
+        
+        # Original Gmail SMTP tests (keeping for compatibility)
         self.test_gmail_smtp_configuration()
         self.test_email_from_address_verification()
         self.test_backend_email_logs()
