@@ -2255,7 +2255,7 @@ async def get_apartments(
     # Combine lists: other apartments first, then Waterline apartments
     sorted_apartments = other_apartments + waterline_apartments
     
-    return [Apartment(**apt) for apt in apartments]
+    return [Apartment(**apt) for apt in sorted_apartments]
 
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
