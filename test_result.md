@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Perform comprehensive button testing across the entire PLACES No Fee application. Test all interactive elements and buttons to ensure functionality after recent changes (orange theme, address hiding, etc.)"
+user_problem_statement: "Implement hero image for PLACES No Fee website homepage - featuring young New Yorkers finding first apartment, preferably young woman, non-generic professional design"
 
 backend:
   - task: "Related Rentals Scraping Integration"
