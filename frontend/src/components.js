@@ -2118,13 +2118,13 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-amber-100">Popular Areas</h3>
+            <h3 className="text-lg font-semibold mb-4 text-amber-100">No Fee Apartments by Borough</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Manhattan</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Brooklyn</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Queens</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Bronx</a></li>
-              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">Staten Island</a></li>
+              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Manhattan</a></li>
+              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Brooklyn</a></li>
+              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Queens</a></li>
+              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">No Fee Apartments Bronx</a></li>
+              <li><a href="#" className="text-amber-200 hover:text-amber-100 transition-colors">NYC No Broker Fee Rentals</a></li>
             </ul>
           </div>
           
