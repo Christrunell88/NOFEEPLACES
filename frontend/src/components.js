@@ -1272,7 +1272,6 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   );
 
 };
-};
 
 // Admin Dashboard for Managing Appointments
 const AdminAppointments = () => {
