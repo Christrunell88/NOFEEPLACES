@@ -2232,10 +2232,14 @@ async def get_search_stats():
 async def send_appointment_confirmation_email(appointment_data: dict, apartment_data: dict):
     """Send appointment confirmation email to visitor and broker"""
     
-    if not EMAIL_PASSWORD:
-        # Email not configured, skip sending
-        print("Email not configured, skipping email notification")
+    if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+        # Email not configured, use mock email
+        print("[MOCK EMAIL] Appointment confirmation emails would be sent")
+        print(f"[MOCK EMAIL] Visitor: {appointment_data['visitor_name']} ({appointment_data['visitor_email']})")
+        print(f"[MOCK EMAIL] Apartment: {apartment_data['title']}")
+        print(f"[MOCK EMAIL] Date: {appointment_data['appointment_date']}")
         return
+    
     
     try:
         # Email content for visitor
