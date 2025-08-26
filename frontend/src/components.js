@@ -146,8 +146,8 @@ const Hero = ({ onSearchSubmit }) => {
             No Fee Apartments in NYC
           </h1>
           <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto drop-shadow-md leading-relaxed">
-            Find luxury apartments across Manhattan, Brooklyn, and Queens with zero broker fees. 
-            Direct from property owners and management companies.
+            Discover luxury <strong>no broker fee apartments NYC</strong> across Manhattan, Brooklyn, and Queens. 
+            Browse exclusive <strong>no fee rentals NYC</strong> directly from property owners and management companies.
           </p>
         </div>
 
