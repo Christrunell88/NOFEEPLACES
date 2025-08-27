@@ -2218,12 +2218,12 @@ async def get_apartments(
         query["borough"] = {"$regex": borough, "$options": "i"}
     
     if min_sqft:
-        query["sqft"] = {"$gte": min_sqft}
+        query["square_feet"] = {"$gte": min_sqft}
     if max_sqft:
-        if "sqft" in query:
-            query["sqft"]["$lte"] = max_sqft
+        if "square_feet" in query:
+            query["square_feet"]["$lte"] = max_sqft
         else:
-            query["sqft"] = {"$lte": max_sqft}
+            query["square_feet"] = {"$lte": max_sqft}
     
     if search_term:
         query["$or"] = [
