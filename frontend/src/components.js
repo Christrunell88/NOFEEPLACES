@@ -2986,33 +2986,6 @@ const ApartmentComparison = ({ apartments, onClose }) => {
   );
 };
 
-// Export all components
-export const Components = {
-  Header,
-  Hero,
-  SEOContentSection,
-  AdvancedSearchFilters,
-  ApartmentCard,
-  MapView,
-  LoadingSpinner,
-  Footer,
-  AuthModal,
-  UserDashboard,
-  ApartmentDetails,
-  SavedSearches,
-  CalendarBooking,
-  AdminAppointments,
-  AIChatbot,
-  FavoritesPage,
-  ApartmentComparison,
-  LazyImage,
-  ErrorBoundary,
-  Toast,
-  ToastProvider,
-  useToast,
-  EmailContactModal
-};
-
 // Complete Guide Component (for separate page)
 const CompleteGuideNoFeeApartments = () => {
   return (
