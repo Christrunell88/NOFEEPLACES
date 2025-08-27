@@ -74,7 +74,7 @@ class GothamWestTester:
             time.sleep(2)
             
             # Test 1: Check total apartment count (should be around 92+ apartments)
-            response = self.make_request("GET", "/apartments", {"limit": 200})
+            response = self.make_request("GET", "/apartments")
             if response.status_code != 200:
                 self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
                 return
