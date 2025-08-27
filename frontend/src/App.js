@@ -117,7 +117,8 @@ const {
   FavoritesPage,
   ApartmentComparison,
   ToastProvider,
-  ErrorBoundary
+  ErrorBoundary,
+  CompleteGuideNoFeeApartments
 } = Components;
 
 const Home = () => {
