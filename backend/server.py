@@ -2228,6 +2228,7 @@ async def get_apartments(
     if search_term:
         query["$or"] = [
             {"title": {"$regex": search_term, "$options": "i"}},
+            {"location": {"$regex": search_term, "$options": "i"}},
             {"address": {"$regex": search_term, "$options": "i"}},
             {"neighborhood": {"$regex": search_term, "$options": "i"}},
             {"description": {"$regex": search_term, "$options": "i"}}
