@@ -104,6 +104,18 @@
 
 user_problem_statement: "Implement hero image for PLACES No Fee website homepage - featuring young New Yorkers finding first apartment, preferably young woman, non-generic professional design"
 
+  - task: "StreetEasy Owner-Paid Commission Apartments Integration"
+    implemented: false
+    working: false
+    file: "/app/streeteasy_op_apartments.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "STREETEASY OP COMMISSION APARTMENTS INTEGRATION IMPLEMENTATION STARTING: Creating comprehensive integration script to add 12-15 owner-paid commission no-fee apartments from StreetEasy platform. Target diverse NYC neighborhoods (Manhattan, Brooklyn, Queens) with price range $3,200-$8,500. All apartments will feature no_fee: true, owner-paid commissions, quality amenities, professional images, and standardized contact information. Following established patterns from Gotham West and Waterline Square integrations with proper MongoDB schema compliance."
+
 backend:
   - task: "Apartment Count Discrepancy Investigation"
     implemented: true
