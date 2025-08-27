@@ -370,6 +370,7 @@ function App() {
                 <Route path="/favorites" element={<FavoritesPageRoute />} />
                 <Route path="/saved-searches" element={<SavedSearchesPage />} />
                 <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
+                <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
