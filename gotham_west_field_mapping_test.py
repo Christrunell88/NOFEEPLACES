@@ -292,6 +292,96 @@ class GothamWestFieldMappingTester:
         except Exception as e:
             self.log_result("Field Mapping Fixes", False, f"Exception: {str(e)}")
     
+    def test_backend_field_mapping_issues(self):
+        """Test specific backend field mapping issues found in server.py"""
+        print("\n=== Testing Backend Field Mapping Issues ===")
+        try:
+            # Test 1: Check if sqft filtering works (backend should use 'sqft' not 'square_feet')
+            response = self.make_request("GET", "/apartments", {"min_sqft": 600, "max_sqft": 800})
+            if response.status_code == 200:
+                sqft_results = response.json()
+                
+                # Check if any results were returned
+                if len(sqft_results) > 0:
+                    # Verify the results actually match the sqft criteria
+                    valid_results = 0
+                    for apt in sqft_results:
+                        sqft = apt.get("sqft", 0)
+                        if 600 <= sqft <= 800:
+                            valid_results += 1
+                    
+                    if valid_results == len(sqft_results):
+                        self.log_result("Backend Sqft Filtering Logic", True, f"Sqft filter working correctly: {valid_results} valid results")
+                    else:
+                        self.log_result("Backend Sqft Filtering Logic", False, f"Sqft filter issue: {valid_results}/{len(sqft_results)} results match criteria")
+                else:
+                    # Check if there should be results in this range
+                    all_response = self.make_request("GET", "/apartments")
+                    if all_response.status_code == 200:
+                        all_apartments = all_response.json()
+                        expected_results = [apt for apt in all_apartments if 600 <= apt.get("sqft", 0) <= 800]
+                        
+                        if len(expected_results) > 0:
+                            self.log_result("Backend Sqft Filtering Logic", False, f"Sqft filter returned 0 results but {len(expected_results)} apartments match criteria - backend may be using 'square_feet' field")
+                        else:
+                            self.log_result("Backend Sqft Filtering Logic", True, "Sqft filter correctly returned 0 results (no apartments in range)")
+            else:
+                self.log_result("Backend Sqft Filtering Logic", False, f"Sqft filter request failed: {response.status_code}")
+            
+            # Test 2: Check if search works with address field (backend should search 'address' not 'location')
+            response = self.make_request("GET", "/apartments", {"search_term": "Greenwich St"})
+            if response.status_code == 200:
+                search_results = response.json()
+                
+                # Check if results contain the search term in address
+                address_matches = 0
+                for apt in search_results:
+                    address = apt.get("address", "").lower()
+                    if "greenwich st" in address:
+                        address_matches += 1
+                
+                if len(search_results) > 0 and address_matches > 0:
+                    self.log_result("Backend Address Search Logic", True, f"Address search working: found {address_matches} matches")
+                elif len(search_results) == 0:
+                    # Check if there should be results
+                    all_response = self.make_request("GET", "/apartments")
+                    if all_response.status_code == 200:
+                        all_apartments = all_response.json()
+                        expected_results = [apt for apt in all_apartments if "greenwich st" in apt.get("address", "").lower()]
+                        
+                        if len(expected_results) > 0:
+                            self.log_result("Backend Address Search Logic", False, f"Address search returned 0 results but {len(expected_results)} apartments match - backend may be searching 'location' field")
+                        else:
+                            self.log_result("Backend Address Search Logic", True, "Address search correctly returned 0 results (no matches)")
+                else:
+                    self.log_result("Backend Address Search Logic", False, f"Address search returned {len(search_results)} results but none match address field")
+            else:
+                self.log_result("Backend Address Search Logic", False, f"Address search request failed: {response.status_code}")
+            
+            # Test 3: Check statistics endpoint (should handle both is_no_fee and no_fee fields)
+            response = self.make_request("GET", "/apartments/search/stats")
+            if response.status_code == 200:
+                stats = response.json()
+                total_from_stats = stats.get("total_apartments", 0)
+                
+                # Get actual apartment count
+                all_response = self.make_request("GET", "/apartments", {"limit": 100})
+                if all_response.status_code == 200:
+                    all_apartments = all_response.json()
+                    actual_count = len(all_apartments)
+                    
+                    if total_from_stats == actual_count:
+                        self.log_result("Backend Stats Field Logic", True, f"Stats endpoint correctly counts {total_from_stats} apartments")
+                    else:
+                        self.log_result("Backend Stats Field Logic", False, f"Stats endpoint shows {total_from_stats} but actual count is {actual_count} - may be using wrong field filter")
+                else:
+                    self.log_result("Backend Stats Field Logic", False, "Could not get apartments for comparison")
+            else:
+                self.log_result("Backend Stats Field Logic", False, f"Stats endpoint failed: {response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Backend Field Mapping Issues", False, f"Exception: {str(e)}")
+    
     def test_apartment_distribution(self):
         """Test that apartments are properly distributed and not all grouped together"""
         print("\n=== Testing Apartment Distribution ===")
