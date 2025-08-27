@@ -3010,8 +3010,7 @@ export const Components = {
   Toast,
   ToastProvider,
   useToast,
-  EmailContactModal,
-  CompleteGuideNoFeeApartments
+  EmailContactModal
 };
 
 // Complete Guide Component (for separate page)
@@ -3024,7 +3023,7 @@ const CompleteGuideNoFeeApartments = () => {
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-gray-900">Complete Guide to No Fee Apartments NYC 2025</h1>
             <button
-              onClick={() => window.close()}
+              onClick={() => window.history.back()}
               className="text-gray-500 hover:text-gray-700 text-sm"
             >
               ← Back to Listings
@@ -3103,156 +3102,6 @@ const CompleteGuideNoFeeApartments = () => {
             </div>
           </div>
 
-          {/* How to Find No Fee Apartments */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">How to Find No Broker Fee Apartments NYC</h2>
-            
-            <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">1. Search Specialized Platforms</h3>
-                <p className="text-gray-700 mb-3">
-                  Use dedicated <strong>no fee apartments NYC</strong> platforms like NoFeePlaces.com that exclusively list 
-                  properties without broker fees. These platforms have direct relationships with property owners and management companies.
-                </p>
-                <ul className="text-gray-700 space-y-1 ml-4">
-                  <li>• Browse 1,000+ verified listings</li>
-                  <li>• Filter by neighborhood, price, and amenities</li>
-                  <li>• Access exclusive no fee inventory</li>
-                </ul>
-              </div>
-
-              <div className="border-l-4 border-green-500 pl-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">2. Contact Management Companies Directly</h3>
-                <p className="text-gray-700 mb-3">
-                  Large property management companies often offer <strong>no fee rentals NYC</strong> to reduce marketing costs 
-                  and attract tenants directly.
-                </p>
-                <ul className="text-gray-700 space-y-1 ml-4">
-                  <li>• Related Rentals</li>
-                  <li>• TF Cornerstone</li>
-                  <li>• Gotham Organization</li>
-                  <li>• Rose Associates</li>
-                </ul>
-              </div>
-
-              <div className="border-l-4 border-purple-500 pl-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">3. Focus on New Construction</h3>
-                <p className="text-gray-700 mb-3">
-                  Newly constructed buildings often offer <strong>no broker fee apartments NYC</strong> as opening incentives 
-                  to fill units quickly.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* NYC Neighborhood Guide */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Best NYC Neighborhoods for No Fee Apartments</h2>
-            
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Manhattan</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• <strong>Hell's Kitchen:</strong> $3,800-$9,000</li>
-                  <li>• <strong>Financial District:</strong> $3,200-$7,500</li>
-                  <li>• <strong>Upper East Side:</strong> $4,200-$8,500</li>
-                  <li>• <strong>Chelsea:</strong> $4,500-$9,500</li>
-                  <li>• <strong>Midtown West:</strong> $4,000-$8,000</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Brooklyn</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• <strong>Williamsburg:</strong> $3,400-$6,500</li>
-                  <li>• <strong>DUMBO:</strong> $3,100-$7,200</li>
-                  <li>• <strong>Park Slope:</strong> $4,200-$7,000</li>
-                  <li>• <strong>Brooklyn Heights:</strong> $2,800-$5,800</li>
-                  <li>• <strong>Prospect Heights:</strong> $3,800-$6,300</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Queens</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• <strong>Long Island City:</strong> $2,900-$7,900</li>
-                  <li>• <strong>Astoria:</strong> $2,600-$4,500</li>
-                  <li>• <strong>Forest Hills:</strong> $2,400-$4,200</li>
-                  <li>• <strong>Ridgewood:</strong> $2,200-$3,800</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* 2025 Market Trends */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">NYC Rental Market Trends 2025</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Market Statistics</h3>
-                <div className="space-y-4">
-                  <div className="bg-blue-50 p-4 rounded">
-                    <div className="text-2xl font-bold text-blue-600">67%</div>
-                    <div className="text-sm text-blue-800">Increase in no fee apartment demand</div>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded">
-                    <div className="text-2xl font-bold text-green-600">$3,200</div>
-                    <div className="text-sm text-green-800">Average savings per lease</div>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded">
-                    <div className="text-2xl font-bold text-purple-600">1,000+</div>
-                    <div className="text-sm text-purple-800">No fee apartments available monthly</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Popular Apartment Types</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li>• <strong>Studios:</strong> $2,200 - $4,500/month</li>
-                  <li>• <strong>1-Bedroom:</strong> $2,800 - $6,000/month</li>
-                  <li>• <strong>2-Bedroom:</strong> $4,200 - $8,500/month</li>
-                  <li>• <strong>3-Bedroom:</strong> $6,500 - $12,000/month</li>
-                </ul>
-                
-                <h4 className="text-lg font-semibold text-gray-900 mt-6 mb-3">Fastest Growing Segments</h4>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Luxury studio apartments in Manhattan</li>
-                  <li>• 1BR apartments in Brooklyn</li>
-                  <li>• Family-sized units in Queens</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Tips for Success */}
-          <div className="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Pro Tips for Securing No Fee Apartments</h2>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Application Strategy</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li>• <strong>Move Fast:</strong> Have documents ready (pay stubs, bank statements, references)</li>
-                  <li>• <strong>Strong Credit:</strong> 650+ credit score preferred for luxury buildings</li>
-                  <li>• <strong>Income Requirements:</strong> Annual income 40x monthly rent</li>
-                  <li>• <strong>Security Deposit:</strong> Be prepared for 1-2 months upfront</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Timing & Negotiation</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li>• <strong>Best Times:</strong> January-March and September-November</li>
-                  <li>• <strong>End of Month:</strong> Landlords want to fill units quickly</li>
-                  <li>• <strong>Multiple Units:</strong> Ask about other available apartments</li>
-                  <li>• <strong>Lease Terms:</strong> Consider longer leases for better rates</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
           {/* Contact CTA */}
           <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Find Your No Fee Apartment?</h2>
@@ -3265,7 +3114,7 @@ const CompleteGuideNoFeeApartments = () => {
                 <div>📧 chris@places.nyc</div>
               </div>
               <button
-                onClick={() => window.open('/', '_self')}
+                onClick={() => window.location.href = '/'}
                 className="bg-white text-blue-600 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-semibold"
               >
                 Browse Available Apartments
@@ -3278,3 +3127,30 @@ const CompleteGuideNoFeeApartments = () => {
     </div>
   );
 };
+
+// Add to Components export
+export const Components = {
+  Header,
+  Hero,
+  SEOContentSection,
+  AdvancedSearchFilters,
+  ApartmentCard,
+  MapView,
+  Footer,
+  LoadingSpinner,
+  AuthModal,
+  UserDashboard,
+  ApartmentDetails,
+  SavedSearches,
+  CalendarBooking,
+  AdminAppointments,
+  AIChatbot,
+  FavoritesPage,
+  ApartmentComparison,
+  LazyImage,
+  ErrorBoundary,
+  Toast,
+  ToastProvider,
+  useToast,
+  EmailContactModal,
+  CompleteGuideNoFeeApartments
