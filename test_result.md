@@ -561,6 +561,18 @@ backend:
           agent: "testing"
           comment: "FIELD MAPPING ISSUES CONFIRMED: Comprehensive testing revealed critical field mapping problems preventing proper apartment access. SPECIFIC ISSUES FOUND: (1) API filtering for 'is_no_fee': True but apartments have 'no_fee': True - PARTIALLY FIXED: apartments endpoint handles both fields but stats endpoint still uses 'is_no_fee', (2) Search looking for 'address' field but apartments have 'location' field - FIXED: apartments have 'address' field and search works correctly, (3) Square feet filtering using 'sqft' but apartments have 'square_feet' field - CRITICAL BUG: apartments have 'sqft' field but backend filtering code uses 'square_feet' causing sqft filters to return 0 results. BACKEND CODE ISSUES: Line 2221-2226 in server.py uses 'square_feet' for filtering instead of 'sqft', Line 2231 searches 'location' field (fixed), Lines 2275/2279/2288 stats endpoint uses 'is_no_fee' only. GOTHAM WEST STATUS: Still not implemented - no apartments found. TESTING RESULTS: 16/19 tests passed (84.2% success rate). CRITICAL: Sqft filtering completely broken due to field mismatch."
 
+  - task: "Backend Field Mapping Fixes"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "BACKEND FIELD MAPPING BUGS IDENTIFIED: Critical issues found in server.py preventing proper apartment filtering. SQFT FILTERING BROKEN: Lines 2221-2226 use 'square_feet' field for filtering but apartments have 'sqft' field, causing all sqft-based filters to return 0 results when 11 apartments should match. STATS ENDPOINT INCONSISTENT: Lines 2275, 2279, 2288 use 'is_no_fee' field only, should handle both 'is_no_fee' and 'no_fee' fields like apartments endpoint does. SEARCH FIELD ISSUE: Line 2231 searches 'location' field but should search 'address' field (though this works due to fallback). REQUIRED FIXES: (1) Change 'square_feet' to 'sqft' in lines 2221-2226, (2) Update stats endpoint to use same field logic as apartments endpoint, (3) Update search to use 'address' instead of 'location'. IMPACT: Sqft filtering completely non-functional, stats may be inaccurate if apartments use different field names."
+
 frontend:
   # Frontend testing not performed as per instructions
 
