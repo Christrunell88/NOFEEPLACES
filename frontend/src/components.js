@@ -2275,11 +2275,29 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom: Copyright */}
+        {/* Bottom: Copyright & Legal Disclaimer */}
         <div className="border-t border-slate-700 mt-6 pt-4 text-center">
-          <p className="text-sm text-amber-200">
+          <p className="text-sm text-amber-200 mb-3">
             &copy; 2025 NoFeePlaces.com. All rights reserved.
           </p>
+          
+          {/* Legal Disclaimer */}
+          <div className="text-xs text-amber-300 leading-relaxed max-w-4xl mx-auto">
+            <p className="mb-2">
+              <strong>Legal Disclaimer:</strong> NoFeePlaces.com serves as a platform connecting prospective tenants with no-fee apartment listings in New York City. 
+              All property information, including but not limited to rental prices, availability, specifications, and images, is provided by third-party property owners, 
+              management companies, or listing agents and is subject to change without notice.
+            </p>
+            <p className="mb-2">
+              We make no representations or warranties regarding the accuracy, completeness, or reliability of any listing information. 
+              Prospective tenants are advised to independently verify all details directly with property owners or authorized agents before making any rental decisions. 
+              NoFeePlaces.com is not responsible for any errors, omissions, or misrepresentations in listings, nor for any transactions between tenants and property owners.
+            </p>
+            <p>
+              By using this website, you acknowledge that NoFeePlaces.com acts solely as an information platform and assumes no liability for rental agreements, 
+              property conditions, or disputes arising from rental transactions. All rental agreements are between tenants and property owners/agents directly.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
