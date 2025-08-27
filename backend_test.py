@@ -4131,7 +4131,7 @@ class NoFeePlacesAPITester:
         try:
             # 1. Check GET /api/apartments endpoint - what's the actual total count?
             print("\n--- 1. Checking GET /api/apartments total count ---")
-            response = self.make_request("GET", "/apartments", {"limit": 200})  # High limit to get all
+            response = self.make_request("GET", "/apartments", {"limit": 100})  # Try with 100 first
             if response.status_code == 200:
                 all_apartments = response.json()
                 actual_total = len(all_apartments)
@@ -4145,8 +4145,17 @@ class NoFeePlacesAPITester:
                 else:
                     print(f"   ⚠️  API has FEWER apartments ({actual_total}) than frontend shows (83)")
             else:
-                self.log_result("GET /api/apartments Total Count", False, f"Failed to get apartments: {response.status_code}")
-                return
+                # Try without limit parameter
+                print(f"   Failed with limit=100 (status {response.status_code}), trying without limit...")
+                response = self.make_request("GET", "/apartments")
+                if response.status_code == 200:
+                    all_apartments = response.json()
+                    actual_total = len(all_apartments)
+                    self.log_result("GET /api/apartments Total Count", True, f"API returns {actual_total} apartments total (no limit)")
+                else:
+                    self.log_result("GET /api/apartments Total Count", False, f"Failed to get apartments: {response.status_code}")
+                    print(f"   Error response: {response.text}")
+                    return
             
             # 2. Check for pagination limits or filtering
             print("\n--- 2. Checking for pagination limits ---")
