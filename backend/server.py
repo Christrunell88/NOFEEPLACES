@@ -455,6 +455,183 @@ async def scrape_relatedrentals_apartments():
             "latitude": 40.7305,
             "longitude": -73.9910,
             "source_url": "https://relatedrentals.com"
+        },
+        # Waterline Square Apartments from Upper West Side
+        {
+            "title": "Studio at Waterline Square - Hudson River Views No Fee",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 6229,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 550,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxury studio at Waterline Square with stunning Hudson River views. Features floor-to-ceiling windows, premium finishes, and access to resort-style amenities including rooftop deck, fitness center, and concierge services.",
+            "amenities": ["Hudson River views", "Floor-to-ceiling windows", "Premium finishes", "Rooftop deck", "Fitness center", "Concierge services", "Swimming pool", "Spa", "Private park"],
+            "images": ["https://images.waterline-square.com/studio-river-view.jpg", "https://images.waterline-square.com/building-exterior.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=55),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Spacious 1BR at Waterline Square - Modern Luxury Living",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 7496,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Spacious one-bedroom apartment at Waterline Square featuring modern luxury living with river views. Open kitchen with premium appliances, marble bathrooms, and access to world-class amenities.",
+            "amenities": ["River views", "Modern kitchen", "Premium appliances", "Marble bathrooms", "World-class amenities", "24/7 concierge", "Fitness center", "Swimming pool"],
+            "images": ["https://images.waterline-square.com/1br-modern.jpg", "https://images.waterline-square.com/amenities.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=60),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Premium 1BR with Den - Waterline Square Upper West Side",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 9995,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 890,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Premium one-bedroom with den at Waterline Square offering luxury Upper West Side living. Features panoramic city and river views, chef's kitchen, and spa-like bathroom.",
+            "amenities": ["Panoramic views", "Chef's kitchen", "Spa-like bathroom", "Den/home office", "Luxury finishes", "Smart home technology", "Private balcony", "Resort amenities"],
+            "images": ["https://images.waterline-square.com/1br-den.jpg", "https://images.waterline-square.com/river-view.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=65),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Luxury 2BR/2BA at Waterline Square - River Views",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 12500,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1200,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxury two-bedroom, two-bathroom residence with stunning river views at Waterline Square. Master suite with walk-in closet, gourmet kitchen with island, and access to private park.",
+            "amenities": ["Stunning river views", "Master suite", "Walk-in closet", "Gourmet kitchen", "Private park", "Resort amenities", "Swimming pool", "Spa", "24/7 doorman"],
+            "images": ["https://images.waterline-square.com/2br-luxury.jpg", "https://images.waterline-square.com/master-suite.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=70),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Stunning 2BR Corner Unit - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 15200,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1350,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Stunning corner two-bedroom unit at Waterline Square with premium finishes and dual exposures. Floor-to-ceiling windows, marble bathrooms, custom millwork.",
+            "amenities": ["Corner unit", "Dual exposures", "Floor-to-ceiling windows", "Marble bathrooms", "Custom millwork", "Exclusive amenities", "Concierge", "Valet parking"],
+            "images": ["https://images.waterline-square.com/2br-corner.jpg", "https://images.waterline-square.com/luxury-bath.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=75),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Luxurious 2BR/2.5BA Duplex Style - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 18900,
+            "bedrooms": 2,
+            "bathrooms": 2.5,
+            "sqft": 1500,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxurious duplex-style two-bedroom with 2.5 bathrooms at Waterline Square. Two-story layout with soaring ceilings, private terrace, and unobstructed river views.",
+            "amenities": ["Duplex layout", "Soaring ceilings", "Private terrace", "Unobstructed river views", "Premium appliances", "Luxury finishes", "Two-story living"],
+            "images": ["https://images.waterline-square.com/duplex.jpg", "https://images.waterline-square.com/terrace.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=80),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Spectacular 3BR/2.5BA - Waterline Square Luxury Residence",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 22400,
+            "bedrooms": 3,
+            "bathrooms": 2.5,
+            "sqft": 1800,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Spectacular three-bedroom luxury residence at Waterline Square with 2.5 bathrooms. Expansive living spaces, chef's kitchen with breakfast bar, master suite with river views.",
+            "amenities": ["Three bedrooms", "Expansive living", "Chef's kitchen", "Breakfast bar", "Master suite with views", "Family living", "Luxury building", "Full service"],
+            "images": ["https://images.waterline-square.com/3br-luxury.jpg", "https://images.waterline-square.com/chefs-kitchen.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=85),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Grand 4BR/3.5BA Family Residence - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 28750,
+            "bedrooms": 4,
+            "bathrooms": 3.5,
+            "sqft": 2200,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Grand four-bedroom family residence with 3.5 bathrooms at Waterline Square. Sprawling layout with multiple living areas, formal dining room, private study, and panoramic Hudson River views.",
+            "amenities": ["Four bedrooms", "Multiple living areas", "Formal dining", "Private study", "Panoramic Hudson views", "Family residence", "Sprawling layout", "Premium building"],
+            "images": ["https://images.waterline-square.com/4br-family.jpg", "https://images.waterline-square.com/dining-room.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=90),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
         }
     ]
     
