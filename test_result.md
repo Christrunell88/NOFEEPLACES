@@ -623,6 +623,18 @@ backend:
           agent: "testing"
           comment: "BACKEND FIELD MAPPING BUGS IDENTIFIED: Critical issues found in server.py preventing proper apartment filtering. SQFT FILTERING BROKEN: Lines 2221-2226 use 'square_feet' field for filtering but apartments have 'sqft' field, causing all sqft-based filters to return 0 results when 11 apartments should match. STATS ENDPOINT INCONSISTENT: Lines 2275, 2279, 2288 use 'is_no_fee' field only, should handle both 'is_no_fee' and 'no_fee' fields like apartments endpoint does. SEARCH FIELD ISSUE: Line 2231 searches 'location' field but should search 'address' field (though this works due to fallback). REQUIRED FIXES: (1) Change 'square_feet' to 'sqft' in lines 2221-2226, (2) Update stats endpoint to use same field logic as apartments endpoint, (3) Update search to use 'address' instead of 'location'. IMPACT: Sqft filtering completely non-functional, stats may be inaccurate if apartments use different field names."
 
+  - task: "Updated Apartments API Verification After Adding Missing Apartments"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "UPDATED APARTMENTS API VERIFICATION COMPLETED: Comprehensive testing of updated apartments API after adding all missing apartments completed with 100% success rate (15/15 tests passed). REVIEW REQUEST REQUIREMENTS MET: (1) ✅ GET /api/apartments total count significantly higher now (91 apartments vs expected 90+), (2) ✅ Search for 'Waterline Square' returns exactly 8 results at 400 West 61st Street, (3) ✅ Search for 'Gotham West' returns exactly 9 results at 550 West 45th Street, (4) ✅ All apartment types accessible and properly distributed (5 types: Studio-4BR), (5) ✅ New total matches frontend expectations with proper pagination. COMPOSITION VERIFICATION: Successfully confirmed Original mock apartments (~75) + Gotham West (9) + Waterline Square (8) = 91 total apartments. APARTMENT DISTRIBUTION: Excellent variety with Studio: 25, 1BR: 37, 2BR: 23, 3BR: 5, 4BR: 1 across 3 boroughs (Manhattan: 57, Brooklyn: 19, Queens: 15). PRICE RANGE: Wide diversity from $2,600-$28,750 covering all market segments. PAGINATION BEHAVIOR: Default endpoint returns 20 apartments, limit parameter returns all 91 - explains previous count discrepancies. FRONTEND COMPATIBILITY: All 91 apartments have required fields for proper frontend display, mixed apartment types properly distributed in results. WATERLINE SQUARE DETAILS: All 8 apartments at 400 West 61st Street, Upper West Side with luxury amenities and price range $6,229-$28,750. GOTHAM WEST DETAILS: All 9 apartments at 550 West 45th Street, Hell's Kitchen with Italian finishes and proper contact information. All requirements from review request successfully verified - apartment count significantly increased, search functionality working perfectly, all apartment types accessible and properly distributed."
+
 frontend:
   # Frontend testing not performed as per instructions
 
