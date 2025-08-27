@@ -548,15 +548,18 @@ backend:
 
   - task: "Gotham West Apartments Integration"
     implemented: false
-    working: "NA"
+    working: false
     file: "/app/backend/server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: true
     status_history:
         - working: "NA"
           agent: "testing"
           comment: "GOTHAM WEST APARTMENTS NOT IMPLEMENTED: Testing revealed that the 10 new Gotham West apartments requested in the review have not been added to the system yet. CURRENT STATUS: Database contains only 20 apartments total (expected 92+), no Gotham West apartments found via search, no apartments with 'Gotham' in title or address. BACKEND CODE ANALYSIS: No 'Gotham' references found in scraping functions in /app/backend/server.py. REQUIREMENTS NOT MET: (1) Total apartment count should be 92+ but found only 20, (2) Search for 'Gotham West' should return 10+ apartments but returns 0, (3) Apartments should have proper data structure with all required fields, (4) Waterline Square apartments should be positioned at bottom but not found, (5) Gotham West apartments should be scattered throughout listings. IMPLEMENTATION NEEDED: Main agent must add Gotham West apartment data to scraping functions, implement proper sorting/distribution logic, ensure data quality with all required fields (id, title, address, price, bedrooms, bathrooms, sqft, neighborhood, borough, description, amenities, images, contact_info), and maintain existing apartment positioning logic."
+        - working: false
+          agent: "testing"
+          comment: "FIELD MAPPING ISSUES CONFIRMED: Comprehensive testing revealed critical field mapping problems preventing proper apartment access. SPECIFIC ISSUES FOUND: (1) API filtering for 'is_no_fee': True but apartments have 'no_fee': True - PARTIALLY FIXED: apartments endpoint handles both fields but stats endpoint still uses 'is_no_fee', (2) Search looking for 'address' field but apartments have 'location' field - FIXED: apartments have 'address' field and search works correctly, (3) Square feet filtering using 'sqft' but apartments have 'square_feet' field - CRITICAL BUG: apartments have 'sqft' field but backend filtering code uses 'square_feet' causing sqft filters to return 0 results. BACKEND CODE ISSUES: Line 2221-2226 in server.py uses 'square_feet' for filtering instead of 'sqft', Line 2231 searches 'location' field (fixed), Lines 2275/2279/2288 stats endpoint uses 'is_no_fee' only. GOTHAM WEST STATUS: Still not implemented - no apartments found. TESTING RESULTS: 16/19 tests passed (84.2% success rate). CRITICAL: Sqft filtering completely broken due to field mismatch."
 
 frontend:
   # Frontend testing not performed as per instructions
