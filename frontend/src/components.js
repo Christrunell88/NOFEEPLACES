@@ -3128,7 +3128,6 @@ const CompleteGuideNoFeeApartments = () => {
   );
 };
 
-// Add to Components export
 export const Components = {
   Header,
   Hero,
@@ -3154,3 +3153,4 @@ export const Components = {
   useToast,
   EmailContactModal,
   CompleteGuideNoFeeApartments
+};
