@@ -4560,22 +4560,19 @@ class NoFeePlacesAPITester:
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
     
-    # Run the apartment count discrepancy test first as priority
-    print("🔍 PRIORITY: Investigating Apartment Count Discrepancy")
-    print("=" * 60)
-    tester.test_apartment_count_discrepancy()
+    print("🏢 Testing Waterline Square and Gotham West Apartments Integration")
+    print("=" * 70)
+    print("📋 Review Request: Test updated apartments API after adding all missing apartments")
+    print("🎯 Expected: Original (~75) + Gotham West (10) + Waterline Square (8) = 90+ total")
+    print("=" * 70)
     
-    # Then run other essential tests
-    print("\n🔍 Additional Backend Tests")
-    print("=" * 60)
-    tester.test_apartments_listing()
-    tester.test_apartments_search()
-    tester.test_apartment_stats()
+    # Run the specific test for this review request
+    tester.test_waterline_square_and_gotham_west_verification()
     
     # Print final results
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 70)
     print("🏁 TEST RESULTS SUMMARY")
-    print("=" * 60)
+    print("=" * 70)
     print(f"✅ Passed: {tester.results['passed']}")
     print(f"❌ Failed: {tester.results['failed']}")
     if tester.results['passed'] + tester.results['failed'] > 0:
@@ -4585,5 +4582,9 @@ if __name__ == "__main__":
         print("\n🚨 FAILED TESTS:")
         for error in tester.results['errors']:
             print(f"   • {error}")
+    
+    print("\n" + "=" * 70)
+    print("📝 REVIEW REQUEST VERIFICATION COMPLETE")
+    print("=" * 70)
     
     exit(0 if tester.results['failed'] == 0 else 1)
