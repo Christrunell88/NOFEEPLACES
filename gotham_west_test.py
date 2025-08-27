@@ -139,7 +139,7 @@ class GothamWestTester:
                     self.log_result("Waterline Square Apartments", True, f"Found {waterline_count} Waterline Square apartments still accessible")
                     
                     # Check if they appear at the bottom of the full listing
-                    all_apartments_response = self.make_request("GET", "/apartments", {"limit": 200})
+                    all_apartments_response = self.make_request("GET", "/apartments")
                     if all_apartments_response.status_code == 200:
                         all_apartments = all_apartments_response.json()
                         
