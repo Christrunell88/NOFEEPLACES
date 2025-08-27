@@ -2070,6 +2070,205 @@ async def scrape_streeteasy_apartments():
             "latitude": 40.6418,
             "longitude": -73.9614,
             "source_url": "https://flatbushbeverley.com"
+        },
+        # Gotham West Apartments from Scraped Data
+        {
+            "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 3863,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 550,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan", 
+            "description": "Exquisite alcove studio in Hell's Kitchen's most coveted luxury building. Features wide plank oak flooring, floor-to-ceiling windows, custom energy-efficient lighting, and views of landscaped courtyard and Hudson River.",
+            "amenities": ["Wide plank oak flooring", "Floor-to-ceiling windows", "Hudson River views", "Granite countertops", "KitchenAid appliances", "In-unit washer/dryer", "32nd floor roof deck", "Fitness center with Peloton", "Concierge services", "24-hour doorman"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/6ebde14bba55a2f05e8248ab515c6806.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-1-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=7),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 3962,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 485,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Bright and airy studio apartment with meticulous interiors and thoughtful finishes sourced from Italy. Features premium materials, built-in pantries, oversized bathroom vanities, and full-length mirrored medicine cabinets.",
+            "amenities": ["Italian-sourced finishes", "Built-in pantries", "Oversized bathroom vanities", "Energy-efficient lighting", "Bosch appliances", "Resident lounge with fireplace", "Business center", "Billiard room"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/3dcd495c0c2dd42451dae58eb4b95c64.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-2-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4108,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 620,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Premium alcove studio with spectacular Hudson River and Midtown Manhattan skyline views. Refined interiors feature wide plank oak flooring, granite countertops, stainless steel appliances, and spacious walk-in closets.",
+            "amenities": ["Hudson River views", "Manhattan skyline views", "Wide plank oak flooring", "Spacious walk-in closets", "Granite countertops", "Stainless steel appliances", "Gotham Living program", "Monthly resident events"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/a0fa55fe5bc6a2bd66a092c053dc5428.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-3-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4695,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 725,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Sophisticated one-bedroom residence with bright, airy interiors and premium materials throughout. Features custom energy-efficient lighting, linen-textured backsplash, and tailored finishes that create a welcoming and timeless living experience.",
+            "amenities": ["Custom energy-efficient lighting", "Linen-textured backsplash", "Premium materials", "Demonstration kitchen", "Fitness center with movement studio", "Complimentary bike storage", "Indoor parking garage"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/ca0292e7fe613a349fd7e1cd484ad0bc.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-4-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592", 
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4721,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Elegant one-bedroom apartment with modern finishes and thoughtful design elements. Spacious layout features floor-to-ceiling windows, built-in storage solutions, and high-end appliances.",
+            "amenities": ["Floor-to-ceiling windows", "Built-in storage", "High-end appliances", "Modern finishes", "Landscaped courtyard", "32nd floor roof deck", "Panoramic city views", "Dry-cleaning valet"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/d44aeb1d1cef0ecf6bbece052f1c5203.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-5-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=30),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4787,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 780,
+            "neighborhood": "Hell's Kitchen", 
+            "borough": "Manhattan",
+            "description": "Spacious one-bedroom residence with stunning river views and refined finishes. Features include honed absolute black granite countertops, oversized bathroom vanities, and select Italian design elements.",
+            "amenities": ["River views", "Honed granite countertops", "Oversized bathroom vanities", "Italian design elements", "Prime location", "Times Square proximity", "Bryant Park access", "Curated art gallery"],
+            "images": ["https://assets.funnelstatic.com/unit_photos/originals/87b4ea3da488c84542919ca427fd9154.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-6-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=35),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 5194,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 825,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan", 
+            "description": "High-floor one-bedroom with breathtaking Manhattan skyline views from floor-to-ceiling windows. Luxury finishes throughout including wide plank oak flooring and custom lighting.",
+            "amenities": ["Manhattan skyline views", "High-floor location", "Wide plank oak flooring", "Custom lighting", "Complimentary shuttle to Grand Central", "Multiple subway lines", "A,C,E at Port Authority"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/2a83fe99a1d6725ef9d61dd6c5eb2814.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-7-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=40),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 6890,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1150,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Luxury two-bedroom corner unit with dual exposures and abundant natural light. Features two full bathrooms, spacious living areas, and premium finishes throughout.",
+            "amenities": ["Corner unit", "Dual exposures", "Two full bathrooms", "Spacious living areas", "Premium finishes", "Fitness center with Peloton", "Resident lounge", "Rooftop entertainment", "Bike valet service"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/ea2df7ab4e87c542fb169c148e0b8916.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-1-2.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592", 
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=45),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 9345,
+            "bedrooms": 3,
+            "bathrooms": 2.0,
+            "sqft": 1650,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Presidential three-bedroom penthouse-style residence with panoramic Manhattan views and luxury finishes throughout. Features spacious living and dining areas, gourmet kitchen with premium appliances, master bedroom suite, and two additional bedrooms.",
+            "amenities": ["Penthouse-style living", "Panoramic Manhattan views", "Luxury finishes", "Spacious living areas", "Gourmet kitchen", "Premium appliances", "Master bedroom suite", "Rooftop deck access", "Gotham Living program"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/45135edfbbd09f4fa07a3bb09e024778.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-16-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=50),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
         }
     ]
     
