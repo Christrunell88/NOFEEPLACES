@@ -3986,6 +3986,220 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Gotham West Apartments Verification", False, f"Exception: {str(e)}")
 
+    def test_waterline_square_and_gotham_west_verification(self):
+        """Test the updated apartments API after adding Waterline Square and Gotham West apartments"""
+        print("\n=== Testing Waterline Square and Gotham West Apartments Integration ===")
+        try:
+            # First, trigger scraping to ensure all data is populated
+            print("Triggering scraping endpoint to ensure all apartments are loaded...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                scrape_data = scrape_response.json()
+                self.log_result("Scraping Trigger", True, f"Scraping completed: {scrape_data.get('message', 'Success')}")
+            else:
+                self.log_result("Scraping Trigger", False, f"Scraping failed with status: {scrape_response.status_code}")
+                return
+            
+            # Wait for database updates
+            time.sleep(2)
+            
+            # Test 1: GET /api/apartments total count - should be significantly higher now (90+ apartments)
+            print("\n--- Testing Total Apartment Count (Expected 90+) ---")
+            response = self.make_request("GET", "/apartments", {"limit": 200})
+            if response.status_code != 200:
+                self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            total_count = len(apartments)
+            
+            if total_count >= 90:
+                self.log_result("Total Apartment Count (90+)", True, f"Found {total_count} apartments (expected 90+)")
+            else:
+                self.log_result("Total Apartment Count (90+)", False, f"Expected 90+ apartments, found {total_count}")
+            
+            # Test 2: Search for "Waterline Square" - should now return 8 results
+            print("\n--- Testing Waterline Square Search (Expected 8 results) ---")
+            waterline_response = self.make_request("GET", "/apartments", {"search_term": "Waterline Square"})
+            if waterline_response.status_code == 200:
+                waterline_apartments = waterline_response.json()
+                waterline_count = len(waterline_apartments)
+                
+                if waterline_count == 8:
+                    self.log_result("Waterline Square Search (8 results)", True, f"Found exactly 8 Waterline Square apartments")
+                    
+                    # Verify they are all at the correct address
+                    correct_address_count = 0
+                    for apt in waterline_apartments:
+                        if "400 West 61st" in apt.get("address", ""):
+                            correct_address_count += 1
+                    
+                    if correct_address_count == 8:
+                        self.log_result("Waterline Square Address Verification", True, "All 8 apartments at 400 West 61st Street")
+                    else:
+                        self.log_result("Waterline Square Address Verification", False, f"Only {correct_address_count}/8 at correct address")
+                    
+                    # Check price range for Waterline Square apartments
+                    waterline_prices = [apt.get("price", 0) for apt in waterline_apartments]
+                    min_price = min(waterline_prices) if waterline_prices else 0
+                    max_price = max(waterline_prices) if waterline_prices else 0
+                    
+                    if min_price >= 6000 and max_price <= 30000:
+                        self.log_result("Waterline Square Price Range", True, f"Price range ${min_price:,} - ${max_price:,}")
+                    else:
+                        self.log_result("Waterline Square Price Range", False, f"Unexpected price range ${min_price:,} - ${max_price:,}")
+                        
+                else:
+                    self.log_result("Waterline Square Search (8 results)", False, f"Expected 8 results, found {waterline_count}")
+            else:
+                self.log_result("Waterline Square Search", False, f"Search failed with status: {waterline_response.status_code}")
+            
+            # Test 3: Search for "Gotham West" - should return 9-10 results
+            print("\n--- Testing Gotham West Search (Expected 9-10 results) ---")
+            gotham_response = self.make_request("GET", "/apartments", {"search_term": "Gotham West"})
+            if gotham_response.status_code == 200:
+                gotham_apartments = gotham_response.json()
+                gotham_count = len(gotham_apartments)
+                
+                if 9 <= gotham_count <= 10:
+                    self.log_result("Gotham West Search (9-10 results)", True, f"Found {gotham_count} Gotham West apartments")
+                    
+                    # Verify they are all at the correct address
+                    correct_address_count = 0
+                    for apt in gotham_apartments:
+                        if "550 West 45th" in apt.get("address", ""):
+                            correct_address_count += 1
+                    
+                    if correct_address_count == gotham_count:
+                        self.log_result("Gotham West Address Verification", True, f"All {gotham_count} apartments at 550 West 45th Street")
+                    else:
+                        self.log_result("Gotham West Address Verification", False, f"Only {correct_address_count}/{gotham_count} at correct address")
+                    
+                    # Check neighborhood for Gotham West apartments
+                    hells_kitchen_count = 0
+                    for apt in gotham_apartments:
+                        if "Hell's Kitchen" in apt.get("neighborhood", ""):
+                            hells_kitchen_count += 1
+                    
+                    if hells_kitchen_count == gotham_count:
+                        self.log_result("Gotham West Neighborhood", True, f"All {gotham_count} apartments in Hell's Kitchen")
+                    else:
+                        self.log_result("Gotham West Neighborhood", False, f"Only {hells_kitchen_count}/{gotham_count} in Hell's Kitchen")
+                        
+                else:
+                    self.log_result("Gotham West Search (9-10 results)", False, f"Expected 9-10 results, found {gotham_count}")
+            else:
+                self.log_result("Gotham West Search", False, f"Search failed with status: {gotham_response.status_code}")
+            
+            # Test 4: Confirm all apartment types are accessible and properly distributed
+            print("\n--- Testing Apartment Types Distribution ---")
+            
+            # Count apartments by bedroom type
+            bedroom_distribution = {}
+            for apt in apartments:
+                bedrooms = apt.get("bedrooms", -1)
+                bedroom_key = f"{bedrooms}BR" if bedrooms > 0 else "Studio"
+                bedroom_distribution[bedroom_key] = bedroom_distribution.get(bedroom_key, 0) + 1
+            
+            # Should have variety of apartment types
+            if len(bedroom_distribution) >= 4:  # At least 4 different bedroom types
+                self.log_result("Apartment Type Variety", True, f"Found {len(bedroom_distribution)} apartment types: {dict(bedroom_distribution)}")
+            else:
+                self.log_result("Apartment Type Variety", False, f"Limited variety: {dict(bedroom_distribution)}")
+            
+            # Check price distribution
+            all_prices = [apt.get("price", 0) for apt in apartments if apt.get("price")]
+            if all_prices:
+                min_price = min(all_prices)
+                max_price = max(all_prices)
+                price_range = max_price - min_price
+                
+                if price_range >= 20000:  # Good price range diversity
+                    self.log_result("Price Range Diversity", True, f"Wide price range: ${min_price:,} - ${max_price:,}")
+                else:
+                    self.log_result("Price Range Diversity", False, f"Limited price range: ${min_price:,} - ${max_price:,}")
+            
+            # Test 5: Verify the new total matches what frontend should display
+            print("\n--- Testing Frontend Data Consistency ---")
+            
+            # Check that all apartments have required fields for frontend display
+            missing_fields_count = 0
+            required_fields = ["id", "title", "address", "price", "bedrooms", "bathrooms", "neighborhood", "borough"]
+            
+            for apt in apartments:
+                for field in required_fields:
+                    if field not in apt or apt[field] is None:
+                        missing_fields_count += 1
+                        break
+            
+            if missing_fields_count == 0:
+                self.log_result("Frontend Data Completeness", True, f"All {total_count} apartments have required fields")
+            else:
+                self.log_result("Frontend Data Completeness", False, f"{missing_fields_count} apartments missing required fields")
+            
+            # Verify apartment distribution across boroughs
+            borough_distribution = {}
+            for apt in apartments:
+                borough = apt.get("borough", "Unknown")
+                borough_distribution[borough] = borough_distribution.get(borough, 0) + 1
+            
+            if len(borough_distribution) >= 3:  # At least 3 boroughs represented
+                self.log_result("Borough Distribution", True, f"Apartments across {len(borough_distribution)} boroughs: {dict(borough_distribution)}")
+            else:
+                self.log_result("Borough Distribution", False, f"Limited borough coverage: {dict(borough_distribution)}")
+            
+            # Test composition verification: Original (~75) + Gotham West (10) + Waterline Square (8) = 90+
+            print("\n--- Testing Expected Composition ---")
+            
+            # Count different apartment sources/types
+            waterline_count_in_total = len([apt for apt in apartments if "Waterline" in apt.get("title", "") or "400 West 61st" in apt.get("address", "")])
+            gotham_count_in_total = len([apt for apt in apartments if "Gotham" in apt.get("title", "") or "550 West 45th" in apt.get("address", "")])
+            other_count = total_count - waterline_count_in_total - gotham_count_in_total
+            
+            print(f"   📊 Composition Breakdown:")
+            print(f"   • Waterline Square: {waterline_count_in_total} apartments")
+            print(f"   • Gotham West: {gotham_count_in_total} apartments") 
+            print(f"   • Other apartments: {other_count} apartments")
+            print(f"   • Total: {total_count} apartments")
+            
+            # Verify expected composition
+            composition_correct = (
+                waterline_count_in_total == 8 and
+                gotham_count_in_total >= 9 and
+                total_count >= 90
+            )
+            
+            if composition_correct:
+                self.log_result("Expected Composition", True, f"Composition matches expectation: {waterline_count_in_total} Waterline + {gotham_count_in_total} Gotham + {other_count} others = {total_count} total")
+            else:
+                self.log_result("Expected Composition", False, f"Composition mismatch: Expected 8 Waterline + 9-10 Gotham + ~75 others = 90+, got {waterline_count_in_total} + {gotham_count_in_total} + {other_count} = {total_count}")
+            
+            # Final verification: Test that frontend would receive proper data
+            print("\n--- Testing Frontend API Response Format ---")
+            
+            # Test apartments endpoint with typical frontend parameters
+            frontend_response = self.make_request("GET", "/apartments", {"limit": 20, "page": 1})
+            if frontend_response.status_code == 200:
+                frontend_data = frontend_response.json()
+                if len(frontend_data) == 20:
+                    self.log_result("Frontend Pagination", True, "Frontend pagination working correctly")
+                    
+                    # Check that response includes both Waterline and Gotham apartments in results
+                    has_waterline = any("Waterline" in apt.get("title", "") for apt in frontend_data)
+                    has_gotham = any("Gotham" in apt.get("title", "") for apt in frontend_data)
+                    
+                    if has_waterline or has_gotham:
+                        self.log_result("Frontend Mixed Results", True, "Frontend receives mixed apartment types")
+                    else:
+                        self.log_result("Frontend Mixed Results", False, "Frontend not receiving Waterline/Gotham apartments in first page")
+                else:
+                    self.log_result("Frontend Pagination", False, f"Expected 20 apartments, got {len(frontend_data)}")
+            else:
+                self.log_result("Frontend API Response", False, f"Frontend API call failed: {frontend_response.status_code}")
+            
+        except Exception as e:
+            self.log_result("Waterline Square and Gotham West Verification", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
