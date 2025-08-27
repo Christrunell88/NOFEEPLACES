@@ -351,6 +351,11 @@ const AdminAppointmentsPage = () => {
   return <AdminAppointments />;
 };
 
+// Complete Guide Page Component
+const CompleteGuidePage = () => {
+  return <CompleteGuideNoFeeApartments />;
+};
+
 function App() {
   return (
     <ErrorBoundary>
