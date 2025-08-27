@@ -119,7 +119,7 @@ backend:
 
   - task: "Waterline Square Apartments Database Verification"
     implemented: true
-    working: false
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 1
     priority: "high"
@@ -131,6 +131,9 @@ backend:
         - working: false
           agent: "testing"
           comment: "WATERLINE SQUARE APARTMENTS MISSING FROM DATABASE: Investigation reveals complete absence of Waterline Square apartments from the current database. SEARCH RESULTS: 0 apartments found with 'Waterline Square' search term, 0 apartments found with '400 West 61st' address search, direct data analysis confirms no Waterline apartments in 83-apartment database. PREVIOUS STATUS INCONSISTENT: Earlier testing indicated 8 Waterline apartments were present, but current investigation shows none exist. POSSIBLE CAUSES: (1) Database was reset/cleared since previous testing, (2) Scraping function not properly inserting Waterline data, (3) Data validation issues preventing insertion, (4) Different database environment being accessed. IMPACT: Missing all 8 expected Waterline Square apartments contributes to user's concern about apartment count. RECOMMENDATION: Check scraping functions, verify database connection, and ensure Waterline Square data is properly inserted into the apartments collection."
+        - working: true
+          agent: "testing"
+          comment: "WATERLINE SQUARE AND GOTHAM WEST APARTMENTS INTEGRATION VERIFICATION COMPLETED: Comprehensive testing of updated apartments API completed with 100% success rate (15/15 tests passed). TOTAL APARTMENT COUNT VERIFIED: Found 91 apartments total (expected 90+) - composition breakdown: 8 Waterline Square + 9 Gotham West + 74 other apartments = 91 total. WATERLINE SQUARE VERIFICATION: All 8 apartments found at 400 West 61st Street with price range $6,229-$28,750, search functionality returns exactly 8 results as expected. GOTHAM WEST VERIFICATION: All 9 apartments found at 550 West 45th Street in Hell's Kitchen neighborhood, search functionality returns 9 results as expected. APARTMENT DISTRIBUTION EXCELLENT: Found 5 apartment types (Studio: 25, 1BR: 37, 2BR: 23, 3BR: 5, 4BR: 1) with wide price range $2,600-$28,750 across 3 boroughs (Manhattan: 57, Brooklyn: 19, Queens: 15). FRONTEND COMPATIBILITY CONFIRMED: All 91 apartments have required fields for frontend display, pagination working correctly with default 20 apartments per page, mixed apartment types properly distributed. PAGINATION BEHAVIOR IDENTIFIED: Default /api/apartments endpoint returns 20 apartments, but /api/apartments?limit=100 returns all 91 apartments - this explains previous count discrepancies. COMPOSITION MATCHES EXPECTATION: Successfully verified Original mock apartments (~75) + Gotham West (9) + Waterline Square (8) = 91 total apartments as requested in review. All requirements from review request successfully implemented and verified."
 
   - task: "Gotham West Apartments Integration"
     implemented: true
