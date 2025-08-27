@@ -4005,7 +4005,7 @@ class NoFeePlacesAPITester:
             
             # Test 1: GET /api/apartments total count - should be significantly higher now (90+ apartments)
             print("\n--- Testing Total Apartment Count (Expected 90+) ---")
-            response = self.make_request("GET", "/apartments", {"limit": 200})
+            response = self.make_request("GET", "/apartments")
             if response.status_code != 200:
                 self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
                 return
