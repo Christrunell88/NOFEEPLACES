@@ -4208,11 +4208,324 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Waterline Square and Gotham West Verification", False, f"Exception: {str(e)}")
 
+    def test_streeteasy_owner_paid_commission_integration(self):
+        """Test StreetEasy Owner-Paid Commission Apartments Integration as per review request"""
+        print("\n=== Testing StreetEasy Owner-Paid Commission Apartments Integration ===")
+        
+        try:
+            # First trigger scraping to ensure all data is populated
+            print("Triggering scraping endpoint to ensure StreetEasy apartments are loaded...")
+            scrape_response = self.make_request("POST", "/admin/scrape")
+            if scrape_response.status_code == 200:
+                self.log_result("StreetEasy Scraping Setup", True, "Scraping completed successfully")
+            else:
+                self.log_result("StreetEasy Scraping Setup", False, f"Scraping failed: {scrape_response.status_code}")
+                return
+            
+            # Wait for database updates
+            time.sleep(2)
+            
+            # 1. Total Apartment Count Verification (should be 31+ apartments)
+            print("\n--- 1. Total Apartment Count Verification ---")
+            
+            # Test default endpoint behavior
+            default_response = self.make_request("GET", "/apartments")
+            if default_response.status_code == 200:
+                default_apartments = default_response.json()
+                default_count = len(default_apartments)
+                self.log_result("Default Apartments Endpoint", True, f"Default endpoint returned {default_count} apartments")
+            else:
+                self.log_result("Default Apartments Endpoint", False, f"Status code: {default_response.status_code}")
+                return
+            
+            # Test with limit parameter to get all apartments
+            full_response = self.make_request("GET", "/apartments", {"limit": 100})
+            if full_response.status_code == 200:
+                all_apartments = full_response.json()
+                total_count = len(all_apartments)
+                
+                if total_count >= 31:
+                    self.log_result("Total Apartment Count (31+)", True, f"Found {total_count} apartments (expected 31+)")
+                else:
+                    self.log_result("Total Apartment Count (31+)", False, f"Found only {total_count} apartments, expected 31+")
+                
+                # Verify pagination behavior difference
+                if total_count > default_count:
+                    self.log_result("Pagination Behavior", True, f"Pagination working: default={default_count}, with limit={total_count}")
+                else:
+                    self.log_result("Pagination Behavior", False, f"Pagination issue: default={default_count}, with limit={total_count}")
+            else:
+                self.log_result("Full Apartments List", False, f"Status code: {full_response.status_code}")
+                return
+            
+            # 2. StreetEasy Apartments Verification
+            print("\n--- 2. StreetEasy Apartments Verification ---")
+            
+            # Search for "StreetEasy" apartments (should return 13 results)
+            streeteasy_response = self.make_request("GET", "/apartments", {"search_term": "StreetEasy", "limit": 100})
+            if streeteasy_response.status_code == 200:
+                streeteasy_apartments = streeteasy_response.json()
+                streeteasy_count = len(streeteasy_apartments)
+                
+                if streeteasy_count == 13:
+                    self.log_result("StreetEasy Search (13 results)", True, f"Found exactly 13 StreetEasy apartments")
+                else:
+                    self.log_result("StreetEasy Search (13 results)", False, f"Found {streeteasy_count} StreetEasy apartments, expected 13")
+            else:
+                self.log_result("StreetEasy Search", False, f"Status code: {streeteasy_response.status_code}")
+                streeteasy_apartments = []
+            
+            # Search for "Owner Paid Commission" (should return 13 results)
+            opc_response = self.make_request("GET", "/apartments", {"search_term": "Owner Paid Commission", "limit": 100})
+            if opc_response.status_code == 200:
+                opc_apartments = opc_response.json()
+                opc_count = len(opc_apartments)
+                
+                if opc_count == 13:
+                    self.log_result("Owner Paid Commission Search (13 results)", True, f"Found exactly 13 Owner Paid Commission apartments")
+                else:
+                    self.log_result("Owner Paid Commission Search (13 results)", False, f"Found {opc_count} Owner Paid Commission apartments, expected 13")
+            else:
+                self.log_result("Owner Paid Commission Search", False, f"Status code: {opc_response.status_code}")
+            
+            # Search for "No Fee" (should return all 31 apartments)
+            nofee_response = self.make_request("GET", "/apartments", {"search_term": "No Fee", "limit": 100})
+            if nofee_response.status_code == 200:
+                nofee_apartments = nofee_response.json()
+                nofee_count = len(nofee_apartments)
+                
+                if nofee_count >= 31:
+                    self.log_result("No Fee Search (31+ results)", True, f"Found {nofee_count} No Fee apartments (expected 31+)")
+                else:
+                    self.log_result("No Fee Search (31+ results)", False, f"Found only {nofee_count} No Fee apartments, expected 31+")
+            else:
+                self.log_result("No Fee Search", False, f"Status code: {nofee_response.status_code}")
+            
+            # Test specific neighborhood searches
+            neighborhoods = ["Financial District", "Williamsburg", "West Village", "DUMBO"]
+            for neighborhood in neighborhoods:
+                neighborhood_response = self.make_request("GET", "/apartments", {"search_term": neighborhood, "limit": 100})
+                if neighborhood_response.status_code == 200:
+                    neighborhood_apartments = neighborhood_response.json()
+                    neighborhood_count = len(neighborhood_apartments)
+                    self.log_result(f"Neighborhood Search ({neighborhood})", True, f"Found {neighborhood_count} apartments in {neighborhood}")
+                else:
+                    self.log_result(f"Neighborhood Search ({neighborhood})", False, f"Status code: {neighborhood_response.status_code}")
+            
+            # 3. Owner-Paid Commission Features Verification
+            print("\n--- 3. Owner-Paid Commission Features Verification ---")
+            
+            if streeteasy_apartments:
+                owner_paid_issues = []
+                broker_fee_issues = []
+                application_fee_issues = []
+                listing_type_issues = []
+                
+                for apt in streeteasy_apartments:
+                    title = apt.get("title", "Unknown")
+                    
+                    # Check owner_paid_commission: true
+                    if not apt.get("owner_paid_commission"):
+                        owner_paid_issues.append(title)
+                    
+                    # Check broker_fee: 0
+                    if apt.get("broker_fee", -1) != 0:
+                        broker_fee_issues.append(f"{title}: {apt.get('broker_fee')}")
+                    
+                    # Check application_fee: 0
+                    if apt.get("application_fee", -1) != 0:
+                        application_fee_issues.append(f"{title}: {apt.get('application_fee')}")
+                    
+                    # Check listing_type: "Owner-Paid Commission"
+                    if apt.get("listing_type") != "Owner-Paid Commission":
+                        listing_type_issues.append(f"{title}: {apt.get('listing_type')}")
+                
+                # Report results
+                if not owner_paid_issues:
+                    self.log_result("Owner Paid Commission Flag", True, f"All {len(streeteasy_apartments)} StreetEasy apartments have owner_paid_commission: true")
+                else:
+                    self.log_result("Owner Paid Commission Flag", False, f"{len(owner_paid_issues)} apartments missing owner_paid_commission flag")
+                
+                if not broker_fee_issues:
+                    self.log_result("Broker Fee Zero", True, f"All {len(streeteasy_apartments)} StreetEasy apartments have broker_fee: 0")
+                else:
+                    self.log_result("Broker Fee Zero", False, f"{len(broker_fee_issues)} apartments have non-zero broker_fee")
+                
+                if not application_fee_issues:
+                    self.log_result("Application Fee Zero", True, f"All {len(streeteasy_apartments)} StreetEasy apartments have application_fee: 0")
+                else:
+                    self.log_result("Application Fee Zero", False, f"{len(application_fee_issues)} apartments have non-zero application_fee")
+                
+                if not listing_type_issues:
+                    self.log_result("Listing Type Correct", True, f"All {len(streeteasy_apartments)} StreetEasy apartments have correct listing_type")
+                else:
+                    self.log_result("Listing Type Correct", False, f"{len(listing_type_issues)} apartments have incorrect listing_type")
+            
+            # 4. Data Quality Verification
+            print("\n--- 4. Data Quality Verification ---")
+            
+            if streeteasy_apartments:
+                no_fee_field_issues = []
+                sqft_field_issues = []
+                contact_info_issues = []
+                amenities_issues = []
+                images_issues = []
+                
+                for apt in streeteasy_apartments:
+                    title = apt.get("title", "Unknown")
+                    
+                    # Check both 'no_fee' and 'is_no_fee' fields exist
+                    if "no_fee" not in apt and "is_no_fee" not in apt:
+                        no_fee_field_issues.append(title)
+                    
+                    # Check both 'sqft' and 'square_feet' fields exist
+                    if "sqft" not in apt and "square_feet" not in apt:
+                        sqft_field_issues.append(title)
+                    
+                    # Check contact info (chris@places.nyc)
+                    contact_info = apt.get("contact_info", {})
+                    if contact_info.get("email") != "chris@places.nyc":
+                        contact_info_issues.append(f"{title}: {contact_info.get('email')}")
+                    
+                    # Check amenities exist
+                    amenities = apt.get("amenities", [])
+                    if not amenities or len(amenities) == 0:
+                        amenities_issues.append(title)
+                    
+                    # Check images exist
+                    images = apt.get("images", [])
+                    if not images or len(images) == 0:
+                        images_issues.append(title)
+                
+                # Report data quality results
+                if not no_fee_field_issues:
+                    self.log_result("No Fee Fields Compatibility", True, "All StreetEasy apartments have proper no_fee/is_no_fee fields")
+                else:
+                    self.log_result("No Fee Fields Compatibility", False, f"{len(no_fee_field_issues)} apartments missing no_fee fields")
+                
+                if not sqft_field_issues:
+                    self.log_result("Square Feet Fields Compatibility", True, "All StreetEasy apartments have proper sqft/square_feet fields")
+                else:
+                    self.log_result("Square Feet Fields Compatibility", False, f"{len(sqft_field_issues)} apartments missing sqft fields")
+                
+                if not contact_info_issues:
+                    self.log_result("Contact Info (chris@places.nyc)", True, "All StreetEasy apartments have correct contact email")
+                else:
+                    self.log_result("Contact Info (chris@places.nyc)", False, f"{len(contact_info_issues)} apartments have incorrect contact email")
+                
+                if not amenities_issues:
+                    self.log_result("Amenities Data", True, "All StreetEasy apartments have amenities")
+                else:
+                    self.log_result("Amenities Data", False, f"{len(amenities_issues)} apartments missing amenities")
+                
+                if not images_issues:
+                    self.log_result("Images Data", True, "All StreetEasy apartments have images")
+                else:
+                    self.log_result("Images Data", False, f"{len(images_issues)} apartments missing images")
+            
+            # 5. Price Range and Types Verification
+            print("\n--- 5. Price Range and Types Verification ---")
+            
+            if streeteasy_apartments:
+                prices = [apt.get("price", 0) for apt in streeteasy_apartments if apt.get("price")]
+                if prices:
+                    min_price = min(prices)
+                    max_price = max(prices)
+                    
+                    if 3295 <= min_price <= 3300 and 8290 <= max_price <= 8300:
+                        self.log_result("StreetEasy Price Range", True, f"Price range ${min_price:,}-${max_price:,} matches expected $3,295-$8,295")
+                    else:
+                        self.log_result("StreetEasy Price Range", False, f"Price range ${min_price:,}-${max_price:,} doesn't match expected $3,295-$8,295")
+                
+                # Check apartment type distribution
+                bedroom_counts = {}
+                for apt in streeteasy_apartments:
+                    bedrooms = apt.get("bedrooms", -1)
+                    bedroom_counts[bedrooms] = bedroom_counts.get(bedrooms, 0) + 1
+                
+                expected_distribution = {0: 1, 1: 5, 2: 5, 3: 2}  # Studios (1), 1BR (5), 2BR (5), 3BR (2)
+                distribution_correct = True
+                
+                for bedrooms, expected_count in expected_distribution.items():
+                    actual_count = bedroom_counts.get(bedrooms, 0)
+                    if actual_count != expected_count:
+                        distribution_correct = False
+                        break
+                
+                if distribution_correct:
+                    self.log_result("Apartment Type Distribution", True, f"Correct distribution: Studios(1), 1BR(5), 2BR(5), 3BR(2)")
+                else:
+                    self.log_result("Apartment Type Distribution", False, f"Incorrect distribution: {bedroom_counts}")
+            
+            # 6. API Integration Testing
+            print("\n--- 6. API Integration Testing ---")
+            
+            # Test individual apartment details retrieval for StreetEasy apartments
+            if streeteasy_apartments:
+                sample_apt = streeteasy_apartments[0]
+                apt_id = sample_apt.get("id")
+                
+                if apt_id:
+                    detail_response = self.make_request("GET", f"/apartments/{apt_id}")
+                    if detail_response.status_code == 200:
+                        detail_data = detail_response.json()
+                        if detail_data.get("id") == apt_id:
+                            self.log_result("Individual StreetEasy Apartment Details", True, f"Successfully retrieved details for {detail_data.get('title', 'Unknown')}")
+                        else:
+                            self.log_result("Individual StreetEasy Apartment Details", False, "Retrieved apartment ID doesn't match requested ID")
+                    else:
+                        self.log_result("Individual StreetEasy Apartment Details", False, f"Status code: {detail_response.status_code}")
+            
+            # Test filtering by borough includes StreetEasy apartments
+            boroughs = ["Manhattan", "Brooklyn", "Queens"]
+            for borough in boroughs:
+                borough_response = self.make_request("GET", "/apartments", {"borough": borough, "limit": 100})
+                if borough_response.status_code == 200:
+                    borough_apartments = borough_response.json()
+                    streeteasy_in_borough = [apt for apt in borough_apartments if "StreetEasy" in apt.get("title", "")]
+                    
+                    if streeteasy_in_borough:
+                        self.log_result(f"StreetEasy in {borough} Filter", True, f"Found {len(streeteasy_in_borough)} StreetEasy apartments in {borough}")
+                    else:
+                        self.log_result(f"StreetEasy in {borough} Filter", True, f"No StreetEasy apartments in {borough} (may be expected)")
+                else:
+                    self.log_result(f"StreetEasy in {borough} Filter", False, f"Borough filter failed: {borough_response.status_code}")
+            
+            # Test statistics endpoint reflects updated apartment count
+            stats_response = self.make_request("GET", "/apartments/search/stats")
+            if stats_response.status_code == 200:
+                stats_data = stats_response.json()
+                stats_total = stats_data.get("total_apartments", 0)
+                
+                if stats_total >= 31:
+                    self.log_result("Statistics Endpoint Update", True, f"Statistics show {stats_total} total apartments (expected 31+)")
+                else:
+                    self.log_result("Statistics Endpoint Update", False, f"Statistics show only {stats_total} apartments, expected 31+")
+            else:
+                self.log_result("Statistics Endpoint Update", False, f"Status code: {stats_response.status_code}")
+            
+            # Print comprehensive summary
+            print(f"\n   📊 STREETEASY INTEGRATION SUMMARY:")
+            print(f"   • Total Apartments: {total_count}")
+            print(f"   • StreetEasy Apartments: {len(streeteasy_apartments)}")
+            print(f"   • Price Range: ${min(prices) if prices else 0:,} - ${max(prices) if prices else 0:,}")
+            print(f"   • Bedroom Distribution: {bedroom_counts if streeteasy_apartments else 'N/A'}")
+            print(f"   • All apartments marked as no-fee: {nofee_count if 'nofee_count' in locals() else 'N/A'}")
+            
+        except Exception as e:
+            self.log_result("StreetEasy Owner-Paid Commission Integration", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
         print(f"Testing against: {self.base_url}")
         print("=" * 60)
+        
+        # PRIORITY: StreetEasy Owner-Paid Commission Integration (as requested in review)
+        print("\n" + "=" * 60)
+        print("🏢 STREETEASY OWNER-PAID COMMISSION INTEGRATION (PRIORITY)")
+        print("=" * 60)
+        self.test_streeteasy_owner_paid_commission_integration()
         
         # PRIORITY: Gotham West Apartments Verification (as requested)
         print("\n" + "=" * 60)
