@@ -443,6 +443,7 @@ class GothamWestFieldMappingTester:
         gotham_apartments = self.test_gotham_west_search_functionality()
         hk_apartments = self.test_hells_kitchen_search_functionality()
         self.test_field_mapping_fixes()
+        self.test_backend_field_mapping_issues()
         self.test_apartment_distribution()
         
         # Print summary
