@@ -4013,7 +4013,7 @@ class NoFeePlacesAPITester:
                 print(f"   Default endpoint returns: {default_count} apartments")
             
             # Now get all apartments with a high limit
-            response = self.make_request("GET", "/apartments?limit=100")
+            response = self.make_request("GET", "/apartments", {"limit": 100})
             if response.status_code != 200:
                 self.log_result("Total Apartment Count Check", False, f"Failed to get apartments: {response.status_code}")
                 return
