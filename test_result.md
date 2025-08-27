@@ -308,9 +308,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Related Rentals Scraping Integration"
-    - "Related Rentals Integration with Existing System"
-    - "Related Rentals Data Quality and Price Points"
+    - "Gotham West Apartments Integration"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
