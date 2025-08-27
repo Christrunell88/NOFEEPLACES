@@ -2192,8 +2192,13 @@ async def get_apartments(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100)
 ):
-    # Build filter query
-    query = {"is_no_fee": True}
+    # Build filter query - updated to handle both is_no_fee and no_fee fields
+    query = {
+        "$or": [
+            {"is_no_fee": True},
+            {"no_fee": True}
+        ]
+    }
     
     if min_price:
         query["price"] = {"$gte": min_price}
