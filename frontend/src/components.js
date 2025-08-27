@@ -309,12 +309,12 @@ const SEOContentSection = () => {
           
           {/* Call-to-Action Button for Complete Guide */}
           <div className="text-center mt-6">
-            <button
-              onClick={() => window.open('/complete-guide-no-fee-apartments-nyc', '_blank')}
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+            <a
+              href="/complete-guide-no-fee-apartments-nyc"
+              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-decoration-none"
             >
               📚 Complete Guide to No Fee Apartments NYC 2025
-            </button>
+            </a>
           </div>
         </div>
       </div>
