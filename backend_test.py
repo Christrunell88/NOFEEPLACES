@@ -4121,47 +4121,246 @@ class NoFeePlacesAPITester:
         
         return self.results
 
+    def test_apartment_count_discrepancy(self):
+        """Investigate apartment count discrepancy - Gotham West (10) + Waterline Square (8) vs frontend showing 83"""
+        print("\n=== INVESTIGATING APARTMENT COUNT DISCREPANCY ===")
+        print("Expected: 10 Gotham West + 8 Waterline Square apartments")
+        print("Frontend showing: 83 apartments total")
+        print("Need to verify actual counts and identify any issues")
+        
+        try:
+            # 1. Check GET /api/apartments endpoint - what's the actual total count?
+            print("\n--- 1. Checking GET /api/apartments total count ---")
+            response = self.make_request("GET", "/apartments", {"limit": 200})  # High limit to get all
+            if response.status_code == 200:
+                all_apartments = response.json()
+                actual_total = len(all_apartments)
+                self.log_result("GET /api/apartments Total Count", True, f"API returns {actual_total} apartments total")
+                
+                # Check if this matches the expected count
+                if actual_total == 83:
+                    print("   ✓ API count matches frontend display (83)")
+                elif actual_total > 83:
+                    print(f"   ⚠️  API has MORE apartments ({actual_total}) than frontend shows (83)")
+                else:
+                    print(f"   ⚠️  API has FEWER apartments ({actual_total}) than frontend shows (83)")
+            else:
+                self.log_result("GET /api/apartments Total Count", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            # 2. Check for pagination limits or filtering
+            print("\n--- 2. Checking for pagination limits ---")
+            # Test with no limit parameter
+            response_no_limit = self.make_request("GET", "/apartments")
+            if response_no_limit.status_code == 200:
+                no_limit_apartments = response_no_limit.json()
+                no_limit_count = len(no_limit_apartments)
+                
+                if no_limit_count == actual_total:
+                    self.log_result("Pagination Check", True, f"No pagination limiting results - both return {no_limit_count}")
+                else:
+                    self.log_result("Pagination Check", False, f"Pagination issue: no limit={no_limit_count}, with limit={actual_total}")
+            
+            # 3. Search specifically for Gotham West apartments
+            print("\n--- 3. Searching for Gotham West apartments ---")
+            gotham_response = self.make_request("GET", "/apartments", {"search_term": "Gotham West"})
+            if gotham_response.status_code == 200:
+                gotham_apartments = gotham_response.json()
+                gotham_count = len(gotham_apartments)
+                self.log_result("Gotham West Search", True, f"Found {gotham_count} Gotham West apartments")
+                
+                if gotham_count == 10:
+                    print("   ✓ Found expected 10 Gotham West apartments")
+                elif gotham_count > 0:
+                    print(f"   ⚠️  Found {gotham_count} Gotham West apartments (expected 10)")
+                else:
+                    print("   ❌ No Gotham West apartments found")
+                
+                # List the Gotham West apartments found
+                for i, apt in enumerate(gotham_apartments[:5], 1):  # Show first 5
+                    print(f"   {i}. {apt.get('title', 'Unknown')} - {apt.get('address', 'No address')} - ${apt.get('price', 0):,}")
+            else:
+                self.log_result("Gotham West Search", False, f"Search failed: {gotham_response.status_code}")
+                gotham_count = 0
+            
+            # Alternative search for Gotham in title/address
+            gotham_in_data = []
+            for apt in all_apartments:
+                title = apt.get('title', '').lower()
+                address = apt.get('address', '').lower()
+                if 'gotham' in title or 'gotham' in address:
+                    gotham_in_data.append(apt)
+            
+            print(f"   Direct data search found {len(gotham_in_data)} apartments with 'Gotham' in title/address")
+            
+            # 4. Search specifically for Waterline Square apartments
+            print("\n--- 4. Searching for Waterline Square apartments ---")
+            waterline_response = self.make_request("GET", "/apartments", {"search_term": "Waterline Square"})
+            if waterline_response.status_code == 200:
+                waterline_apartments = waterline_response.json()
+                waterline_count = len(waterline_apartments)
+                self.log_result("Waterline Square Search", True, f"Found {waterline_count} Waterline Square apartments")
+                
+                if waterline_count == 8:
+                    print("   ✓ Found expected 8 Waterline Square apartments")
+                elif waterline_count > 0:
+                    print(f"   ⚠️  Found {waterline_count} Waterline Square apartments (expected 8)")
+                else:
+                    print("   ❌ No Waterline Square apartments found")
+                
+                # List the Waterline apartments found
+                for i, apt in enumerate(waterline_apartments[:5], 1):  # Show first 5
+                    print(f"   {i}. {apt.get('title', 'Unknown')} - {apt.get('address', 'No address')} - ${apt.get('price', 0):,}")
+            else:
+                self.log_result("Waterline Square Search", False, f"Search failed: {waterline_response.status_code}")
+                waterline_count = 0
+            
+            # Alternative search for Waterline in data
+            waterline_in_data = []
+            for apt in all_apartments:
+                title = apt.get('title', '').lower()
+                address = apt.get('address', '').lower()
+                if 'waterline' in title or 'waterline' in address or '400 west 61st' in address:
+                    waterline_in_data.append(apt)
+            
+            print(f"   Direct data search found {len(waterline_in_data)} apartments with 'Waterline' or '400 West 61st' in data")
+            
+            # 5. Check for duplicate apartments
+            print("\n--- 5. Checking for duplicate apartments ---")
+            seen_addresses = {}
+            seen_titles = {}
+            duplicates_by_address = []
+            duplicates_by_title = []
+            
+            for apt in all_apartments:
+                address = apt.get('address', '').strip()
+                title = apt.get('title', '').strip()
+                apt_id = apt.get('id', 'no-id')
+                
+                # Check address duplicates
+                if address and address in seen_addresses:
+                    duplicates_by_address.append({
+                        'address': address,
+                        'existing_id': seen_addresses[address],
+                        'duplicate_id': apt_id
+                    })
+                else:
+                    seen_addresses[address] = apt_id
+                
+                # Check title duplicates
+                if title and title in seen_titles:
+                    duplicates_by_title.append({
+                        'title': title,
+                        'existing_id': seen_titles[title],
+                        'duplicate_id': apt_id
+                    })
+                else:
+                    seen_titles[title] = apt_id
+            
+            if not duplicates_by_address and not duplicates_by_title:
+                self.log_result("Duplicate Check", True, "No duplicate apartments found")
+            else:
+                duplicate_count = len(duplicates_by_address) + len(duplicates_by_title)
+                self.log_result("Duplicate Check", False, f"Found {duplicate_count} potential duplicates")
+                
+                for dup in duplicates_by_address[:3]:  # Show first 3
+                    print(f"   Address duplicate: {dup['address']}")
+                for dup in duplicates_by_title[:3]:  # Show first 3
+                    print(f"   Title duplicate: {dup['title']}")
+            
+            # 6. Check apartment query logic for exclusions
+            print("\n--- 6. Analyzing apartment data for exclusions ---")
+            
+            # Check for apartments with missing required fields
+            missing_fields = []
+            invalid_data = []
+            
+            required_fields = ['id', 'title', 'address', 'price', 'bedrooms', 'bathrooms']
+            
+            for apt in all_apartments:
+                apt_issues = []
+                for field in required_fields:
+                    if field not in apt or apt[field] is None:
+                        apt_issues.append(f"missing {field}")
+                    elif field == 'price' and (not isinstance(apt[field], (int, float)) or apt[field] <= 0):
+                        apt_issues.append(f"invalid {field}: {apt[field]}")
+                
+                if apt_issues:
+                    invalid_data.append({
+                        'title': apt.get('title', 'Unknown'),
+                        'id': apt.get('id', 'no-id'),
+                        'issues': apt_issues
+                    })
+            
+            if not invalid_data:
+                self.log_result("Data Validation Check", True, "All apartments have valid required fields")
+            else:
+                self.log_result("Data Validation Check", False, f"Found {len(invalid_data)} apartments with data issues")
+                for issue in invalid_data[:3]:  # Show first 3
+                    print(f"   {issue['title']}: {', '.join(issue['issues'])}")
+            
+            # 7. Summary and Analysis
+            print("\n--- 7. SUMMARY AND ANALYSIS ---")
+            print(f"📊 Total apartments in API: {actual_total}")
+            print(f"🏢 Gotham West apartments found: {gotham_count} (expected 10)")
+            print(f"🏢 Waterline Square apartments found: {waterline_count} (expected 8)")
+            print(f"🔍 Expected total with both: {gotham_count + waterline_count} from these buildings")
+            print(f"📱 Frontend showing: 83 apartments")
+            
+            # Calculate discrepancy
+            expected_from_buildings = gotham_count + waterline_count
+            if actual_total == 83:
+                print("✅ API count matches frontend display")
+            else:
+                discrepancy = actual_total - 83
+                print(f"⚠️  Discrepancy: API has {discrepancy:+d} apartments vs frontend")
+            
+            # Check if the issue is with the specific buildings
+            if gotham_count < 10:
+                print(f"❌ Missing {10 - gotham_count} Gotham West apartments")
+            if waterline_count < 8:
+                print(f"❌ Missing {8 - waterline_count} Waterline Square apartments")
+            
+            # Final recommendation
+            if gotham_count == 10 and waterline_count == 8 and actual_total > 83:
+                print("💡 CONCLUSION: Both building sets are present, but total count is higher than frontend shows")
+                print("   Possible frontend pagination or filtering issue")
+            elif gotham_count < 10 or waterline_count < 8:
+                print("💡 CONCLUSION: Missing apartments from expected buildings")
+                print("   Check database insertion and scraping functions")
+            else:
+                print("💡 CONCLUSION: Data appears correct, investigate frontend display logic")
+            
+        except Exception as e:
+            self.log_result("Apartment Count Discrepancy Investigation", False, f"Exception: {str(e)}")
+
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
-    # Run Gmail SMTP tests as requested in the review
-    print("🚀 Starting Gmail SMTP Configuration Tests")
-    print(f"Testing against: {tester.base_url}")
+    
+    # Run the apartment count discrepancy test first as priority
+    print("🔍 PRIORITY: Investigating Apartment Count Discrepancy")
     print("=" * 60)
+    tester.test_apartment_count_discrepancy()
     
-    # Run authentication first to get token
-    tester.test_user_registration()
-    tester.test_user_login()
-    
-    # Run Gmail SMTP specific tests (NEW COMPREHENSIVE TESTS)
-    print("\n📧 GMAIL SMTP COMPREHENSIVE TESTING")
+    # Then run other essential tests
+    print("\n🔍 Additional Backend Tests")
     print("=" * 60)
-    tester.test_gmail_smtp_authentication()
-    tester.test_real_email_delivery_comprehensive()
-    tester.test_from_address_verification_comprehensive()
-    tester.test_dual_email_system_comprehensive()
-    tester.test_multiple_recipients_reliability_comprehensive()
-    tester.test_backend_logs_verification_comprehensive()
-    tester.test_gmail_smtp_comprehensive_final()
+    tester.test_apartments_listing()
+    tester.test_apartments_search()
+    tester.test_apartment_stats()
     
-    # Run original Gmail SMTP tests for compatibility
-    print("\n📧 ORIGINAL GMAIL SMTP TESTS")
-    print("=" * 60)
-    tester.test_gmail_smtp_configuration()
-    tester.test_email_from_address_verification()
-    tester.test_backend_email_logs()
-    
-    # Print summary
+    # Print final results
     print("\n" + "=" * 60)
-    print("🏁 GMAIL SMTP TEST SUMMARY")
+    print("🏁 TEST RESULTS SUMMARY")
     print("=" * 60)
     print(f"✅ Passed: {tester.results['passed']}")
     print(f"❌ Failed: {tester.results['failed']}")
-    print(f"📊 Total: {tester.results['passed'] + tester.results['failed']}")
+    if tester.results['passed'] + tester.results['failed'] > 0:
+        print(f"📊 Success Rate: {(tester.results['passed'] / (tester.results['passed'] + tester.results['failed']) * 100):.1f}%")
     
     if tester.results['errors']:
-        print("\n🔍 FAILED TESTS:")
+        print("\n🚨 FAILED TESTS:")
         for error in tester.results['errors']:
             print(f"   • {error}")
     
-    success_rate = (tester.results['passed'] / (tester.results['passed'] + tester.results['failed'])) * 100 if (tester.results['passed'] + tester.results['failed']) > 0 else 0
-    print(f"\n🎯 Success Rate: {success_rate:.1f}%")
+    exit(0 if tester.results['failed'] == 0 else 1)
