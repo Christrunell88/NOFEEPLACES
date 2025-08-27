@@ -169,7 +169,7 @@ class GothamWestTester:
             
             # Test 5: Confirm Gotham West apartments are scattered throughout listings (not grouped together)
             if gotham_west_apartments:
-                all_apartments_response = self.make_request("GET", "/apartments", {"limit": 200})
+                all_apartments_response = self.make_request("GET", "/apartments")
                 if all_apartments_response.status_code == 200:
                     all_apartments = all_apartments_response.json()
                     
