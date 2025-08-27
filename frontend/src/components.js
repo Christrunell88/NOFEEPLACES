@@ -3010,7 +3010,8 @@ export const Components = {
   Toast,
   ToastProvider,
   useToast,
-  EmailContactModal
+  EmailContactModal,
+  CompleteGuideNoFeeApartments
 };
 
 // Complete Guide Component (for separate page)
