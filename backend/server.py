@@ -94,6 +94,8 @@ class Apartment(BaseModel):
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     source_url: Optional[str] = None
+    source: Optional[str] = None
+    owner_paid_commission: Optional[bool] = None
 
 class SearchFilters(BaseModel):
     min_price: Optional[int] = None
