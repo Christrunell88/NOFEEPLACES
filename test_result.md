@@ -104,6 +104,18 @@
 
 user_problem_statement: "Implement hero image for PLACES No Fee website homepage - featuring young New Yorkers finding first apartment, preferably young woman, non-generic professional design"
 
+  - task: "Scrape Endpoint Data Preservation Fix"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "SCRAPE ENDPOINT DATA PRESERVATION FIX COMPLETED: Successfully resolved critical data loss issue in /admin/scrape endpoint. PROBLEM SOLVED: Modified scrape_rentals() function to selectively delete only apartments from specific scraping sources (streeteasy.com, relatedrentals.com, fortysixfifty.com) while preserving manually added apartments with custom sources. IMPLEMENTATION DETAILS: Replaced blanket 'delete_many({})' with intelligent delete query targeting only mock/scraped data. Added logic to count and preserve manually integrated apartments. TESTING VERIFIED: Tested scrape endpoint after fix - successfully preserved all 13 StreetEasy Owner-Paid Commission apartments while refreshing mock data. IMPACT: Prevents future accidental deletion of valuable manually curated apartment listings while maintaining scraping functionality for automated data refresh. DATABASE INTEGRITY: Ensures stability of custom apartment integrations like StreetEasy OP commission, Gotham West, and Waterline Square apartments."
+
   - task: "StreetEasy Owner-Paid Commission Apartments Integration"
     implemented: true
     working: true
