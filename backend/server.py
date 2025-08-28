@@ -2467,14 +2467,44 @@ async def scrape_rentals():
     relatedrentals_apartments = await scrape_relatedrentals_apartments()
     all_apartments.extend(relatedrentals_apartments)
     
-    # Clear existing apartments to ensure fresh data with updated email addresses
-    await db.apartments.delete_many({})
+    # Only delete apartments from specific scraping sources, preserve manually added ones
+    # Delete apartments that don't have a "source" field or have source_url from these domains
+    scraping_sources = [
+        "https://streeteasy.com",
+        "https://relatedrentals.com", 
+        "https://www.fortysixfifty.com"
+    ]
     
-    # Store in database
+    # Build delete query for only scraping source apartments (not manually added ones)
+    delete_query = {
+        "$or": [
+            {"source_url": {"$regex": "streeteasy.com"}},
+            {"source_url": {"$regex": "relatedrentals.com"}},
+            {"source_url": {"$regex": "fortysixfifty.com"}},
+            {"source_url": {"$exists": False}, "source": {"$exists": False}}  # Old format apartments without source info
+        ]
+    }
+    
+    # Delete only scraping-sourced apartments, preserve manual additions
+    delete_result = await db.apartments.delete_many(delete_query)
+    print(f"Deleted {delete_result.deleted_count} apartments from scraping sources")
+    
+    # Store new scraped apartments in database
     for apartment in all_apartments:
         await db.apartments.insert_one(apartment.dict())
     
-    return len(all_apartments)
+    # Count preserved apartments (manually added ones like StreetEasy OP Commission)
+    preserved_count = await db.apartments.count_documents({
+        "$and": [
+            {"source_url": {"$not": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}}},
+            {"source": {"$exists": True}}
+        ]
+    })
+    
+    total_apartments = len(all_apartments) + preserved_count
+    print(f"Added {len(all_apartments)} new scraped apartments, preserved {preserved_count} manually added apartments")
+    
+    return total_apartments
 
 # API Routes
 
