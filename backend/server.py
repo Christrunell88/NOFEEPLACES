@@ -2632,56 +2632,23 @@ async def get_apartments(
             query["square_feet"] = {"$lte": max_sqft}
     
     if search_term:
-        # Preserve the no_fee filter and add search conditions
-        search_conditions = [
-            {"title": {"$regex": search_term, "$options": "i"}},
-            {"location": {"$regex": search_term, "$options": "i"}},
-            {"address": {"$regex": search_term, "$options": "i"}},
-            {"neighborhood": {"$regex": search_term, "$options": "i"}},
-            {"description": {"$regex": search_term, "$options": "i"}},
-            {"source": {"$regex": search_term, "$options": "i"}}  # Also search in source field
-        ]
-        
-        # Combine no_fee filter with search conditions
+        # Simple fix: preserve the no_fee filter while adding search
+        no_fee_filter = query.copy()  # Save the existing no_fee filter
         query = {
             "$and": [
+                no_fee_filter,
                 {
                     "$or": [
-                        {"is_no_fee": True},
-                        {"no_fee": True}
+                        {"title": {"$regex": search_term, "$options": "i"}},
+                        {"location": {"$regex": search_term, "$options": "i"}},
+                        {"address": {"$regex": search_term, "$options": "i"}},
+                        {"neighborhood": {"$regex": search_term, "$options": "i"}},
+                        {"description": {"$regex": search_term, "$options": "i"}},
+                        {"source": {"$regex": search_term, "$options": "i"}}
                     ]
-                },
-                {
-                    "$or": search_conditions
                 }
             ]
         }
-        
-        # Re-apply other filters to the main query
-        if min_price:
-            query["price"] = {"$gte": min_price}
-        if max_price:
-            if "price" in query:
-                query["price"]["$lte"] = max_price
-            else:
-                query["price"] = {"$lte": max_price}
-        
-        if bedrooms is not None:
-            query["bedrooms"] = bedrooms
-        
-        if neighborhood:
-            query["neighborhood"] = {"$regex": neighborhood, "$options": "i"}
-        
-        if borough:
-            query["borough"] = {"$regex": borough, "$options": "i"}
-        
-        if min_sqft:
-            query["square_feet"] = {"$gte": min_sqft}
-        if max_sqft:
-            if "square_feet" in query:
-                query["square_feet"]["$lte"] = max_sqft
-            else:
-                query["square_feet"] = {"$lte": max_sqft}
     
     # Calculate skip for pagination
     skip = (page - 1) * limit
