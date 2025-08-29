@@ -175,11 +175,11 @@ const SEOContentSection = () => {
             <div className="text-left">
               <button
                 onClick={() => toggleSection('noBrokerFee')}
-                className="w-full p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-left transition-colors duration-200 flex items-center justify-between"
+                className="w-full p-3 md:p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-left transition-colors duration-200 flex items-center justify-between"
               >
-                <span className="font-semibold text-gray-900">No Broker Fee Apartments NYC</span>
+                <span className="font-semibold text-gray-900 text-sm md:text-base">No Broker Fee Apartments NYC</span>
                 <svg 
-                  className={`w-5 h-5 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 md:w-5 md:h-5 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -189,8 +189,8 @@ const SEOContentSection = () => {
               </button>
               
               {expandedSections.noBrokerFee && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 leading-relaxed mb-4">
+                <div className="mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg">
+                  <p className="text-gray-700 leading-relaxed mb-3 md:mb-4 text-sm md:text-base">
                     Discover over 1,000 <strong>no fee apartments NYC</strong> and save up to $3,000+ in broker fees. Our verified 
                     <strong>NYC apartments no broker fee</strong> listings come directly from property owners and management companies 
                     across Manhattan, Brooklyn, Queens, and the Bronx.
