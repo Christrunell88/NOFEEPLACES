@@ -162,15 +162,15 @@ const SEOContentSection = () => {
   };
 
   return (
-    <section className="bg-white py-8">
-      <div className="container mx-auto px-4">
+    <section className="bg-white py-6 md:py-8">
+      <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
             Find Your Perfect No Fee Apartment in New York City 2025
           </h2>
           
-          {/* Compact Button Layout */}
-          <div className="grid md:grid-cols-4 gap-4 mb-8">
+          {/* Compact Button Layout - Mobile Responsive */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
             {/* No Broker Fee Apartments Section */}
             <div className="text-left">
               <button
