@@ -93,16 +93,16 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4">
-            <div className="flex flex-col space-y-3">
+          <div className="md:hidden border-t border-gray-200 py-4 bg-white">
+            <div className="flex flex-col space-y-4 px-2">
               {isAuthenticated ? (
                 <>
-                  <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Dashboard</Link>
-                  <Link to="/favorites" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Favorites</Link>
-                  <Link to="/saved-searches" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Saved Searches</Link>
+                  <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 transition-colors font-medium py-2 px-3 rounded-lg hover:bg-gray-50">Dashboard</Link>
+                  <Link to="/favorites" className="text-gray-600 hover:text-gray-900 transition-colors font-medium py-2 px-3 rounded-lg hover:bg-gray-50">Favorites</Link>
+                  <Link to="/saved-searches" className="text-gray-600 hover:text-gray-900 transition-colors font-medium py-2 px-3 rounded-lg hover:bg-gray-50">Saved Searches</Link>
                   <button 
                     onClick={logout}
-                    className="text-left text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                    className="text-left text-gray-600 hover:text-gray-900 transition-colors font-medium py-2 px-3 rounded-lg hover:bg-gray-50"
                   >
                     Sign Out
                   </button>
@@ -110,7 +110,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
               ) : (
                 <button 
                   onClick={() => setShowAuthModal(true)}
-                  className="bg-orange-500 text-white px-4 py-2 rounded-lg w-fit font-medium"
+                  className="bg-orange-500 text-white px-6 py-3 rounded-lg w-full font-medium hover:bg-orange-600 transition-colors"
                 >
                   Sign In
                 </button>
