@@ -214,15 +214,15 @@ const Home = () => {
         apartmentCount={totalApartments}
       />
       
-      <main className="main-content container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-slate-800">
+      <main className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
+          <h2 className="text-xl md:text-2xl font-bold text-slate-800">
             {loading ? 'Searching No Fee Apartments NYC...' : `${totalApartments} No Broker Fee Apartments NYC Available`}
           </h2>
           <div className="flex space-x-2">
             <button 
               onClick={() => setViewMode('list')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
                 viewMode === 'list' 
                 ? 'bg-amber-600 text-slate-800' 
                 : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
@@ -232,7 +232,7 @@ const Home = () => {
             </button>
             <button 
               onClick={() => setViewMode('map')}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
                 viewMode === 'map' 
                 ? 'bg-amber-600 text-slate-800' 
                 : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
@@ -246,7 +246,7 @@ const Home = () => {
         {loading ? (
           <LoadingSpinner />
         ) : viewMode === 'list' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {apartments.map(apartment => (
               <ApartmentCard key={apartment.id} apartment={apartment} />
             ))}
