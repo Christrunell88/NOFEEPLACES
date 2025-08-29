@@ -30,10 +30,10 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             {/* Logo Text */}
             <div className="flex flex-col">
               <div className="flex items-center space-x-1">
-                <span className="text-2xl font-bold text-gray-900 tracking-tight group-hover:text-gray-800 transition-colors">No Fee</span>
-                <span className="text-lg font-semibold text-orange-500 group-hover:text-orange-600 transition-colors">Places</span>
+                <span className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight group-hover:text-gray-800 transition-colors">No Fee</span>
+                <span className="text-base md:text-lg font-semibold text-orange-500 group-hover:text-orange-600 transition-colors">Places</span>
               </div>
-              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1 group-hover:text-gray-600 transition-colors">NYC RENTALS</span>
+              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1 group-hover:text-gray-600 transition-colors hidden sm:block">NYC RENTALS</span>
             </div>
           </Link>
 
