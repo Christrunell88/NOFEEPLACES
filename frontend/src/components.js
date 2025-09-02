@@ -849,6 +849,92 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
 };
 
 // Enhanced Apartment Card Component with luxury styling
+// Image Carousel Component for Apartment Cards
+const ImageCarousel = ({ images = [], alt = '', className = '' }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  if (!images || images.length === 0) {
+    return (
+      <LazyImage
+        src="https://images.unsplash.com/photo-1555636222-cae831e670b3"
+        alt={alt}
+        className={className}
+      />
+    );
+  }
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const goToImage = (index, e) => {
+    e.stopPropagation();
+    setCurrentIndex(index);
+  };
+
+  return (
+    <div className="relative group">
+      <LazyImage
+        src={images[currentIndex]}
+        alt={alt}
+        className={className}
+      />
+      
+      {/* Navigation arrows - show on hover */}
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={prevImage}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            onClick={nextImage}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </>
+      )}
+      
+      {/* Image dots indicator */}
+      {images.length > 1 && (
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => goToImage(index, e)}
+              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                index === currentIndex 
+                  ? 'bg-white' 
+                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+              }`}
+            />
+          ))}
+        </div>
+      )}
+      
+      {/* Image counter */}
+      {images.length > 1 && (
+        <div className="absolute top-3 left-3 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded">
+          {currentIndex + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const ApartmentCard = ({ apartment }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
