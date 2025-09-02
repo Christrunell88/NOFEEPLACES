@@ -2111,34 +2111,73 @@ const ApartmentDetails = ({ apartmentId }) => {
                     </div>
                   )}
 
-                  <div className="space-y-3">
+                  <div className="grid grid-cols-1 gap-3">
+                    {/* Primary Action - Call Button */}
                     <button 
                       onClick={handleContactAgent}
-                      className="btn-primary w-full py-3 px-4 font-semibold hover-lift animate-glow"
+                      className="flex items-center justify-center w-full bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                     >
-                      <svg className="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
-                      Call Agent
+                      Call Agent Now
                     </button>
-                    <button 
-                      onClick={handleScheduleTour}
-                      className="btn-secondary w-full py-3 px-4 font-semibold hover-lift"
-                    >
-                      <svg className="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      Schedule Tour
-                    </button>
-                    <button 
-                      onClick={handleEmailContact}
-                      className="w-full text-slate-300 hover:text-amber-400 py-2 text-sm font-medium transition-colors hover-lift"
-                    >
-                      <svg className="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                      Send Email Inquiry
-                    </button>
+
+                    {/* Secondary Actions Grid */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Email Button */}
+                      <button 
+                        onClick={handleEmailContact}
+                        className="flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                      >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <span className="hidden sm:inline">Send Email</span>
+                        <span className="sm:hidden">Email</span>
+                      </button>
+
+                      {/* Schedule Tour Button */}
+                      <button 
+                        onClick={handleScheduleTour}
+                        className="flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                      >
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="hidden sm:inline">Schedule</span>
+                        <span className="sm:hidden">Tour</span>
+                      </button>
+                    </div>
+
+                    {/* Quick Actions */}
+                    <div className="flex items-center justify-center space-x-6 pt-2">
+                      <button 
+                        onClick={() => window.open(`sms:${apartment.contact_info?.phone}`, '_self')}
+                        className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        <span className="text-sm font-medium">Text</span>
+                      </button>
+                      
+                      <button 
+                        onClick={() => {
+                          navigator.share && navigator.share({
+                            title: apartment.title,
+                            text: `Check out this apartment: ${apartment.title}`,
+                            url: window.location.href
+                          }).catch(console.error);
+                        }}
+                        className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
+                      >
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                        </svg>
+                        <span className="text-sm font-medium">Share</span>
+                      </button>
+                    </div>
                   </div>
 
                   <div className="mt-6 pt-6 border-t border-slate-200">
