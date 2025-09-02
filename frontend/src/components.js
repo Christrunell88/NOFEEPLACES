@@ -986,21 +986,21 @@ const ApartmentCard = ({ apartment }) => {
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
       <div className="relative cursor-pointer" onClick={handleViewDetails}>
-        <LazyImage
-          src={apartment.images?.[0] || apartment.image}
+        <ImageCarousel
+          images={apartment.images || [apartment.image]}
           alt={apartment.title}
           className="w-full h-48 object-cover hover:opacity-95 transition-opacity duration-200"
         />
         
         {/* No Fee Badge */}
-        <div className="absolute top-3 left-3">
-          <span className="bg-green-600 text-white text-xs font-medium px-2 py-1 rounded">
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-green-600 text-white text-xs font-medium px-2 py-1 rounded shadow-lg">
             NO FEE
           </span>
         </div>
         
         {/* Favorite Button */}
-        <div className="absolute top-3 right-3">
+        <div className="absolute top-3 right-16 z-10">
           <button 
             onClick={handleFavorite}
             className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-md transition-all"
