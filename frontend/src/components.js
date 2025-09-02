@@ -3224,6 +3224,7 @@ export {
   SEOContentSection,
   AdvancedSearchFilters,
   ApartmentCard,
+  ImageCarousel,
   MapView,
   Footer,
   LoadingSpinner,
