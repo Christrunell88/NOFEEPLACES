@@ -87,7 +87,7 @@ class Apartment(BaseModel):
     amenities: List[str]
     images: List[str]
     contact_info: Dict[str, Any]
-    available_date: datetime
+    available_date: Optional[datetime] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     is_no_fee: bool = True
