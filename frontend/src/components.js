@@ -1084,7 +1084,7 @@ const ApartmentCard = ({ apartment }) => {
               </>
             ) : (
               <button
-                onClick={() => {/* This should trigger sign up modal */}}
+                onClick={() => setShowAuthModal(true)}
                 className="flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium w-full"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
