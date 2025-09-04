@@ -2720,6 +2720,50 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Quick Prompt Buttons */}
+          {messages.length === 0 && (
+            <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
+              <p className="text-xs text-gray-600 mb-2">Quick questions:</p>
+              <div className="grid grid-cols-1 gap-1">
+                <button
+                  onClick={() => handleQuickPrompt("Help me with the leasing process - what documents do I need?")}
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  disabled={isLoading}
+                >
+                  📋 Leasing Process
+                </button>
+                <button
+                  onClick={() => handleQuickPrompt("What should I know about moving into a no-fee apartment?")}
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  disabled={isLoading}
+                >
+                  📦 Moving In Tips
+                </button>
+                <button
+                  onClick={() => handleQuickPrompt("Walk me through the lease signing process for NYC apartments")}
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  disabled={isLoading}
+                >
+                  ✍️ Lease Signing
+                </button>
+                <button
+                  onClick={() => handleQuickPrompt("Show me the best no-fee apartment deals available right now")}
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  disabled={isLoading}
+                >
+                  💰 Best Deals
+                </button>
+                <button
+                  onClick={() => handleQuickPrompt("I'm looking for luxury no-fee apartments in NYC - what options do you have?")}
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  disabled={isLoading}
+                >
+                  ✨ Luxury No Fee
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Chat Input */}
           <div className="p-4 border-t border-gray-200 bg-white rounded-b-2xl">
             <div className="flex space-x-2">
