@@ -142,6 +142,9 @@ const Home = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
 
+  // Debug: Log what isAuthenticated returns in the main component
+  console.log('Main App Debug:', { isAuthenticated, user });
+
   useEffect(() => {
     fetchApartments();
     fetchSearchStats();
