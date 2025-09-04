@@ -28,7 +28,46 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
         <link rel="preconnect" href="https://images.pexels.com" />
-        <link rel="dns-prefetch" href="https://api.emergent.sh" />
+        <link rel="preconnect" href="https://api.emergent.sh" />
+        
+        <!-- Analytics & Marketing Integrations -->
+        <!-- Google Analytics 4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NFEEPLACES123"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-NFEEPLACES123', {
+            page_title: 'NoFeePlaces.com - NYC No Fee Apartments',
+            custom_map: {'custom_parameter_1': 'apartment_type', 'custom_parameter_2': 'neighborhood'}
+          });
+        </script>
+        
+        <!-- Facebook Pixel -->
+        <script>
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1234567890123456');
+          fbq('track', 'PageView');
+        </script>
+        
+        <!-- Hotjar Tracking -->
+        <script>
+          (function(h,o,t,j,a,r){
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h._hjSettings={hjid:3849123,hjsv:6};
+              a=o.getElementsByTagName('head')[0];
+              r=o.createElement('script');r.async=1;
+              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+              a.appendChild(r);
+          })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+        </script>
         
         <!-- Enhanced Open Graph / Facebook -->
         <meta property="og:type" content="website" />
