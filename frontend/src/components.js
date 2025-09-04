@@ -1064,7 +1064,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v-2l-4-4L7.257 8.743A6 6 0 0117 9z" />
                 </svg>
-                Sign Up for Full Details & Tour Scheduling
+                Sign Up for Full Address
               </button>
             )}
           </div>
