@@ -289,10 +289,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
   return (
     <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
       <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">
-            {apartmentCount || 0} No Fee Apartments Available
-          </h2>
+        <div className="flex items-center justify-center mb-4">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
@@ -309,8 +306,8 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
           </button>
         </div>
 
-        {/* Quick Filters - Always Visible */}
-        <div className="flex flex-wrap gap-3 items-center">
+        {/* Quick Filters - Always Visible and Centered */}
+        <div className="flex flex-wrap gap-3 items-center justify-center">
           <div className="flex items-center space-x-2">
             <label className="text-sm font-medium text-gray-700">Location:</label>
             <input
