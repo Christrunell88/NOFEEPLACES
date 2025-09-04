@@ -3,6 +3,9 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Components } from './components';
+import { AnalyticsProvider } from './hooks/useAdvancedAnalytics';
+import { FloatingSocialShare, ExitIntentLeadMagnet } from './components/SocialShare';
+import { ApartmentGuideLeadMagnet } from './components/LeadMagnets';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
