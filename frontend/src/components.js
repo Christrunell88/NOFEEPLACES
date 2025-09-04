@@ -876,6 +876,10 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+  
+  // Import analytics and social sharing
+  const { trackApartmentView, trackUserEngagement, trackConversion } = useAnalytics();
+  const [showSocialShare, setShowSocialShare] = useState(false);
 
   // Check if apartment is in user's favorites on mount
   useEffect(() => {
