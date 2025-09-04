@@ -254,8 +254,8 @@ const SEOContentSection = () => {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
             {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : (
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Sign Up for Full Address!
+              <span className="font-philosopher bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Free Sign Up for Full Address!
               </span>
             )}
           </h2>
