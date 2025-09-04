@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Move SEO tabs from taking up space below hero to organized header navigation while maintaining SEO value and making search/listings more prominent"
+user_problem_statement: "Change 'Sign Up' to 'Free Sign Up for Full Address' in Philosopher font, center the search bar, and remove apartment count display"
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
