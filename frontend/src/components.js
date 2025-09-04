@@ -2619,6 +2619,65 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
     }
   };
 
+  const handleQuickPrompt = (promptText) => {
+    if (isLoading) return;
+    
+    setInputMessage(promptText);
+    
+    // Add user message to chat
+    setMessages(prev => [...prev, { 
+      type: 'user', 
+      content: promptText, 
+      timestamp: new Date() 
+    }]);
+
+    setIsLoading(true);
+
+    // Send the prompt message
+    const sendQuickPrompt = async () => {
+      try {
+        // Create enhanced context for AI
+        let contextInfo = "You are an AI assistant for NoFeePlaces.com, a no-fee apartment rental platform in NYC. You help users with apartment searches, rental information, and scheduling viewings. ";
+        
+        if (apartmentContext) {
+          contextInfo += `\n\nCurrent apartment context: ${apartmentContext.title} at ${apartmentContext.address}, ${apartmentContext.bedrooms === 0 ? 'Studio' : apartmentContext.bedrooms + ' bedroom'} for $${apartmentContext.price}/month. Amenities: ${apartmentContext.amenities?.join(', ') || 'N/A'}. Contact: Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com.`;
+        } else {
+          contextInfo += "\n\nGeneral assistance context: NoFeePlaces.com offers no-fee apartments across NYC (Manhattan, Brooklyn, Queens). Contact Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com for personalized help.";
+        }
+
+        const response = await axios.post(`${API}/chat`, {
+          message: promptText,
+          context: contextInfo,
+          sessionId: sessionId
+        });
+
+        if (response.data.sessionId && !sessionId) {
+          setSessionId(response.data.sessionId);
+        }
+
+        // Add AI response to chat
+        setMessages(prev => [...prev, { 
+          type: 'ai', 
+          content: response.data.response, 
+          timestamp: new Date() 
+        }]);
+
+      } catch (error) {
+        console.error('Error in quick prompt:', error);
+        setMessages(prev => [...prev, { 
+          type: 'ai', 
+          content: "I'm having trouble connecting right now. Please call Chris directly at (646) 408-8048 for immediate assistance with your apartment search!", 
+          timestamp: new Date() 
+        }]);
+      } finally {
+        setIsLoading(false);
+        setInputMessage('');
+      }
+    };
+
+    sendQuickPrompt();
+  };
+
   const toggleChat = () => {
     setIsOpen(!isOpen);
     if (!isOpen && messages.length === 0) {
