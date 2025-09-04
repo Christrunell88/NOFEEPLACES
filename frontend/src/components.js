@@ -131,8 +131,12 @@ const SEOContentSection = () => {
     <section className="bg-white py-6 md:py-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
-            {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Sign Up for Full Address and Schedule a Tour!'}
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
+            {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : (
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Sign Up for Full Address!
+              </span>
+            )}
           </h2>
           
           {/* Compact Button Layout - Mobile Responsive */}
