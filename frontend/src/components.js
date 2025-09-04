@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useAuth } from './App';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAnalytics } from './hooks/useAdvancedAnalytics';
-import { SocialShare } from './components/SocialShare';
-import { ApartmentAlertSignup } from './components/LeadMagnets';
+// Analytics and marketing components will be imported when needed
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
