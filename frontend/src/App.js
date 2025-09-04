@@ -248,7 +248,11 @@ const Home = () => {
         ) : viewMode === 'list' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {apartments.map(apartment => (
-              <ApartmentCard key={apartment.id} apartment={apartment} />
+              <ApartmentCard 
+                key={apartment.id} 
+                apartment={apartment} 
+                setShowAuthModal={setShowAuthModal}
+              />
             ))}
           </div>
         ) : (
