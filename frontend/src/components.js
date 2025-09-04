@@ -322,10 +322,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleFilterChange = (key, value) => {
-    onFilterChange({
-      ...filters,
-      [key]: value
-    });
+    onFilterChange(key, value);
   };
 
   return (
