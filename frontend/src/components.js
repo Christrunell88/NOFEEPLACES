@@ -127,7 +127,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 const Hero = () => {
   return (
     <section 
-      className="relative py-16 md:py-32 lg:py-40 overflow-hidden"
+      className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg?auto=compress&cs=tinysrgb&w=2340&h=1560')`,
         backgroundSize: 'cover',
@@ -137,13 +137,9 @@ const Hero = () => {
     >
       <div className="container mx-auto px-4 md:px-6 text-center relative z-10 h-full flex flex-col justify-center">
         <div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 drop-shadow-lg leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
             No Fee Apartments in NYC
           </h1>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white max-w-4xl mx-auto drop-shadow-md leading-relaxed px-2">
-            Discover luxury <strong>no broker fee apartments NYC</strong> across Manhattan, Brooklyn, and Queens. 
-            Browse exclusive <strong>no fee rentals NYC</strong> directly from property owners and management companies.
-          </p>
         </div>
       </div>
     </section>
