@@ -26,6 +26,9 @@ from icalendar import Calendar, Event
 import pytz
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
+# Import marketing automation
+from marketing_automation import marketing_service, LeadModel
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
