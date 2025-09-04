@@ -226,24 +226,60 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 
 // Professional Hero Section
 const Hero = () => {
+  const [showLeadMagnet, setShowLeadMagnet] = useState(false);
+  const { trackConversion } = useAnalytics();
+
+  const handleLeadMagnetClick = () => {
+    trackConversion('hero_lead_magnet_click', { 
+      source: 'hero_section',
+      value: 50 
+    });
+    setShowLeadMagnet(true);
+  };
+
   return (
-    <section 
-      className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg?auto=compress&cs=tinysrgb&w=2340&h=1560')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
-      <div className="container mx-auto px-4 md:px-6 text-center relative z-10 h-full flex flex-col justify-center">
-        <div>
-          <h1 className="font-philosopher text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
-            No Fee Apartments in NYC
-          </h1>
+    <>
+      <section 
+        className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg?auto=compress&cs=tinysrgb&w=2340&h=1560')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="container mx-auto px-4 md:px-6 text-center relative z-10 h-full flex flex-col justify-center">
+          <div>
+            <h1 className="font-philosopher text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
+              No Fee Apartments in NYC
+            </h1>
+            
+            {/* Lead Magnet CTA */}
+            <div className="mt-8">
+              <button
+                onClick={handleLeadMagnetClick}
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-lg text-lg font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all shadow-lg"
+              >
+                📚 Get FREE NYC Apartment Guide + 50 No-Fee Contacts
+              </button>
+              <p className="text-white text-sm mt-2 opacity-90">
+                47-page guide with insider secrets • Instant download
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Lead Magnet Modal */}
+      <ApartmentGuideLeadMagnet
+        isOpen={showLeadMagnet}
+        onClose={() => setShowLeadMagnet(false)}
+        onSuccess={() => {
+          setShowLeadMagnet(false);
+          alert('🎉 Your guide is on its way! Check your email for the download link.');
+        }}
+      />
+    </>
   );
 };
 
