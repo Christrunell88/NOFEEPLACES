@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Make 'Sign up for full Address' more prominent and delete 'and schedule a tour' from the text"
+user_problem_statement: "Move SEO tabs from taking up space below hero to organized header navigation while maintaining SEO value and making search/listings more prominent"
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
