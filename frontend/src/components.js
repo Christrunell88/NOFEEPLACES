@@ -923,6 +923,14 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
   };
 
   const handleViewDetails = () => {
+    // Track apartment view
+    trackApartmentView({
+      id: apartment.id,
+      neighborhood: apartment.neighborhood,
+      bedrooms: apartment.bedrooms,
+      rent: apartment.price
+    });
+    
     navigate(`/apartment/${apartment.id}`);
   };
 
