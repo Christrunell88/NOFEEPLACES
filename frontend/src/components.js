@@ -1076,33 +1076,36 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
         </div>
       </div>
 
-      {/* Social Share Section */}
+      {/* Social Share Section - Placeholder for now */}
       <div className="border-t pt-3 mt-3">
         <div className="flex items-center justify-between">
-          <SocialShare 
-            apartment={apartment}
-            title={`Check out this ${apartment.bedrooms}BR in ${apartment.neighborhood} - No Broker Fees!`}
-            url={`${window.location.origin}/apartment/${apartment.id}`}
-            showLabels={false}
-            size={28}
-            className="flex items-center space-x-2"
-          />
-          
-          <button
-            onClick={() => {
-              trackUserEngagement('share_button_click', {
-                apartment_id: apartment.id,
-                neighborhood: apartment.neighborhood
-              });
-              setShowSocialShare(!showSocialShare);
-            }}
-            className="text-sm text-gray-500 hover:text-gray-700 flex items-center"
-          >
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
-            </svg>
-            Share
-          </button>
+          <div className="flex items-center space-x-2">
+            <span className="text-sm text-gray-500">Share this apartment:</span>
+            <a 
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + '/apartment/' + apartment.id)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-700"
+            >
+              📘 Facebook
+            </a>
+            <a 
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.origin + '/apartment/' + apartment.id)}&text=Check out this ${apartment.bedrooms}BR in ${apartment.neighborhood} - No Broker Fees!`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-400 hover:text-blue-500"
+            >
+              🐦 Twitter
+            </a>
+            <a 
+              href={`https://wa.me/?text=Check out this ${apartment.bedrooms}BR in ${apartment.neighborhood} - No Broker Fees! ${window.location.origin}/apartment/${apartment.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-600 hover:text-green-700"
+            >
+              💬 WhatsApp
+            </a>
+          </div>
         </div>
       </div>
 
