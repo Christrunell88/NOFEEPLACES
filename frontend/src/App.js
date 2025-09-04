@@ -378,22 +378,28 @@ function App() {
     <ErrorBoundary>
       <ToastProvider>
         <AuthProvider>
-          <div className="App">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/favorites" element={<FavoritesPageRoute />} />
-                <Route path="/saved-searches" element={<SavedSearchesPage />} />
-                <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
-                <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
-              </Routes>
-              
-              {/* AI Chatbot - Available on all pages */}
-              <AIChatbot />
-            </BrowserRouter>
-          </div>
+          <AnalyticsProvider>
+            <div className="App">
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/favorites" element={<FavoritesPageRoute />} />
+                  <Route path="/saved-searches" element={<SavedSearchesPage />} />
+                  <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
+                  <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
+                </Routes>
+                
+                {/* AI Chatbot - Available on all pages */}
+                <AIChatbot />
+                
+                {/* Marketing Components */}
+                <FloatingSocialShare />
+                <ExitIntentLeadMagnet />
+              </BrowserRouter>
+            </div>
+          </AnalyticsProvider>
         </AuthProvider>
       </ToastProvider>
     </ErrorBoundary>
