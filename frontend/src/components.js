@@ -259,16 +259,6 @@ const SEOContentSection = () => {
               </span>
             )}
           </h2>
-          
-          {/* Call-to-Action Button for Complete Guide */}
-          <div className="text-center">
-            <a
-              href="/complete-guide-no-fee-apartments-nyc"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-decoration-none"
-            >
-              📚 Complete Guide to No Fee Apartments NYC 2025
-            </a>
-          </div>
         </div>
       </div>
     </section>
