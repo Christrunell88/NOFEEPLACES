@@ -3400,6 +3400,122 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Marketing Automation Endpoints
+@app.post("/api/marketing/capture-lead")
+async def capture_lead(lead_data: LeadModel, background_tasks: BackgroundTasks):
+    """Capture lead and trigger marketing automation"""
+    try:
+        # Capture lead in marketing service
+        result = await marketing_service.capture_lead(lead_data)
+        
+        if result['success']:
+            # Trigger welcome email in background
+            background_tasks.add_task(
+                marketing_service.send_welcome_email, 
+                lead_data.dict()
+            )
+            
+            return {
+                "success": True,
+                "message": "Lead captured successfully",
+                "lead_id": result['lead_id']
+            }
+        else:
+            raise HTTPException(status_code=400, detail=result['error'])
+            
+    except Exception as e:
+        logger.error(f"Lead capture failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to capture lead")
+
+@app.post("/api/marketing/apartment-alert")
+async def send_apartment_alert(
+    apartment_data: dict, 
+    background_tasks: BackgroundTasks,
+    current_user: dict = Depends(get_current_user)
+):
+    """Send apartment alert to matching leads"""
+    try:
+        # Find matching leads based on apartment criteria
+        matching_leads = []
+        for lead in marketing_service.leads_database:
+            # Simple matching logic - can be enhanced
+            if (apartment_data.get('neighborhood', '').lower() in 
+                lead.get('preferred_neighborhood', '').lower()):
+                matching_leads.append(lead)
+        
+        # Send alerts in background
+        background_tasks.add_task(
+            marketing_service.create_apartment_alert,
+            apartment_data,
+            matching_leads
+        )
+        
+        return {
+            "success": True,
+            "message": f"Alert sent to {len(matching_leads)} matching leads"
+        }
+        
+    except Exception as e:
+        logger.error(f"Apartment alert failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send apartment alert")
+
+@app.post("/api/marketing/follow-up-campaign")
+async def trigger_follow_up_campaign(
+    days_since_signup: int = 3,
+    current_user: dict = Depends(get_current_user),
+    background_tasks: BackgroundTasks = BackgroundTasks()
+):
+    """Trigger follow-up email campaign"""
+    try:
+        background_tasks.add_task(
+            marketing_service.send_follow_up_campaign,
+            days_since_signup
+        )
+        
+        return {
+            "success": True,
+            "message": "Follow-up campaign triggered"
+        }
+        
+    except Exception as e:
+        logger.error(f"Follow-up campaign failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to trigger follow-up campaign")
+
+@app.get("/api/marketing/analytics")
+async def get_marketing_analytics(current_user: dict = Depends(get_current_user)):
+    """Get marketing analytics and lead statistics"""
+    try:
+        analytics = marketing_service.get_lead_analytics()
+        return analytics
+        
+    except Exception as e:
+        logger.error(f"Marketing analytics failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get marketing analytics")
+
+@app.post("/api/marketing/generate-content")
+async def generate_marketing_content(
+    content_request: dict,
+    current_user: dict = Depends(get_current_user)
+):
+    """Generate personalized marketing content using LLM"""
+    try:
+        lead_data = content_request.get('lead_data', {})
+        content_type = content_request.get('content_type', 'follow_up')
+        
+        content = await marketing_service.generate_personalized_content(
+            lead_data, content_type
+        )
+        
+        return {
+            "success": True,
+            "content": content,
+            "content_type": content_type
+        }
+        
+    except Exception as e:
+        logger.error(f"Content generation failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate content")
+
 @app.on_event("startup")
 async def startup_event():
     """Initialize database and populate with sample data"""
