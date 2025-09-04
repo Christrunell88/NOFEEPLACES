@@ -3439,8 +3439,14 @@ async def send_apartment_alert(
         matching_leads = []
         for lead in marketing_service.leads_database:
             # Simple matching logic - can be enhanced
-            if (apartment_data.get('neighborhood', '').lower() in 
-                lead.get('preferred_neighborhood', '').lower()):
+            apartment_neighborhood = apartment_data.get('neighborhood', '')
+            lead_neighborhood = lead.get('preferred_neighborhood', '')
+            
+            # Handle None values safely
+            if apartment_neighborhood and lead_neighborhood:
+                if apartment_neighborhood.lower() in lead_neighborhood.lower():
+                    matching_leads.append(lead)
+            elif not lead_neighborhood:  # Include leads with no neighborhood preference
                 matching_leads.append(lead)
         
         # Send alerts in background
