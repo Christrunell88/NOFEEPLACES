@@ -217,6 +217,16 @@ const Home = () => {
       />
       <Hero />
       <SEOContentSection />
+      
+      {/* Apartment Alert Signup */}
+      <div className="bg-gray-50 py-6">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <ApartmentAlertSignup variant="inline" className="mb-0" />
+          </div>
+        </div>
+      </div>
+      
       <AdvancedSearchFilters 
         filters={searchFilters} 
         onFilterChange={handleFilterChange}
