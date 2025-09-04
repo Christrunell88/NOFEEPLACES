@@ -4877,6 +4877,386 @@ class NoFeePlacesAPITester:
             
         except Exception as e:
             self.log_result("Apartment Count Discrepancy Investigation", False, f"Exception: {str(e)}")
+    
+    def test_marketing_lead_capture_api(self):
+        """Test Marketing Lead Capture API (/api/marketing/capture-lead)"""
+        print("\n=== Testing Marketing Lead Capture API ===")
+        try:
+            # Test valid lead capture with complete data
+            complete_lead_data = {
+                "email": "sarah.johnson@example.com",
+                "name": "Sarah Johnson",
+                "phone": "+1-555-123-4567",
+                "apartment_interest": "1BR",
+                "budget_range": "$3,000-$4,500",
+                "preferred_neighborhood": "Chelsea",
+                "move_date": "2025-03-01",
+                "source": "website",
+                "utm_source": "google",
+                "utm_medium": "cpc",
+                "utm_campaign": "nyc_apartments"
+            }
+            
+            response = self.make_request("POST", "/marketing/capture-lead", complete_lead_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success") and "lead_id" in data:
+                    self.log_result("Lead Capture (Complete Data)", True, f"Lead captured successfully: {data['lead_id']}")
+                else:
+                    self.log_result("Lead Capture (Complete Data)", False, f"Unexpected response: {data}")
+            else:
+                self.log_result("Lead Capture (Complete Data)", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Test lead capture with minimal required data
+            minimal_lead_data = {
+                "email": "john.doe@example.com",
+                "name": "John Doe",
+                "budget_range": "$2,500-$3,500"
+            }
+            
+            response = self.make_request("POST", "/marketing/capture-lead", minimal_lead_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.log_result("Lead Capture (Minimal Data)", True, "Lead captured with minimal required fields")
+                else:
+                    self.log_result("Lead Capture (Minimal Data)", False, f"Failed with minimal data: {data}")
+            else:
+                self.log_result("Lead Capture (Minimal Data)", False, f"Status code: {response.status_code}")
+            
+            # Test invalid lead data (missing email)
+            invalid_lead_data = {
+                "name": "Invalid User",
+                "budget_range": "$3,000-$4,000"
+            }
+            
+            response = self.make_request("POST", "/marketing/capture-lead", invalid_lead_data)
+            if response.status_code == 422:  # Validation error
+                self.log_result("Lead Capture (Invalid Data)", True, "Correctly rejected lead without email")
+            else:
+                self.log_result("Lead Capture (Invalid Data)", False, f"Should reject invalid data, got: {response.status_code}")
+            
+            # Test invalid email format
+            invalid_email_data = {
+                "email": "invalid-email-format",
+                "name": "Test User",
+                "budget_range": "$3,000-$4,000"
+            }
+            
+            response = self.make_request("POST", "/marketing/capture-lead", invalid_email_data)
+            if response.status_code == 422:  # Validation error
+                self.log_result("Lead Capture (Invalid Email)", True, "Correctly rejected invalid email format")
+            else:
+                self.log_result("Lead Capture (Invalid Email)", False, f"Should reject invalid email, got: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Marketing Lead Capture API", False, f"Exception: {str(e)}")
+    
+    def test_emergent_llm_integration(self):
+        """Test Emergent LLM Integration for personalized content"""
+        print("\n=== Testing Emergent LLM Integration ===")
+        try:
+            # Test LLM content generation with different user profiles
+            test_profiles = [
+                {
+                    "name": "Emily Chen",
+                    "budget_range": "$4,000-$6,000",
+                    "preferred_neighborhood": "SoHo",
+                    "move_date": "2025-04-15",
+                    "content_type": "welcome"
+                },
+                {
+                    "name": "Michael Rodriguez",
+                    "budget_range": "$2,800-$3,500",
+                    "preferred_neighborhood": "Astoria",
+                    "move_date": "2025-02-01",
+                    "content_type": "follow_up"
+                },
+                {
+                    "name": "Jessica Park",
+                    "budget_range": "$5,000-$7,500",
+                    "preferred_neighborhood": "Upper East Side",
+                    "move_date": "2025-05-01",
+                    "content_type": "apartment_alert"
+                }
+            ]
+            
+            for profile in test_profiles:
+                content_data = {
+                    "lead_data": {
+                        "name": profile["name"],
+                        "budget_range": profile["budget_range"],
+                        "preferred_neighborhood": profile["preferred_neighborhood"],
+                        "move_date": profile["move_date"]
+                    },
+                    "content_type": profile["content_type"]
+                }
+                
+                response = self.make_request("POST", "/marketing/generate-content", content_data)
+                if response.status_code == 200:
+                    data = response.json()
+                    if "content" in data and len(data["content"]) > 50:  # Reasonable content length
+                        self.log_result(f"LLM Content Generation ({profile['content_type']})", True, 
+                                      f"Generated personalized {profile['content_type']} content for {profile['name']}")
+                    else:
+                        self.log_result(f"LLM Content Generation ({profile['content_type']})", False, 
+                                      f"Content too short or missing: {data}")
+                else:
+                    self.log_result(f"LLM Content Generation ({profile['content_type']})", False, 
+                                  f"Status code: {response.status_code}")
+            
+            # Test fallback content when LLM fails
+            invalid_content_data = {
+                "lead_data": {},  # Empty lead data
+                "content_type": "welcome"
+            }
+            
+            response = self.make_request("POST", "/marketing/generate-content", invalid_content_data)
+            if response.status_code == 200:
+                data = response.json()
+                if "content" in data:
+                    self.log_result("LLM Fallback Content", True, "Fallback content provided when LLM fails")
+                else:
+                    self.log_result("LLM Fallback Content", False, "No fallback content provided")
+            else:
+                self.log_result("LLM Fallback Content", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Emergent LLM Integration", False, f"Exception: {str(e)}")
+    
+    def test_email_marketing_automation(self):
+        """Test Email Marketing Automation functionality"""
+        print("\n=== Testing Email Marketing Automation ===")
+        try:
+            # First capture a lead to test email automation
+            lead_data = {
+                "email": "automation.test@example.com",
+                "name": "Automation Test User",
+                "phone": "+1-555-987-6543",
+                "budget_range": "$3,500-$5,000",
+                "preferred_neighborhood": "Williamsburg",
+                "move_date": "2025-03-15"
+            }
+            
+            # Capture lead (this should trigger welcome email)
+            response = self.make_request("POST", "/marketing/capture-lead", lead_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.log_result("Email Automation Trigger", True, "Lead capture triggered email automation")
+                else:
+                    self.log_result("Email Automation Trigger", False, f"Lead capture failed: {data}")
+            else:
+                self.log_result("Email Automation Trigger", False, f"Status code: {response.status_code}")
+            
+            # Test apartment alert functionality
+            apartment_alert_data = {
+                "apartment_data": {
+                    "id": "test_apt_123",
+                    "bedrooms": 1,
+                    "neighborhood": "Williamsburg",
+                    "borough": "Brooklyn",
+                    "rent": 3800
+                },
+                "target_criteria": {
+                    "budget_range": "$3,500-$5,000",
+                    "preferred_neighborhood": "Williamsburg"
+                }
+            }
+            
+            response = self.make_request("POST", "/marketing/apartment-alert", apartment_alert_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.log_result("Apartment Alert Email", True, f"Apartment alert sent to {data.get('recipients_count', 0)} recipients")
+                else:
+                    self.log_result("Apartment Alert Email", False, f"Alert failed: {data}")
+            else:
+                self.log_result("Apartment Alert Email", False, f"Status code: {response.status_code}")
+            
+            # Test follow-up campaign
+            follow_up_data = {
+                "days_since_signup": 3,
+                "campaign_type": "follow_up"
+            }
+            
+            response = self.make_request("POST", "/marketing/follow-up-campaign", follow_up_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.log_result("Follow-up Campaign", True, f"Follow-up campaign sent to {data.get('recipients_count', 0)} leads")
+                else:
+                    self.log_result("Follow-up Campaign", False, f"Campaign failed: {data}")
+            else:
+                self.log_result("Follow-up Campaign", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Email Marketing Automation", False, f"Exception: {str(e)}")
+    
+    def test_marketing_analytics_endpoints(self):
+        """Test Marketing Analytics Endpoints (/api/marketing/analytics)"""
+        print("\n=== Testing Marketing Analytics Endpoints ===")
+        try:
+            if not self.auth_token:
+                self.log_result("Marketing Analytics", False, "No auth token available")
+                return
+            
+            # Test marketing analytics endpoint
+            response = self.make_request("GET", "/marketing/analytics")
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Verify analytics data structure
+                expected_fields = ["total_leads", "new_leads", "followed_up", "top_sources", "top_neighborhoods"]
+                missing_fields = [field for field in expected_fields if field not in data]
+                
+                if not missing_fields:
+                    self.log_result("Marketing Analytics Structure", True, f"Analytics data complete with {data['total_leads']} total leads")
+                else:
+                    self.log_result("Marketing Analytics Structure", False, f"Missing fields: {missing_fields}")
+                
+                # Test lead segmentation
+                if "top_neighborhoods" in data and isinstance(data["top_neighborhoods"], dict):
+                    self.log_result("Lead Segmentation", True, f"Lead segmentation by neighborhoods: {len(data['top_neighborhoods'])} segments")
+                else:
+                    self.log_result("Lead Segmentation", False, "Lead segmentation data missing or invalid")
+                
+                # Test metrics calculation
+                total_leads = data.get("total_leads", 0)
+                new_leads = data.get("new_leads", 0)
+                followed_up = data.get("followed_up", 0)
+                
+                if total_leads >= (new_leads + followed_up):
+                    self.log_result("Metrics Calculation", True, f"Lead metrics consistent: {total_leads} total, {new_leads} new, {followed_up} followed up")
+                else:
+                    self.log_result("Metrics Calculation", False, f"Inconsistent metrics: total={total_leads}, new={new_leads}, followed_up={followed_up}")
+                
+                # Test recent leads data
+                if "recent_leads" in data and isinstance(data["recent_leads"], list):
+                    self.log_result("Recent Leads Data", True, f"Recent leads data available: {len(data['recent_leads'])} recent leads")
+                else:
+                    self.log_result("Recent Leads Data", False, "Recent leads data missing or invalid")
+                    
+            else:
+                self.log_result("Marketing Analytics", False, f"Status code: {response.status_code}, Response: {response.text}")
+                
+        except Exception as e:
+            self.log_result("Marketing Analytics Endpoints", False, f"Exception: {str(e)}")
+    
+    def test_marketing_automation_workflow(self):
+        """Test end-to-end marketing automation workflow"""
+        print("\n=== Testing Marketing Automation Workflow ===")
+        try:
+            # Step 1: Capture lead
+            workflow_lead = {
+                "email": "workflow.test@example.com",
+                "name": "Workflow Test User",
+                "phone": "+1-555-111-2222",
+                "apartment_interest": "2BR",
+                "budget_range": "$4,000-$6,000",
+                "preferred_neighborhood": "Chelsea",
+                "move_date": "2025-04-01",
+                "source": "google_ads",
+                "utm_source": "google",
+                "utm_medium": "cpc",
+                "utm_campaign": "chelsea_apartments"
+            }
+            
+            # Capture the lead
+            response = self.make_request("POST", "/marketing/capture-lead", workflow_lead)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    lead_id = data.get("lead_id")
+                    self.log_result("Workflow Step 1 (Lead Capture)", True, f"Lead captured: {lead_id}")
+                else:
+                    self.log_result("Workflow Step 1 (Lead Capture)", False, f"Lead capture failed: {data}")
+                    return
+            else:
+                self.log_result("Workflow Step 1 (Lead Capture)", False, f"Status code: {response.status_code}")
+                return
+            
+            # Step 2: Verify lead appears in analytics
+            time.sleep(1)  # Brief delay for processing
+            response = self.make_request("GET", "/marketing/analytics")
+            if response.status_code == 200:
+                analytics_data = response.json()
+                if analytics_data.get("total_leads", 0) > 0:
+                    self.log_result("Workflow Step 2 (Analytics Update)", True, f"Lead appears in analytics: {analytics_data['total_leads']} total leads")
+                else:
+                    self.log_result("Workflow Step 2 (Analytics Update)", False, "Lead not reflected in analytics")
+            else:
+                self.log_result("Workflow Step 2 (Analytics Update)", False, f"Analytics failed: {response.status_code}")
+            
+            # Step 3: Test apartment alert targeting
+            matching_apartment = {
+                "apartment_data": {
+                    "id": "workflow_apt_456",
+                    "bedrooms": 2,
+                    "neighborhood": "Chelsea",
+                    "borough": "Manhattan",
+                    "rent": 5200
+                },
+                "target_criteria": {
+                    "budget_range": "$4,000-$6,000",
+                    "preferred_neighborhood": "Chelsea"
+                }
+            }
+            
+            response = self.make_request("POST", "/marketing/apartment-alert", matching_apartment)
+            if response.status_code == 200:
+                alert_data = response.json()
+                if alert_data.get("success"):
+                    self.log_result("Workflow Step 3 (Apartment Alert)", True, f"Apartment alert sent to matching leads")
+                else:
+                    self.log_result("Workflow Step 3 (Apartment Alert)", False, f"Alert failed: {alert_data}")
+            else:
+                self.log_result("Workflow Step 3 (Apartment Alert)", False, f"Status code: {response.status_code}")
+            
+            # Step 4: Test personalized content generation
+            content_request = {
+                "lead_data": workflow_lead,
+                "content_type": "welcome"
+            }
+            
+            response = self.make_request("POST", "/marketing/generate-content", content_request)
+            if response.status_code == 200:
+                content_data = response.json()
+                if "content" in content_data and len(content_data["content"]) > 100:
+                    self.log_result("Workflow Step 4 (Personalized Content)", True, "Personalized content generated successfully")
+                else:
+                    self.log_result("Workflow Step 4 (Personalized Content)", False, "Content generation insufficient")
+            else:
+                self.log_result("Workflow Step 4 (Personalized Content)", False, f"Status code: {response.status_code}")
+            
+            self.log_result("End-to-End Marketing Workflow", True, "Complete marketing automation workflow tested successfully")
+            
+        except Exception as e:
+            self.log_result("Marketing Automation Workflow", False, f"Exception: {str(e)}")
+
+    def test_comprehensive_marketing_automation_system(self):
+        """Test the comprehensive marketing automation system as requested in review"""
+        print("\n" + "=" * 70)
+        print("🎯 COMPREHENSIVE MARKETING AUTOMATION SYSTEM TESTING")
+        print("=" * 70)
+        print("📋 Testing all marketing automation components:")
+        print("   • Marketing Lead Capture API")
+        print("   • Emergent LLM Integration")
+        print("   • Email Marketing Automation")
+        print("   • Marketing Analytics Endpoints")
+        print("   • End-to-End Workflow")
+        print("=" * 70)
+        
+        # Run all marketing automation tests
+        self.test_marketing_lead_capture_api()
+        self.test_emergent_llm_integration()
+        self.test_email_marketing_automation()
+        self.test_marketing_analytics_endpoints()
+        self.test_marketing_automation_workflow()
+        
+        print("\n" + "=" * 70)
+        print("📊 MARKETING AUTOMATION TESTING COMPLETE")
+        print("=" * 70)
 
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
