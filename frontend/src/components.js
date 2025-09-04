@@ -10,6 +10,7 @@ const API = `${BACKEND_URL}/api`;
 // Professional Header Component
 const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
     <header className="sticky top-0 bg-white border-b border-gray-200 z-50 shadow-sm">
