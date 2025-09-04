@@ -5261,14 +5261,18 @@ class NoFeePlacesAPITester:
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
     
-    print("🏢 Testing Waterline Square and Gotham West Apartments Integration")
+    print("🎯 Testing Comprehensive Marketing Automation System")
     print("=" * 70)
-    print("📋 Review Request: Test updated apartments API after adding all missing apartments")
-    print("🎯 Expected: Original (~75) + Gotham West (10) + Waterline Square (8) = 90+ total")
+    print("📋 Review Request: Test comprehensive marketing automation system for NoFeePlaces.com")
+    print("🎯 Components: Lead Capture API, Emergent LLM, Email Automation, Analytics")
     print("=" * 70)
     
-    # Run the specific test for this review request
-    tester.test_waterline_square_and_gotham_west_verification()
+    # First ensure we have authentication
+    tester.test_user_registration()
+    tester.test_user_login()
+    
+    # Run the comprehensive marketing automation system tests
+    tester.test_comprehensive_marketing_automation_system()
     
     # Print final results
     print("\n" + "=" * 70)
@@ -5285,7 +5289,7 @@ if __name__ == "__main__":
             print(f"   • {error}")
     
     print("\n" + "=" * 70)
-    print("📝 REVIEW REQUEST VERIFICATION COMPLETE")
+    print("📝 MARKETING AUTOMATION TESTING COMPLETE")
     print("=" * 70)
     
     exit(0 if tester.results['failed'] == 0 else 1)
