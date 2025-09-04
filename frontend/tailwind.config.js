@@ -5,7 +5,11 @@ module.exports = {
     "./public/index.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'philosopher': ['Philosopher', 'serif'],
+      },
+    },
   },
   plugins: [],
 };
