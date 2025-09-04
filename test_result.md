@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement hero image for PLACES No Fee website homepage - featuring young New Yorkers finding first apartment, preferably young woman, non-generic professional design"
+user_problem_statement: "Remove duplicate Sign In/Sign Up buttons from Header component - eliminate redundant old button while keeping the new prominent blue one"
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
