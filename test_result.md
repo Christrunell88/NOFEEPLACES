@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Remove duplicate Sign In/Sign Up buttons from Header component - eliminate redundant old button while keeping the new prominent blue one"
+user_problem_statement: "Change the font of text over the hero image to Philosopher font for enhanced visual typography"
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
