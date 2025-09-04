@@ -38,45 +38,6 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <Link to="/dashboard" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Dashboard</Link>
-                <Link to="/favorites" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Favorites</Link>
-                <Link to="/saved-searches" className="text-gray-600 hover:text-gray-900 transition-colors font-medium">Saved Searches</Link>
-                <div className="relative group">
-                  <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors">
-                    <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
-                      {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
-                    </div>
-                    <span className="font-medium">{user?.full_name?.split(' ')[0] || 'User'}</span>
-                  </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                    <div className="py-2">
-                      <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">Dashboard</Link>
-                      <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">Favorites</Link>
-                      <Link to="/saved-searches" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">Saved Searches</Link>
-                      <button 
-                        onClick={logout}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
-                      >
-                        Sign Out
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <button 
-                onClick={() => setShowAuthModal(true)}
-                className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors font-medium"
-              >
-                Sign In
-              </button>
-            )}
-          </nav>
-
           {/* Desktop & Mobile Sign In/Sign Up Button */}
           <div className="flex items-center">
             {isAuthenticated ? (
