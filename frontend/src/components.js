@@ -931,7 +931,7 @@ const ImageCarousel = ({ images = [], alt = '', className = '' }) => {
   );
 };
 
-const ApartmentCard = ({ apartment }) => {
+const ApartmentCard = ({ apartment, isAuthenticated = false }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
   const { isAuthenticated, user } = useAuth();
