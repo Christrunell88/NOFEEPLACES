@@ -225,13 +225,9 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 // Professional Hero Section
 const Hero = () => {
   const [showLeadMagnet, setShowLeadMagnet] = useState(false);
-  const { trackConversion } = useAnalytics();
 
   const handleLeadMagnetClick = () => {
-    trackConversion('hero_lead_magnet_click', { 
-      source: 'hero_section',
-      value: 50 
-    });
+    // Analytics tracking will be added back later
     setShowLeadMagnet(true);
   };
 
@@ -268,15 +264,34 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Lead Magnet Modal */}
-      <ApartmentGuideLeadMagnet
-        isOpen={showLeadMagnet}
-        onClose={() => setShowLeadMagnet(false)}
-        onSuccess={() => {
-          setShowLeadMagnet(false);
-          alert('🎉 Your guide is on its way! Check your email for the download link.');
-        }}
-      />
+      {/* Lead Magnet Modal - Simplified for now */}
+      {showLeadMagnet && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold mb-4">🎉 Coming Soon!</h2>
+              <p className="text-gray-600 mb-4">
+                Our comprehensive NYC Apartment Guide with 50+ no-fee contacts will be available soon.
+              </p>
+              <p className="text-gray-600 mb-6">
+                For now, call us directly for personalized help finding your perfect no-fee apartment!
+              </p>
+              <a 
+                href="tel:646-408-8048"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors mr-3"
+              >
+                📞 Call (646) 408-8048
+              </a>
+              <button
+                onClick={() => setShowLeadMagnet(false)}
+                className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
