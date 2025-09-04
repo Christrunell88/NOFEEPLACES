@@ -149,6 +149,7 @@ const Hero = () => {
 // SEO Content Section Component with Collapsible Sections
 const SEOContentSection = () => {
   const [expandedSections, setExpandedSections] = useState({});
+  const { isAuthenticated } = useAuth();
 
   const toggleSection = (sectionKey) => {
     setExpandedSections(prev => ({
@@ -162,7 +163,7 @@ const SEOContentSection = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
-            Find Your Perfect No Fee Apartment in New York City 2025
+            {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Sign Up for Full Address and Schedule a Tour!'}
           </h2>
           
           {/* Compact Button Layout - Mobile Responsive */}
