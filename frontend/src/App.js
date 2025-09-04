@@ -223,7 +223,11 @@ const Home = () => {
       <main className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
           <h2 className="text-xl md:text-2xl font-bold text-slate-800">
-            {loading ? 'Searching No Fee Apartments NYC...' : isAuthenticated ? `${totalApartments} No Broker Fee Apartments NYC Available` : 'Sign Up for Full Address and Schedule a Tour!'}
+            {loading ? 'Searching No Fee Apartments NYC...' : isAuthenticated ? `${totalApartments} No Broker Fee Apartments NYC Available` : (
+              <span className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Sign Up for Full Address!
+              </span>
+            )}
           </h2>
           <div className="flex space-x-2">
             <button 
