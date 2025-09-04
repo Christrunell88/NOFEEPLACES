@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Change 'Sign Up' to 'Free Sign Up for Full Address' in Philosopher font, center the search bar, and remove apartment count display"
+user_problem_statement: "Remove 'Complete Guide to No Fee Apartments NYC 2025' button without losing SEO value"
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
