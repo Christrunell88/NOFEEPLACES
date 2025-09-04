@@ -96,6 +96,9 @@ const AuthProvider = ({ children }) => {
     isAuthenticated: !!user
   };
 
+  // Debug: Log authentication state
+  console.log('Auth Debug:', { user, isAuthenticated: !!user, loading, token });
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
