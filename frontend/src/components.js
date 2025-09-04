@@ -74,6 +74,8 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
                 Sign In
               </button>
             )}
+          </nav>
+
           {/* Desktop & Mobile Sign In/Sign Up Button */}
           <div className="flex items-center">
             {isAuthenticated ? (
