@@ -954,14 +954,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
   };
 
   const handleViewDetails = () => {
-    // Track apartment view
-    trackApartmentView({
-      id: apartment.id,
-      neighborhood: apartment.neighborhood,
-      bedrooms: apartment.bedrooms,
-      rent: apartment.price
-    });
-    
+    // Analytics tracking will be added back later
     navigate(`/apartment/${apartment.id}`);
   };
 
