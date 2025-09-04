@@ -370,17 +370,17 @@ backend:
           comment: "Complete appointment scheduling system working perfectly. All 15 appointment-related test cases passed: appointment creation with proper validation, business hours enforcement (10 AM - 7 PM), conflict detection preventing double booking, available time slots retrieval, appointment status updates (pending/confirmed/completed/cancelled), comprehensive filtering by apartment/status/date range, and proper data validation. All required fields present and validated correctly."
 
 frontend:
-  - task: "Change Hero Text Font to Philosopher"
+  - task: "Enhance Sign Up Text Prominence and Remove Tour References"
     implemented: true
     working: true
-    file: "/app/frontend/src/components.js, /app/frontend/public/index.html, /app/frontend/tailwind.config.js"
+    file: "/app/frontend/src/components.js, /app/frontend/src/App.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
         - working: true
           agent: "main"
-          comment: "PHILOSOPHER FONT IMPLEMENTATION COMPLETED: Successfully changed hero text font to Philosopher for enhanced visual typography. IMPLEMENTATION DETAILS: (1) Added Google Fonts link for Philosopher font family with weights 400, 700 and italic variants to index.html, (2) Extended Tailwind config to include custom 'font-philosopher' utility class mapped to Philosopher serif font, (3) Applied 'font-philosopher' class to hero H1 element 'No Fee Apartments in NYC', (4) Restarted frontend service to ensure font loading. VERIFICATION SUCCESSFUL: (1) Desktop screenshot confirms Philosopher font applied correctly with computed font-family showing 'Philosopher, serif', (2) Mobile screenshot confirms responsive font rendering works perfectly across devices, (3) Hero text maintains all existing responsive sizing (text-4xl to lg:text-7xl) while now displaying in elegant Philosopher serif font, (4) Font loading optimized with preconnect to fonts.gstatic.com for performance. VISUAL IMPACT: The hero text 'No Fee Apartments in NYC' now displays with distinctive Philosopher serif typography, providing more sophisticated and professional visual appeal while maintaining excellent readability across all screen sizes. Font change successfully enhances the overall branding and user experience."
+          comment: "SIGN UP TEXT ENHANCEMENT COMPLETED: Successfully made 'Sign Up for Full Address' more prominent and removed all 'schedule a tour' references. IMPLEMENTATION DETAILS: (1) Updated SEO content section in components.js - increased heading size from text-xl/2xl/3xl to text-2xl/3xl/4xl and applied striking blue-to-purple gradient styling with bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent classes, (2) Enhanced main apartment listing heading in App.js with text-2xl/3xl sizing and same gradient effect for consistency, (3) Updated apartment card buttons from 'Sign Up for Full Details & Tour Scheduling' to concise 'Sign Up for Full Address'. TEXT REMOVALS: Completely eliminated 'and Schedule a Tour' from all instances including main headings and SEO section. VISUAL ENHANCEMENT: (1) Desktop view shows prominent gradient-styled 'Sign Up for Full Address!' text that stands out significantly more than previous version, (2) Mobile view maintains the enhanced styling with responsive text sizing, (3) Apartment cards now feature cleaner, more focused call-to-action buttons. VERIFICATION SUCCESSFUL: (1) Desktop screenshot confirms large, gradient-styled heading with blue-to-purple text effect, (2) Mobile screenshot shows responsive sizing maintains prominence, (3) Apartment listing section shows updated 'Sign Up for Full Address' buttons on all cards, (4) No remaining references to 'Schedule a Tour' found anywhere. IMPACT: The 'Sign Up for Full Address' text is now significantly more prominent and eye-catching, driving better user attention to the key conversion action while eliminating distracting tour scheduling references."
 
 metadata:
   created_by: "testing_agent"
