@@ -6,14 +6,23 @@ import { Link, useNavigate } from 'react-router-dom';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Header Component with New PLACES Branding
+// Header Component with New PLACES Branding and SEO Navigation
 // Professional Header Component
 const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [expandedSections, setExpandedSections] = useState({});
+
+  const toggleSection = (sectionKey) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionKey]: !prev[sectionKey]
+    }));
+  };
 
   return (
     <header className="sticky top-0 bg-white border-b border-gray-200 z-50 shadow-sm">
+      {/* Main Header Bar */}
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -85,6 +94,126 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
                 </span>
               </button>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Navigation Bar */}
+      <div className="bg-gray-50 border-t border-gray-100">
+        <div className="container mx-auto px-4 py-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+            {/* No Broker Fee Apartments */}
+            <div className="relative">
+              <button
+                onClick={() => toggleSection('noBrokerFee')}
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors flex items-center justify-between"
+              >
+                <span>No Broker Fee NYC</span>
+                <svg className={`w-3 h-3 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {expandedSections.noBrokerFee && (
+                <div className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                  <p className="text-gray-700 text-sm mb-3">
+                    Discover over 1,000 <strong>no fee apartments NYC</strong> and save up to $3,000+ in broker fees. Our verified 
+                    <strong>NYC apartments no broker fee</strong> listings come directly from property owners.
+                  </p>
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Top NYC No Fee Neighborhoods:</h4>
+                  <ul className="text-gray-700 text-xs space-y-1">
+                    <li>• <strong>Manhattan:</strong> UES, Chelsea, Midtown West, Financial District</li>
+                    <li>• <strong>Brooklyn:</strong> Williamsburg, DUMBO, Park Slope, Heights</li>
+                    <li>• <strong>Queens:</strong> LIC, Astoria, Forest Hills, Ridgewood</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Why Choose Us */}
+            <div className="relative">
+              <button
+                onClick={() => toggleSection('whyChoose')}
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-green-600 transition-colors flex items-center justify-between"
+              >
+                <span>Why NoFeePlaces?</span>
+                <svg className={`w-3 h-3 transition-transform ${expandedSections.whyChoose ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {expandedSections.whyChoose && (
+                <div className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                  <p className="text-gray-700 text-sm mb-3">
+                    <strong>NoFeePlaces.com</strong> is NYC's #1 platform for <strong>no fee places NYC</strong> rentals. 
+                    We specialize exclusively in <strong>New York no fee apartments</strong>.
+                  </p>
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Our Guarantee:</h4>
+                  <ul className="text-gray-700 text-xs space-y-1">
+                    <li>• 100% verified <strong>no fee rentals NYC</strong> listings</li>
+                    <li>• Direct communication with property owners</li>
+                    <li>• Expert NYC rental guidance from Chris Trunell</li>
+                    <li>• Same-day apartment viewings available</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Market Insights */}
+            <div className="relative">
+              <button
+                onClick={() => toggleSection('marketInsights')}
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-purple-600 transition-colors flex items-center justify-between"
+              >
+                <span>NYC Market 2025</span>
+                <svg className={`w-3 h-3 transition-transform ${expandedSections.marketInsights ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {expandedSections.marketInsights && (
+                <div className="absolute top-full left-0 mt-1 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                  <p className="text-gray-700 text-sm mb-3">
+                    The 2025 NYC rental market shows increasing demand for <strong>no broker fee apartments NYC</strong>. 
+                    Traditional broker fees range from 12-15% of annual rent.
+                  </p>
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Average Rent Ranges (No Fee):</h4>
+                  <ul className="text-gray-700 text-xs space-y-1">
+                    <li>• Manhattan: $2,800 - $8,500/month</li>
+                    <li>• Brooklyn: $2,200 - $5,500/month</li>
+                    <li>• Queens: $1,900 - $4,200/month</li>
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Contact & Expert Help */}
+            <div className="relative">
+              <button
+                onClick={() => toggleSection('contact')}
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-orange-600 transition-colors flex items-center justify-between"
+              >
+                <span>Get Expert Help</span>
+                <svg className={`w-3 h-3 transition-transform ${expandedSections.contact ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {expandedSections.contact && (
+                <div className="absolute top-full right-0 mt-1 w-80 bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50">
+                  <p className="text-gray-700 text-sm mb-3">
+                    Ready to find your perfect <strong>no broker fee apartment NYC</strong>? Contact our NYC rental expert 
+                    Chris Trunell for personalized assistance.
+                  </p>
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm">Contact Information:</h4>
+                  <ul className="text-gray-700 text-xs space-y-1">
+                    <li>• Phone: (646) 408-8048</li>
+                    <li>• Email: chris@places.nyc</li>
+                    <li>• Response Time: Under 2 hours</li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
