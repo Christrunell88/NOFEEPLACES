@@ -335,7 +335,7 @@ const Home = () => {
                           </div>
                           <div>
                             <h2 className="text-2xl font-bold text-gray-900">✨ Luxury</h2>
-                            <p className="text-gray-600">Over $7,001/month • {luxuryApartments.length} apartment{luxuryApartments.length !== 1 ? 's' : ''}</p>
+                            <p className="text-gray-600">Over $7,000/month • {luxuryApartments.length} apartment{luxuryApartments.length !== 1 ? 's' : ''}</p>
                           </div>
                         </div>
                       </div>
