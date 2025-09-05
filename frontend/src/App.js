@@ -262,8 +262,8 @@ const Home = () => {
             {/* Categorize apartments by price */}
             {(() => {
               const valueApartments = apartments.filter(apt => apt.price < 3400);
-              const savvyApartments = apartments.filter(apt => apt.price >= 3450 && apt.price <= 7000);
-              const luxuryApartments = apartments.filter(apt => apt.price > 7001);
+              const savvyApartments = apartments.filter(apt => apt.price >= 3400 && apt.price <= 7000);
+              const luxuryApartments = apartments.filter(apt => apt.price > 7000);
 
               return (
                 <>
