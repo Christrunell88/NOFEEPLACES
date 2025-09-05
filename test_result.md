@@ -421,11 +421,12 @@ frontend:
 metadata:
   created_by: "testing_agent"
   version: "1.0"
-  test_sequence: 4
+  test_sequence: 5
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Critical Apartment Listing Pagination Issue"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
