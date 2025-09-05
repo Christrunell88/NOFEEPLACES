@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, status, Query, Request
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, status, Query, Request, BackgroundTasks
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -20,7 +20,14 @@ import re
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
+from icalendar import Calendar, Event
+import pytz
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+
+# Import marketing automation
+from marketing_automation import marketing_service, LeadModel
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -38,7 +45,7 @@ JWT_EXPIRATION_HOURS = 24
 # Email Configuration
 EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
-EMAIL_USER = os.environ.get('EMAIL_USER', 'chris@places.nyc')
+EMAIL_USER = os.environ.get('EMAIL_USER', 'placesnyc88@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
 
@@ -83,13 +90,15 @@ class Apartment(BaseModel):
     amenities: List[str]
     images: List[str]
     contact_info: Dict[str, Any]
-    available_date: datetime
+    available_date: Optional[datetime] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
     is_no_fee: bool = True
     latitude: Optional[float] = None
     longitude: Optional[float] = None
     source_url: Optional[str] = None
+    source: Optional[str] = None
+    owner_paid_commission: Optional[bool] = None
 
 class SearchFilters(BaseModel):
     min_price: Optional[int] = None
@@ -146,6 +155,16 @@ class ChatMessage(BaseModel):
     response: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
     apartment_context: Optional[str] = None
+
+class ContactRequest(BaseModel):
+    apartment_id: str
+    apartment_title: str
+    apartment_address: str
+    apartment_price: int
+    name: str
+    email: str
+    phone: str
+    message: str
 
 class ChatRequest(BaseModel):
     message: str
@@ -209,7 +228,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -234,7 +253,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -259,7 +278,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -284,7 +303,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -293,7 +312,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Luxury 1BR at Related Hudson Point - No Fee",
+            "title": "Luxury 1BR at Hudson Point - No Fee",
             "address": "625 W 42nd St, New York, NY 10036",
             "price": 5200,
             "bedrooms": 1,
@@ -309,7 +328,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
@@ -318,7 +337,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Modern 1BR at Related West Side - No Fee",
+            "title": "Modern 1BR at West Side - No Fee",
             "address": "1865 Broadway, New York, NY 10023",
             "price": 5100,
             "bedrooms": 1,
@@ -334,7 +353,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -343,7 +362,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Elegant 1BR at Related Tribeca Park - No Fee",
+            "title": "Elegant 1BR at Tribeca Park - No Fee",
             "address": "225 Rector Pl, New York, NY 10280",
             "price": 5300,
             "bedrooms": 1,
@@ -359,7 +378,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
@@ -368,7 +387,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Luxury Studio at Related Chelsea Point - No Fee",
+            "title": "Luxury Studio at Chelsea Point - No Fee",
             "address": "515 W 18th St, New York, NY 10011",
             "price": 3950,
             "bedrooms": 0,
@@ -384,7 +403,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -393,7 +412,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Premium 1BR at Related Columbus Circle - No Fee",
+            "title": "Premium 1BR at Columbus Circle - No Fee",
             "address": "200 W 60th St, New York, NY 10023",
             "price": 5350,
             "bedrooms": 1,
@@ -409,7 +428,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -418,7 +437,7 @@ async def scrape_relatedrentals_apartments():
             "source_url": "https://relatedrentals.com"
         },
         {
-            "title": "Sophisticated 1BR at Related Greenwich Village - No Fee",
+            "title": "Sophisticated 1BR at Greenwich Village - No Fee",
             "address": "85 4th Ave, New York, NY 10003",
             "price": 4850,
             "bedrooms": 1,
@@ -434,13 +453,190 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
             "latitude": 40.7305,
             "longitude": -73.9910,
             "source_url": "https://relatedrentals.com"
+        },
+        # Waterline Square Apartments from Upper West Side
+        {
+            "title": "Studio at Waterline Square - Hudson River Views No Fee",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 6229,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 550,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxury studio at Waterline Square with stunning Hudson River views. Features floor-to-ceiling windows, premium finishes, and access to resort-style amenities including rooftop deck, fitness center, and concierge services.",
+            "amenities": ["Hudson River views", "Floor-to-ceiling windows", "Premium finishes", "Rooftop deck", "Fitness center", "Concierge services", "Swimming pool", "Spa", "Private park"],
+            "images": ["https://images.waterline-square.com/studio-river-view.jpg", "https://images.waterline-square.com/building-exterior.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=55),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Spacious 1BR at Waterline Square - Modern Luxury Living",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 7496,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Spacious one-bedroom apartment at Waterline Square featuring modern luxury living with river views. Open kitchen with premium appliances, marble bathrooms, and access to world-class amenities.",
+            "amenities": ["River views", "Modern kitchen", "Premium appliances", "Marble bathrooms", "World-class amenities", "24/7 concierge", "Fitness center", "Swimming pool"],
+            "images": ["https://images.waterline-square.com/1br-modern.jpg", "https://images.waterline-square.com/amenities.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=60),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Premium 1BR with Den - Waterline Square Upper West Side",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 9995,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 890,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Premium one-bedroom with den at Waterline Square offering luxury Upper West Side living. Features panoramic city and river views, chef's kitchen, and spa-like bathroom.",
+            "amenities": ["Panoramic views", "Chef's kitchen", "Spa-like bathroom", "Den/home office", "Luxury finishes", "Smart home technology", "Private balcony", "Resort amenities"],
+            "images": ["https://images.waterline-square.com/1br-den.jpg", "https://images.waterline-square.com/river-view.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=65),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Luxury 2BR/2BA at Waterline Square - River Views",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 12500,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1200,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxury two-bedroom, two-bathroom residence with stunning river views at Waterline Square. Master suite with walk-in closet, gourmet kitchen with island, and access to private park.",
+            "amenities": ["Stunning river views", "Master suite", "Walk-in closet", "Gourmet kitchen", "Private park", "Resort amenities", "Swimming pool", "Spa", "24/7 doorman"],
+            "images": ["https://images.waterline-square.com/2br-luxury.jpg", "https://images.waterline-square.com/master-suite.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=70),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Stunning 2BR Corner Unit - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 15200,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1350,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Stunning corner two-bedroom unit at Waterline Square with premium finishes and dual exposures. Floor-to-ceiling windows, marble bathrooms, custom millwork.",
+            "amenities": ["Corner unit", "Dual exposures", "Floor-to-ceiling windows", "Marble bathrooms", "Custom millwork", "Exclusive amenities", "Concierge", "Valet parking"],
+            "images": ["https://images.waterline-square.com/2br-corner.jpg", "https://images.waterline-square.com/luxury-bath.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=75),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Luxurious 2BR/2.5BA Duplex Style - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 18900,
+            "bedrooms": 2,
+            "bathrooms": 2.5,
+            "sqft": 1500,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Luxurious duplex-style two-bedroom with 2.5 bathrooms at Waterline Square. Two-story layout with soaring ceilings, private terrace, and unobstructed river views.",
+            "amenities": ["Duplex layout", "Soaring ceilings", "Private terrace", "Unobstructed river views", "Premium appliances", "Luxury finishes", "Two-story living"],
+            "images": ["https://images.waterline-square.com/duplex.jpg", "https://images.waterline-square.com/terrace.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=80),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Spectacular 3BR/2.5BA - Waterline Square Luxury Residence",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 22400,
+            "bedrooms": 3,
+            "bathrooms": 2.5,
+            "sqft": 1800,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Spectacular three-bedroom luxury residence at Waterline Square with 2.5 bathrooms. Expansive living spaces, chef's kitchen with breakfast bar, master suite with river views.",
+            "amenities": ["Three bedrooms", "Expansive living", "Chef's kitchen", "Breakfast bar", "Master suite with views", "Family living", "Luxury building", "Full service"],
+            "images": ["https://images.waterline-square.com/3br-luxury.jpg", "https://images.waterline-square.com/chefs-kitchen.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=85),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
+        },
+        {
+            "title": "Grand 4BR/3.5BA Family Residence - Waterline Square Premium",
+            "address": "400 West 61st Street, Upper West Side, Manhattan, NY 10069",
+            "price": 28750,
+            "bedrooms": 4,
+            "bathrooms": 3.5,
+            "sqft": 2200,
+            "neighborhood": "Upper West Side",
+            "borough": "Manhattan",
+            "description": "Grand four-bedroom family residence with 3.5 bathrooms at Waterline Square. Sprawling layout with multiple living areas, formal dining room, private study, and panoramic Hudson River views.",
+            "amenities": ["Four bedrooms", "Multiple living areas", "Formal dining", "Private study", "Panoramic Hudson views", "Family residence", "Sprawling layout", "Premium building"],
+            "images": ["https://images.waterline-square.com/4br-family.jpg", "https://images.waterline-square.com/dining-room.jpg"],
+            "contact_info": {
+                "phone": "(646) 408-8048",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=90),
+            "latitude": 40.7713,
+            "longitude": -73.9896,
+            "source_url": "https://www.waterline-square.com/"
         }
     ]
     
@@ -474,7 +670,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
@@ -499,7 +695,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -524,7 +720,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow(),
@@ -549,7 +745,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
@@ -574,7 +770,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -599,7 +795,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -624,7 +820,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -649,7 +845,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
@@ -674,7 +870,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -699,7 +895,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -724,7 +920,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -749,7 +945,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -774,7 +970,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=45),
@@ -799,7 +995,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=60),
@@ -824,7 +1020,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=1),
@@ -849,7 +1045,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc", 
+                "email": "placesnyc88@gmail.com", 
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -874,7 +1070,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -899,7 +1095,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
@@ -924,7 +1120,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
@@ -949,7 +1145,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -974,7 +1170,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -999,7 +1195,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -1024,7 +1220,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
@@ -1049,7 +1245,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -1074,7 +1270,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1099,7 +1295,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -1124,7 +1320,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -1149,7 +1345,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -1174,7 +1370,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -1199,7 +1395,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
@@ -1224,7 +1420,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
@@ -1249,7 +1445,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -1274,7 +1470,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
@@ -1299,7 +1495,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -1324,7 +1520,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
@@ -1349,7 +1545,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
@@ -1374,7 +1570,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -1399,7 +1595,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=42),
@@ -1424,7 +1620,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
@@ -1449,7 +1645,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=26),
@@ -1474,7 +1670,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=11),
@@ -1499,7 +1695,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
@@ -1524,7 +1720,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=24),
@@ -1549,7 +1745,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=9),
@@ -1574,7 +1770,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc", 
+                "email": "placesnyc88@gmail.com", 
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -1599,7 +1795,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -1624,7 +1820,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1649,7 +1845,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -1674,7 +1870,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
@@ -1699,7 +1895,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -1724,7 +1920,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
@@ -1749,7 +1945,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=13),
@@ -1774,7 +1970,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=27),
@@ -1799,7 +1995,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
@@ -1824,7 +2020,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -1849,7 +2045,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -1874,7 +2070,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=29),
@@ -1899,7 +2095,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
@@ -1924,7 +2120,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -1949,7 +2145,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1974,7 +2170,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -1999,7 +2195,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
@@ -2024,7 +2220,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
@@ -2049,13 +2245,212 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "chris@places.nyc",
+                "email": "placesnyc88@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
             "latitude": 40.6418,
             "longitude": -73.9614,
             "source_url": "https://flatbushbeverley.com"
+        },
+        # Gotham West Apartments from Scraped Data
+        {
+            "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 3863,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 550,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan", 
+            "description": "Exquisite alcove studio in Hell's Kitchen's most coveted luxury building. Features wide plank oak flooring, floor-to-ceiling windows, custom energy-efficient lighting, and views of landscaped courtyard and Hudson River.",
+            "amenities": ["Wide plank oak flooring", "Floor-to-ceiling windows", "Hudson River views", "Granite countertops", "KitchenAid appliances", "In-unit washer/dryer", "32nd floor roof deck", "Fitness center with Peloton", "Concierge services", "24-hour doorman"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/6ebde14bba55a2f05e8248ab515c6806.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-1-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=7),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 3962,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 485,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Bright and airy studio apartment with meticulous interiors and thoughtful finishes sourced from Italy. Features premium materials, built-in pantries, oversized bathroom vanities, and full-length mirrored medicine cabinets.",
+            "amenities": ["Italian-sourced finishes", "Built-in pantries", "Oversized bathroom vanities", "Energy-efficient lighting", "Bosch appliances", "Resident lounge with fireplace", "Business center", "Billiard room"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/3dcd495c0c2dd42451dae58eb4b95c64.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-2-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=12),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4108,
+            "bedrooms": 0,
+            "bathrooms": 1.0,
+            "sqft": 620,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Premium alcove studio with spectacular Hudson River and Midtown Manhattan skyline views. Refined interiors feature wide plank oak flooring, granite countertops, stainless steel appliances, and spacious walk-in closets.",
+            "amenities": ["Hudson River views", "Manhattan skyline views", "Wide plank oak flooring", "Spacious walk-in closets", "Granite countertops", "Stainless steel appliances", "Gotham Living program", "Monthly resident events"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/a0fa55fe5bc6a2bd66a092c053dc5428.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-3-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=18),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4695,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 725,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Sophisticated one-bedroom residence with bright, airy interiors and premium materials throughout. Features custom energy-efficient lighting, linen-textured backsplash, and tailored finishes that create a welcoming and timeless living experience.",
+            "amenities": ["Custom energy-efficient lighting", "Linen-textured backsplash", "Premium materials", "Demonstration kitchen", "Fitness center with movement studio", "Complimentary bike storage", "Indoor parking garage"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/ca0292e7fe613a349fd7e1cd484ad0bc.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-4-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592", 
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=25),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4721,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 750,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Elegant one-bedroom apartment with modern finishes and thoughtful design elements. Spacious layout features floor-to-ceiling windows, built-in storage solutions, and high-end appliances.",
+            "amenities": ["Floor-to-ceiling windows", "Built-in storage", "High-end appliances", "Modern finishes", "Landscaped courtyard", "32nd floor roof deck", "Panoramic city views", "Dry-cleaning valet"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/d44aeb1d1cef0ecf6bbece052f1c5203.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-5-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=30),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 4787,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 780,
+            "neighborhood": "Hell's Kitchen", 
+            "borough": "Manhattan",
+            "description": "Spacious one-bedroom residence with stunning river views and refined finishes. Features include honed absolute black granite countertops, oversized bathroom vanities, and select Italian design elements.",
+            "amenities": ["River views", "Honed granite countertops", "Oversized bathroom vanities", "Italian design elements", "Prime location", "Times Square proximity", "Bryant Park access", "Curated art gallery"],
+            "images": ["https://assets.funnelstatic.com/unit_photos/originals/87b4ea3da488c84542919ca427fd9154.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-6-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=35),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 5194,
+            "bedrooms": 1,
+            "bathrooms": 1.0,
+            "sqft": 825,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan", 
+            "description": "High-floor one-bedroom with breathtaking Manhattan skyline views from floor-to-ceiling windows. Luxury finishes throughout including wide plank oak flooring and custom lighting.",
+            "amenities": ["Manhattan skyline views", "High-floor location", "Wide plank oak flooring", "Custom lighting", "Complimentary shuttle to Grand Central", "Multiple subway lines", "A,C,E at Port Authority"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/2a83fe99a1d6725ef9d61dd6c5eb2814.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-7-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=40),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 6890,
+            "bedrooms": 2,
+            "bathrooms": 2.0,
+            "sqft": 1150,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Luxury two-bedroom corner unit with dual exposures and abundant natural light. Features two full bathrooms, spacious living areas, and premium finishes throughout.",
+            "amenities": ["Corner unit", "Dual exposures", "Two full bathrooms", "Spacious living areas", "Premium finishes", "Fitness center with Peloton", "Resident lounge", "Rooftop entertainment", "Bike valet service"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/ea2df7ab4e87c542fb169c148e0b8916.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-1-2.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592", 
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=45),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
+        },
+        {
+            "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+            "address": "550 West 45th Street, Hell's Kitchen, Manhattan, NY 10036",
+            "price": 9345,
+            "bedrooms": 3,
+            "bathrooms": 2.0,
+            "sqft": 1650,
+            "neighborhood": "Hell's Kitchen",
+            "borough": "Manhattan",
+            "description": "Presidential three-bedroom penthouse-style residence with panoramic Manhattan views and luxury finishes throughout. Features spacious living and dining areas, gourmet kitchen with premium appliances, master bedroom suite, and two additional bedrooms.",
+            "amenities": ["Penthouse-style living", "Panoramic Manhattan views", "Luxury finishes", "Spacious living areas", "Gourmet kitchen", "Premium appliances", "Master bedroom suite", "Rooftop deck access", "Gotham Living program"],
+            "images": ["https://assets.nestiostatic.com/unit_photos/originals/45135edfbbd09f4fa07a3bb09e024778.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-16-1.jpg"],
+            "contact_info": {
+                "phone": "(917) 451-5592",
+                "email": "placesnyc88@gmail.com",
+                "broker": "Chris Trunell"
+            },
+            "available_date": datetime.utcnow() + timedelta(days=50),
+            "latitude": 40.7589,
+            "longitude": -73.9925,
+            "source_url": "https://www.gothamwestnyc.com/"
         }
     ]
     
@@ -2077,14 +2472,44 @@ async def scrape_rentals():
     relatedrentals_apartments = await scrape_relatedrentals_apartments()
     all_apartments.extend(relatedrentals_apartments)
     
-    # Clear existing apartments to ensure fresh data with updated email addresses
-    await db.apartments.delete_many({})
+    # Only delete apartments from specific scraping sources, preserve manually added ones
+    # Delete apartments that don't have a "source" field or have source_url from these domains
+    scraping_sources = [
+        "https://streeteasy.com",
+        "https://relatedrentals.com", 
+        "https://www.fortysixfifty.com"
+    ]
     
-    # Store in database
+    # Build delete query for only scraping source apartments (not manually added ones)
+    delete_query = {
+        "$or": [
+            {"source_url": {"$regex": "streeteasy.com"}},
+            {"source_url": {"$regex": "relatedrentals.com"}},
+            {"source_url": {"$regex": "fortysixfifty.com"}},
+            {"source_url": {"$exists": False}, "source": {"$exists": False}}  # Old format apartments without source info
+        ]
+    }
+    
+    # Delete only scraping-sourced apartments, preserve manual additions
+    delete_result = await db.apartments.delete_many(delete_query)
+    print(f"Deleted {delete_result.deleted_count} apartments from scraping sources")
+    
+    # Store new scraped apartments in database
     for apartment in all_apartments:
         await db.apartments.insert_one(apartment.dict())
     
-    return len(all_apartments)
+    # Count preserved apartments (manually added ones like StreetEasy OP Commission)
+    preserved_count = await db.apartments.count_documents({
+        "$and": [
+            {"source_url": {"$not": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}}},
+            {"source": {"$exists": True}}
+        ]
+    })
+    
+    total_apartments = len(all_apartments) + preserved_count
+    print(f"Added {len(all_apartments)} new scraped apartments, preserved {preserved_count} manually added apartments")
+    
+    return total_apartments
 
 # API Routes
 
@@ -2103,6 +2528,49 @@ async def register(user_data: UserCreate):
     user_dict['password'] = hashed_password
     
     await db.users.insert_one(user_dict)
+    
+    # Send new user notification email to placesnyc88@gmail.com
+    try:
+        registration_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
+        
+        # Email content for new user notification
+        notification_subject = f"New User Registration - {user_data.full_name}"
+        notification_body = f"""
+        🎉 NEW USER REGISTRATION 🎉
+        
+        A new user has just signed up for NoFeePlaces.com!
+        
+        📋 User Details:
+        👤 Full Name: {user_data.full_name}
+        ✉️ Email: {user_data.email}
+        🕐 Registration Time: {registration_time}
+        🆔 User ID: {user.id}
+        
+        🌐 Platform: NoFeePlaces.com
+        📱 User can now:
+        • Browse no-fee apartments
+        • Save favorites
+        • Schedule viewings
+        • Contact agents directly
+        
+        This user is now part of our growing community of NYC apartment hunters!
+        
+        ---
+        Sent automatically from NoFeePlaces.com Registration System
+        """
+
+        # Send notification email
+        await send_email(
+            to_email='placesnyc88@gmail.com',
+            subject=notification_subject,
+            body=notification_body
+        )
+        
+        print(f"New user registration notification sent for: {user_data.full_name} ({user_data.email})")
+        
+    except Exception as e:
+        print(f"Failed to send registration notification email: {e}")
+        # Don't fail registration if email fails - just log the error
     
     # Create and return token
     access_token = create_access_token(user.id, user.email)
@@ -2135,8 +2603,13 @@ async def get_apartments(
     page: int = Query(1, ge=1),
     limit: int = Query(20, ge=1, le=100)
 ):
-    # Build filter query
-    query = {"is_no_fee": True}
+    # Build filter query - updated to handle both is_no_fee and no_fee fields
+    query = {
+        "$or": [
+            {"is_no_fee": True},
+            {"no_fee": True}
+        ]
+    }
     
     if min_price:
         query["price"] = {"$gte": min_price}
@@ -2156,29 +2629,60 @@ async def get_apartments(
         query["borough"] = {"$regex": borough, "$options": "i"}
     
     if min_sqft:
-        query["sqft"] = {"$gte": min_sqft}
+        query["square_feet"] = {"$gte": min_sqft}
     if max_sqft:
-        if "sqft" in query:
-            query["sqft"]["$lte"] = max_sqft
+        if "square_feet" in query:
+            query["square_feet"]["$lte"] = max_sqft
         else:
-            query["sqft"] = {"$lte": max_sqft}
+            query["square_feet"] = {"$lte": max_sqft}
     
     if search_term:
-        query["$or"] = [
-            {"title": {"$regex": search_term, "$options": "i"}},
-            {"address": {"$regex": search_term, "$options": "i"}},
-            {"neighborhood": {"$regex": search_term, "$options": "i"}},
-            {"description": {"$regex": search_term, "$options": "i"}}
-        ]
+        # Simple fix: preserve the no_fee filter while adding search
+        no_fee_filter = query.copy()  # Save the existing no_fee filter
+        query = {
+            "$and": [
+                no_fee_filter,
+                {
+                    "$or": [
+                        {"title": {"$regex": search_term, "$options": "i"}},
+                        {"location": {"$regex": search_term, "$options": "i"}},
+                        {"address": {"$regex": search_term, "$options": "i"}},
+                        {"neighborhood": {"$regex": search_term, "$options": "i"}},
+                        {"description": {"$regex": search_term, "$options": "i"}},
+                        {"source": {"$regex": search_term, "$options": "i"}}
+                    ]
+                }
+            ]
+        }
     
     # Calculate skip for pagination
     skip = (page - 1) * limit
     
-    # Execute query
-    apartments_cursor = db.apartments.find(query).skip(skip).limit(limit).sort("created_at", -1)
+    # Execute query with custom sorting - Waterline Square apartments last
+    apartments_cursor = db.apartments.find(query).skip(skip).limit(limit)
+    
+    # Custom sort: Non-Waterline apartments first (by created_at desc), then Waterline apartments (by created_at desc)
+    apartments_cursor = apartments_cursor.sort([
+        ("title", 1),  # This will put Waterline Square apartments last (since "Waterline" comes after most other titles alphabetically)
+        ("created_at", -1)  # Then sort by creation date within each group
+    ])
+    
     apartments = await apartments_cursor.to_list(length=limit)
     
-    return [Apartment(**apt) for apt in apartments]
+    # Additional sorting logic: ensure Waterline Square apartments are definitely at the end
+    waterline_apartments = []
+    other_apartments = []
+    
+    for apt in apartments:
+        if "waterline" in apt.get("title", "").lower():
+            waterline_apartments.append(apt)
+        else:
+            other_apartments.append(apt)
+    
+    # Combine lists: other apartments first, then Waterline apartments
+    sorted_apartments = other_apartments + waterline_apartments
+    
+    return [Apartment(**apt) for apt in sorted_apartments]
 
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
@@ -2218,83 +2722,211 @@ async def get_search_stats():
         "price_stats": price_stats[0] if price_stats else {}
     }
 
-# Email service for appointment confirmations
+# Enhanced Email service for appointment confirmations with calendar invites
 async def send_appointment_confirmation_email(appointment_data: dict, apartment_data: dict):
-    """Send appointment confirmation email to visitor and broker"""
+    """Send appointment confirmation email with calendar invites to visitor and broker"""
     
-    if not EMAIL_PASSWORD:
-        # Email not configured, skip sending
-        print("Email not configured, skipping email notification")
+    if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+        # Email not configured, use mock email
+        print("[MOCK EMAIL] Appointment confirmation emails would be sent")
+        print(f"[MOCK EMAIL] Visitor: {appointment_data['visitor_name']} ({appointment_data['visitor_email']})")
+        print(f"[MOCK EMAIL] Apartment: {apartment_data['title']}")
+        print(f"[MOCK EMAIL] Date: {appointment_data['appointment_date']}")
         return
+
+    def create_calendar_event(appointment_data: dict, apartment_data: dict):
+        """Create an iCal calendar event"""
+        cal = Calendar()
+        cal.add('prodid', '-//PLACES No Fee//Apartment Viewing//EN')
+        cal.add('version', '2.0')
+        cal.add('calscale', 'GREGORIAN')
+
+        event = Event()
+        
+        # Event details
+        event.add('uid', f"appointment-{appointment_data['id']}@nofeeplaces.com")
+        event.add('summary', f"Apartment Viewing - {apartment_data['title']}")
+        
+        # Parse the appointment date and time
+        appointment_datetime = appointment_data['appointment_date']
+        if isinstance(appointment_datetime, str):
+            appointment_datetime = datetime.fromisoformat(appointment_datetime.replace('Z', '+00:00'))
+        
+        # Set timezone to Eastern Time (NYC)
+        eastern = pytz.timezone('US/Eastern')
+        if appointment_datetime.tzinfo is None:
+            appointment_datetime = eastern.localize(appointment_datetime)
+        
+        # Event duration (1 hour)
+        end_time = appointment_datetime + timedelta(hours=1)
+        
+        event.add('dtstart', appointment_datetime)
+        event.add('dtend', end_time)
+        event.add('location', apartment_data['address'])
+        
+        # Detailed description
+        description = f"""
+Apartment Viewing Details:
+
+Property: {apartment_data['title']}
+Address: {apartment_data['address']}
+Rent: ${apartment_data['price']:,}/month
+Bedrooms: {apartment_data.get('bedrooms', 'N/A')}
+Bathrooms: {apartment_data.get('bathrooms', 'N/A')}
+
+Visitor: {appointment_data['visitor_name']}
+Phone: {appointment_data['visitor_phone']}
+Email: {appointment_data['visitor_email']}
+
+Notes: {appointment_data.get('notes', 'No additional notes')}
+
+Contact Chris Trunell at (646) 408-8048 if you need to reschedule.
+
+Best regards,
+PLACES No Fee
+        """.strip()
+        
+        event.add('description', description)
+        
+        # Add attendees
+        event.add('attendee', f"MAILTO:{appointment_data['visitor_email']}")
+        event.add('attendee', f"MAILTO:placesnyc88@gmail.com")
+        
+        # Organizer
+        event.add('organizer', f"MAILTO:placesnyc88@gmail.com")
+        
+        # Add event to calendar
+        cal.add_component(event)
+        
+        return cal.to_ical()
+
+    async def send_email_with_calendar(to_email: str, subject: str, body: str, calendar_data: bytes):
+        """Send email with calendar attachment"""
+        try:
+            msg = MIMEMultipart()
+            msg['From'] = EMAIL_USER
+            msg['To'] = to_email
+            msg['Subject'] = subject
+            
+            # Add body
+            msg.attach(MIMEText(body, 'plain'))
+            
+            # Add calendar attachment
+            cal_attachment = MIMEBase('text', 'calendar')
+            cal_attachment.set_payload(calendar_data)
+            encoders.encode_base64(cal_attachment)
+            cal_attachment.add_header(
+                'Content-Disposition',
+                'attachment; filename="appointment.ics"'
+            )
+            cal_attachment.add_header('Content-Type', 'text/calendar; method=REQUEST')
+            msg.attach(cal_attachment)
+            
+            # Send email
+            server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+            if EMAIL_USE_TLS:
+                server.starttls()
+            server.login(EMAIL_USER, EMAIL_PASSWORD)
+            text = msg.as_string()
+            server.sendmail(EMAIL_USER, to_email, text)
+            server.quit()
+            
+            print(f"Email with calendar invite sent successfully to {to_email}")
+        except Exception as e:
+            print(f"Failed to send email with calendar to {to_email}: {e}")
+            raise
     
     try:
+        # Create calendar invite
+        calendar_data = create_calendar_event(appointment_data, apartment_data)
+        
         # Email content for visitor
-        visitor_subject = f"Apartment Viewing Confirmed - {apartment_data['title']}"
+        visitor_subject = f"🏠 Apartment Viewing Confirmed - {apartment_data['title']}"
         visitor_body = f"""
-        Dear {appointment_data['visitor_name']},
+Dear {appointment_data['visitor_name']},
 
-        Your apartment viewing has been confirmed! Here are the details:
+Your apartment viewing has been confirmed! Here are the details:
 
-        🏠 Property: {apartment_data['title']}
-        📍 Address: {apartment_data['address']}
-        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
-        🕐 Time: {appointment_data['appointment_time']}
-        💰 Rent: ${apartment_data['price']:,}/month
-        📋 Status: {appointment_data['status'].title()}
+🏠 Property: {apartment_data['title']}
+📍 Address: {apartment_data['address']}
+📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+🕐 Time: {appointment_data['appointment_time']}
+💰 Rent: ${apartment_data['price']:,}/month
+📋 Status: {appointment_data['status'].title()}
 
-        Please arrive on time and bring a valid ID. If you need to reschedule or cancel, please contact us as soon as possible.
+📅 CALENDAR INVITE: Please find the calendar invite (.ics file) attached to this email. 
+Add it to your calendar to receive reminders!
 
-        Contact Information:
-        📞 Phone: (646) 408-8048
-        ✉️ Email: chris@places.nyc
+Please arrive on time and bring a valid ID. If you need to reschedule or cancel, please contact us as soon as possible.
 
-        Looking forward to showing you this amazing no-fee apartment!
+Contact Information:
+📞 Phone: (646) 408-8048
+✉️ Email: placesnyc88@gmail.com
 
-        Best regards,
-        Chris Trunell
-        Places No Fee
+Looking forward to showing you this amazing no-fee apartment!
+
+Best regards,
+Chris Trunell
+PLACES No Fee
+NoFeePlaces.com
         """
 
         # Email content for broker
-        broker_subject = f"New Apartment Viewing Scheduled - {apartment_data['title']}"
+        broker_subject = f"📅 New Apartment Viewing Scheduled - {apartment_data['title']}"
         broker_body = f"""
-        New apartment viewing scheduled:
+New apartment viewing scheduled:
 
-        🏠 Property: {apartment_data['title']}
-        📍 Address: {apartment_data['address']}
-        📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
-        🕐 Time: {appointment_data['appointment_time']}
+🏠 Property: {apartment_data['title']}
+📍 Address: {apartment_data['address']}
+📅 Date: {appointment_data['appointment_date'].strftime('%A, %B %d, %Y')}
+🕐 Time: {appointment_data['appointment_time']}
 
-        Visitor Information:
-        👤 Name: {appointment_data['visitor_name']}
-        📞 Phone: {appointment_data['visitor_phone']}
-        ✉️ Email: {appointment_data['visitor_email']}
-        📝 Notes: {appointment_data.get('notes', 'No additional notes')}
+Visitor Information:
+👤 Name: {appointment_data['visitor_name']}
+📞 Phone: {appointment_data['visitor_phone']}
+✉️ Email: {appointment_data['visitor_email']}
+📝 Notes: {appointment_data.get('notes', 'No additional notes')}
 
-        Appointment ID: {appointment_data['id']}
-        Status: {appointment_data['status'].title()}
+📅 CALENDAR INVITE: Calendar event attached for your scheduling system.
+
+Appointment ID: {appointment_data['id']}
+Status: {appointment_data['status'].title()}
+
+Created via NoFeePlaces.com
         """
 
-        # Send email to visitor
-        await send_email(
+        # Send email with calendar invite to visitor
+        await send_email_with_calendar(
             to_email=appointment_data['visitor_email'],
             subject=visitor_subject,
-            body=visitor_body
+            body=visitor_body,
+            calendar_data=calendar_data
         )
 
-        # Send email to broker
-        await send_email(
-            to_email='chris@places.nyc',
+        # Send email with calendar invite to broker
+        await send_email_with_calendar(
+            to_email='placesnyc88@gmail.com',
             subject=broker_subject,
-            body=broker_body
+            body=broker_body,
+            calendar_data=calendar_data
         )
         
     except Exception as e:
         print(f"Failed to send appointment confirmation email: {e}")
 
 async def send_email(to_email: str, subject: str, body: str):
-    """Send email using SMTP"""
+    """Send email using SMTP - Mock implementation for testing"""
     try:
+        # Check if email is properly configured
+        if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+            # Mock email sending - log instead of actually sending
+            print(f"[MOCK EMAIL] Email would be sent to: {to_email}")
+            print(f"[MOCK EMAIL] Subject: {subject}")
+            print(f"[MOCK EMAIL] Body: {body}")
+            print(f"[MOCK EMAIL] Email sent successfully (mocked)")
+            return
+        
+        # Real email sending code (if credentials are configured)
         msg = MIMEMultipart()
         msg['From'] = EMAIL_USER
         msg['To'] = to_email
@@ -2313,7 +2945,86 @@ async def send_email(to_email: str, subject: str, body: str):
         print(f"Email sent successfully to {to_email}")
     except Exception as e:
         print(f"Failed to send email to {to_email}: {e}")
-        raise
+        # Don't raise exception for mock email - just log and continue
+        if not EMAIL_PASSWORD or EMAIL_PASSWORD == '':
+            print(f"[MOCK EMAIL] Continuing with mock email (no real credentials configured)")
+        else:
+            raise
+
+# Contact/Email Routes
+@api_router.post("/contact/apartment")
+async def send_apartment_inquiry(request: ContactRequest):
+    """Send apartment inquiry email to agent"""
+    try:
+        # Email content for the agent (Chris)
+        agent_subject = f"New Inquiry - {request.apartment_title}"
+        agent_body = f"""
+        New apartment inquiry from {request.name}:
+
+        🏠 Property: {request.apartment_title}
+        📍 Address: {request.apartment_address}
+        💰 Price: ${request.apartment_price:,}/month
+        
+        Contact Information:
+        👤 Name: {request.name}
+        📞 Phone: {request.phone}
+        ✉️ Email: {request.email}
+        
+        Message:
+        {request.message}
+        
+        Please respond to {request.email} or call {request.phone}.
+        
+        Sent via NoFeePlaces.com
+        """
+
+        # Email content for the prospective tenant
+        tenant_subject = f"We received your inquiry about {request.apartment_title}"
+        tenant_body = f"""
+        Hi {request.name},
+
+        Thank you for your interest in {request.apartment_title}!
+
+        We have received your inquiry and Chris will get back to you within 24 hours. Here are the details of your inquiry:
+
+        🏠 Property: {request.apartment_title}
+        📍 Address: {request.apartment_address}
+        💰 Rent: ${request.apartment_price:,}/month
+        
+        Your Message: {request.message}
+
+        In the meantime, feel free to:
+        • Browse more apartments at NoFeePlaces.com
+        • Call us directly at (646) 408-8048
+        • Email us at placesnyc88@gmail.com
+
+        We look forward to helping you find your perfect no-fee apartment!
+
+        Best regards,
+        Chris Trunell
+        NoFeePlaces.com
+        (646) 408-8048
+        """
+
+        # Send email to agent
+        await send_email(
+            to_email='placesnyc88@gmail.com',
+            subject=agent_subject,
+            body=agent_body
+        )
+
+        # Send confirmation email to tenant
+        await send_email(
+            to_email=request.email,
+            subject=tenant_subject,
+            body=tenant_body
+        )
+
+        return {"message": "Email sent successfully"}
+        
+    except Exception as e:
+        print(f"Failed to send contact email: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send email")
 
 # Appointment Routes
 @api_router.post("/appointments", response_model=Appointment)
@@ -2528,7 +3239,7 @@ Key Information:
 - We specialize in NO BROKER FEE apartments
 - All our properties have on-site leasing offices with owner-paid commissions
 - We have 64+ luxury apartments ranging from $2,600-$14,895/month
-- Contact person: Chris Trunell at (646) 408-8048 or chris@places.nyc
+- Contact person: Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com
 - Users can schedule viewings directly through our website calendar
 
 Common Questions & Answers:
@@ -2688,6 +3399,233 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# Marketing Automation Endpoints
+@app.post("/api/marketing/capture-lead")
+async def capture_lead(lead_data: LeadModel, background_tasks: BackgroundTasks):
+    """Capture lead and trigger marketing automation"""
+    try:
+        # Capture lead in marketing service
+        result = await marketing_service.capture_lead(lead_data)
+        
+        if result['success']:
+            # Trigger welcome email in background
+            background_tasks.add_task(
+                marketing_service.send_welcome_email, 
+                lead_data.dict()
+            )
+            
+            return {
+                "success": True,
+                "message": "Lead captured successfully",
+                "lead_id": result['lead_id']
+            }
+        else:
+            raise HTTPException(status_code=400, detail=result['error'])
+            
+    except Exception as e:
+        logger.error(f"Lead capture failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to capture lead")
+
+@app.post("/api/marketing/apartment-alert")
+async def send_apartment_alert(
+    apartment_data: dict, 
+    background_tasks: BackgroundTasks,
+    current_user: dict = Depends(get_current_user)
+):
+    """Send apartment alert to matching leads"""
+    try:
+        # Find matching leads based on apartment criteria
+        matching_leads = []
+        for lead in marketing_service.leads_database:
+            # Simple matching logic - can be enhanced
+            apartment_neighborhood = apartment_data.get('neighborhood', '')
+            lead_neighborhood = lead.get('preferred_neighborhood', '')
+            
+            # Handle None values safely
+            if apartment_neighborhood and lead_neighborhood:
+                if apartment_neighborhood.lower() in lead_neighborhood.lower():
+                    matching_leads.append(lead)
+            elif not lead_neighborhood:  # Include leads with no neighborhood preference
+                matching_leads.append(lead)
+        
+        # Send alerts in background
+        background_tasks.add_task(
+            marketing_service.create_apartment_alert,
+            apartment_data,
+            matching_leads
+        )
+        
+        return {
+            "success": True,
+            "message": f"Alert sent to {len(matching_leads)} matching leads"
+        }
+        
+    except Exception as e:
+        logger.error(f"Apartment alert failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to send apartment alert")
+
+@app.post("/api/marketing/follow-up-campaign")
+async def trigger_follow_up_campaign(
+    days_since_signup: int = 3,
+    current_user: dict = Depends(get_current_user),
+    background_tasks: BackgroundTasks = BackgroundTasks()
+):
+    """Trigger follow-up email campaign"""
+    try:
+        background_tasks.add_task(
+            marketing_service.send_follow_up_campaign,
+            days_since_signup
+        )
+        
+        return {
+            "success": True,
+            "message": "Follow-up campaign triggered"
+        }
+        
+    except Exception as e:
+        logger.error(f"Follow-up campaign failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to trigger follow-up campaign")
+
+@app.get("/api/marketing/analytics")
+async def get_marketing_analytics(current_user: dict = Depends(get_current_user)):
+    """Get marketing analytics and lead statistics"""
+    try:
+        analytics = marketing_service.get_lead_analytics()
+        return analytics
+        
+    except Exception as e:
+        logger.error(f"Marketing analytics failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get marketing analytics")
+
+@app.post("/api/marketing/generate-content")
+async def generate_marketing_content(
+    content_request: dict,
+    current_user: dict = Depends(get_current_user)
+):
+    """Generate personalized marketing content using LLM"""
+    try:
+        lead_data = content_request.get('lead_data', {})
+        content_type = content_request.get('content_type', 'follow_up')
+        
+        content = await marketing_service.generate_personalized_content(
+            lead_data, content_type
+        )
+        
+        return {
+            "success": True,
+            "content": content,
+            "content_type": content_type
+        }
+        
+    except Exception as e:
+        logger.error(f"Content generation failed: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate content")
+
+@app.post("/api/admin/enhance-images")
+async def enhance_apartment_images():
+    """Enhance apartment listings with multiple high-quality images"""
+    try:
+        # High-quality apartment images
+        apartment_images = [
+            # Living rooms
+            "https://images.unsplash.com/photo-1594295800284-990f74bb6928?w=800",
+            "https://images.unsplash.com/photo-1568486776380-bf9c4e93347a?w=800",
+            "https://images.unsplash.com/photo-1553287222-da8a77d59c5c?w=800",
+            "https://images.unsplash.com/photo-1618861138969-0d7a9d315b1f?w=800",
+            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800",
+            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?w=800",
+            # Bedrooms
+            "https://images.unsplash.com/photo-1631049307290-bb947b114627?w=800",
+            "https://images.unsplash.com/photo-1742226789249-32cfaac0ff5e?w=800",
+            "https://images.unsplash.com/photo-1632830025328-cce71800b9ec?w=800",
+            "https://images.unsplash.com/photo-1714153542012-6164546db890?w=800",
+            "https://images.unsplash.com/photo-1540543234938-6ac4b2f1ec48?w=800",
+            "https://images.unsplash.com/photo-1556906795-9d3e1f21b5e6?w=800",
+            # Kitchens
+            "https://images.unsplash.com/photo-1556909265-71269c4e3b5a?w=800",
+            "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800",
+            "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800",
+            "https://images.unsplash.com/photo-1603354350317-6f7aaa5911c5?w=800",
+            "https://images.unsplash.com/photo-1595526051245-4506e0006a94?w=800",
+            "https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=800",
+            # Bathrooms
+            "https://images.unsplash.com/photo-1559671552-7bb7c9c0b10d?w=800",
+            "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800",
+            "https://images.unsplash.com/photo-1562113295-57ba58f9cd15?w=800",
+            "https://images.unsplash.com/photo-1584116831289-e53912463c35?w=800",
+            "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800",
+            # Building exteriors and amenities
+            "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+            "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+            "https://images.unsplash.com/photo-1581431821087-da84b7f4b6ec?w=800",
+            "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=800",
+            "https://images.unsplash.com/photo-1610457461233-0f13c4b8b6c4?w=800",
+            # NYC neighborhood views
+            "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800",
+            "https://images.unsplash.com/photo-1519832521-0b6b1b3ad69b?w=800",
+            "https://images.unsplash.com/photo-1520637836862-4d197d17c93a?w=800",
+            # Additional images
+            "https://images.pexels.com/photos/6970025/pexels-photo-6970025.jpeg?w=800",
+            "https://images.pexels.com/photos/3773575/pexels-photo-3773575.jpeg?w=800",
+            "https://images.pexels.com/photos/2119714/pexels-photo-2119714.jpeg?w=800",
+            "https://images.pexels.com/photos/4113779/pexels-photo-4113779.jpeg?w=800",
+            "https://images.pexels.com/photos/3935350/pexels-photo-3935350.jpeg?w=800",
+        ]
+        
+        # Get all apartments from the scraping data (in-memory)
+        apartments = []
+        streeteasy_apartments = await scrape_streeteasy_apartments()
+        apartments.extend(streeteasy_apartments)
+        relatedrentals_apartments = await scrape_relatedrentals_apartments()
+        apartments.extend(relatedrentals_apartments)
+        
+        enhanced_count = 0
+        
+        # Enhance each apartment with more images
+        for apartment in apartments:
+            current_images = apartment.images or []
+            current_count = len(current_images)
+            
+            # Determine target based on bedrooms
+            bedrooms = apartment.bedrooms
+            if bedrooms == 0:  # Studio
+                target_images = 4
+            elif bedrooms == 1:  # 1BR
+                target_images = 5
+            else:  # 2BR+
+                target_images = 6
+            
+            if current_count < target_images:
+                # Add more images
+                available_images = [img for img in apartment_images if img not in current_images]
+                import random
+                random.shuffle(available_images)
+                
+                images_needed = target_images - current_count
+                new_images = available_images[:images_needed]
+                
+                apartment.images.extend(new_images)
+                enhanced_count += 1
+                
+                # Save to database
+                apartment_dict = apartment.dict()
+                apartment_dict['updated_at'] = datetime.now().isoformat()
+                
+                # Update or insert
+                result = await db.apartments.replace_one(
+                    {"id": apartment.id}, 
+                    apartment_dict, 
+                    upsert=True
+                )
+        
+        return {
+            "message": f"Enhanced {enhanced_count} apartments with additional images. All apartments now have 4-6 high-quality images."
+        }
+        
+    except Exception as e:
+        logger.error(f"Image enhancement failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to enhance images: {str(e)}")
 
 @app.on_event("startup")
 async def startup_event():

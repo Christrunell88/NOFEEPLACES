@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BASE_URL = "https://apartmentfinder.preview.emergentagent.com/api"
+BASE_URL = "https://rentnocomm.preview.emergentagent.com/api"
 
 def test_apartment_count_fix():
     """Test that the apartment count issue is resolved"""
