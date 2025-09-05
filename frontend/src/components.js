@@ -257,13 +257,6 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 
 // Professional Hero Section
 const Hero = () => {
-  const [showLeadMagnet, setShowLeadMagnet] = useState(false);
-
-  const handleLeadMagnetClick = () => {
-    // Analytics tracking will be added back later
-    setShowLeadMagnet(true);
-  };
-
   return (
     <>
       <section 
@@ -280,51 +273,9 @@ const Hero = () => {
             <h1 className="font-philosopher text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
               No Fee Apartments in NYC
             </h1>
-            
-            {/* Lead Magnet CTA */}
-            <div className="mt-8">
-              <button
-                onClick={handleLeadMagnetClick}
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-lg text-lg font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/20 active:scale-95"
-              >
-                📚 Get FREE NYC Apartment Guide + 50 No-Fee Contacts
-              </button>
-              <p className="text-white text-sm mt-2 opacity-90">
-                47-page guide with insider secrets • Instant download
-              </p>
-            </div>
           </div>
         </div>
       </section>
-
-      {/* Lead Magnet Modal - Simplified for now */}
-      {showLeadMagnet && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">🎉 Coming Soon!</h2>
-              <p className="text-gray-600 mb-4">
-                Our comprehensive NYC Apartment Guide with 50+ no-fee contacts will be available soon.
-              </p>
-              <p className="text-gray-600 mb-6">
-                For now, call us directly for personalized help finding your perfect no-fee apartment!
-              </p>
-              <a 
-                href="tel:646-408-8048"
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 mr-3 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/20 active:scale-95"
-              >
-                📞 Call (646) 408-8048
-              </a>
-              <button
-                onClick={() => setShowLeadMagnet(false)}
-                className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };
