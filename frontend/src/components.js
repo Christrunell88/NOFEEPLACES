@@ -284,7 +284,7 @@ const Hero = () => {
               </a>
               <button
                 onClick={() => setShowLeadMagnet(false)}
-                className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors"
+                className="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
               >
                 Close
               </button>
