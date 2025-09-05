@@ -2748,7 +2748,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
             {/* Subtle Close Button */}
             <button
               onClick={toggleChat}
-              className="text-white hover:text-orange-200 transition-colors duration-200 px-2 py-1 rounded text-xs font-medium hover:bg-orange-600 hover:bg-opacity-30"
+              className="text-white hover:text-orange-200 transition-all duration-300 px-2 py-1 rounded text-xs font-medium hover:bg-orange-600 hover:bg-opacity-30 transform hover:scale-105 active:scale-95"
               aria-label="Close chat"
             >
               Close
