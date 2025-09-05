@@ -102,7 +102,32 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement hero image for PLACES No Fee website homepage - featuring young New Yorkers finding first apartment, preferably young woman, non-generic professional design"
+user_problem_statement: "Fix API data inconsistency where mock apartment data sometimes overrides or mixes with actual database apartments, causing incorrect apartment counts, image arrays, and search results. Deploy the Sign In/Sign Up button changes that are currently only in local environment."
+
+backend:
+  - task: "API Data Inconsistency Fix - Field Mapping"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "FIELD MAPPING ISSUE IDENTIFIED AND FIXED: Found critical bug in get_apartments endpoint lines 2629-2634 where filtering was looking for 'square_feet' field but apartments have 'sqft' field. This was breaking square footage filtering completely. FIXED: Updated all 'square_feet' references to 'sqft' to match the actual database schema. This should resolve filtering issues and improve API data consistency."
+
+  - task: "Mock Data Override Investigation"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "MOCK DATA OVERRIDE ISSUE IDENTIFIED: Found that scraping functions 'scrape_streeteasy_apartments()' and 'scrape_relatedrentals_apartments()' contain hardcoded mock apartment arrays. When /admin/scrape is called, it deletes existing apartments and adds mock data, potentially interfering with manually added real apartments (StreetEasy OP, Gotham West, Waterline Square, Two Trees, Mercedes House). Need to investigate if the delete logic in scrape_rentals() properly preserves manually added apartments vs mock data."
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
