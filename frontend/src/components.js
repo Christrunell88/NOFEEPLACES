@@ -1630,7 +1630,7 @@ const AdminAppointments = () => {
           <div className="mt-4 flex gap-2">
             <button
               onClick={() => setFilter({status: '', date_from: '', date_to: '', apartment_id: ''})}
-              className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50"
+              className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
             >
               Clear Filters
             </button>
