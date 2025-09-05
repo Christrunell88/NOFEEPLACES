@@ -107,7 +107,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             <div className="relative">
               <button
                 onClick={() => toggleSection('noBrokerFee')}
-                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors flex items-center justify-between"
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-blue-600 transition-all duration-300 flex items-center justify-between hover:bg-blue-50 rounded-md transform hover:scale-105"
               >
                 <span>No Broker Fee NYC</span>
                 <svg className={`w-3 h-3 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
