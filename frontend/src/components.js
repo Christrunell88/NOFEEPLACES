@@ -1108,7 +1108,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               href={`https://wa.me/?text=Check out this ${apartment.bedrooms}BR in ${apartment.neighborhood} - No Broker Fees! ${window.location.origin}/apartment/${apartment.id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-green-600 hover:text-green-700"
+              className="text-green-600 hover:text-green-700 transition-all duration-300 transform hover:scale-110 hover:bg-green-50 px-2 py-1 rounded active:scale-95"
             >
               💬 WhatsApp
             </a>
