@@ -226,7 +226,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
             "latitude": 40.7456,
@@ -251,7 +251,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7505,
@@ -276,7 +276,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7580,
@@ -301,7 +301,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.7614,
@@ -326,7 +326,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
             "latitude": 40.7589,
@@ -351,7 +351,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
             "latitude": 40.7736,
@@ -376,7 +376,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
             "latitude": 40.7137,
@@ -401,7 +401,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
             "latitude": 40.7435,
@@ -426,7 +426,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
             "latitude": 40.7677,
@@ -451,7 +451,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
             "latitude": 40.7305,
@@ -474,7 +474,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=55),
             "latitude": 40.7713,
@@ -496,7 +496,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=60),
             "latitude": 40.7713,
@@ -518,7 +518,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=65),
             "latitude": 40.7713,
@@ -540,7 +540,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=70),
             "latitude": 40.7713,
@@ -562,7 +562,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=75),
             "latitude": 40.7713,
@@ -584,7 +584,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=80),
             "latitude": 40.7713,
@@ -606,7 +606,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=85),
             "latitude": 40.7713,
@@ -628,7 +628,7 @@ async def scrape_relatedrentals_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=90),
             "latitude": 40.7713,
@@ -668,7 +668,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
             "latitude": 40.7074,
@@ -693,7 +693,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
             "latitude": 40.7589,
@@ -718,7 +718,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow(),
             "latitude": 40.6928,
@@ -743,7 +743,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
             "latitude": 40.7081,
@@ -768,7 +768,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
             "latitude": 40.7851,
@@ -793,7 +793,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
             "latitude": 40.7505,
@@ -818,7 +818,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
             "latitude": 40.7441,
@@ -843,7 +843,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
             "latitude": 40.7823,
@@ -868,7 +868,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
             "latitude": 40.7241,
@@ -893,7 +893,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7661,
@@ -918,7 +918,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7033,
@@ -943,7 +943,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.6664,
@@ -968,7 +968,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=45),
             "latitude": 40.8607,
@@ -993,7 +993,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=60),
             "latitude": 40.8607,
@@ -1018,7 +1018,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=1),
             "latitude": 40.8607,
@@ -1043,7 +1043,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com", 
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.8607,
@@ -1068,7 +1068,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
             "latitude": 40.7223,
@@ -1093,7 +1093,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
             "latitude": 40.7130,
@@ -1118,7 +1118,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
             "latitude": 40.7454,
@@ -1143,7 +1143,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
             "latitude": 40.7442,
@@ -1168,7 +1168,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
             "latitude": 40.7335,
@@ -1193,7 +1193,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
             "latitude": 40.7675,
@@ -1218,7 +1218,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
             "latitude": 40.7682,
@@ -1243,7 +1243,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
             "latitude": 40.7505,
@@ -1268,7 +1268,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.7511,
@@ -1293,7 +1293,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
             "latitude": 40.7518,
@@ -1318,7 +1318,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
             "latitude": 40.7441,
@@ -1343,7 +1343,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7454,
@@ -1368,7 +1368,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7502,
@@ -1393,7 +1393,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
             "latitude": 40.6823,
@@ -1418,7 +1418,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
             "latitude": 40.7505,
@@ -1443,7 +1443,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
             "latitude": 40.7047,
@@ -1468,7 +1468,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
             "latitude": 40.7511,
@@ -1493,7 +1493,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
             "latitude": 40.6890,
@@ -1518,7 +1518,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
             "latitude": 40.7525,
@@ -1543,7 +1543,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
             "latitude": 40.7184,
@@ -1568,7 +1568,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
             "latitude": 40.7103,
@@ -1593,7 +1593,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=42),
             "latitude": 40.7527,
@@ -1618,7 +1618,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
             "latitude": 40.7447,
@@ -1643,7 +1643,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=26),
             "latitude": 40.7056,
@@ -1668,7 +1668,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=11),
             "latitude": 40.6895,
@@ -1693,7 +1693,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
             "latitude": 40.7501,
@@ -1718,7 +1718,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=24),
             "latitude": 40.6934,
@@ -1743,7 +1743,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=9),
             "latitude": 40.6914,
@@ -1768,7 +1768,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com", 
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7589,
@@ -1793,7 +1793,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7130,
@@ -1818,7 +1818,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.7187,
@@ -1843,7 +1843,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
             "latitude": 40.7309,
@@ -1868,7 +1868,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
             "latitude": 40.7506,
@@ -1893,7 +1893,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
             "latitude": 40.6892,
@@ -1918,7 +1918,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
             "latitude": 40.7022,
@@ -1943,7 +1943,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=13),
             "latitude": 40.6643,
@@ -1968,7 +1968,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=27),
             "latitude": 40.7424,
@@ -1993,7 +1993,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
             "latitude": 40.7905,
@@ -2018,7 +2018,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
             "latitude": 40.7047,
@@ -2043,7 +2043,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.6596,
@@ -2068,7 +2068,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=29),
             "latitude": 40.7433,
@@ -2093,7 +2093,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
             "latitude": 40.7022,
@@ -2118,7 +2118,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7589,
@@ -2143,7 +2143,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.6547,
@@ -2168,7 +2168,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
             "latitude": 40.7371,
@@ -2193,7 +2193,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
             "latitude": 40.6815,
@@ -2218,7 +2218,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
             "latitude": 40.7151,
@@ -2243,7 +2243,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(646) 408-8048",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
             "latitude": 40.6418,
@@ -2266,7 +2266,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
             "latitude": 40.7589,
@@ -2288,7 +2288,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
             "latitude": 40.7589,
@@ -2310,7 +2310,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
             "latitude": 40.7589,
@@ -2332,7 +2332,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592", 
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
             "latitude": 40.7589,
@@ -2354,7 +2354,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
             "latitude": 40.7589,
@@ -2376,7 +2376,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
             "latitude": 40.7589,
@@ -2398,7 +2398,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
             "latitude": 40.7589,
@@ -2420,7 +2420,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592", 
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=45),
             "latitude": 40.7589,
@@ -2442,7 +2442,7 @@ async def scrape_streeteasy_apartments():
             "contact_info": {
                 "phone": "(917) 451-5592",
                 "email": "placesfirm@gmail.com",
-                "broker": "Chris Trunell"
+                "broker": "Office"
             },
             "available_date": datetime.utcnow() + timedelta(days=50),
             "latitude": 40.7589,
