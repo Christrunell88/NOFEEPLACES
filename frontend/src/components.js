@@ -134,7 +134,7 @@ const HeaderDropdownIcons = () => {
         <div className="p-4">
           <h4 className="font-semibold text-gray-900 mb-2">Get Expert Help Today</h4>
           <p className="text-gray-700 text-sm mb-3">
-            Contact our NYC rental expert Chris Trunell for personalized assistance.
+            Contact our NYC rental office for personalized assistance.
           </p>
           <h5 className="font-medium text-gray-900 text-xs mb-1">Contact Information:</h5>
           <ul className="text-gray-700 text-xs space-y-1">
