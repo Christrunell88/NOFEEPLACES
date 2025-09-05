@@ -252,7 +252,7 @@ const Hero = () => {
             <div className="mt-8">
               <button
                 onClick={handleLeadMagnetClick}
-                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-lg text-lg font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all shadow-lg"
+                className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-lg text-lg font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-orange-500/20 active:scale-95"
               >
                 📚 Get FREE NYC Apartment Guide + 50 No-Fee Contacts
               </button>
