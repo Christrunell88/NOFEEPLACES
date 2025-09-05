@@ -272,17 +272,9 @@ const Hero = () => {
   );
 };
 
-// SEO Content Section Component with Collapsible Sections
+// SEO Content Section Component - Simplified
 const SEOContentSection = () => {
-  const [expandedSections, setExpandedSections] = useState({});
   const { isAuthenticated } = useAuth();
-
-  const toggleSection = (sectionKey) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [sectionKey]: !prev[sectionKey]
-    }));
-  };
 
   return (
     <section className="bg-white py-6 md:py-8">
@@ -291,148 +283,6 @@ const SEOContentSection = () => {
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
             {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Sign Up for Full Address and Schedule a Tour!'}
           </h2>
-          
-          {/* Compact Button Layout - Mobile Responsive */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
-            {/* No Broker Fee Apartments Section */}
-            <div className="text-left">
-              <button
-                onClick={() => toggleSection('noBrokerFee')}
-                className="w-full p-3 md:p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 text-left transition-colors duration-200 flex items-center justify-between"
-              >
-                <span className="font-semibold text-gray-900 text-sm md:text-base">No Broker Fee Apartments NYC</span>
-                <svg 
-                  className={`w-4 h-4 md:w-5 md:h-5 transition-transform ${expandedSections.noBrokerFee ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {expandedSections.noBrokerFee && (
-                <div className="mt-3 md:mt-4 p-3 md:p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 leading-relaxed mb-3 md:mb-4 text-sm md:text-base">
-                    Discover over 1,000 <strong>no fee apartments NYC</strong> and save up to $3,000+ in broker fees. Our verified 
-                    <strong>NYC apartments no broker fee</strong> listings come directly from property owners and management companies 
-                    across Manhattan, Brooklyn, Queens, and the Bronx.
-                  </p>
-                  
-                  <h4 className="font-semibold text-gray-900 mb-2">Top NYC No Fee Neighborhoods:</h4>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    <li>• <strong>Manhattan:</strong> Upper East Side, Chelsea, Midtown West, Financial District, SoHo, Hell's Kitchen</li>
-                    <li>• <strong>Brooklyn:</strong> Williamsburg, DUMBO, Park Slope, Brooklyn Heights, Bed-Stuy</li>
-                    <li>• <strong>Queens:</strong> Long Island City, Astoria, Forest Hills, Ridgewood</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-            
-            {/* Why Choose Us Section */}
-            <div className="text-left">
-              <button
-                onClick={() => toggleSection('whyChoose')}
-                className="w-full p-4 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 text-left transition-colors duration-200 flex items-center justify-between"
-              >
-                <span className="font-semibold text-gray-900">Why NoFeePlaces.com?</span>
-                <svg 
-                  className={`w-5 h-5 transition-transform ${expandedSections.whyChoose ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {expandedSections.whyChoose && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    <strong>NoFeePlaces.com</strong> is NYC's #1 platform for <strong>no fee places NYC</strong> rentals. 
-                    We specialize exclusively in <strong>New York no fee apartments</strong> that eliminate expensive broker fees.
-                  </p>
-                  
-                  <h4 className="font-semibold text-gray-900 mb-2">Our Guarantee:</h4>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    <li>• 100% verified <strong>no fee rentals NYC</strong> listings</li>
-                    <li>• Direct communication with property owners</li>
-                    <li>• Expert NYC rental guidance from Chris Trunell</li>
-                    <li>• Same-day apartment viewings available</li>
-                    <li>• Zero hidden fees or surprise charges</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* NYC Rental Market Insights */}
-            <div className="text-left">
-              <button
-                onClick={() => toggleSection('marketInsights')}
-                className="w-full p-4 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 text-left transition-colors duration-200 flex items-center justify-between"
-              >
-                <span className="font-semibold text-gray-900">NYC Rental Market 2025</span>
-                <svg 
-                  className={`w-5 h-5 transition-transform ${expandedSections.marketInsights ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {expandedSections.marketInsights && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 leading-relaxed mb-4">
-                    The 2025 NYC rental market shows increasing demand for <strong>no broker fee apartments NYC</strong>. 
-                    Traditional broker fees range from 12-15% of annual rent, costing renters $3,000-$8,000+ extra.
-                  </p>
-                  
-                  <h4 className="font-semibold text-gray-900 mb-2">Average Rent Ranges (No Fee):</h4>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    <li>• Manhattan: $2,800 - $8,500/month</li>
-                    <li>• Brooklyn: $2,200 - $5,500/month</li>
-                    <li>• Queens: $1,900 - $4,200/month</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            {/* Contact & Expert Help */}
-            <div className="text-left">
-              <button
-                onClick={() => toggleSection('contact')}
-                className="w-full p-4 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 text-left transition-colors duration-200 flex items-center justify-between"
-              >
-                <span className="font-semibold text-gray-900">Get Expert Help Today</span>
-                <svg 
-                  className={`w-5 h-5 transition-transform ${expandedSections.contact ? 'rotate-180' : ''}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              
-              {expandedSections.contact && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-gray-700 text-sm mb-4">
-                    Ready to find your perfect <strong>no broker fee apartment NYC</strong>? Contact our NYC rental expert 
-                    Chris Trunell for personalized assistance throughout your apartment search.
-                  </p>
-                  
-                  <h4 className="font-semibold text-gray-900 mb-2">Contact Information:</h4>
-                  <ul className="text-gray-700 text-sm space-y-1">
-                    <li>• Phone: (646) 408-8048</li>
-                    <li>• Email: chris@places.nyc</li>
-                    <li>• Response Time: Under 2 hours</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
           
           {/* Call-to-Action Button for Complete Guide */}
           <div className="text-center mt-6">
