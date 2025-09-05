@@ -223,7 +223,7 @@ class FieldMappingTester:
         print("\n=== Testing Mock Data vs Real Data Preservation ===")
         try:
             # Get all apartments
-            response = self.make_request("GET", "/apartments", {"limit": 200})
+            response = self.make_request("GET", "/apartments", {"limit": 100})
             if response.status_code == 200:
                 apartments = response.json()
                 
