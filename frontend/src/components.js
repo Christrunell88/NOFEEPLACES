@@ -325,9 +325,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
     <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">
-            {apartmentCount || 0} No Fee Apartments Available
-          </h2>
+          <div></div> {/* Empty div for spacing */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
