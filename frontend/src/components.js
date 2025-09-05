@@ -2807,7 +2807,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
                 </button>
                 <button
                   onClick={() => handleQuickPrompt("Walk me through the lease signing process for NYC apartments")}
-                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-colors"
+                  className="text-left text-xs bg-white hover:bg-orange-50 text-gray-700 hover:text-orange-600 px-3 py-2 rounded-lg border hover:border-orange-200 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
                   disabled={isLoading}
                 >
                   ✍️ Lease Signing
