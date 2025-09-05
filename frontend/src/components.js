@@ -1716,7 +1716,7 @@ const AdminAppointments = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => updateAppointmentStatus(appointment.id, 'confirmed')}
-                              className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"
+                              className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700 transition-all duration-300 transform hover:scale-105 hover:shadow-md hover:shadow-green-500/20 active:scale-95"
                             >
                               Confirm
                             </button>
