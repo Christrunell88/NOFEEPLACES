@@ -204,8 +204,14 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
               <button
                 onClick={() => toggleSection('whyChoose')}
                 className="w-full p-1.5 text-left text-xs font-medium text-gray-700 hover:text-green-600 transition-all duration-300 flex items-center justify-between hover:bg-green-50 rounded-md transform hover:scale-105"
+                title="Why Us?"
               >
-                <span>Why Us?</span>
+                <span className="flex items-center">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Why Us
+                </span>
                 <svg className={`w-2.5 h-2.5 transition-transform ${expandedSections.whyChoose ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
