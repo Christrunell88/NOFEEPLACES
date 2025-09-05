@@ -486,7 +486,7 @@ const ErrorBoundary = ({ children, fallback }) => {
           <p className="text-slate-600 mb-4">We're sorry, but an unexpected error occurred. Please try refreshing the page.</p>
           <button 
             onClick={() => window.location.reload()}
-            className="btn-primary px-6 py-3"
+            className="btn-primary px-6 py-3 transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95"
           >
             Refresh Page
           </button>
