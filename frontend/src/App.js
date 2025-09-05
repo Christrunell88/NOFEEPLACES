@@ -307,7 +307,7 @@ const Home = () => {
                           </div>
                           <div>
                             <h2 className="text-2xl font-bold text-gray-900">🎯 Savvy</h2>
-                            <p className="text-gray-600">$3,450 - $7,000/month • {savvyApartments.length} apartment{savvyApartments.length !== 1 ? 's' : ''}</p>
+                            <p className="text-gray-600">$3,400 - $7,000/month • {savvyApartments.length} apartment{savvyApartments.length !== 1 ? 's' : ''}</p>
                           </div>
                         </div>
                       </div>
