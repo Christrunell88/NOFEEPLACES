@@ -165,14 +165,7 @@ const Home = () => {
       params.append('page', currentPage);
       params.append('limit', 100);
 
-      console.log('Fetching apartments with URL:', `${API}/apartments?${params}`);
       const response = await axios.get(`${API}/apartments?${params}`);
-      console.log('Apartments response:', { 
-        status: response.status, 
-        dataLength: response.data?.length,
-        firstApartment: response.data?.[0]
-      });
-      
       setApartments(response.data);
       setTotalApartments(response.data.length);
     } catch (error) {
