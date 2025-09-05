@@ -1331,15 +1331,15 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
             onClick={() => handleDateSelect(day)}
             disabled={day.isPast || !day.isCurrentMonth}
             className={`
-              h-12 w-full text-sm rounded-xl transition-all duration-200 hover:scale-105
+              h-12 w-full text-sm rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95
               ${day.isCurrentMonth 
                 ? day.isPast
                   ? 'text-gray-300 cursor-not-allowed'
                   : day.isSelected
                     ? 'bg-blue-600 text-white shadow-lg transform scale-105'
                     : day.isToday
-                      ? 'bg-blue-100 text-blue-800 font-bold hover:bg-blue-200'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                      ? 'bg-blue-100 text-blue-800 font-bold hover:bg-blue-200 hover:shadow-blue-200/50'
+                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 hover:shadow-gray-200/50'
                 : 'text-gray-300'
               }
             `}
