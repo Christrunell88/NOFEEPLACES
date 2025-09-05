@@ -1722,7 +1722,7 @@ const AdminAppointments = () => {
                             </button>
                             <button
                               onClick={() => updateAppointmentStatus(appointment.id, 'cancelled')}
-                              className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
+                              className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition-all duration-300 transform hover:scale-105 hover:shadow-md hover:shadow-red-500/20 active:scale-95"
                             >
                               Cancel
                             </button>
