@@ -288,14 +288,101 @@ const Home = () => {
         {loading ? (
           <LoadingSpinner />
         ) : viewMode === 'list' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {apartments.map(apartment => (
-              <ApartmentCard 
-                key={apartment.id} 
-                apartment={apartment} 
-                setShowAuthModal={setShowAuthModal}
-              />
-            ))}
+          <div className="space-y-8">
+            {/* Categorize apartments by price */}
+            {(() => {
+              const valueApartments = apartments.filter(apt => apt.price < 3400);
+              const savvyApartments = apartments.filter(apt => apt.price >= 3450 && apt.price <= 7000);
+              const luxuryApartments = apartments.filter(apt => apt.price > 7001);
+
+              return (
+                <>
+                  {/* Value Category */}
+                  {valueApartments.length > 0 && (
+                    <div className="mb-8">
+                      <div className="flex items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h2 className="text-2xl font-bold text-gray-900">💰 Value</h2>
+                            <p className="text-gray-600">Under $3,400/month • {valueApartments.length} apartment{valueApartments.length !== 1 ? 's' : ''}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                        {valueApartments.map(apartment => (
+                          <ApartmentCard 
+                            key={apartment.id} 
+                            apartment={apartment} 
+                            setShowAuthModal={setShowAuthModal}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Savvy Category */}
+                  {savvyApartments.length > 0 && (
+                    <div className="mb-8">
+                      <div className="flex items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.071 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h2 className="text-2xl font-bold text-gray-900">🎯 Savvy</h2>
+                            <p className="text-gray-600">$3,450 - $7,000/month • {savvyApartments.length} apartment{savvyApartments.length !== 1 ? 's' : ''}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                        {savvyApartments.map(apartment => (
+                          <ApartmentCard 
+                            key={apartment.id} 
+                            apartment={apartment} 
+                            setShowAuthModal={setShowAuthModal}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Luxury Category */}
+                  {luxuryApartments.length > 0 && (
+                    <div className="mb-8">
+                      <div className="flex items-center mb-6">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <h2 className="text-2xl font-bold text-gray-900">✨ Luxury</h2>
+                            <p className="text-gray-600">Over $7,001/month • {luxuryApartments.length} apartment{luxuryApartments.length !== 1 ? 's' : ''}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                        {luxuryApartments.map(apartment => (
+                          <ApartmentCard 
+                            key={apartment.id} 
+                            apartment={apartment} 
+                            setShowAuthModal={setShowAuthModal}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </div>
         ) : (
           <MapView apartments={apartments} />
