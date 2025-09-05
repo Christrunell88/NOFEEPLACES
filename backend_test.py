@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-NoFeePlaces.com Backend API Testing Suite
+NoFeePlaces.com Backend API Testing Suite - URGENT APARTMENT LISTING DIAGNOSIS
 Tests all backend endpoints for authentication, apartments, user features, and data scraping
+PRIORITY: Diagnosing critical apartment listing issue - no apartments showing on frontend
 """
 
 import requests
@@ -10,8 +11,8 @@ import time
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-# Configuration
-BASE_URL = "https://rentnocomm.preview.emergentagent.com/api"
+# Configuration - Updated to use correct backend URL from frontend/.env
+BASE_URL = "http://localhost:8001/api"
 TEST_USER_EMAIL = "testuser@nofeeplaces.com"
 TEST_USER_PASSWORD = "SecurePassword123!"
 TEST_USER_NAME = "John Doe"
