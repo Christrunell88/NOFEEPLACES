@@ -192,6 +192,9 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             </div>
           </Link>
 
+          {/* Center - Header Dropdown Icons */}
+          <HeaderDropdownIcons />
+
           {/* Desktop & Mobile Sign In/Sign Up Button */}
           <div className="flex items-center">
             {isAuthenticated ? (
