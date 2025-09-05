@@ -228,7 +228,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
                 onClick={() => toggleSection('marketInsights')}
                 className="w-full p-1.5 text-left text-xs font-medium text-gray-700 hover:text-purple-600 transition-all duration-300 flex items-center justify-between hover:bg-purple-50 rounded-md transform hover:scale-105"
               >
-                <span>NYC Market 2025</span>
+                <span>Market 2025</span>
                 <svg className={`w-2.5 h-2.5 transition-transform ${expandedSections.marketInsights ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
