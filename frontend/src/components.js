@@ -135,7 +135,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             <div className="relative">
               <button
                 onClick={() => toggleSection('whyChoose')}
-                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-green-600 transition-colors flex items-center justify-between"
+                className="w-full p-2 text-left text-xs md:text-sm font-medium text-gray-700 hover:text-green-600 transition-all duration-300 flex items-center justify-between hover:bg-green-50 rounded-md transform hover:scale-105"
               >
                 <span>Why NoFeePlaces?</span>
                 <svg className={`w-3 h-3 transition-transform ${expandedSections.whyChoose ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
