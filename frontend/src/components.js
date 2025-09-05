@@ -1092,7 +1092,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + '/apartment/' + apartment.id)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-700"
+              className="text-blue-600 hover:text-blue-700 transition-all duration-300 transform hover:scale-110 hover:bg-blue-50 px-2 py-1 rounded active:scale-95"
             >
               📘 Facebook
             </a>
