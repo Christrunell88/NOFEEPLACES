@@ -158,7 +158,7 @@ class FieldMappingTester:
         print("\n=== Testing Apartment Counts and Data Integrity ===")
         try:
             # Test 1: Get total apartment count
-            response = self.make_request("GET", "/apartments", {"limit": 200})
+            response = self.make_request("GET", "/apartments", {"limit": 100})
             if response.status_code == 200:
                 apartments = response.json()
                 total_count = len(apartments)
