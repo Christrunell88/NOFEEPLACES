@@ -91,7 +91,7 @@ const HeaderDropdownIcons = () => {
           <ul className="text-gray-700 text-xs space-y-1">
             <li>• 100% verified no fee rentals NYC listings</li>
             <li>• Direct communication with property owners</li>
-            <li>• Expert NYC rental guidance from Chris Trunell</li>
+            <li>• Expert NYC rental guidance from Office</li>
             <li>• Same-day apartment viewings available</li>
           </ul>
         </div>
