@@ -497,7 +497,7 @@ class FieldMappingTester:
                     self.log_result("Statistics Endpoint Response", True, f"Stats endpoint returns {total_count} total apartments")
                     
                     # Verify the count matches actual apartment count
-                    apartments_response = self.make_request("GET", "/apartments", {"limit": 200})
+                    apartments_response = self.make_request("GET", "/apartments", {"limit": 100})
                     if apartments_response.status_code == 200:
                         actual_apartments = apartments_response.json()
                         actual_count = len(actual_apartments)
