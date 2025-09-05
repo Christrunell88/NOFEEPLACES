@@ -291,16 +291,9 @@ const Home = () => {
           <div className="space-y-8">
             {/* Categorize apartments by price */}
             {(() => {
-              console.log('Rendering apartments:', { apartmentsLength: apartments.length, loading });
               const valueApartments = apartments.filter(apt => apt.price < 3400);
               const savvyApartments = apartments.filter(apt => apt.price >= 3450 && apt.price <= 7000);
               const luxuryApartments = apartments.filter(apt => apt.price > 7001);
-              
-              console.log('Categorized apartments:', {
-                value: valueApartments.length,
-                savvy: savvyApartments.length,
-                luxury: luxuryApartments.length
-              });
 
               return (
                 <>
