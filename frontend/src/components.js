@@ -2456,6 +2456,16 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* SEO Links Section */}
+        <div className="border-t border-slate-700 mt-6 pt-4 text-center">
+          <a
+            href="/complete-guide-no-fee-apartments-nyc"
+            className="inline-block text-amber-200 hover:text-amber-100 text-sm font-medium transition-colors duration-200 mb-4"
+          >
+            Complete Guide to No Fee Apartments NYC 2025
+          </a>
+        </div>
+
         {/* Bottom: Copyright & Legal Disclaimer */}
         <div className="border-t border-slate-700 mt-6 pt-4 text-center">
           <p className="text-sm text-amber-200 mb-3">
