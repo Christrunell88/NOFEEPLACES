@@ -1379,10 +1379,10 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
                   key={slot}
                   onClick={() => handleTimeSelect(slot)}
                   className={`
-                    py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200
+                    py-3 px-4 rounded-xl text-sm font-medium transition-all duration-300 hover:shadow-md active:scale-95
                     ${selectedTime === slot
                       ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                      : 'bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:scale-105'
+                      : 'bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:scale-105 hover:shadow-blue-200/50'
                     }
                   `}
                 >
