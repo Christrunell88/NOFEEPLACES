@@ -2777,7 +2777,7 @@ Email: {appointment_data['visitor_email']}
 
 Notes: {appointment_data.get('notes', 'No additional notes')}
 
-Contact Chris Trunell at (646) 408-8048 if you need to reschedule.
+Contact our office at (646) 408-8048 if you need to reschedule.
 
 Best regards,
 PLACES No Fee
