@@ -6,6 +6,160 @@ import { Link, useNavigate } from 'react-router-dom';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Header Dropdown Icons Component
+const HeaderDropdownIcons = () => {
+  const [expandedDropdown, setExpandedDropdown] = useState(null);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = (dropdown) => {
+    setExpandedDropdown(expandedDropdown === dropdown ? null : dropdown);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setExpandedDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const dropdownItems = [
+    {
+      id: 'noBrokerFee',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      tooltip: 'No Broker Fee Apartments',
+      color: 'blue',
+      content: (
+        <div className="p-4">
+          <h4 className="font-semibold text-gray-900 mb-2">No Broker Fee Apartments NYC</h4>
+          <p className="text-gray-700 text-sm mb-3">
+            Discover over 1,000 <strong>no fee apartments NYC</strong> and save up to $3,000+ in broker fees.
+          </p>
+          <h5 className="font-medium text-gray-900 text-xs mb-1">Top NYC No Fee Neighborhoods:</h5>
+          <ul className="text-gray-700 text-xs space-y-1">
+            <li>• <strong>Manhattan:</strong> Chelsea, Midtown West, Financial District</li>
+            <li>• <strong>Brooklyn:</strong> Williamsburg, DUMBO, Park Slope</li>
+            <li>• <strong>Queens:</strong> Long Island City, Astoria, Forest Hills</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      id: 'whyChoose',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      tooltip: 'Why NoFeePlaces.com?',
+      color: 'green',
+      content: (
+        <div className="p-4">
+          <h4 className="font-semibold text-gray-900 mb-2">Why NoFeePlaces.com?</h4>
+          <p className="text-gray-700 text-sm mb-3">
+            NYC's #1 platform for <strong>no fee places NYC</strong> rentals.
+          </p>
+          <h5 className="font-medium text-gray-900 text-xs mb-1">Our Guarantee:</h5>
+          <ul className="text-gray-700 text-xs space-y-1">
+            <li>• 100% verified no fee rentals NYC listings</li>
+            <li>• Direct communication with property owners</li>
+            <li>• Expert NYC rental guidance from Chris Trunell</li>
+            <li>• Same-day apartment viewings available</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      id: 'marketInsights',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      tooltip: 'NYC Rental Market 2025',
+      color: 'purple',
+      content: (
+        <div className="p-4">
+          <h4 className="font-semibold text-gray-900 mb-2">NYC Rental Market 2025</h4>
+          <p className="text-gray-700 text-sm mb-3">
+            The 2025 NYC rental market shows increasing demand for <strong>no broker fee apartments NYC</strong>.
+          </p>
+          <h5 className="font-medium text-gray-900 text-xs mb-1">Average Rent Ranges (No Fee):</h5>
+          <ul className="text-gray-700 text-xs space-y-1">
+            <li>• Manhattan: $2,800 - $8,500/month</li>
+            <li>• Brooklyn: $2,200 - $5,500/month</li>
+            <li>• Queens: $1,900 - $4,200/month</li>
+          </ul>
+        </div>
+      )
+    },
+    {
+      id: 'contact',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4-8 9-8s9 3.582 9 8z" />
+        </svg>
+      ),
+      tooltip: 'Get Expert Help Today',
+      color: 'orange',
+      content: (
+        <div className="p-4">
+          <h4 className="font-semibold text-gray-900 mb-2">Get Expert Help Today</h4>
+          <p className="text-gray-700 text-sm mb-3">
+            Contact our NYC rental expert Chris Trunell for personalized assistance.
+          </p>
+          <h5 className="font-medium text-gray-900 text-xs mb-1">Contact Information:</h5>
+          <ul className="text-gray-700 text-xs space-y-1">
+            <li>• Phone: (646) 408-8048</li>
+            <li>• Email: chris@places.nyc</li>
+            <li>• Response Time: Under 2 hours</li>
+          </ul>
+        </div>
+      )
+    }
+  ];
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <div className="flex items-center space-x-2">
+        {dropdownItems.map((item) => (
+          <div key={item.id} className="relative group">
+            <button
+              onClick={() => toggleDropdown(item.id)}
+              className={`p-2 rounded-lg transition-all duration-200 transform hover:scale-105 ${
+                expandedDropdown === item.id
+                  ? `bg-${item.color}-100 text-${item.color}-700 shadow-md`
+                  : `text-gray-600 hover:bg-${item.color}-50 hover:text-${item.color}-600`
+              }`}
+            >
+              {item.icon}
+            </button>
+            
+            {/* Tooltip */}
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50">
+              {item.tooltip}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Dropdown Content */}
+      {expandedDropdown && (
+        <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+          {dropdownItems.find(item => item.id === expandedDropdown)?.content}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Header Component with New PLACES Branding
 // Professional Header Component
 const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
