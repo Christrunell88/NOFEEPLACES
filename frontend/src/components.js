@@ -15,6 +15,27 @@ const HeaderDropdownIcons = () => {
     setExpandedDropdown(expandedDropdown === dropdown ? null : dropdown);
   };
 
+  // Helper functions for color classes
+  const getActiveClasses = (color) => {
+    const colorClasses = {
+      blue: 'bg-blue-100 text-blue-700 shadow-md',
+      green: 'bg-green-100 text-green-700 shadow-md',
+      purple: 'bg-purple-100 text-purple-700 shadow-md',
+      orange: 'bg-orange-100 text-orange-700 shadow-md'
+    };
+    return colorClasses[color];
+  };
+
+  const getHoverClasses = (color) => {
+    const colorClasses = {
+      blue: 'text-gray-600 hover:bg-blue-50 hover:text-blue-600',
+      green: 'text-gray-600 hover:bg-green-50 hover:text-green-600',
+      purple: 'text-gray-600 hover:bg-purple-50 hover:text-purple-600',
+      orange: 'text-gray-600 hover:bg-orange-50 hover:text-orange-600'
+    };
+    return colorClasses[color];
+  };
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
