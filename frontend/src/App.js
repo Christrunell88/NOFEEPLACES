@@ -259,15 +259,6 @@ const Home = () => {
           <LoadingSpinner />
         ) : viewMode === 'list' ? (
           <div className="space-y-8">
-            {/* Debug information */}
-            <div className="bg-yellow-100 p-4 rounded-lg border">
-              <p><strong>Debug Info:</strong></p>
-              <p>Total apartments: {apartments.length}</p>
-              <p>Loading: {loading.toString()}</p>
-              <p>View mode: {viewMode}</p>
-              {apartments.length > 0 && <p>First apartment: {apartments[0].title} - ${apartments[0].price}</p>}
-            </div>
-            
             {/* Categorize apartments by price */}
             {(() => {
               const valueApartments = apartments.filter(apt => apt.price < 3400);
