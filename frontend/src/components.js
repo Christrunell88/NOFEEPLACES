@@ -1467,7 +1467,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
               <button
                 type="button"
                 onClick={() => setShowBookingForm(false)}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
               >
                 Cancel
               </button>
