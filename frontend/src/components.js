@@ -1100,7 +1100,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.origin + '/apartment/' + apartment.id)}&text=Check out this ${apartment.bedrooms}BR in ${apartment.neighborhood} - No Broker Fees!`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-500"
+              className="text-blue-400 hover:text-blue-500 transition-all duration-300 transform hover:scale-110 hover:bg-blue-50 px-2 py-1 rounded active:scale-95"
             >
               🐦 Twitter
             </a>
