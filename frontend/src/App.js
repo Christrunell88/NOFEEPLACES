@@ -168,6 +168,8 @@ const Home = () => {
       const apiUrl = `${API}/apartments?${params}`;
       console.log('Making API call to:', apiUrl);
       console.log('Backend URL:', BACKEND_URL);
+      console.log('Current window location:', window.location.href);
+      console.log('Current window origin:', window.location.origin);
       
       const response = await axios.get(apiUrl);
       console.log('API Response received:', response.status, response.data?.length);
@@ -176,7 +178,8 @@ const Home = () => {
       setTotalApartments(response.data.length);
     } catch (error) {
       console.error('Failed to fetch apartments:', error);
-      console.log('Error details:', error.response?.status, error.response?.data);
+      console.log('Error details:', error.response?.status, error.response?.data, error.message);
+      console.log('Error config:', error.config?.url);
       setApartments([]);
     } finally {
       setLoading(false);
