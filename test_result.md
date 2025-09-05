@@ -414,12 +414,16 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "API Data Inconsistency Fix - Field Mapping"
+    - "Mock Data Override Investigation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
+    - agent: "main"
+      message: "🔧 API DATA INCONSISTENCY FIX INITIATED: Starting comprehensive fix of backend API data inconsistency issues. PHASE 1 COMPLETED: Fixed critical field mapping bug where get_apartments endpoint was looking for 'square_feet' field but database contains 'sqft' field. This was breaking all square footage filtering. PHASE 2 STARTING: Investigating mock data override issues where hardcoded mock apartments in scraping functions may interfere with manually added real apartment data. Will test backend thoroughly to verify apartment counts, search results, and image arrays are accurate before proceeding with frontend deployment of Sign In/Sign Up button."
     - agent: "testing"
       message: "🔍 APARTMENT COUNT DISCREPANCY INVESTIGATION COMPLETED: Comprehensive analysis of the apartment count issue reveals the exact cause of the user's concern. FINDINGS SUMMARY: (1) API correctly returns 83 apartments matching frontend display, (2) Found 9/10 Gotham West apartments (missing 1), (3) Found 0/8 Waterline Square apartments (all missing), (4) Identified pagination inconsistency and duplicate address issues. ROOT CAUSE IDENTIFIED: The primary issue is the complete absence of Waterline Square apartments from the database. All 8 expected Waterline Square apartments at '400 West 61st Street' are missing from the system. GOTHAM WEST STATUS: 9 apartments successfully found at 550 West 45th Street, Hell's Kitchen with proper data structure, but 1 apartment is missing to reach the expected total of 10. TECHNICAL ISSUES DISCOVERED: (1) Pagination behavior inconsistent - returns 20 apartments by default vs 83 with limit parameter, (2) Multiple apartments share same address causing 11 duplicate detections, (3) No Waterline Square data found in current database state. IMPACT ON USER EXPERIENCE: The user added 10 Gotham West + 8 Waterline Square apartments but only sees 83 total because the Waterline Square apartments were never properly inserted into the database, and 1 Gotham West apartment is missing. IMMEDIATE ACTION REQUIRED: Check database insertion/scraping functions for Waterline Square data, verify all 10 Gotham West apartments are being inserted, investigate duplicate address handling for apartments at same building."
     - agent: "testing"
