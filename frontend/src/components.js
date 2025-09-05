@@ -302,18 +302,8 @@ const SEOContentSection = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
-            {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Sign Up for Full Address and Schedule a Tour!'}
+            {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Find Your Perfect No Fee Apartment'}
           </h2>
-          
-          {/* Call-to-Action Button for Complete Guide */}
-          <div className="text-center mt-6">
-            <a
-              href="/complete-guide-no-fee-apartments-nyc"
-              className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-decoration-none"
-            >
-              📚 Complete Guide to No Fee Apartments NYC 2025
-            </a>
-          </div>
         </div>
       </div>
     </section>
