@@ -278,7 +278,7 @@ const Hero = () => {
               </p>
               <a 
                 href="tel:646-408-8048"
-                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors mr-3"
+                className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 mr-3 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/20 active:scale-95"
               >
                 📞 Call (646) 408-8048
               </a>
