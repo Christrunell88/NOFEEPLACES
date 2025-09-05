@@ -2699,7 +2699,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
       <div className="fixed bottom-20 right-8 z-[60]">
         <button
           onClick={toggleChat}
-          className={`rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center ${
+          className={`rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center transform hover:scale-110 active:scale-95 ${
             isOpen 
               ? 'w-16 h-16 bg-gray-500 hover:bg-gray-600' 
               : 'w-24 h-24 bg-orange-500 hover:bg-orange-600 animate-pulse'
