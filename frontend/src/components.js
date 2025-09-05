@@ -3225,7 +3225,7 @@ const CompleteGuideNoFeeApartments = () => {
             <div className="space-y-4">
               <div className="flex justify-center space-x-6 text-lg">
                 <div>📞 (646) 408-8048</div>
-                <div>📧 chris@places.nyc</div>
+                <div>📧 placesfirm@gmail.com</div>
               </div>
               <button
                 onClick={() => window.location.href = '/'}
