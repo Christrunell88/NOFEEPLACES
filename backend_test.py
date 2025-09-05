@@ -5443,35 +5443,55 @@ class NoFeePlacesAPITester:
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
     
-    print("🎯 Testing Comprehensive Marketing Automation System")
-    print("=" * 70)
-    print("📋 Review Request: Test comprehensive marketing automation system for NoFeePlaces.com")
-    print("🎯 Components: Lead Capture API, Emergent LLM, Email Automation, Analytics")
-    print("=" * 70)
+    print("🚨 URGENT: NoFeePlaces.com Backend API Diagnosis")
+    print("CRITICAL ISSUE: No apartments showing on frontend")
+    print("=" * 60)
     
-    # First ensure we have authentication
+    # PRIORITY 1: Run urgent apartment diagnosis first
+    tester.test_urgent_apartment_listing_diagnosis()
+    
+    # Continue with other critical tests
+    tester.test_health_check()
+    tester.test_apartments_listing()
+    tester.test_apartments_filtering()
+    tester.test_apartments_search()
+    tester.test_apartment_details()
+    tester.test_apartment_stats()
+    tester.test_data_scraping()
+    
+    # Authentication tests (if needed)
     tester.test_user_registration()
     tester.test_user_login()
+    tester.test_user_profile()
+    tester.test_jwt_validation()
     
-    # Run the comprehensive marketing automation system tests
-    tester.test_comprehensive_marketing_automation_system()
+    # Additional functionality tests
+    tester.test_favorites_functionality()
+    tester.test_saved_searches()
+    tester.test_appointment_creation()
+    tester.test_available_time_slots()
+    tester.test_appointment_retrieval()
+    tester.test_appointment_status_updates()
+    tester.test_appointment_filtering()
+    tester.test_chat_functionality()
+    tester.test_contact_requests()
     
     # Print final results
-    print("\n" + "=" * 70)
-    print("🏁 TEST RESULTS SUMMARY")
-    print("=" * 70)
+    print("\n" + "=" * 60)
+    print("📊 FINAL TEST RESULTS")
+    print("=" * 60)
     print(f"✅ Passed: {tester.results['passed']}")
     print(f"❌ Failed: {tester.results['failed']}")
-    if tester.results['passed'] + tester.results['failed'] > 0:
-        print(f"📊 Success Rate: {(tester.results['passed'] / (tester.results['passed'] + tester.results['failed']) * 100):.1f}%")
+    
+    total_tests = tester.results['passed'] + tester.results['failed']
+    if total_tests > 0:
+        success_rate = (tester.results['passed'] / total_tests * 100)
+        print(f"📈 Success Rate: {success_rate:.1f}%")
     
     if tester.results['errors']:
-        print("\n🚨 FAILED TESTS:")
+        print(f"\n❌ Failed Tests:")
         for error in tester.results['errors']:
             print(f"   • {error}")
     
-    print("\n" + "=" * 70)
-    print("📝 MARKETING AUTOMATION TESTING COMPLETE")
-    print("=" * 70)
-    
-    exit(0 if tester.results['failed'] == 0 else 1)
+    print("\n🎉 Testing Complete!")
+    print("=" * 60)
