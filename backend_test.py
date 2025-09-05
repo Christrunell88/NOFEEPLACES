@@ -72,6 +72,187 @@ class NoFeePlacesAPITester:
             print(f"Request failed: {e}")
             raise
     
+    def test_urgent_apartment_listing_diagnosis(self):
+        """URGENT: Comprehensive diagnosis of apartment listing issue"""
+        print("\n🚨 === URGENT APARTMENT LISTING DIAGNOSIS ===")
+        print("User reports: NO APARTMENTS SHOWING ON FRONTEND")
+        print("Testing all apartment endpoints to identify root cause...")
+        
+        try:
+            # Test 1: Basic GET /api/apartments endpoint
+            print("\n--- Test 1: Basic Apartment Listing ---")
+            response = self.make_request("GET", "/apartments")
+            
+            if response.status_code == 200:
+                apartments = response.json()
+                apartment_count = len(apartments) if isinstance(apartments, list) else 0
+                
+                if apartment_count == 0:
+                    self.log_result("🚨 CRITICAL: Basic Apartment Listing", False, 
+                                  "ZERO apartments returned - This explains why frontend shows no apartments!")
+                elif apartment_count < 10:
+                    self.log_result("⚠️  WARNING: Basic Apartment Listing", False, 
+                                  f"Only {apartment_count} apartments found - Expected 90+ apartments")
+                else:
+                    self.log_result("✅ Basic Apartment Listing", True, 
+                                  f"Found {apartment_count} apartments")
+                    if apartments:
+                        self.test_apartment_id = apartments[0].get("id")
+                        
+                print(f"   📊 Apartment Count: {apartment_count}")
+                
+            else:
+                self.log_result("🚨 CRITICAL: Basic Apartment Listing", False, 
+                              f"API endpoint failed with status: {response.status_code}")
+                print(f"   Error Response: {response.text}")
+                return
+            
+            # Test 2: GET /api/apartments with higher limit
+            print("\n--- Test 2: Apartment Listing with High Limit ---")
+            response = self.make_request("GET", "/apartments", {"limit": 100})
+            
+            if response.status_code == 200:
+                apartments_with_limit = response.json()
+                count_with_limit = len(apartments_with_limit) if isinstance(apartments_with_limit, list) else 0
+                
+                if count_with_limit != apartment_count:
+                    self.log_result("⚠️  Pagination Issue Detected", False, 
+                                  f"Default returns {apartment_count}, with limit=100 returns {count_with_limit}")
+                else:
+                    self.log_result("✅ Pagination Consistency", True, 
+                                  f"Both queries return {count_with_limit} apartments")
+                
+                print(f"   📊 Count with limit=100: {count_with_limit}")
+                
+            else:
+                self.log_result("🚨 Apartment Listing with Limit", False, 
+                              f"Failed with status: {response.status_code}")
+            
+            # Test 3: GET /api/apartments/search/stats
+            print("\n--- Test 3: Apartment Statistics ---")
+            response = self.make_request("GET", "/apartments/search/stats")
+            
+            if response.status_code == 200:
+                stats = response.json()
+                total_in_stats = stats.get("total_apartments", 0)
+                
+                if total_in_stats == 0:
+                    self.log_result("🚨 CRITICAL: Statistics Endpoint", False, 
+                                  "Statistics show 0 apartments - Database may be empty!")
+                elif total_in_stats != apartment_count:
+                    self.log_result("⚠️  Data Inconsistency", False, 
+                                  f"Stats show {total_in_stats} but listing shows {apartment_count}")
+                else:
+                    self.log_result("✅ Statistics Consistency", True, 
+                                  f"Statistics match listing count: {total_in_stats}")
+                
+                print(f"   📊 Statistics Total: {total_in_stats}")
+                print(f"   📊 Full Stats: {json.dumps(stats, indent=2)}")
+                
+            else:
+                self.log_result("🚨 Statistics Endpoint", False, 
+                              f"Failed with status: {response.status_code}")
+            
+            # Test 4: Database Connection Test via Scraping
+            print("\n--- Test 4: Database Connection Test ---")
+            response = self.make_request("POST", "/admin/scrape")
+            
+            if response.status_code == 200:
+                scrape_result = response.json()
+                self.log_result("✅ Database Connection", True, 
+                              f"Scraping endpoint accessible: {scrape_result.get('message', 'Success')}")
+                
+                # Wait and recheck apartment count after scraping
+                time.sleep(3)
+                response = self.make_request("GET", "/apartments", {"limit": 100})
+                if response.status_code == 200:
+                    post_scrape_apartments = response.json()
+                    post_scrape_count = len(post_scrape_apartments) if isinstance(post_scrape_apartments, list) else 0
+                    
+                    if post_scrape_count > apartment_count:
+                        self.log_result("✅ Scraping Added Data", True, 
+                                      f"Apartment count increased from {apartment_count} to {post_scrape_count}")
+                    elif post_scrape_count == apartment_count:
+                        self.log_result("⚠️  Scraping No Change", False, 
+                                      f"Apartment count unchanged at {post_scrape_count} - May indicate scraping issues")
+                    else:
+                        self.log_result("🚨 Scraping Data Loss", False, 
+                                      f"Apartment count decreased from {apartment_count} to {post_scrape_count}")
+                    
+                    print(f"   📊 Post-Scrape Count: {post_scrape_count}")
+                
+            else:
+                self.log_result("🚨 Database Connection", False, 
+                              f"Scraping endpoint failed: {response.status_code}")
+            
+            # Test 5: Sample Apartment Data Structure
+            if apartment_count > 0 and apartments:
+                print("\n--- Test 5: Apartment Data Structure Analysis ---")
+                sample_apt = apartments[0]
+                required_fields = ["id", "title", "price", "address", "bedrooms", "bathrooms", "neighborhood", "borough"]
+                missing_fields = []
+                
+                for field in required_fields:
+                    if field not in sample_apt:
+                        missing_fields.append(field)
+                
+                if missing_fields:
+                    self.log_result("🚨 Data Structure Issues", False, 
+                                  f"Missing required fields: {missing_fields}")
+                else:
+                    self.log_result("✅ Data Structure Valid", True, 
+                                  "All required fields present in apartment data")
+                
+                print(f"   📋 Sample Apartment: {sample_apt.get('title', 'Unknown')}")
+                print(f"   💰 Price: ${sample_apt.get('price', 0):,}")
+                print(f"   📍 Address: {sample_apt.get('address', 'Unknown')}")
+                print(f"   🏠 Bedrooms: {sample_apt.get('bedrooms', 'Unknown')}")
+                print(f"   🛁 Bathrooms: {sample_apt.get('bathrooms', 'Unknown')}")
+                
+            # Test 6: Search Functionality
+            print("\n--- Test 6: Search Functionality Test ---")
+            search_terms = ["luxury", "manhattan", "brooklyn", "studio", "1br"]
+            
+            for term in search_terms:
+                response = self.make_request("GET", "/apartments", {"search_term": term})
+                if response.status_code == 200:
+                    search_results = response.json()
+                    search_count = len(search_results) if isinstance(search_results, list) else 0
+                    
+                    if search_count > 0:
+                        self.log_result(f"✅ Search '{term}'", True, f"Found {search_count} results")
+                    else:
+                        self.log_result(f"⚠️  Search '{term}'", False, f"No results for '{term}'")
+                else:
+                    self.log_result(f"🚨 Search '{term}'", False, f"Search failed: {response.status_code}")
+            
+            # DIAGNOSIS SUMMARY
+            print("\n" + "="*60)
+            print("🔍 DIAGNOSIS SUMMARY")
+            print("="*60)
+            
+            if apartment_count == 0:
+                print("🚨 ROOT CAUSE IDENTIFIED: ZERO APARTMENTS IN DATABASE")
+                print("   • The database appears to be empty or not accessible")
+                print("   • This directly explains why frontend shows no apartments")
+                print("   • IMMEDIATE ACTION: Check database connection and data population")
+            elif apartment_count < 50:
+                print(f"⚠️  PARTIAL DATA ISSUE: Only {apartment_count} apartments found")
+                print("   • Expected 90+ apartments based on previous testing")
+                print("   • Database may have been cleared or scraping failed")
+                print("   • RECOMMENDED ACTION: Re-run data scraping and verify database integrity")
+            else:
+                print(f"✅ APARTMENT DATA PRESENT: {apartment_count} apartments found")
+                print("   • Backend API appears to be working correctly")
+                print("   • Issue may be in frontend-backend communication")
+                print("   • RECOMMENDED ACTION: Check frontend API calls and CORS settings")
+            
+            print("="*60)
+                
+        except Exception as e:
+            self.log_result("🚨 CRITICAL: Apartment Diagnosis", False, f"Exception during diagnosis: {str(e)}")
+            print(f"   Full Exception: {e}")
+
     def test_health_check(self):
         """Test basic health check endpoint"""
         print("\n=== Testing Health Check ===")
