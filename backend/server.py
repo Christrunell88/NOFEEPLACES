@@ -3236,7 +3236,7 @@ Key Information:
 - We specialize in NO BROKER FEE apartments
 - All our properties have on-site leasing offices with owner-paid commissions
 - We have 64+ luxury apartments ranging from $2,600-$14,895/month
-- Contact person: Chris Trunell at (646) 408-8048 or placesfirm@gmail.com
+- Contact person: Office at (646) 408-8048 or placesfirm@gmail.com
 - Users can schedule viewings directly through our website calendar
 
 Common Questions & Answers:
