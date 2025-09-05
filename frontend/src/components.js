@@ -820,7 +820,7 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 disabled:bg-orange-400 transition-colors"
+                  className="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 disabled:bg-orange-400 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/20 active:scale-95"
                 >
                   {sending ? 'Sending...' : 'Send Message'}
                 </button>
