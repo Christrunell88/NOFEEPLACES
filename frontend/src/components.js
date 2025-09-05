@@ -1858,7 +1858,7 @@ const AuthModal = ({ onClose }) => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 disabled:bg-orange-400 transition-colors font-medium"
+            className="w-full bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 disabled:bg-orange-400 transition-all duration-300 font-medium transform hover:scale-105 hover:shadow-lg hover:shadow-orange-500/20 active:scale-95"
           >
             {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
           </button>
