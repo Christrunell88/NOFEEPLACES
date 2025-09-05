@@ -5,8 +5,8 @@ import axios from "axios";
 import { Components } from './components';
 // Marketing components will be re-added once properly integrated
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
-const API = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+const API = `${BACKEND_URL}/api`;
 
 // Auth Context
 const AuthContext = createContext();
