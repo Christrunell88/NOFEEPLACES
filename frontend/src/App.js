@@ -165,11 +165,18 @@ const Home = () => {
       params.append('page', currentPage);
       params.append('limit', 100);
 
-      const response = await axios.get(`${API}/apartments?${params}`);
+      const apiUrl = `${API}/apartments?${params}`;
+      console.log('Making API call to:', apiUrl);
+      console.log('Backend URL:', BACKEND_URL);
+      
+      const response = await axios.get(apiUrl);
+      console.log('API Response received:', response.status, response.data?.length);
+      
       setApartments(response.data);
       setTotalApartments(response.data.length);
     } catch (error) {
       console.error('Failed to fetch apartments:', error);
+      console.log('Error details:', error.response?.status, error.response?.data);
       setApartments([]);
     } finally {
       setLoading(false);
