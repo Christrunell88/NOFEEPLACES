@@ -135,6 +135,18 @@ user_problem_statement: "Remove 'Complete Guide to No Fee Apartments NYC 2025' b
           comment: "STREETEASY OWNER-PAID COMMISSION APARTMENTS INTEGRATION TESTING COMPLETED: Comprehensive backend API testing completed with 94.1% success rate (16/17 tests passed). INTEGRATION VERIFIED: Found 12 StreetEasy apartments successfully integrated into database with proper source_url attribution (https://streeteasy.com). TOTAL APARTMENT COUNT CONFIRMED: Database contains 91 total apartments (exceeds 31+ requirement). API ENDPOINTS WORKING: All apartment listing, search, filtering, and details endpoints properly include StreetEasy apartments. NEIGHBORHOOD COVERAGE VERIFIED: StreetEasy apartments found across Financial District (4), Williamsburg (3), West Village (1), and DUMBO (2) as expected. PRICE RANGE CONFIRMED: StreetEasy apartments span $2,600-$6,800 with proper distribution - Studios (3), 1BR (4), 2BR (4), 3BR (1). DATA QUALITY EXCELLENT: All 12 StreetEasy apartments have complete amenities and images. NO-FEE INTEGRATION: All apartments properly marked as no-fee and included in no-fee search results (76 total). BOROUGH DISTRIBUTION: StreetEasy apartments properly distributed across Manhattan (6), Brooklyn (4), Queens (2). API INTEGRATION SEAMLESS: Individual apartment details, borough filtering, and statistics endpoints all working correctly with StreetEasy data. Minor: Contact info shows placesnyc88@gmail.com instead of chris@places.nyc for StreetEasy apartments, but this is acceptable as all apartments are properly integrated and functional. CONCLUSION: StreetEasy owner-paid commission apartments successfully integrated into backend API with full functionality."
 
 backend:
+  - task: "Critical Apartment Listing Pagination Issue"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "🚨 CRITICAL PAGINATION ISSUE IDENTIFIED: Root cause of 'no apartments showing on frontend' diagnosed. PROBLEM: Default GET /api/apartments endpoint returns only 20 apartments due to pagination limit, but database contains 741+ apartments. TECHNICAL DETAILS: (1) Basic listing returns 20 apartments (causing frontend display issue), (2) With ?limit=100 returns 100 apartments, (3) Statistics show 741 total apartments available, (4) Data inconsistency between default listing (20) and actual database content (741). IMPACT: Frontend receives insufficient apartment data, explaining user's report of no apartments showing. SOLUTION REQUIRED: Either (1) increase default pagination limit in backend API, (2) frontend must request higher limit (?limit=1000), or (3) implement proper pagination handling. DATABASE CONFIRMED: Contains substantial apartment data with proper structure - issue is purely pagination-related, not data availability."
+
   - task: "Apartment Count Discrepancy Investigation"
     implemented: true
     working: false
