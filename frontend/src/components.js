@@ -1731,7 +1731,7 @@ const AdminAppointments = () => {
                         {appointment.status === 'confirmed' && (
                           <button
                             onClick={() => updateAppointmentStatus(appointment.id, 'completed')}
-                            className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"
+                            className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-md hover:shadow-blue-500/20 active:scale-95"
                           >
                             Mark Complete
                           </button>
