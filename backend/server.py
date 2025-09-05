@@ -2863,7 +2863,7 @@ Contact Information:
 Looking forward to showing you this amazing no-fee apartment!
 
 Best regards,
-Chris Trunell
+Office
 PLACES No Fee
 NoFeePlaces.com
         """
