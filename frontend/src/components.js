@@ -1060,7 +1060,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
                 </button>
                 <button
                   onClick={() => setShowEmailModal(true)}
-                  className="flex items-center justify-center bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors text-sm font-medium"
+                  className="flex items-center justify-center bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-all duration-300 text-sm font-medium transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/20 active:scale-95"
                 >
                   <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a1 1 0 001.42 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
