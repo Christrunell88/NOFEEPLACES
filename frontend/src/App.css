@@ -17,6 +17,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Philosopher font for main heading */
+.hero-title {
+  font-family: 'Philosopher', serif;
+}
+
 .App {
   min-height: 100vh;
   background: #ffffff;
