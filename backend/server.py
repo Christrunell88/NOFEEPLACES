@@ -225,7 +225,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -250,7 +250,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -275,7 +275,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -300,7 +300,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -325,7 +325,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
@@ -350,7 +350,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -375,7 +375,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
@@ -400,7 +400,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -425,7 +425,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -450,7 +450,7 @@ async def scrape_relatedrentals_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
@@ -473,7 +473,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/studio-river-view.jpg", "https://images.waterline-square.com/building-exterior.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=55),
@@ -495,7 +495,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/1br-modern.jpg", "https://images.waterline-square.com/amenities.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=60),
@@ -517,7 +517,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/1br-den.jpg", "https://images.waterline-square.com/river-view.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=65),
@@ -539,7 +539,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/2br-luxury.jpg", "https://images.waterline-square.com/master-suite.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=70),
@@ -561,7 +561,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/2br-corner.jpg", "https://images.waterline-square.com/luxury-bath.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=75),
@@ -583,7 +583,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/duplex.jpg", "https://images.waterline-square.com/terrace.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=80),
@@ -605,7 +605,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/3br-luxury.jpg", "https://images.waterline-square.com/chefs-kitchen.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=85),
@@ -627,7 +627,7 @@ async def scrape_relatedrentals_apartments():
             "images": ["https://images.waterline-square.com/4br-family.jpg", "https://images.waterline-square.com/dining-room.jpg"],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=90),
@@ -667,7 +667,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
@@ -692,7 +692,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -717,7 +717,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow(),
@@ -742,7 +742,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
@@ -767,7 +767,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -792,7 +792,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -817,7 +817,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -842,7 +842,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
@@ -867,7 +867,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -892,7 +892,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -917,7 +917,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -942,7 +942,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -967,7 +967,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=45),
@@ -992,7 +992,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=60),
@@ -1017,7 +1017,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=1),
@@ -1042,7 +1042,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com", 
+                "email": "placesfirm@gmail.com", 
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1067,7 +1067,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -1092,7 +1092,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
@@ -1117,7 +1117,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
@@ -1142,7 +1142,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -1167,7 +1167,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -1192,7 +1192,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -1217,7 +1217,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=20),
@@ -1242,7 +1242,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=10),
@@ -1267,7 +1267,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1292,7 +1292,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -1317,7 +1317,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=5),
@@ -1342,7 +1342,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -1367,7 +1367,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -1392,7 +1392,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
@@ -1417,7 +1417,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
@@ -1442,7 +1442,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -1467,7 +1467,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=8),
@@ -1492,7 +1492,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -1517,7 +1517,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
@@ -1542,7 +1542,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=28),
@@ -1567,7 +1567,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -1592,7 +1592,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=42),
@@ -1617,7 +1617,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
@@ -1642,7 +1642,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=26),
@@ -1667,7 +1667,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=11),
@@ -1692,7 +1692,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
@@ -1717,7 +1717,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=24),
@@ -1742,7 +1742,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=9),
@@ -1767,7 +1767,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com", 
+                "email": "placesfirm@gmail.com", 
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -1792,7 +1792,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -1817,7 +1817,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -1842,7 +1842,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=15),
@@ -1867,7 +1867,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=22),
@@ -1892,7 +1892,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -1917,7 +1917,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
@@ -1942,7 +1942,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=13),
@@ -1967,7 +1967,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=27),
@@ -1992,7 +1992,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=16),
@@ -2017,7 +2017,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=21),
@@ -2042,7 +2042,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -2067,7 +2067,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=29),
@@ -2092,7 +2092,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=33),
@@ -2117,7 +2117,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -2142,7 +2142,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -2167,7 +2167,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=19),
@@ -2192,7 +2192,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=31),
@@ -2217,7 +2217,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=38),
@@ -2242,7 +2242,7 @@ async def scrape_streeteasy_apartments():
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=14),
@@ -2265,7 +2265,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/6ebde14bba55a2f05e8248ab515c6806.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-1-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=7),
@@ -2287,7 +2287,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/3dcd495c0c2dd42451dae58eb4b95c64.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-2-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=12),
@@ -2309,7 +2309,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/a0fa55fe5bc6a2bd66a092c053dc5428.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-3-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=18),
@@ -2331,7 +2331,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/ca0292e7fe613a349fd7e1cd484ad0bc.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-4-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592", 
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=25),
@@ -2353,7 +2353,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/d44aeb1d1cef0ecf6bbece052f1c5203.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-5-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=30),
@@ -2375,7 +2375,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.funnelstatic.com/unit_photos/originals/87b4ea3da488c84542919ca427fd9154.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-6-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=35),
@@ -2397,7 +2397,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/2a83fe99a1d6725ef9d61dd6c5eb2814.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-residences-gallery-7-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=40),
@@ -2419,7 +2419,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/ea2df7ab4e87c542fb169c148e0b8916.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-1-2.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592", 
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=45),
@@ -2441,7 +2441,7 @@ async def scrape_streeteasy_apartments():
             "images": ["https://assets.nestiostatic.com/unit_photos/originals/45135edfbbd09f4fa07a3bb09e024778.jpg", "https://www.gothamwestnyc.com/wp-content/uploads/2025/06/gotham-west-amenities-gallery-16-1.jpg"],
             "contact_info": {
                 "phone": "(917) 451-5592",
-                "email": "placesnyc88@gmail.com",
+                "email": "placesfirm@gmail.com",
                 "broker": "Chris Trunell"
             },
             "available_date": datetime.utcnow() + timedelta(days=50),
@@ -2526,7 +2526,7 @@ async def register(user_data: UserCreate):
     
     await db.users.insert_one(user_dict)
     
-    # Send new user notification email to placesnyc88@gmail.com
+    # Send new user notification email to placesfirm@gmail.com
     try:
         registration_time = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
         
@@ -2558,7 +2558,7 @@ async def register(user_data: UserCreate):
 
         # Send notification email
         await send_email(
-            to_email='placesnyc88@gmail.com',
+            to_email='placesfirm@gmail.com',
             subject=notification_subject,
             body=notification_body
         )
@@ -2787,10 +2787,10 @@ PLACES No Fee
         
         # Add attendees
         event.add('attendee', f"MAILTO:{appointment_data['visitor_email']}")
-        event.add('attendee', f"MAILTO:placesnyc88@gmail.com")
+        event.add('attendee', f"MAILTO:placesfirm@gmail.com")
         
         # Organizer
-        event.add('organizer', f"MAILTO:placesnyc88@gmail.com")
+        event.add('organizer', f"MAILTO:placesfirm@gmail.com")
         
         # Add event to calendar
         cal.add_component(event)
@@ -2858,7 +2858,7 @@ Please arrive on time and bring a valid ID. If you need to reschedule or cancel,
 
 Contact Information:
 📞 Phone: (646) 408-8048
-✉️ Email: placesnyc88@gmail.com
+✉️ Email: placesfirm@gmail.com
 
 Looking forward to showing you this amazing no-fee apartment!
 
@@ -2902,7 +2902,7 @@ Created via NoFeePlaces.com
 
         # Send email with calendar invite to broker
         await send_email_with_calendar(
-            to_email='placesnyc88@gmail.com',
+            to_email='placesfirm@gmail.com',
             subject=broker_subject,
             body=broker_body,
             calendar_data=calendar_data
@@ -2993,7 +2993,7 @@ async def send_apartment_inquiry(request: ContactRequest):
         In the meantime, feel free to:
         • Browse more apartments at NoFeePlaces.com
         • Call us directly at (646) 408-8048
-        • Email us at placesnyc88@gmail.com
+        • Email us at placesfirm@gmail.com
 
         We look forward to helping you find your perfect no-fee apartment!
 
@@ -3005,7 +3005,7 @@ async def send_apartment_inquiry(request: ContactRequest):
 
         # Send email to agent
         await send_email(
-            to_email='placesnyc88@gmail.com',
+            to_email='placesfirm@gmail.com',
             subject=agent_subject,
             body=agent_body
         )
@@ -3236,7 +3236,7 @@ Key Information:
 - We specialize in NO BROKER FEE apartments
 - All our properties have on-site leasing offices with owner-paid commissions
 - We have 64+ luxury apartments ranging from $2,600-$14,895/month
-- Contact person: Chris Trunell at (646) 408-8048 or placesnyc88@gmail.com
+- Contact person: Chris Trunell at (646) 408-8048 or placesfirm@gmail.com
 - Users can schedule viewings directly through our website calendar
 
 Common Questions & Answers:
