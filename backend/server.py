@@ -2998,7 +2998,7 @@ async def send_apartment_inquiry(request: ContactRequest):
         We look forward to helping you find your perfect no-fee apartment!
 
         Best regards,
-        Chris Trunell
+        Office
         NoFeePlaces.com
         (646) 408-8048
         """
