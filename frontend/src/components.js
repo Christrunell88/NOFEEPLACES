@@ -106,7 +106,7 @@ const Hero = () => {
     >
       <div className="container mx-auto px-4 md:px-6 text-center relative z-10 h-full flex flex-col justify-center">
         <div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
+          <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
             No Fee Apartments in NYC
           </h1>
         </div>
