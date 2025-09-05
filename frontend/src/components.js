@@ -813,7 +813,7 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 hover:shadow-md active:scale-95"
                 >
                   Cancel
                 </button>
