@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // Analytics and marketing components will be imported when needed
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+const API = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
 
 // Header Component with New PLACES Branding and SEO Navigation
 // Professional Header Component
