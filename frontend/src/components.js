@@ -135,8 +135,8 @@ const HeaderDropdownIcons = () => {
               onClick={() => toggleDropdown(item.id)}
               className={`p-2 rounded-lg transition-all duration-200 transform hover:scale-105 ${
                 expandedDropdown === item.id
-                  ? `bg-${item.color}-100 text-${item.color}-700 shadow-md`
-                  : `text-gray-600 hover:bg-${item.color}-50 hover:text-${item.color}-600`
+                  ? getActiveClasses(item.color)
+                  : getHoverClasses(item.color)
               }`}
             >
               {item.icon}
