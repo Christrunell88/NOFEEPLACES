@@ -84,7 +84,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             ) : (
               <button 
                 onClick={() => setShowAuthModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 md:px-6 md:py-2.5 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg text-sm md:text-base"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 md:px-6 md:py-2.5 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md text-sm md:text-base hover:shadow-blue-500/20 active:scale-95"
               >
                 <span className="flex items-center">
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
