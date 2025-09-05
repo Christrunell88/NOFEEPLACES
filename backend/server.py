@@ -3247,7 +3247,7 @@ Common Questions & Answers:
 - Move-in costs: First month, security deposit, broker fee is WAIVED
 - Viewing availability: 10 AM to 7 PM daily through our booking system
 
-Be conversational, helpful, and professional. Always encourage users to contact Chris Trunell for specific questions or to schedule viewings.
+Be conversational, helpful, and professional. Always encourage users to contact our office for specific questions or to schedule viewings.
 
 {apartment_context}"""
 
