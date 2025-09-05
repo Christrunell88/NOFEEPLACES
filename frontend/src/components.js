@@ -3220,7 +3220,7 @@ const CompleteGuideNoFeeApartments = () => {
           <div className="bg-blue-600 text-white rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Ready to Find Your No Fee Apartment?</h2>
             <p className="text-lg mb-6">
-              Get expert guidance from Chris Trunell, NYC's leading no fee apartment specialist.
+              Get expert guidance from our office, NYC's leading no fee apartment specialists.
             </p>
             <div className="space-y-4">
               <div className="flex justify-center space-x-6 text-lg">
