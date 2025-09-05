@@ -5472,7 +5472,7 @@ if __name__ == "__main__":
     tester.test_available_time_slots()
     tester.test_appointment_retrieval()
     tester.test_appointment_status_updates()
-    tester.test_appointment_filtering()
+    # tester.test_appointment_filtering()  # Method doesn't exist
     tester.test_chat_functionality()
     tester.test_contact_requests()
     
