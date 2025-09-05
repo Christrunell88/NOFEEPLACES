@@ -54,7 +54,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded-lg px-3 py-2 transition-colors"
+                  className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 rounded-lg px-3 py-2 transition-all duration-300 hover:bg-gray-50 hover:shadow-md transform hover:scale-105"
                 >
                   <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
