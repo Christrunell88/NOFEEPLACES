@@ -48,8 +48,41 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             </div>
           </Link>
 
-          {/* Desktop & Mobile Sign In/Sign Up Button */}
-          <div className="flex items-center">
+          {/* Desktop & Mobile Action Buttons */}
+          <div className="flex items-center space-x-3">
+            {/* Get Free Guide Button */}
+            <button
+              onClick={() => {
+                // Will implement lead magnet modal
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+                modal.innerHTML = `
+                  <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                    <div class="text-center">
+                      <h2 class="text-2xl font-bold mb-4">🎉 Coming Soon!</h2>
+                      <p class="text-gray-600 mb-4">Our comprehensive NYC Apartment Guide with 50+ no-fee contacts will be available soon.</p>
+                      <p class="text-gray-600 mb-6">For now, call us directly for personalized help finding your perfect no-fee apartment!</p>
+                      <a href="tel:646-408-8048" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors mr-3">📞 Call (646) 408-8048</a>
+                      <button onclick="this.closest('.fixed').remove()" class="bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors">Close</button>
+                    </div>
+                  </div>
+                `;
+                document.body.appendChild(modal);
+                modal.addEventListener('click', (e) => {
+                  if (e.target === modal) modal.remove();
+                });
+              }}
+              className="hidden lg:flex items-center bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg text-sm font-bold hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-orange-500/20 active:scale-95"
+            >
+              <span className="flex items-center">
+                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                Free Guide
+              </span>
+            </button>
+
+            {/* Sign In/Sign Up Button */}
             {isAuthenticated ? (
               <div className="relative">
                 <button
