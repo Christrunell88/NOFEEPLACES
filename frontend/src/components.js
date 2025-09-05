@@ -139,7 +139,7 @@ const HeaderDropdownIcons = () => {
           <h5 className="font-medium text-gray-900 text-xs mb-1">Contact Information:</h5>
           <ul className="text-gray-700 text-xs space-y-1">
             <li>• Phone: (646) 408-8048</li>
-            <li>• Email: chris@places.nyc</li>
+            <li>• Email: placesfirm@gmail.com</li>
             <li>• Response Time: Under 2 hours</li>
           </ul>
         </div>
