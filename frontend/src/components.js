@@ -549,7 +549,7 @@ const Toast = ({ message, type = 'info', isVisible, onClose }) => {
       <p className="font-medium">{message}</p>
       <button 
         onClick={onClose}
-        className="ml-4 hover:opacity-70 transition-opacity"
+        className="ml-4 hover:opacity-70 transition-all duration-300 transform hover:scale-110 active:scale-95"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
