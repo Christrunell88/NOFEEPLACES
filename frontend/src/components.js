@@ -900,7 +900,7 @@ const ImageCarousel = ({ images = [], alt = '', className = '' }) => {
             <button
               key={index}
               onClick={(e) => goToImage(index, e)}
-              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              className={`w-2 h-2 rounded-full transition-all duration-300 hover:scale-125 active:scale-95 ${
                 index === currentIndex 
                   ? 'bg-white' 
                   : 'bg-white bg-opacity-50 hover:bg-opacity-75'
