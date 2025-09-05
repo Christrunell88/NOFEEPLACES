@@ -990,7 +990,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
         <div className="absolute top-3 right-16 z-10">
           <button 
             onClick={handleFavorite}
-            className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-md transition-all"
+            className="bg-white bg-opacity-90 hover:bg-opacity-100 p-2 rounded-full shadow-md transition-all duration-300 transform hover:scale-110 hover:shadow-lg active:scale-95"
           >
             <svg 
               className={`w-5 h-5 ${
