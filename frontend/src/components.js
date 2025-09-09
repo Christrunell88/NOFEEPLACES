@@ -997,17 +997,17 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
 
         {/* Price */}
         <div className="absolute bottom-3 right-3">
-          <div className="bg-white bg-opacity-95 px-3 py-1 rounded shadow-md">
-            <span className="text-lg font-bold text-gray-900">
+          <div className="bg-black/80 backdrop-blur-sm px-3 py-1 rounded shadow-lg border border-gray-600">
+            <span className="text-lg font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent">
               ${apartment.price?.toLocaleString() || apartment.price}
             </span>
-            <span className="text-gray-600 text-sm">/mo</span>
+            <span className="text-gray-300 text-sm">/mo</span>
           </div>
         </div>
       </div>
 
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{apartment.title}</h3>
+        <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">{apartment.title}</h3>
         <p className="text-gray-600 text-sm mb-3 flex items-center justify-between">
           <span className="flex items-center">
             <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
