@@ -663,7 +663,9 @@ async def scrape_streeteasy_apartments():
             "amenities": ["Gym", "Doorman", "Rooftop Deck", "Pet Friendly", "Laundry", "Parking"],
             "images": [
                 "https://images.unsplash.com/photo-1714153542012-6164546db890?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxOWUMlMjBhcGFydG1lbnQlMjBpbnRlcmlvcnxlbnwwfHx8fDE3NTU2MzQ5NjV8MA&ixlib=rb-4.1.0&q=85",
-                "https://images.unsplash.com/photo-1631049307290-bb947b114627"
+                "https://images.unsplash.com/photo-1631049307290-bb947b114627",
+                "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
