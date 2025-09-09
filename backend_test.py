@@ -4851,6 +4851,12 @@ class NoFeePlacesAPITester:
         self.test_apartment_details()
         self.test_apartment_stats()
         
+        # IMAGE ANALYSIS TEST (as requested in review)
+        print("\n" + "=" * 60)
+        print("📸 APARTMENT IMAGE ARRAYS ANALYSIS (PRIORITY)")
+        print("=" * 60)
+        self.test_apartment_image_arrays_analysis()
+        
         
         # APARTMENT SORTING TESTS (as requested in review)
         print("\n" + "=" * 60)
