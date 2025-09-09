@@ -919,6 +919,18 @@ agent_communication:
     - agent: "testing"
       message: "🔧 CRITICAL FIELD MAPPING ISSUES IDENTIFIED: Comprehensive testing of field mapping fixes revealed critical backend bugs preventing proper apartment filtering. SQFT FILTERING COMPLETELY BROKEN: Backend code uses 'square_feet' field for filtering (lines 2221-2226) but apartments have 'sqft' field, causing all sqft-based filters to return 0 results when 11 apartments should match criteria. STATS ENDPOINT INCONSISTENT: Lines 2275, 2279, 2288 use only 'is_no_fee' field, should handle both 'is_no_fee' and 'no_fee' fields like apartments endpoint. SEARCH FIELD MISMATCH: Line 2231 searches 'location' field but should search 'address' field. GOTHAM WEST STATUS: Still not implemented - no apartments found in system. TESTING RESULTS: 16/19 tests passed (84.2% success rate). URGENT FIXES NEEDED: (1) Change 'square_feet' to 'sqft' in server.py lines 2221-2226, (2) Update stats endpoint field logic, (3) Fix search field reference. IMPACT: Square footage filtering is completely non-functional, affecting user experience and apartment discovery."
 
+  - task: "Apartment Listing Sorting - Newest First Implementation"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "APARTMENT SORTING FUNCTIONALITY TESTING COMPLETED: Comprehensive testing of apartment listing sorting after backend update to show newest listings first completed with 100% success rate (7/7 tests passed). SORTING IMPLEMENTATION VERIFIED: ✅ GET /api/apartments returns apartments sorted by creation date in descending order (newest first), ✅ Sorting works correctly across multiple pages with pagination consistency maintained, ✅ Search terms (manhattan) maintain newest-first ordering within filtered results, ✅ Price filters (min_price=3000) maintain newest-first ordering within filtered results, ✅ API response structure remains completely intact with all required fields present. PERFORMANCE EXCELLENT: All sorting operations complete in under 0.03 seconds with no performance degradation. Tested scenarios include basic listing, large page sizes (50-100 items), search with sorting, price filters with sorting, and pagination with sorting. RECENT LISTINGS VERIFICATION: Found recent listings (StreetEasy, Related Rentals) properly positioned in top results, confirming newest apartments appear first as expected. API INTEGRITY CONFIRMED: All apartments retain complete data structure including id, title, address, price, bedrooms, bathrooms, sqft, neighborhood, borough, description, amenities, images, contact_info, and created_at fields. REVIEW REQUEST REQUIREMENTS MET: (1) ✅ Apartment Ordering - newest first confirmed, (2) ✅ Pagination - sorting consistency across pages verified, (3) ✅ Search and Filters - newest first maintained in filtered results, (4) ✅ API Response - structure integrity preserved, (5) ✅ Performance - no issues with simplified sorting logic. CONCLUSION: Backend sorting update successfully implemented with apartments now displaying newest listings first across all endpoints, search scenarios, and pagination while maintaining excellent performance and complete API response integrity."
+
 backend:
   - task: "User Authentication System"
     implemented: true
