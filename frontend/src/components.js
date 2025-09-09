@@ -337,25 +337,25 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
           </button>
         </div>
 
-        {/* Quick Filters - Always Visible */}
-        <div className="flex flex-wrap gap-3 items-center">
+        {/* Quick Filters - Always Visible - Sleek & Compact */}
+        <div className="flex flex-wrap gap-2 items-center">
           <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Location:</label>
+            <label className="text-xs font-medium text-gray-400">Location:</label>
             <input
               type="text"
               placeholder="Enter neighborhood"
               value={filters.location || ''}
               onChange={(e) => handleFilterChange('location', e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none w-32"
             />
           </div>
 
           <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Max Price:</label>
+            <label className="text-xs font-medium text-gray-400">Max Price:</label>
             <select
               value={filters.max_price || ''}
               onChange={(e) => handleFilterChange('max_price', e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
             >
               <option value="">Any Price</option>
               <option value="3000">Up to $3,000</option>
