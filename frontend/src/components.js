@@ -368,11 +368,11 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
           </div>
 
           <div className="flex items-center space-x-2">
-            <label className="text-sm font-medium text-gray-700">Bedrooms:</label>
+            <label className="text-xs font-medium text-gray-400">Bedrooms:</label>
             <select
               value={filters.bedrooms || ''}
               onChange={(e) => handleFilterChange('bedrooms', e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
             >
               <option value="">Any</option>
               <option value="0">Studio</option>
