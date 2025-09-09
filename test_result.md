@@ -471,7 +471,7 @@ test_plan:
   current_focus: []
   stuck_tasks: []
   test_all: false
-  test_priority: "completed"
+  test_priority: "apartment_sorting_completed"
 
 agent_communication:
     - agent: "main"
