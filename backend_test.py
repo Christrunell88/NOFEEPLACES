@@ -4851,6 +4851,17 @@ class NoFeePlacesAPITester:
         self.test_apartment_details()
         self.test_apartment_stats()
         
+        
+        # APARTMENT SORTING TESTS (as requested in review)
+        print("\n" + "=" * 60)
+        print("🔄 APARTMENT SORTING FUNCTIONALITY TESTING (PRIORITY)")
+        print("=" * 60)
+        self.test_apartment_sorting_newest_first()
+        self.test_apartment_sorting_with_pagination()
+        self.test_apartment_sorting_with_search_filters()
+        self.test_newest_listings_at_top()
+        self.test_api_response_structure_integrity()
+        self.test_sorting_performance()
         # User features tests
         self.test_favorites_functionality()
         self.test_saved_searches()
