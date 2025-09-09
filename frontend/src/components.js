@@ -15,23 +15,23 @@ const HeaderDropdownIcons = () => {
     setExpandedDropdown(expandedDropdown === dropdown ? null : dropdown);
   };
 
-  // Helper functions for color classes
+  // Helper functions for color classes - Dark Theme
   const getActiveClasses = (color) => {
     const colorClasses = {
-      blue: 'bg-blue-100 text-blue-700 shadow-md',
-      green: 'bg-green-100 text-green-700 shadow-md',
-      purple: 'bg-purple-100 text-purple-700 shadow-md',
-      orange: 'bg-orange-100 text-orange-700 shadow-md'
+      blue: 'bg-purple-900/50 text-purple-300 shadow-lg shadow-purple-500/20',
+      green: 'bg-yellow-900/50 text-yellow-300 shadow-lg shadow-yellow-500/20',
+      purple: 'bg-purple-900/50 text-purple-300 shadow-lg shadow-purple-500/20',
+      orange: 'bg-yellow-900/50 text-yellow-300 shadow-lg shadow-yellow-500/20'
     };
     return colorClasses[color];
   };
 
   const getHoverClasses = (color) => {
     const colorClasses = {
-      blue: 'text-gray-600 hover:bg-blue-50 hover:text-blue-600',
-      green: 'text-gray-600 hover:bg-green-50 hover:text-green-600',
-      purple: 'text-gray-600 hover:bg-purple-50 hover:text-purple-600',
-      orange: 'text-gray-600 hover:bg-orange-50 hover:text-orange-600'
+      blue: 'text-gray-400 hover:bg-purple-800/30 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10',
+      green: 'text-gray-400 hover:bg-yellow-800/30 hover:text-yellow-300 hover:shadow-lg hover:shadow-yellow-500/10',
+      purple: 'text-gray-400 hover:bg-purple-800/30 hover:text-purple-300 hover:shadow-lg hover:shadow-purple-500/10',
+      orange: 'text-gray-400 hover:bg-yellow-800/30 hover:text-yellow-300 hover:shadow-lg hover:shadow-yellow-500/10'
     };
     return colorClasses[color];
   };
