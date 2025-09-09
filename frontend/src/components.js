@@ -173,7 +173,7 @@ const HeaderDropdownIcons = () => {
 
       {/* Dropdown Content */}
       {expandedDropdown && (
-        <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+        <div className="absolute top-full right-0 mt-2 w-80 bg-gray-900 rounded-lg shadow-2xl border border-gray-700 z-50 backdrop-blur-md">
           {dropdownItems.find(item => item.id === expandedDropdown)?.content}
         </div>
       )}
