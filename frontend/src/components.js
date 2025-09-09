@@ -340,7 +340,7 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
         {/* Quick Filters - Always Visible - Sleek & Compact */}
         <div className="flex flex-wrap gap-2 items-center">
           <div className="flex items-center space-x-2">
-            <label className="text-xs font-medium text-gray-400">Location:</label>
+            <label className="text-xs font-medium text-gray-400">Neighborhood:</label>
             <input
               type="text"
               placeholder="Enter neighborhood"
