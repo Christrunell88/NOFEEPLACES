@@ -11,7 +11,7 @@ from datetime import datetime
 
 # Database connection
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017/nofeeplaces_db')
-DB_NAME = os.environ.get('DB_NAME', 'nofeeplaces_db')
+DB_NAME = 'nofeeplaces_database'  # Use the correct database name
 
 # Additional high-quality apartment images for different room types
 ADDITIONAL_IMAGES = [
