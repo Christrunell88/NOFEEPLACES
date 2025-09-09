@@ -62,25 +62,31 @@ body {
   backdrop-filter: blur(10px);
 }
 
-/* Cool Logo Animations */
+/* Sleek Logo Animations */
 .logo-glow {
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .logo-glow::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(45deg, #f97316, #ea580c);
+  background: var(--accent-gradient);
   border-radius: 8px;
   opacity: 0;
-  transition: opacity 0.3s ease;
   z-index: -1;
   filter: blur(8px);
+  transition: opacity 0.3s ease;
 }
 
 .logo-glow:hover::after {
   opacity: 0.3;
+}
+
+.logo-glow:hover {
+  transform: translateY(-2px);
+  color: var(--text-primary);
 }
 
 /* Professional button styles */
