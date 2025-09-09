@@ -402,11 +402,11 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Bathrooms</label>
+              <label className="block text-xs font-medium text-gray-400 mb-1">Bathrooms</label>
               <select
                 value={filters.bathrooms || ''}
                 onChange={(e) => handleFilterChange('bathrooms', e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="w-full bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
               >
                 <option value="">Any</option>
                 <option value="1">1+ Bathroom</option>
