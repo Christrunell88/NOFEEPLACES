@@ -254,7 +254,10 @@ const Home = () => {
               Map View
             </button>
           </div>
-        </div>
+        </header>
+        
+        {/* Search Filters Section */}
+        <section aria-label="Apartment search filters">
 
         {loading ? (
           <LoadingSpinner />
