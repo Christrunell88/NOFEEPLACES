@@ -5491,6 +5491,13 @@ class NoFeePlacesAPITester:
         self.test_apartments_filtering()
         self.test_apartments_pagination()
         self.test_apartments_search()
+        
+        # NEIGHBORHOOD SEARCH FUNCTIONALITY TEST (as requested in review)
+        print("\n" + "=" * 60)
+        print("🏙️ NEIGHBORHOOD SEARCH FUNCTIONALITY TESTING (PRIORITY)")
+        print("=" * 60)
+        self.test_neighborhood_search_functionality()
+        
         self.test_apartment_details()
         self.test_apartment_stats()
         
