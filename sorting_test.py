@@ -220,9 +220,9 @@ class ApartmentSortingTester:
                 # Check if these buildings exist at all
                 all_recent = []
                 for apt in apartments:
-                    title = apt.get("title", "").lower()
-                    source = apt.get("source", "").lower()
-                    source_url = apt.get("source_url", "").lower()
+                    title = (apt.get("title") or "").lower()
+                    source = (apt.get("source") or "").lower()
+                    source_url = (apt.get("source_url") or "").lower()
                     
                     for building in recent_buildings:
                         if (building.lower() in title or 
