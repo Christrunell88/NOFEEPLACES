@@ -2615,7 +2615,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
           className={`w-24 h-24 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center ${
             isOpen 
               ? 'bg-red-500 hover:bg-red-600' 
-              : 'bg-yellow-600 hover:bg-yellow-700 animate-pulse'
+              : 'bg-amber-400 hover:bg-amber-500 animate-pulse'
           }`}
           style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)' }}
         >
