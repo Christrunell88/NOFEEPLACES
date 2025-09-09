@@ -344,8 +344,8 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
             <input
               type="text"
               placeholder="Enter neighborhood"
-              value={filters.location || ''}
-              onChange={(e) => handleFilterChange('location', e.target.value)}
+              value={filters.neighborhood || ''}
+              onChange={(e) => handleFilterChange('neighborhood', e.target.value)}
               className="bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none w-32"
             />
           </div>
