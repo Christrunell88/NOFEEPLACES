@@ -230,7 +230,7 @@ const Home = () => {
               onClick={() => setViewMode('list')}
               className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
                 viewMode === 'list' 
-                ? 'bg-gradient-to-r from-purple-600 to-yellow-500 text-white shadow-lg' 
+                ? 'bg-purple-600 text-white shadow-lg' 
                 : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
               }`}
             >
