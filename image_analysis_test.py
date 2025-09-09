@@ -258,10 +258,75 @@ class ImageAnalysisTester:
             
             # Examples of apartments with good image variety
             print(f"\n✨ EXAMPLES OF APARTMENTS WITH GOOD IMAGE VARIETY:")
-            for apt in image_stats["good_variety"][:5]:  # Show first 5 examples
-                print(f"   • {apt['title']} - {apt['image_count']} images")
-                for i, url in enumerate(apt['sample_urls'], 1):
-                    print(f"     {i}. {url}")
+            if image_stats["good_variety"]:
+                for apt in image_stats["good_variety"][:5]:  # Show first 5 examples
+                    print(f"   • {apt['title']} - {apt['image_count']} images")
+                    for i, url in enumerate(apt['sample_urls'], 1):
+                        print(f"     {i}. {url}")
+            else:
+                print("   ⚠️  No apartments found with 3+ images")
+                print("   📝 All apartments have exactly 2 images - consider adding more variety")
+                
+                # Show some examples of current 2-image apartments
+                print(f"\n📸 CURRENT 2-IMAGE APARTMENTS (Examples):")
+                for apt in image_stats["multiple_images"][:5]:
+                    print(f"   • {apt['title']} - {apt['image_count']} images")
+                    
+            # Detailed image URL analysis
+            print(f"\n🔍 DETAILED IMAGE URL ANALYSIS:")
+            sample_apartments = apartments[:5]  # First 5 apartments for detailed analysis
+            for i, apt in enumerate(sample_apartments, 1):
+                print(f"\n   {i}. {apt.get('title', 'Unknown')}")
+                print(f"      Address: {apt.get('address', 'Unknown')}")
+                print(f"      Price: ${apt.get('price', 0):,}")
+                print(f"      Images ({len(apt.get('images', []))}):")
+                for j, img_url in enumerate(apt.get('images', []), 1):
+                    # Extract domain for analysis
+                    if 'unsplash.com' in img_url:
+                        source = "Unsplash (Professional)"
+                    elif 'pexels.com' in img_url:
+                        source = "Pexels (Professional)"
+                    elif 'nestiostatic.com' in img_url:
+                        source = "Nestio (Real Estate)"
+                    elif any(domain in img_url for domain in ['waterline-square.com', 'gothamwestnyc.com', 'fortysixfifty.com']):
+                        source = "Building-specific"
+                    else:
+                        source = "Other"
+                    print(f"        {j}. {img_url[:80]}... ({source})")
+            
+            # Image variety recommendations
+            print(f"\n💡 RECOMMENDATIONS FOR BETTER IMAGE VARIETY:")
+            print("   1. Add more images per apartment (aim for 4-6 images)")
+            print("   2. Include different room types:")
+            print("      • Living room/main area")
+            print("      • Bedroom(s)")
+            print("      • Kitchen")
+            print("      • Bathroom")
+            print("      • Building exterior/lobby")
+            print("      • Amenities (gym, rooftop, etc.)")
+            print("   3. Consider adding floor plans or virtual tours")
+            print("   4. Ensure images show different angles and lighting")
+            
+            # Check for image type diversity
+            print(f"\n🏠 IMAGE TYPE ANALYSIS:")
+            image_domains = {}
+            for apt in apartments:
+                for img_url in apt.get('images', []):
+                    if 'unsplash.com' in img_url:
+                        image_domains['Unsplash'] = image_domains.get('Unsplash', 0) + 1
+                    elif 'pexels.com' in img_url:
+                        image_domains['Pexels'] = image_domains.get('Pexels', 0) + 1
+                    elif 'nestiostatic.com' in img_url:
+                        image_domains['Nestio'] = image_domains.get('Nestio', 0) + 1
+                    elif any(domain in img_url for domain in ['waterline-square.com', 'gothamwestnyc.com', 'fortysixfifty.com']):
+                        image_domains['Building-specific'] = image_domains.get('Building-specific', 0) + 1
+                    else:
+                        image_domains['Other'] = image_domains.get('Other', 0) + 1
+            
+            print("   Image source distribution:")
+            for source, count in image_domains.items():
+                percentage = (count / total_images) * 100
+                print(f"   • {source}: {count} images ({percentage:.1f}%)")
             
         except Exception as e:
             self.log_result("Apartment Image Arrays Analysis", False, f"Exception: {str(e)}")
