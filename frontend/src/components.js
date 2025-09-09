@@ -998,7 +998,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
         {/* Price */}
         <div className="absolute bottom-3 right-3">
           <div className="bg-black/80 backdrop-blur-sm px-3 py-1 rounded shadow-lg border border-gray-600">
-            <span className="text-lg font-bold text-yellow-400">
+            <span className="text-lg font-bold text-amber-400">
               ${apartment.price?.toLocaleString() || apartment.price}
             </span>
             <span className="text-gray-300 text-sm">/mo</span>
