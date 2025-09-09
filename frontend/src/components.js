@@ -273,15 +273,20 @@ const Hero = () => {
       style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.imgur.com/OnhxbRC.jpg')`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat'
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
       }}
+      role="banner"
+      aria-label="NYC no fee apartments hero section"
     >
-      <div className="container mx-auto px-4 md:px-6 text-center relative z-10 h-full flex flex-col justify-center">
-        <div>
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
           <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-2xl leading-tight">
             No Fee Apartments in NYC
           </h1>
+          <p className="text-xl md:text-2xl text-white mb-8 drop-shadow-lg opacity-90 max-w-2xl mx-auto leading-relaxed">
+            Discover luxury rentals with zero broker fees. Save thousands on your next NYC apartment.
+          </p>
         </div>
       </div>
     </section>
