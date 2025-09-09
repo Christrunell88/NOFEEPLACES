@@ -59,15 +59,15 @@ const HeaderDropdownIcons = () => {
       color: 'blue',
       content: (
         <div className="p-4">
-          <h4 className="font-semibold text-gray-900 mb-2">No Broker Fee Apartments NYC</h4>
-          <p className="text-gray-700 text-sm mb-3">
-            Discover over 1,000 <strong>no fee apartments NYC</strong> and save up to $3,000+ in broker fees.
+          <h4 className="font-semibold text-white mb-2">No Broker Fee Apartments NYC</h4>
+          <p className="text-gray-300 text-sm mb-3">
+            Discover over 1,000 <strong className="text-purple-300">no fee apartments NYC</strong> and save up to $3,000+ in broker fees.
           </p>
-          <h5 className="font-medium text-gray-900 text-xs mb-1">Top NYC No Fee Neighborhoods:</h5>
-          <ul className="text-gray-700 text-xs space-y-1">
-            <li>• <strong>Manhattan:</strong> Chelsea, Midtown West, Financial District</li>
-            <li>• <strong>Brooklyn:</strong> Williamsburg, DUMBO, Park Slope</li>
-            <li>• <strong>Queens:</strong> Long Island City, Astoria, Forest Hills</li>
+          <h5 className="font-medium text-gray-200 text-xs mb-1">Top NYC No Fee Neighborhoods:</h5>
+          <ul className="text-gray-300 text-xs space-y-1">
+            <li>• <strong className="text-yellow-300">Manhattan:</strong> Chelsea, Midtown West, Financial District</li>
+            <li>• <strong className="text-yellow-300">Brooklyn:</strong> Williamsburg, DUMBO, Park Slope</li>
+            <li>• <strong className="text-yellow-300">Queens:</strong> Long Island City, Astoria, Forest Hills</li>
           </ul>
         </div>
       )
