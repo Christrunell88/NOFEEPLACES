@@ -29,9 +29,9 @@ const HeaderDropdownIcons = () => {
   const getHoverClasses = (color) => {
     const colorClasses = {
       blue: 'text-gray-400 hover:bg-purple-900/20 hover:text-purple-300',
-      green: 'text-gray-400 hover:bg-yellow-900/20 hover:text-yellow-300',
+      green: 'text-gray-400 hover:bg-amber-900/20 hover:text-amber-300',
       purple: 'text-gray-400 hover:bg-purple-900/20 hover:text-purple-300',
-      orange: 'text-gray-400 hover:bg-yellow-900/20 hover:text-yellow-300'
+      orange: 'text-gray-400 hover:bg-amber-900/20 hover:text-amber-300'
     };
     return colorClasses[color];
   };
