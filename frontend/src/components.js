@@ -2484,14 +2484,42 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* SEO Links Section */}
-        <div className="border-t border-slate-700 mt-6 pt-4 text-center">
-          <a
-            href="/complete-guide-no-fee-apartments-nyc"
-            className="inline-block text-amber-200 hover:text-amber-100 text-sm font-medium transition-colors duration-200 mb-4"
-          >
-            Complete Guide to No Fee Apartments NYC 2025
-          </a>
+        {/* SEO Links Section - Enhanced */}
+        <div className="border-t border-slate-700 mt-6 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center md:text-left mb-4">
+            {/* Popular Searches */}
+            <div>
+              <h4 className="text-amber-200 font-semibold text-sm mb-2">Popular NYC Areas</h4>
+              <ul className="space-y-1 text-xs">
+                <li><a href="/manhattan-no-fee-apartments" className="text-gray-300 hover:text-amber-200 transition-colors">Manhattan No Fee</a></li>
+                <li><a href="/brooklyn-no-fee-rentals" className="text-gray-300 hover:text-amber-200 transition-colors">Brooklyn No Fee</a></li>
+                <li><a href="/queens-zero-fee-apartments" className="text-gray-300 hover:text-amber-200 transition-colors">Queens No Fee</a></li>
+                <li><a href="/upper-east-side-no-fee" className="text-gray-300 hover:text-amber-200 transition-colors">Upper East Side</a></li>
+              </ul>
+            </div>
+            
+            {/* Apartment Types */}
+            <div>
+              <h4 className="text-amber-200 font-semibold text-sm mb-2">Apartment Types</h4>
+              <ul className="space-y-1 text-xs">
+                <li><a href="/studio-no-fee-apartments-nyc" className="text-gray-300 hover:text-amber-200 transition-colors">Studio No Fee</a></li>
+                <li><a href="/1-bedroom-no-fee-apartments" className="text-gray-300 hover:text-amber-200 transition-colors">1 Bedroom No Fee</a></li>
+                <li><a href="/2-bedroom-no-fee-apartments" className="text-gray-300 hover:text-amber-200 transition-colors">2 Bedroom No Fee</a></li>
+                <li><a href="/luxury-no-fee-apartments-nyc" className="text-gray-300 hover:text-amber-200 transition-colors">Luxury No Fee</a></li>
+              </ul>
+            </div>
+            
+            {/* Resources */}
+            <div>
+              <h4 className="text-amber-200 font-semibold text-sm mb-2">Resources</h4>
+              <ul className="space-y-1 text-xs">
+                <li><a href="/complete-guide-no-fee-apartments-nyc" className="text-gray-300 hover:text-amber-200 transition-colors">Complete Guide NYC 2025</a></li>
+                <li><a href="/how-to-find-no-fee-apartments" className="text-gray-300 hover:text-amber-200 transition-colors">How to Find No Fee</a></li>
+                <li><a href="/nyc-rental-tips" className="text-gray-300 hover:text-amber-200 transition-colors">NYC Rental Tips</a></li>
+                <li><a href="/broker-fee-calculator" className="text-gray-300 hover:text-amber-200 transition-colors">Fee Calculator</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         {/* Bottom: Copyright & Legal Disclaimer */}
