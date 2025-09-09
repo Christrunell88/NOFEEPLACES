@@ -240,8 +240,8 @@ const Home = () => {
               onClick={() => setViewMode('map')}
               className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
                 viewMode === 'map' 
-                ? 'bg-amber-600 text-slate-800' 
-                : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                ? 'bg-gradient-to-r from-purple-600 to-yellow-500 text-white shadow-lg' 
+                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
               }`}
             >
               Map View
