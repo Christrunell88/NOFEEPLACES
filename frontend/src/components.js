@@ -224,7 +224,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center space-x-3 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black rounded-lg px-3 py-2 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-yellow-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                   <span className="hidden md:block font-medium">{user?.full_name || 'User'}</span>
