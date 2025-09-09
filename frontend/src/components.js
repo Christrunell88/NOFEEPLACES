@@ -207,7 +207,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             <div className="flex flex-col">
               <div className="flex items-center space-x-1">
                 <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent tracking-tight">No Fee</span>
-                <span className="text-base md:text-lg font-semibold text-amber-400 group-hover:text-amber-300 transition-colors">Places</span>
+                <span className="text-base md:text-lg font-semibold text-orange-500 group-hover:text-orange-400 transition-colors">Places</span>
               </div>
               <div className="text-xs text-gray-400 -mt-1 tracking-wide">NYC RENTALS</div>
             </div>
