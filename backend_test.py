@@ -5209,6 +5209,12 @@ class NoFeePlacesAPITester:
         self.test_apartment_details()
         self.test_apartment_stats()
         
+        # IMAGE ENHANCEMENT VERIFICATION TEST (as requested in review)
+        print("\n" + "=" * 60)
+        print("📸 APARTMENT IMAGE ENHANCEMENT VERIFICATION (PRIORITY)")
+        print("=" * 60)
+        self.test_apartment_image_enhancement_verification()
+        
         # IMAGE ANALYSIS TEST (as requested in review)
         print("\n" + "=" * 60)
         print("📸 APARTMENT IMAGE ARRAYS ANALYSIS (PRIORITY)")
