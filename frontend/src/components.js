@@ -971,7 +971,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
         
         {/* No Fee Badge */}
         <div className="absolute top-3 right-3 z-10">
-          <span className="bg-amber-400 text-black text-xs font-bold px-2 py-1 rounded shadow-lg">
+          <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow-lg">
             NO FEE
           </span>
         </div>
