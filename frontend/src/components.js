@@ -293,10 +293,10 @@ const SEOContentSection = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <section className="bg-white py-6 md:py-8">
+    <section className="bg-black py-6 md:py-8">
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent mb-4 md:mb-6">
             {isAuthenticated ? 'Find Your Perfect No Fee Apartment in New York City 2025' : 'Find Your Perfect No Fee Apartment'}
           </h2>
         </div>
