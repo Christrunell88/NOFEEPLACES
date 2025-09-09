@@ -19,9 +19,9 @@ const HeaderDropdownIcons = () => {
   const getActiveClasses = (color) => {
     const colorClasses = {
       blue: 'bg-purple-900/40 text-purple-300 shadow-lg',
-      green: 'bg-yellow-900/40 text-yellow-300 shadow-lg',
+      green: 'bg-amber-900/40 text-amber-300 shadow-lg',
       purple: 'bg-purple-900/40 text-purple-300 shadow-lg',
-      orange: 'bg-yellow-900/40 text-yellow-300 shadow-lg'
+      orange: 'bg-amber-900/40 text-amber-300 shadow-lg'
     };
     return colorClasses[color];
   };
