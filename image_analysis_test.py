@@ -54,7 +54,7 @@ class ImageAnalysisTester:
         print("\n=== Testing Apartment Image Arrays Analysis ===")
         try:
             # Get a good sample of apartments (50 as requested)
-            response = self.make_request("GET", "/apartments", {"limit": 50})
+            response = self.make_request("GET", "/apartments", {"limit": 100})
             if response.status_code != 200:
                 self.log_result("Image Arrays Analysis", False, f"Failed to get apartments: {response.status_code}")
                 return
