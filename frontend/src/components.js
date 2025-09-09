@@ -65,9 +65,9 @@ const HeaderDropdownIcons = () => {
           </p>
           <h5 className="font-medium text-gray-200 text-xs mb-1">Top NYC No Fee Neighborhoods:</h5>
           <ul className="text-gray-300 text-xs space-y-1">
-            <li>• <strong className="text-amber-300">Manhattan:</strong> Chelsea, Midtown West, Financial District</li>
-            <li>• <strong className="text-amber-300">Brooklyn:</strong> Williamsburg, DUMBO, Park Slope</li>
-            <li>• <strong className="text-amber-300">Queens:</strong> Long Island City, Astoria, Forest Hills</li>
+            <li>• <strong className="text-orange-400">Manhattan:</strong> Chelsea, Midtown West, Financial District</li>
+            <li>• <strong className="text-orange-400">Brooklyn:</strong> Williamsburg, DUMBO, Park Slope</li>
+            <li>• <strong className="text-orange-400">Queens:</strong> Long Island City, Astoria, Forest Hills</li>
           </ul>
         </div>
       )
