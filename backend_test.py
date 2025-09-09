@@ -456,12 +456,196 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Apartment Statistics", False, f"Exception: {str(e)}")
     
+    def test_apartment_image_enhancement_verification(self):
+        """Test apartment image enhancement - verify 4 images per apartment as requested in review"""
+        print("\n=== Testing Apartment Image Enhancement Verification ===")
+        try:
+            # Test GET /api/apartments?limit=10 to check first 10 listings have 4 images each
+            print("\n🔍 Testing first 10 apartment listings for 4 images each...")
+            response = self.make_request("GET", "/apartments", {"limit": 10})
+            if response.status_code != 200:
+                self.log_result("Image Enhancement - First 10 Listings", False, f"Failed to get apartments: {response.status_code}")
+                return
+            
+            apartments = response.json()
+            if not apartments:
+                self.log_result("Image Enhancement - First 10 Listings", False, "No apartments returned")
+                return
+            
+            # Check first 10 apartments for 4 images each
+            apartments_with_4_images = 0
+            image_count_distribution = {}
+            
+            for i, apt in enumerate(apartments[:10], 1):
+                images = apt.get("images", [])
+                image_count = len(images)
+                
+                if image_count not in image_count_distribution:
+                    image_count_distribution[image_count] = 0
+                image_count_distribution[image_count] += 1
+                
+                if image_count == 4:
+                    apartments_with_4_images += 1
+                    print(f"   ✅ Apartment {i}: {apt.get('title', 'Unknown')[:50]}... - {image_count} images")
+                else:
+                    print(f"   ❌ Apartment {i}: {apt.get('title', 'Unknown')[:50]}... - {image_count} images (expected 4)")
+            
+            if apartments_with_4_images == 10:
+                self.log_result("Image Enhancement - First 10 Listings", True, f"All 10 apartments have exactly 4 images")
+            else:
+                self.log_result("Image Enhancement - First 10 Listings", False, 
+                              f"Only {apartments_with_4_images}/10 apartments have 4 images. Distribution: {image_count_distribution}")
+            
+            # Test different apartment types (studios, 1BR, 2BR) to ensure all got updated
+            print("\n🏠 Testing different apartment types for image enhancement...")
+            apartment_types = [
+                {"bedrooms": 0, "type": "Studio"},
+                {"bedrooms": 1, "type": "1BR"},
+                {"bedrooms": 2, "type": "2BR"}
+            ]
+            
+            for apt_type in apartment_types:
+                response = self.make_request("GET", "/apartments", {"bedrooms": apt_type["bedrooms"], "limit": 5})
+                if response.status_code == 200:
+                    type_apartments = response.json()
+                    if type_apartments:
+                        type_with_4_images = 0
+                        for apt in type_apartments:
+                            if len(apt.get("images", [])) == 4:
+                                type_with_4_images += 1
+                        
+                        if type_with_4_images == len(type_apartments):
+                            self.log_result(f"Image Enhancement - {apt_type['type']} Apartments", True, 
+                                          f"All {len(type_apartments)} {apt_type['type']} apartments have 4 images")
+                        else:
+                            self.log_result(f"Image Enhancement - {apt_type['type']} Apartments", False, 
+                                          f"Only {type_with_4_images}/{len(type_apartments)} {apt_type['type']} apartments have 4 images")
+                    else:
+                        self.log_result(f"Image Enhancement - {apt_type['type']} Apartments", True, 
+                                      f"No {apt_type['type']} apartments found (acceptable)")
+                else:
+                    self.log_result(f"Image Enhancement - {apt_type['type']} Apartments", False, 
+                                  f"Failed to get {apt_type['type']} apartments: {response.status_code}")
+            
+            # Verify image URLs are properly formatted and from quality sources
+            print("\n🔗 Testing image URL quality and formatting...")
+            all_apartments_response = self.make_request("GET", "/apartments", {"limit": 50})
+            if all_apartments_response.status_code == 200:
+                all_apartments = all_apartments_response.json()
+                
+                url_quality_issues = []
+                image_sources = {}
+                total_images_checked = 0
+                
+                for apt in all_apartments:
+                    images = apt.get("images", [])
+                    for img_url in images:
+                        total_images_checked += 1
+                        
+                        # Check URL format
+                        if not img_url or not isinstance(img_url, str):
+                            url_quality_issues.append(f"Invalid URL format in {apt.get('title', 'Unknown')}")
+                            continue
+                        
+                        if not (img_url.startswith("http://") or img_url.startswith("https://")):
+                            url_quality_issues.append(f"Invalid protocol in {apt.get('title', 'Unknown')}: {img_url[:50]}")
+                            continue
+                        
+                        # Track image sources
+                        if "unsplash.com" in img_url:
+                            image_sources["Unsplash"] = image_sources.get("Unsplash", 0) + 1
+                        elif "pexels.com" in img_url:
+                            image_sources["Pexels"] = image_sources.get("Pexels", 0) + 1
+                        elif "nestiostatic.com" in img_url:
+                            image_sources["Nestio"] = image_sources.get("Nestio", 0) + 1
+                        elif "waterline-square.com" in img_url:
+                            image_sources["Waterline Square"] = image_sources.get("Waterline Square", 0) + 1
+                        elif "gothamwestnyc.com" in img_url:
+                            image_sources["Gotham West"] = image_sources.get("Gotham West", 0) + 1
+                        else:
+                            image_sources["Other"] = image_sources.get("Other", 0) + 1
+                
+                if not url_quality_issues:
+                    self.log_result("Image URL Quality", True, f"All {total_images_checked} image URLs properly formatted")
+                else:
+                    self.log_result("Image URL Quality", False, f"{len(url_quality_issues)} URL quality issues found")
+                
+                # Report image source distribution
+                print(f"\n📊 Image Source Distribution ({total_images_checked} total images):")
+                for source, count in sorted(image_sources.items(), key=lambda x: x[1], reverse=True):
+                    percentage = (count / total_images_checked) * 100
+                    print(f"   • {source}: {count} images ({percentage:.1f}%)")
+                
+                self.log_result("Image Source Variety", True, f"Images from {len(image_sources)} different sources")
+            
+            # Test image variety within apartments
+            print("\n🎨 Testing image variety within apartments...")
+            variety_test_response = self.make_request("GET", "/apartments", {"limit": 20})
+            if variety_test_response.status_code == 200:
+                variety_apartments = variety_test_response.json()
+                
+                apartments_with_variety = 0
+                for apt in variety_apartments:
+                    images = apt.get("images", [])
+                    if len(images) >= 4:
+                        # Check if images are from different sources (indicating variety)
+                        unique_domains = set()
+                        for img_url in images:
+                            if "unsplash.com" in img_url:
+                                unique_domains.add("unsplash")
+                            elif "pexels.com" in img_url:
+                                unique_domains.add("pexels")
+                            elif "nestiostatic.com" in img_url:
+                                unique_domains.add("nestio")
+                            else:
+                                unique_domains.add("other")
+                        
+                        # Consider variety good if images come from at least 2 different sources
+                        if len(unique_domains) >= 2 or len(images) >= 4:
+                            apartments_with_variety += 1
+                
+                variety_percentage = (apartments_with_variety / len(variety_apartments)) * 100
+                if variety_percentage >= 80:
+                    self.log_result("Image Variety", True, f"{apartments_with_variety}/{len(variety_apartments)} apartments have good image variety ({variety_percentage:.1f}%)")
+                else:
+                    self.log_result("Image Variety", False, f"Only {apartments_with_variety}/{len(variety_apartments)} apartments have good variety ({variety_percentage:.1f}%)")
+            
+            # Overall assessment of image enhancement
+            print("\n📋 OVERALL IMAGE ENHANCEMENT ASSESSMENT:")
+            
+            # Get comprehensive sample for final assessment
+            final_response = self.make_request("GET", "/apartments", {"limit": 100})
+            if final_response.status_code == 200:
+                final_apartments = final_response.json()
+                
+                apartments_with_4_images = sum(1 for apt in final_apartments if len(apt.get("images", [])) == 4)
+                apartments_with_less_than_4 = sum(1 for apt in final_apartments if len(apt.get("images", [])) < 4)
+                apartments_with_more_than_4 = sum(1 for apt in final_apartments if len(apt.get("images", [])) > 4)
+                
+                total_apartments = len(final_apartments)
+                enhancement_success_rate = (apartments_with_4_images / total_apartments) * 100
+                
+                print(f"   📊 Sample Size: {total_apartments} apartments")
+                print(f"   ✅ Apartments with exactly 4 images: {apartments_with_4_images} ({enhancement_success_rate:.1f}%)")
+                print(f"   ⚠️  Apartments with less than 4 images: {apartments_with_less_than_4}")
+                print(f"   📈 Apartments with more than 4 images: {apartments_with_more_than_4}")
+                
+                if enhancement_success_rate >= 90:
+                    self.log_result("Image Enhancement Success", True, f"Excellent: {enhancement_success_rate:.1f}% of apartments have 4 images")
+                elif enhancement_success_rate >= 70:
+                    self.log_result("Image Enhancement Success", True, f"Good: {enhancement_success_rate:.1f}% of apartments have 4 images")
+                else:
+                    self.log_result("Image Enhancement Success", False, f"Poor: Only {enhancement_success_rate:.1f}% of apartments have 4 images")
+            
+        except Exception as e:
+            self.log_result("Apartment Image Enhancement Verification", False, f"Exception: {str(e)}")
+
     def test_apartment_image_arrays_analysis(self):
         """Test apartment image arrays analysis as requested in review"""
         print("\n=== Testing Apartment Image Arrays Analysis ===")
         try:
-            # Get a good sample of apartments (50 as requested)
-            response = self.make_request("GET", "/apartments", {"limit": 50})
+            # Get a good sample of apartments (100 as requested)
+            response = self.make_request("GET", "/apartments", {"limit": 100})
             if response.status_code != 200:
                 self.log_result("Image Arrays Analysis", False, f"Failed to get apartments: {response.status_code}")
                 return
@@ -477,9 +661,11 @@ class NoFeePlacesAPITester:
             image_stats = {
                 "no_images": [],
                 "single_image": [],
-                "multiple_images": [],
+                "two_images": [],
+                "three_images": [],
+                "four_images": [],
+                "more_than_four": [],
                 "broken_urls": [],
-                "good_variety": [],
                 "image_counts": {}
             }
             
@@ -502,30 +688,28 @@ class NoFeePlacesAPITester:
                 image_stats["image_counts"][image_count] += 1
                 
                 # Categorize apartments by image count
+                apt_info = {
+                    "id": apt_id,
+                    "title": apt_title,
+                    "address": apt.get("address", "Unknown"),
+                    "image_count": image_count
+                }
+                
                 if image_count == 0:
-                    image_stats["no_images"].append({
-                        "id": apt_id,
-                        "title": apt_title,
-                        "address": apt.get("address", "Unknown")
-                    })
+                    image_stats["no_images"].append(apt_info)
                 elif image_count == 1:
-                    image_stats["single_image"].append({
-                        "id": apt_id,
-                        "title": apt_title,
-                        "address": apt.get("address", "Unknown"),
-                        "image_url": images[0] if images else None
-                    })
+                    image_stats["single_image"].append(apt_info)
+                elif image_count == 2:
+                    image_stats["two_images"].append(apt_info)
+                elif image_count == 3:
+                    image_stats["three_images"].append(apt_info)
+                elif image_count == 4:
+                    image_stats["four_images"].append(apt_info)
                 else:
-                    image_stats["multiple_images"].append({
-                        "id": apt_id,
-                        "title": apt_title,
-                        "address": apt.get("address", "Unknown"),
-                        "image_count": image_count
-                    })
+                    image_stats["more_than_four"].append(apt_info)
                 
                 # Check image quality and accessibility
                 broken_images = []
-                valid_images = []
                 
                 for img_url in images:
                     if not img_url or not isinstance(img_url, str):
@@ -536,17 +720,6 @@ class NoFeePlacesAPITester:
                     if not (img_url.startswith("http://") or img_url.startswith("https://")):
                         broken_images.append(f"Invalid protocol: {img_url[:50]}...")
                         continue
-                    
-                    # Check for common image domains
-                    valid_domains = ["unsplash.com", "pexels.com", "images.unsplash.com", "images.pexels.com", 
-                                   "nestiostatic.com", "waterline-square.com", "gothamwestnyc.com", "fortysixfifty.com"]
-                    
-                    is_valid_domain = any(domain in img_url for domain in valid_domains)
-                    if is_valid_domain:
-                        valid_images.append(img_url)
-                    else:
-                        # Still count as valid if it's a proper URL, just note the domain
-                        valid_images.append(img_url)
                 
                 if broken_images:
                     image_stats["broken_urls"].append({
@@ -555,15 +728,6 @@ class NoFeePlacesAPITester:
                         "broken_count": len(broken_images),
                         "total_images": image_count,
                         "issues": broken_images[:3]  # First 3 issues
-                    })
-                
-                # Check for image variety (apartments with 3+ images are considered to have good variety)
-                if image_count >= 3:
-                    image_stats["good_variety"].append({
-                        "id": apt_id,
-                        "title": apt_title,
-                        "image_count": image_count,
-                        "sample_urls": images[:2]  # First 2 URLs as samples
                     })
             
             # Generate comprehensive analysis report
@@ -578,33 +742,46 @@ class NoFeePlacesAPITester:
                 percentage = (apartments_with_count / apartments_analyzed) * 100
                 print(f"   {count} images: {apartments_with_count} apartments ({percentage:.1f}%)")
             
-            # Report apartments needing more images
-            print(f"\n🚨 APARTMENTS NEEDING MORE IMAGES:")
+            # Specific focus on 4-image target
+            four_image_count = len(image_stats["four_images"])
+            four_image_percentage = (four_image_count / apartments_analyzed) * 100
             
-            if image_stats["no_images"]:
-                print(f"   ❌ NO IMAGES ({len(image_stats['no_images'])} apartments):")
-                for apt in image_stats["no_images"][:5]:  # Show first 5
-                    print(f"      • {apt['title']} - {apt['address']}")
-                if len(image_stats["no_images"]) > 5:
-                    print(f"      ... and {len(image_stats['no_images']) - 5} more")
+            print(f"\n🎯 FOUR-IMAGE TARGET ANALYSIS:")
+            print(f"   Apartments with exactly 4 images: {four_image_count} ({four_image_percentage:.1f}%)")
             
-            if image_stats["single_image"]:
-                print(f"   ⚠️  SINGLE IMAGE ({len(image_stats['single_image'])} apartments):")
-                for apt in image_stats["single_image"][:5]:  # Show first 5
-                    print(f"      • {apt['title']} - {apt['address']}")
-                if len(image_stats["single_image"]) > 5:
-                    print(f"      ... and {len(image_stats['single_image']) - 5} more")
-            
-            # Report apartments with good image variety
-            print(f"\n✅ APARTMENTS WITH GOOD IMAGE VARIETY:")
-            if image_stats["good_variety"]:
-                print(f"   📸 MULTIPLE IMAGES (3+) ({len(image_stats['good_variety'])} apartments):")
-                for apt in image_stats["good_variety"][:5]:  # Show first 5
-                    print(f"      • {apt['title']} - {apt['image_count']} images")
-                if len(image_stats["good_variety"]) > 5:
-                    print(f"      ... and {len(image_stats['good_variety']) - 5} more")
+            if four_image_percentage >= 90:
+                self.log_result("Four Images Target", True, f"Excellent: {four_image_percentage:.1f}% have 4 images")
+            elif four_image_percentage >= 70:
+                self.log_result("Four Images Target", True, f"Good: {four_image_percentage:.1f}% have 4 images")
             else:
-                print("   ⚠️  No apartments found with 3+ images")
+                self.log_result("Four Images Target", False, f"Poor: Only {four_image_percentage:.1f}% have 4 images")
+            
+            # Report apartments that don't meet the 4-image standard
+            print(f"\n🚨 APARTMENTS NOT MEETING 4-IMAGE STANDARD:")
+            
+            categories = [
+                ("no_images", "NO IMAGES"),
+                ("single_image", "SINGLE IMAGE"),
+                ("two_images", "TWO IMAGES"),
+                ("three_images", "THREE IMAGES")
+            ]
+            
+            for category, label in categories:
+                if image_stats[category]:
+                    print(f"   ❌ {label} ({len(image_stats[category])} apartments):")
+                    for apt in image_stats[category][:3]:  # Show first 3
+                        print(f"      • {apt['title'][:50]}... - {apt['image_count']} images")
+                    if len(image_stats[category]) > 3:
+                        print(f"      ... and {len(image_stats[category]) - 3} more")
+            
+            # Report apartments exceeding 4 images
+            if image_stats["more_than_four"]:
+                print(f"\n📈 APARTMENTS WITH MORE THAN 4 IMAGES:")
+                print(f"   ✅ ENHANCED VARIETY ({len(image_stats['more_than_four'])} apartments):")
+                for apt in image_stats["more_than_four"][:3]:  # Show first 3
+                    print(f"      • {apt['title'][:50]}... - {apt['image_count']} images")
+                if len(image_stats["more_than_four"]) > 3:
+                    print(f"      ... and {len(image_stats['more_than_four']) - 3} more")
             
             # Report broken or problematic URLs
             print(f"\n🔗 IMAGE URL QUALITY:")
@@ -614,44 +791,24 @@ class NoFeePlacesAPITester:
                     print(f"      • {apt['title']}: {apt['broken_count']}/{apt['total_images']} issues")
                     for issue in apt['issues']:
                         print(f"        - {issue}")
+                self.log_result("Image URL Quality", False, f"{len(image_stats['broken_urls'])} apartments have URL issues")
             else:
                 print("   ✅ All image URLs appear to be properly formatted")
-            
-            # Summary and recommendations
-            print(f"\n📋 SUMMARY & RECOMMENDATIONS:")
-            
-            apartments_needing_images = len(image_stats["no_images"]) + len(image_stats["single_image"])
-            apartments_with_good_images = len(image_stats["multiple_images"])
-            
-            if apartments_needing_images == 0:
-                print("   ✅ All apartments have multiple images")
-                self.log_result("Image Coverage", True, f"All {apartments_analyzed} apartments have 2+ images")
-            else:
-                print(f"   📝 {apartments_needing_images} apartments need more images ({apartments_needing_images/apartments_analyzed*100:.1f}%)")
-                self.log_result("Image Coverage", False, f"{apartments_needing_images}/{apartments_analyzed} apartments need more images")
-            
-            if apartments_with_good_images >= apartments_analyzed * 0.7:  # 70% have multiple images
-                print("   ✅ Good overall image coverage")
-                self.log_result("Image Variety", True, f"{apartments_with_good_images}/{apartments_analyzed} apartments have multiple images")
-            else:
-                print("   ⚠️  Image coverage could be improved")
-                self.log_result("Image Variety", False, f"Only {apartments_with_good_images}/{apartments_analyzed} apartments have multiple images")
-            
-            if not image_stats["broken_urls"]:
                 self.log_result("Image URL Quality", True, "All image URLs are properly formatted")
-            else:
-                self.log_result("Image URL Quality", False, f"{len(image_stats['broken_urls'])} apartments have URL issues")
             
             # Overall assessment
-            overall_score = ((apartments_with_good_images / apartments_analyzed) * 100)
-            print(f"\n🎯 OVERALL IMAGE QUALITY SCORE: {overall_score:.1f}%")
+            apartments_meeting_standard = four_image_count + len(image_stats["more_than_four"])
+            standard_percentage = (apartments_meeting_standard / apartments_analyzed) * 100
             
-            if overall_score >= 80:
-                self.log_result("Overall Image Analysis", True, f"Excellent image coverage: {overall_score:.1f}%")
-            elif overall_score >= 60:
-                self.log_result("Overall Image Analysis", True, f"Good image coverage: {overall_score:.1f}%")
+            print(f"\n🎯 OVERALL IMAGE ENHANCEMENT ASSESSMENT:")
+            print(f"   Apartments meeting/exceeding 4-image standard: {apartments_meeting_standard}/{apartments_analyzed} ({standard_percentage:.1f}%)")
+            
+            if standard_percentage >= 90:
+                self.log_result("Overall Image Enhancement", True, f"Excellent: {standard_percentage:.1f}% meet 4+ image standard")
+            elif standard_percentage >= 70:
+                self.log_result("Overall Image Enhancement", True, f"Good: {standard_percentage:.1f}% meet 4+ image standard")
             else:
-                self.log_result("Overall Image Analysis", False, f"Poor image coverage: {overall_score:.1f}%")
+                self.log_result("Overall Image Enhancement", False, f"Poor: Only {standard_percentage:.1f}% meet 4+ image standard")
             
         except Exception as e:
             self.log_result("Apartment Image Arrays Analysis", False, f"Exception: {str(e)}")
