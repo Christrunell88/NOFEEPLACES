@@ -188,15 +188,15 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   return (
-    <header className="sticky top-0 bg-white border-b border-gray-200 z-50 shadow-sm">
+    <header className="sticky top-0 bg-black/95 backdrop-blur-md border-b border-gray-800 z-50 shadow-2xl">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3 group">
-            {/* Cool Custom Logo Design */}
+            {/* Sleek Custom Logo Design */}
             <div className="relative logo-glow">
-              {/* Logo Icon - Modern Building/Key Design */}
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-all duration-300 group-hover:scale-105">
+              {/* Logo Icon - Modern Building Design */}
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-lg flex items-center justify-center shadow-lg transform rotate-3 group-hover:rotate-0 transition-all duration-300 group-hover:scale-105">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -206,10 +206,10 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             {/* Logo Text */}
             <div className="flex flex-col">
               <div className="flex items-center space-x-1">
-                <span className="text-xl md:text-2xl font-bold text-gray-900 tracking-tight group-hover:text-gray-800 transition-colors">No Fee</span>
-                <span className="text-base md:text-lg font-semibold text-orange-500 group-hover:text-orange-600 transition-colors">Places</span>
+                <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent tracking-tight">No Fee</span>
+                <span className="text-base md:text-lg font-semibold text-yellow-400 group-hover:text-yellow-300 transition-colors">Places</span>
               </div>
-              <span className="text-xs text-gray-500 font-medium tracking-wide -mt-1 group-hover:text-gray-600 transition-colors hidden sm:block">NYC RENTALS</span>
+              <div className="text-xs text-gray-400 -mt-1 tracking-wide">NYC RENTALS</div>
             </div>
           </Link>
 
