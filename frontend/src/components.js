@@ -2632,7 +2632,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
         
         {/* Help text bubble when closed */}
         {!isOpen && (
-          <div className="absolute bottom-full right-2 mb-3 bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap animate-bounce shadow-lg">
+          <div className="absolute bottom-full right-2 mb-3 bg-amber-400 text-black px-4 py-2 rounded-lg text-sm whitespace-nowrap animate-bounce shadow-lg font-medium">
             Ask me anything!
           </div>
         )}
