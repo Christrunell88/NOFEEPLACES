@@ -2655,31 +2655,17 @@ async def get_apartments(
     # Calculate skip for pagination
     skip = (page - 1) * limit
     
-    # Execute query with custom sorting - Waterline Square apartments last
+    # Execute query with newest listings first
     apartments_cursor = db.apartments.find(query).skip(skip).limit(limit)
     
-    # Custom sort: Non-Waterline apartments first (by created_at desc), then Waterline apartments (by created_at desc)
+    # Sort by creation date descending (newest first)
     apartments_cursor = apartments_cursor.sort([
-        ("title", 1),  # This will put Waterline Square apartments last (since "Waterline" comes after most other titles alphabetically)
-        ("created_at", -1)  # Then sort by creation date within each group
+        ("created_at", -1)  # Newest apartments first
     ])
     
     apartments = await apartments_cursor.to_list(length=limit)
     
-    # Additional sorting logic: ensure Waterline Square apartments are definitely at the end
-    waterline_apartments = []
-    other_apartments = []
-    
-    for apt in apartments:
-        if "waterline" in apt.get("title", "").lower():
-            waterline_apartments.append(apt)
-        else:
-            other_apartments.append(apt)
-    
-    # Combine lists: other apartments first, then Waterline apartments
-    sorted_apartments = other_apartments + waterline_apartments
-    
-    return [Apartment(**apt) for apt in sorted_apartments]
+    return [Apartment(**apt) for apt in apartments]
 
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
