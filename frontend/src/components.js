@@ -1008,7 +1008,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
 
       <div className="p-4">
         <h3 className="text-lg font-semibold text-white mb-2 line-clamp-2">{apartment.title}</h3>
-        <p className="text-gray-600 text-sm mb-3 flex items-center justify-between">
+        <p className="text-gray-300 text-sm mb-3 flex items-center justify-between">
           <span className="flex items-center">
             <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -1018,14 +1018,14 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
             {isAuthenticated ? apartment.address : `${apartment.neighborhood}, ${apartment.borough}`}
           </span>
           {!isAuthenticated && (
-            <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-medium">
+            <span className="text-xs bg-gradient-to-r from-purple-600 to-yellow-500 text-white px-2 py-1 rounded-full font-medium">
               Sign up for full address
             </span>
           )}
         </p>
 
         {/* Property Details */}
-        <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
+        <div className="flex items-center justify-between text-sm text-gray-300 mb-4">
           <span className="font-medium">
             {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}
           </span>
