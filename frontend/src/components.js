@@ -911,6 +911,46 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
 
+  // SEO Enhancement: Generate structured data for each apartment
+  const generateStructuredData = (apartment) => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "RentAction",
+      "object": {
+        "@type": "Apartment",
+        "name": apartment.title,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": apartment.address,
+          "addressLocality": apartment.neighborhood,
+          "addressRegion": apartment.borough,
+          "addressCountry": "US"
+        },
+        "numberOfRooms": apartment.bedrooms,
+        "floorSize": {
+          "@type": "QuantitativeValue",
+          "value": apartment.sqft,
+          "unitText": "SQF"
+        },
+        "amenityFeature": apartment.amenities?.map(amenity => ({
+          "@type": "LocationFeatureSpecification",
+          "name": amenity
+        })) || []
+      },
+      "price": {
+        "@type": "MonetaryAmount",
+        "value": apartment.price,
+        "currency": "USD"
+      },
+      "priceSpecification": {
+        "@type": "RentPrice",
+        "price": apartment.price,
+        "priceCurrency": "USD",
+        "unitCode": "MON"
+      }
+    };
+  };
+
   // Check if apartment is in user's favorites on mount
   useEffect(() => {
     const checkFavoriteStatus = async () => {
