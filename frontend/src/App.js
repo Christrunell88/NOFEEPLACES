@@ -220,12 +220,19 @@ const Home = () => {
         apartmentCount={totalApartments}
       />
       
-      <main className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
-          <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent">
-            {loading ? 'Searching No Fee Apartments NYC...' : 'Premium No Fee Apartments NYC'}
-          </h2>
-          <div className="flex space-x-2">
+      <main className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8" role="main">
+        {/* SEO Enhanced Header Section */}
+        <header className="mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent mb-2">
+                {loading ? 'Searching No Fee Apartments NYC...' : 'No Fee Apartments NYC 2025'}
+              </h1>
+              <p className="text-gray-400 text-sm md:text-base">
+                Browse verified no broker fee rentals in Manhattan, Brooklyn & Queens. Save thousands on your next NYC apartment.
+              </p>
+            </div>
+            <div className="flex space-x-2" role="group" aria-label="View options">
             <button 
               onClick={() => setViewMode('list')}
               className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
