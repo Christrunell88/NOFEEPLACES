@@ -690,7 +690,9 @@ async def scrape_streeteasy_apartments():
             "amenities": ["Concierge", "Pool", "Laundry In Unit", "Parking", "Gym", "Storage"],
             "images": [
                 "https://images.pexels.com/photos/4090093/pexels-photo-4090093.jpeg",
-                "https://images.unsplash.com/photo-1551250930-ace1ad395cea"
+                "https://images.unsplash.com/photo-1551250930-ace1ad395cea",
+                "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                "https://images.unsplash.com/photo-1620626011761-996317b8d101?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1935&q=80"
             ],
             "contact_info": {
                 "phone": "(646) 408-8048",
