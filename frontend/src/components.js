@@ -317,13 +317,13 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
   };
 
   return (
-    <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
+    <div className="bg-gray-900 border-b border-gray-700 sticky top-16 z-40">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between mb-4">
-          <div></div> {/* Empty div for spacing */}
+          <div></div> {/* Empty div for spacing */}   
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
+            className="text-purple-400 hover:text-purple-300 font-medium text-sm flex items-center"
           >
             {isExpanded ? 'Hide Filters' : 'Show Filters'}
             <svg 
