@@ -1018,7 +1018,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
             {isAuthenticated ? apartment.address : `${apartment.neighborhood}, ${apartment.borough}`}
           </span>
           {!isAuthenticated && (
-            <span className="text-xs bg-gradient-to-r from-purple-600 to-yellow-500 text-white px-2 py-1 rounded-full font-medium">
+            <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full font-medium">
               Sign up for full address
             </span>
           )}
