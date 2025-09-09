@@ -145,6 +145,37 @@ const Home = () => {
   // Debug: Log what isAuthenticated returns in the main component
   console.log('Main App Debug:', { isAuthenticated, user });
 
+  // SEO Enhancement: Dynamic page title and meta updates
+  useEffect(() => {
+    // Update page title based on search results
+    if (typeof window !== 'undefined') {
+      const baseTitle = "No Fee Apartments NYC 2025 | Zero Broker Fee Rentals";
+      let dynamicTitle = baseTitle;
+      
+      if (searchFilters.neighborhood) {
+        dynamicTitle = `No Fee Apartments ${searchFilters.neighborhood} NYC | ${baseTitle}`;
+      }
+      if (searchFilters.borough) {
+        dynamicTitle = `${searchFilters.borough} No Fee Apartments NYC | ${baseTitle}`;
+      }
+      if (totalApartments > 0) {
+        dynamicTitle = `${totalApartments} ${dynamicTitle}`;
+      }
+      
+      document.title = dynamicTitle;
+      
+      // Update meta description dynamically
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        let description = `Find luxury no fee apartments NYC 2025 with zero broker fees. Browse ${totalApartments || 1000}+ verified`;
+        if (searchFilters.neighborhood) description += ` ${searchFilters.neighborhood}`;
+        if (searchFilters.borough) description += ` ${searchFilters.borough}`;
+        description += ` no broker fee rentals directly from property owners. Save $3,000+ on NYC apartments.`;
+        metaDesc.setAttribute('content', description);
+      }
+    }
+  }, [searchFilters, totalApartments]);
+
   useEffect(() => {
     fetchApartments();
     fetchSearchStats();
