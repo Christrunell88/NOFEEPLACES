@@ -2650,8 +2650,8 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
                 </svg>
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-black">Places Assistant</h3>
-                <p className="text-xs text-amber-800">Ask me anything about rentals</p>
+                <h3 className="text-sm font-semibold text-white">Places Assistant</h3>
+                <p className="text-xs text-orange-100">Ask me anything about rentals</p>
               </div>
             </div>
           </div>
