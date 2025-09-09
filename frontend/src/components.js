@@ -961,7 +961,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
+    <div className="bg-gray-900 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-700 hover:border-purple-500/50 transform hover:-translate-y-1">
       <div className="relative cursor-pointer" onClick={handleViewDetails}>
         <ImageCarousel
           images={apartment.images || [apartment.image]}
