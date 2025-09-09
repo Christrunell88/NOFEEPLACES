@@ -192,9 +192,9 @@ class ApartmentSortingTester:
             found_recent = []
             
             for i, apt in enumerate(apartments[:10]):  # Check top 10 apartments
-                title = apt.get("title", "").lower()
-                source = apt.get("source", "").lower()
-                source_url = apt.get("source_url", "").lower()
+                title = (apt.get("title") or "").lower()
+                source = (apt.get("source") or "").lower()
+                source_url = (apt.get("source_url") or "").lower()
                 
                 for building in recent_buildings:
                     if (building.lower() in title or 
