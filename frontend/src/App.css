@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap');
 
-/* Dark theme color palette - Refined */
+/* Dark theme color palette - Lighter Yellow */
 :root {
   --bg-primary: #0a0a0a;
   --bg-secondary: #1a1a1a;
@@ -14,13 +14,13 @@
   --purple-soft: #7c3aed;
   --purple-dark: #5b21b6;
   --purple-light: #a855f7;
-  --yellow-soft: #ca8a04;
-  --yellow-dark: #a16207;
-  --yellow-light: #eab308;
+  --yellow-soft: #f59e0b;
+  --yellow-dark: #d97706;
+  --yellow-light: #fbbf24;
   --accent-gradient: linear-gradient(135deg, var(--purple-soft), var(--yellow-soft));
   --border-color: #2a2a2a;
   --shadow-purple: 0 4px 20px rgba(124, 58, 237, 0.15);
-  --shadow-yellow: 0 4px 20px rgba(202, 138, 4, 0.15);
+  --shadow-yellow: 0 4px 20px rgba(245, 158, 11, 0.15);
 }
 
 /* Professional global styles */
