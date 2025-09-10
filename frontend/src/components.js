@@ -2928,7 +2928,7 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
       console.error('Chat error:', error);
       setMessages(prev => [...prev, { 
         type: 'ai', 
-        content: 'Sorry, I\'m having trouble connecting right now. Please try calling Chris at (646) 408-8048 for immediate assistance with your rental needs.', 
+        content: 'Sorry, I\'m having trouble connecting right now. Please try calling our licensed agent at (646) 408-8048 for immediate assistance with your rental needs.', 
         timestamp: new Date() 
       }]);
     } finally {
