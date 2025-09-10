@@ -2719,26 +2719,19 @@ async def get_apartments(
     skip = (page - 1) * limit
     
     # Use aggregation pipeline to handle priority sorting correctly
-    # Apartments with priority get sorted first (ascending: 1,2,3...)
-    # Then apartments without priority (null) sorted by featured and created_at
+    # Priority apartments first, then non-priority apartments
     pipeline = [
         {"$match": query},
         {"$addFields": {
-            "priority_order": {
-                "$cond": {
-                    "if": {"$and": [
-                        {"$ne": ["$priority", None]},
-                        {"$ne": ["$priority", "$missing"]}
-                    ]},
-                    "then": "$priority",
-                    "else": 999  # Put null priorities last
-                }
-            }
+            "has_priority": {"$ifNull": ["$priority", False]},
+            "priority_sort": {"$ifNull": ["$priority", 999]},
+            "featured_sort": {"$ifNull": ["$featured", False]}
         }},
         {"$sort": {
-            "priority_order": 1,      # Priority 1 = highest (ascending: 1, 2, 3, 999...)
-            "featured": -1,           # Featured apartments first  
-            "created_at": -1          # Newest apartments first
+            "has_priority": -1,       # True (has priority) first, then False
+            "priority_sort": 1,       # Within priority group: 1, 2, 3...
+            "featured_sort": -1,      # Featured first
+            "created_at": -1          # Newest first
         }},
         {"$skip": skip},
         {"$limit": limit}
