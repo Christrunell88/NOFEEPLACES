@@ -51,6 +51,12 @@ USE_MOCK_DATA = os.environ.get('USE_MOCK_DATA', 'false').lower() == 'true'
 ENABLE_AUTO_SCRAPING = os.environ.get('ENABLE_AUTO_SCRAPING', 'false').lower() == 'true'
 PRESERVE_MANUAL_DATA = os.environ.get('PRESERVE_MANUAL_DATA', 'true').lower() == 'true'
 
+# Social Login Configuration
+EMERGENT_AUTH_ENABLED = os.environ.get('EMERGENT_AUTH_ENABLED', 'true').lower() == 'true'
+EMERGENT_REDIRECT_URL = os.environ.get('EMERGENT_REDIRECT_URL', 'https://nofee-reborn.preview.emergentagent.com/dashboard')
+FACEBOOK_OAUTH_ENABLED = os.environ.get('FACEBOOK_OAUTH_ENABLED', 'false').lower() == 'true'
+APPLE_OAUTH_ENABLED = os.environ.get('APPLE_OAUTH_ENABLED', 'false').lower() == 'true'
+
 app = FastAPI(title="NoFeePlaces.com API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer()
