@@ -107,6 +107,8 @@ class Apartment(BaseModel):
     source_url: Optional[str] = None
     source: Optional[str] = None
     owner_paid_commission: Optional[bool] = None
+    priority: Optional[int] = None  # For sorting apartments (1 = highest priority)
+    featured: Optional[bool] = None  # For featured apartments
 
 class SearchFilters(BaseModel):
     min_price: Optional[int] = None
