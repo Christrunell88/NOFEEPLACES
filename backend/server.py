@@ -3476,15 +3476,30 @@ async def startup_event():
     
     # Create indexes for better performance
     await db.apartments.create_index([("neighborhood", 1), ("price", 1)])
-    await db.apartments.create_index([("borough", 1)])
-    await db.apartments.create_index([("bedrooms", 1)])
+    await db.apartments.create_index([("borough", 1), ("is_no_fee", 1)])
     await db.users.create_index([("email", 1)], unique=True)
     
-    # Populate with initial data if empty
+    # Check current apartment count
     apartment_count = await db.apartments.count_documents({})
+    logger.info(f"Current apartment count: {apartment_count}")
+    
+    # Only populate with initial data if enabled and database is empty
     if apartment_count == 0:
-        await scrape_rentals()
-        logger.info("Populated database with initial apartment data")
+        if ENABLE_AUTO_SCRAPING and USE_MOCK_DATA:
+            logger.info("Database is empty and auto-scraping is enabled. Populating with initial data...")
+            await scrape_rentals()
+            logger.info("Populated database with initial apartment data")
+        else:
+            logger.info("Database is empty but auto-scraping is disabled. Skipping initial data population.")
+            logger.info("To enable: Set ENABLE_AUTO_SCRAPING=true and USE_MOCK_DATA=true in .env file")
+    else:
+        logger.info("Database already contains apartment data. Skipping initial population.")
+        
+        # Log data safety status
+        if USE_MOCK_DATA:
+            logger.warning("Mock data is enabled. Scraping endpoints will modify database content.")
+        else:
+            logger.info("Mock data is disabled. Database content is protected from scraping operations.")
 
 @app.on_event("shutdown")
 async def shutdown_event():
