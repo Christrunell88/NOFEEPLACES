@@ -279,40 +279,51 @@ const Hero = () => {
   
   return (
     <section 
-      className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
+      className="relative py-20 md:py-32 lg:py-40"
       style={{
         margin: '0',
         padding: '0',
-        width: '100%'
+        width: '100vw',
+        overflow: 'hidden',
+        position: 'relative'
       }}
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
       {/* Vimeo Video Background or Image Fallback */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ margin: 0, padding: 0 }}>
+      <div 
+        className="absolute"
+        style={{
+          top: '0',
+          left: '0',
+          width: '100vw',
+          height: '100vh',
+          overflow: 'hidden',
+          zIndex: '0'
+        }}
+      >
         {!videoError ? (
-          <div className="absolute inset-0 w-full h-full" style={{ margin: 0, padding: 0 }}>
-            <iframe
-              src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0&responsive=1`}
-              className="absolute"
-              style={{
-                position: 'absolute',
-                top: '-5%',
-                left: '-5%',
-                width: '110%',
-                height: '110%',
-                border: 'none',
-                margin: '0',
-                padding: '0',
-                outline: 'none'
-              }}
-              frameBorder="0"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
-              onError={handleVideoError}
-              title="Hero Background Video"
-            ></iframe>
-          </div>
+          <iframe
+            src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0&responsive=1`}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              width: '100vw',
+              height: '56.25vw', // 16:9 aspect ratio
+              minHeight: '100vh',
+              minWidth: '177.78vh', // 16:9 aspect ratio
+              transform: 'translate(-50%, -50%)',
+              border: 'none',
+              margin: '0',
+              padding: '0'
+            }}
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            onError={handleVideoError}
+            title="Hero Background Video"
+          ></iframe>
         ) : (
           // Fallback to original image if video fails to load
           <div 
