@@ -38,42 +38,41 @@ async def debug_priority():
         print(f"    Created: {apt.get('created_at', 'None')}")
         print()
     
-    print("🔍 Testing aggregation pipeline...")
+    print("🔍 Testing NEW aggregation pipeline...")
     print("=" * 60)
     
-    # Test the aggregation pipeline
+    # Test the NEW aggregation pipeline
     pipeline = [
         {"$addFields": {
-            "priority_order": {
-                "$cond": {
-                    "if": {"$ne": ["$priority", None]},
-                    "then": "$priority",
-                    "else": 999  # Put null priorities last
-                }
-            }
+            "has_priority": {"$ifNull": ["$priority", False]},
+            "priority_sort": {"$ifNull": ["$priority", 999]},
+            "featured_sort": {"$ifNull": ["$featured", False]}
         }},
         {"$sort": {
-            "priority_order": 1,      # Priority 1 = highest (ascending: 1, 2, 3, 999...)
-            "featured": -1,           # Featured apartments first
-            "created_at": -1          # Newest apartments first
+            "has_priority": -1,       # True (has priority) first, then False
+            "priority_sort": 1,       # Within priority group: 1, 2, 3...
+            "featured_sort": -1,      # Featured first
+            "created_at": -1          # Newest first
         }},
         {"$limit": 5},
         {"$project": {
             "title": 1,
             "priority": 1,
             "featured": 1,
-            "priority_order": 1,
+            "has_priority": 1,
+            "priority_sort": 1,
+            "featured_sort": 1,
             "created_at": 1
         }}
     ]
     
     results = await db.apartments.aggregate(pipeline).to_list(length=5)
     
-    print(f"📊 Top 5 apartments with aggregation:")
+    print(f"📊 Top 5 apartments with NEW aggregation:")
     for i, apt in enumerate(results, 1):
         print(f"  {i}. {apt['title'][:50]}...")
-        print(f"     Priority: {apt.get('priority', 'None')} (order: {apt.get('priority_order', 'None')})")
-        print(f"     Featured: {apt.get('featured', 'None')}")
+        print(f"     Priority: {apt.get('priority', 'None')} (has: {apt.get('has_priority', 'None')}, sort: {apt.get('priority_sort', 'None')})")
+        print(f"     Featured: {apt.get('featured', 'None')} (sort: {apt.get('featured_sort', 'None')})")
         print(f"     Created: {apt.get('created_at', 'None')}")
         print()
     
