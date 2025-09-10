@@ -3494,6 +3494,16 @@ async def health_check():
 # Include router in main app
 app.include_router(api_router)
 
+# Include social authentication router
+try:
+    from social_routes import social_router
+    app.include_router(social_router)
+    logging.info("Social authentication routes loaded successfully")
+except ImportError as e:
+    logging.warning(f"Social authentication routes not available: {e}")
+except Exception as e:
+    logging.error(f"Failed to load social authentication routes: {e}")
+
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
