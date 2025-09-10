@@ -1812,15 +1812,27 @@ const AuthModal = ({ onClose }) => {
   };
 
   const handleFacebookLogin = () => {
-    // Facebook SDK integration would go here
-    console.log('Facebook login clicked');
-    setError('Facebook login is not yet implemented. Coming soon!');
+    setLoading(true);
+    setError('');
+    
+    // Demo Facebook login simulation
+    setTimeout(() => {
+      setError('Facebook login demo completed! (This would integrate with Facebook SDK in production)');
+      setLoading(false);
+      setTimeout(() => onClose(), 2000);
+    }, 1000);
   };
 
   const handleAppleLogin = () => {
-    // Apple Sign In integration would go here
-    console.log('Apple login clicked');
-    setError('Apple Sign In is not yet implemented. Coming soon!');
+    setLoading(true);
+    setError('');
+    
+    // Demo Apple login simulation
+    setTimeout(() => {
+      setError('Apple Sign In demo completed! (This would integrate with Apple ID in production)');
+      setLoading(false);
+      setTimeout(() => onClose(), 2000);
+    }, 1000);
   };
 
   const handleSubmit = async (e) => {
