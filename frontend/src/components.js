@@ -812,6 +812,27 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  // Handle click outside to close modal
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  // Handle escape key to close modal
+  useEffect(() => {
+    const handleEscapeKey = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey);
+      return () => document.removeEventListener('keydown', handleEscapeKey);
+    }
+  }, [isOpen, onClose]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSending(true);
@@ -849,8 +870,14 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-lg">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      onClick={handleOverlayClick}
+    >
+      <div 
+        className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-lg transform transition-all duration-200 scale-100"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold text-gray-900">Contact Agent</h3>
           <button 
