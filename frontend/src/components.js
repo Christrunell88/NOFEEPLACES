@@ -1745,52 +1745,139 @@ const AuthModal = ({ onClose }) => {
   const [error, setError] = useState('');
   const { login, register } = useAuth();
 
-  // Initialize social sign-in SDKs when component mounts
+  // Initialize social login systems
   useEffect(() => {
-    // Initialize Google Sign-In
-    if (typeof window !== 'undefined' && window.google) {
+    // Check what authentication providers are available
+    const checkAuthProviders = async () => {
       try {
-        window.google.accounts.id.initialize({
-          client_id: "demo-client-id.apps.googleusercontent.com", // Demo client ID
-          callback: handleGoogleResponse,
-          auto_select: false,
-          cancel_on_tap_outside: false
-        });
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/providers/status`);
+        if (response.ok) {
+          const providers = await response.json();
+          console.log('Available auth providers:', providers);
+          
+          // Initialize Google (Emergent Auth) - no client-side setup needed
+          if (providers.google) {
+            console.log('Google authentication available via Emergent Auth');
+          }
+          
+          // Initialize Facebook SDK if enabled
+          if (providers.facebook && typeof window !== 'undefined' && !window.fbAsyncInit) {
+            window.fbAsyncInit = function() {
+              window.FB.init({
+                appId: 'your-facebook-app-id', // Will be configured when credentials are provided
+                cookie: true,
+                xfbml: true,
+                version: 'v18.0'
+              });
+            };
+          }
+          
+          // Initialize Apple Sign In if enabled
+          if (providers.apple && typeof window !== 'undefined' && window.AppleID) {
+            try {
+              window.AppleID.auth.init({
+                clientId: 'your-apple-service-id', // Will be configured when credentials are provided
+                scope: 'name email',
+                redirectURI: window.location.origin + '/auth/apple/callback',
+                usePopup: false // Use redirect flow for production
+              });
+            } catch (error) {
+              console.log('Apple Sign In initialization failed:', error);
+            }
+          }
+        }
       } catch (error) {
-        console.log('Google Sign-In initialization failed:', error);
+        console.error('Failed to check auth providers:', error);
       }
-    }
+    };
+    
+    checkAuthProviders();
+  }, []);
 
-    // Initialize Facebook SDK
-    if (typeof window !== 'undefined' && !window.fbAsyncInit) {
-      window.fbAsyncInit = function() {
-        window.FB.init({
-          appId: 'demo-facebook-app-id', // Demo app ID
-          cookie: true,
-          xfbml: true,
-          version: 'v18.0'
-        });
-      };
+  // Handle Emergent Google Authentication
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      // Redirect to Emergent Auth for Google
+      window.location.href = `${process.env.REACT_APP_BACKEND_URL}/api/auth/google/login`;
+      
+    } catch (error) {
+      console.error('Google login error:', error);
+      setError('Google sign-in failed. Please try again.');
+      setLoading(false);
     }
+  };
 
-    // Initialize Apple Sign In  
-    if (typeof window !== 'undefined' && window.AppleID) {
-      try {
-        window.AppleID.auth.init({
-          clientId: 'demo.apple.signin.service',
-          scope: 'name email',
-          redirectURI: window.location.origin,
-          state: 'demo-state',
-          usePopup: true
-        });
-      } catch (error) {
-        console.log('Apple Sign In initialization failed:', error);
+  // Handle session ID from URL (for Emergent Auth callback)
+  useEffect(() => {
+    const handleEmergentCallback = async () => {
+      const urlParams = new URLSearchParams(window.location.hash.substring(1));
+      const sessionId = urlParams.get('session_id');
+      
+      if (sessionId) {
+        try {
+          setLoading(true);
+          
+          // Clear the session_id from URL
+          window.history.replaceState({}, document.title, window.location.pathname);
+          
+          // Authenticate with our backend using the session ID
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/google/callback`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ session_id: sessionId, provider: 'google' })
+          });
+          
+          if (response.ok) {
+            const authData = await response.json();
+            
+            // Store tokens
+            localStorage.setItem('access_token', authData.access_token);
+            localStorage.setItem('refresh_token', authData.refresh_token);
+            
+            // Update auth context
+            if (login) {
+              await login(authData.user.email, 'social-auth-token');
+            }
+            
+            setError('Google sign-in successful! Welcome to NoFeePlaces!');
+            setTimeout(() => onClose(), 1500);
+            
+          } else {
+            const errorData = await response.json();
+            setError(`Authentication failed: ${errorData.detail || 'Unknown error'}`);
+          }
+        } catch (error) {
+          console.error('Emergent auth callback error:', error);
+          setError('Authentication failed. Please try again.');
+        } finally {
+          setLoading(false);
+        }
       }
-    }
+    };
+    
+    handleEmergentCallback();
   }, []);
 
   // Handle Facebook OAuth response
-  const handleFacebookResponse = async (response) => {
+  const handleFacebookLogin = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      // Redirect to Facebook OAuth
+      window.location.href = `${process.env.REACT_APP_BACKEND_URL}/api/auth/facebook/login`;
+      
+    } catch (error) {
+      console.error('Facebook login error:', error);
+      setError('Facebook sign-in failed. Please try again.');
+      setLoading(false);
+    }
+  };
     try {
       setLoading(true);
       setError('');
