@@ -908,6 +908,32 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
               <p className="text-sm font-semibold text-gray-900">${apartment?.price?.toLocaleString()}/month</p>
             </div>
 
+            {/* Direct Contact Options */}
+            <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <h5 className="font-medium text-blue-900 mb-2">Or Contact Us Directly:</h5>
+              <div className="flex flex-col space-y-2 text-sm">
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <a href="tel:646-408-8048" className="text-blue-700 hover:text-blue-800 font-medium">
+                    (646) 408-8048
+                  </a>
+                </div>
+                <div className="flex items-center">
+                  <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <a 
+                    href="mailto:placesfirm@gmail.com?subject=Inquiry about {apartment?.title}&body=Hi, I'm interested in this apartment at {apartment?.address}"
+                    className="text-blue-700 hover:text-blue-800 font-medium"
+                  >
+                    placesfirm@gmail.com
+                  </a>
+                </div>
+              </div>
+            </div>
+
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
