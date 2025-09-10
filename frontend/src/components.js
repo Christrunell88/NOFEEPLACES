@@ -272,8 +272,8 @@ const Hero = () => {
 
   // Hero background images - your uploaded images
   const heroImages = [
-    '/images/hero-image-1.jpg', // Cozy apartment workspace image
-    '/images/hero-image-2.jpg'  // NYC skyline window view image
+    'https://i.imgur.com/VpubAMl.jpg', // Cozy apartment workspace image
+    'https://i.imgur.com/VBLFllY.jpg'  // NYC skyline window view image
   ];
 
   // Auto-advance carousel every 5 seconds
