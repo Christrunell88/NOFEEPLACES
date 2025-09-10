@@ -3407,8 +3407,39 @@ async def delete_saved_search(search_id: str, current_user: User = Depends(get_c
 @api_router.post("/admin/scrape")
 async def trigger_scraping():
     """Trigger apartment scraping (admin only in production)"""
-    count = await scrape_rentals()
-    return {"message": f"Scraping completed. Found {count} new apartments."}
+    
+    # Safety check - prevent accidental scraping in production
+    if not USE_MOCK_DATA:
+        existing_count = await db.apartments.count_documents({})
+        return {
+            "message": "Scraping is disabled (USE_MOCK_DATA=false). No data was modified.",
+            "current_apartment_count": existing_count,
+            "status": "disabled"
+        }
+    
+    # Additional warning for manual data
+    manual_count = await db.apartments.count_documents({
+        "$and": [
+            {"source_url": {"$not": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}}},
+            {"source": {"$exists": True}}
+        ]
+    })
+    
+    logging.warning(f"Manual scraping triggered. {manual_count} manually added apartments will be preserved.")
+    
+    try:
+        count = await scrape_rentals()
+        return {
+            "message": f"Scraping completed. Total apartments: {count}.",
+            "manual_apartments_preserved": manual_count,
+            "status": "success"
+        }
+    except Exception as e:
+        logging.error(f"Scraping failed: {e}")
+        return {
+            "message": f"Scraping failed: {str(e)}",
+            "status": "error"
+        }
 
 # Basic routes
 @api_router.get("/")
