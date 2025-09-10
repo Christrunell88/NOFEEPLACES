@@ -11,14 +11,15 @@ from datetime import datetime, timezone
 import uuid
 
 # Database configuration
-MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017/nofeeplaces_db')
+MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+DB_NAME = os.environ.get('DB_NAME', 'nofeeplaces_database')
 
 async def add_claridges_apartment():
     """Add the Claridge's apartment from manhattanskyline.com"""
     
     # Connect to MongoDB
     client = AsyncIOMotorClient(MONGO_URL)
-    db = client.get_default_database()
+    db = client[DB_NAME]
     
     # Apartment data from the scraped listing
     apartment_data = {
