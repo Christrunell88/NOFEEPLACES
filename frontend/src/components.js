@@ -265,20 +265,34 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   );
 };
 
-// Professional Hero Section
+// Professional Hero Section with Video Background
 const Hero = () => {
   return (
     <section 
       className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.imgur.com/OnhxbRC.jpg')`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="https://i.imgur.com/OnhxbRC.jpg" // Fallback image
+        >
+          <source src="/path/to/your/video.mp4" type="video/mp4" />
+          <source src="/path/to/your/video.webm" type="video/webm" />
+          {/* Fallback for browsers that don't support video */}
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-2xl leading-tight">
