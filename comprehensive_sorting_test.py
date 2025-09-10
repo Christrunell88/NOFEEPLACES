@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://nofee-reborn.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-apartments-1.preview.emergentagent.com/api"
 
 class ComprehensiveSortingTester:
     def __init__(self):

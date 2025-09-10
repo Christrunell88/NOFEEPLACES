@@ -53,7 +53,7 @@ PRESERVE_MANUAL_DATA = os.environ.get('PRESERVE_MANUAL_DATA', 'true').lower() ==
 
 # Social Login Configuration
 EMERGENT_AUTH_ENABLED = os.environ.get('EMERGENT_AUTH_ENABLED', 'true').lower() == 'true'
-EMERGENT_REDIRECT_URL = os.environ.get('EMERGENT_REDIRECT_URL', 'https://nofee-reborn.preview.emergentagent.com/dashboard')
+EMERGENT_REDIRECT_URL = os.environ.get('EMERGENT_REDIRECT_URL', 'https://nofee-apartments-1.preview.emergentagent.com/dashboard')
 FACEBOOK_OAUTH_ENABLED = os.environ.get('FACEBOOK_OAUTH_ENABLED', 'false').lower() == 'true'
 APPLE_OAUTH_ENABLED = os.environ.get('APPLE_OAUTH_ENABLED', 'false').lower() == 'true'
 

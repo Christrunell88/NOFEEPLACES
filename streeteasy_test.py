@@ -6,7 +6,7 @@ StreetEasy Owner-Paid Commission Apartments Backend Integration Testing
 import requests
 import json
 
-BASE_URL = "https://nofee-reborn.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-apartments-1.preview.emergentagent.com/api"
 
 def test_streeteasy_integration():
     """Test StreetEasy Owner-Paid Commission Apartments Integration"""
