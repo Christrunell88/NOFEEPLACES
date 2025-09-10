@@ -267,27 +267,48 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
 
 // Professional Hero Section with Video Background
 const Hero = () => {
+  const [videoError, setVideoError] = useState(false);
+
+  const handleVideoError = () => {
+    setVideoError(true);
+    console.log('Video failed to load, falling back to image background');
+  };
+
   return (
     <section 
       className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
-      {/* Video Background */}
+      {/* Video Background or Image Fallback */}
       <div className="absolute inset-0 w-full h-full">
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="https://i.imgur.com/OnhxbRC.jpg" // Fallback image
-        >
-          <source src="/path/to/your/video.mp4" type="video/mp4" />
-          <source src="/path/to/your/video.webm" type="video/webm" />
-          {/* Fallback for browsers that don't support video */}
-          Your browser does not support the video tag.
-        </video>
+        {!videoError ? (
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="https://i.imgur.com/OnhxbRC.jpg"
+            onError={handleVideoError}
+            preload="metadata"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="/hero-video.webm" type="video/webm" />
+            {/* Fallback for browsers that don't support video */}
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          // Fallback to original image if video fails to load
+          <div 
+            className="absolute inset-0 w-full h-full"
+            style={{
+              backgroundImage: `url('https://i.imgur.com/OnhxbRC.jpg')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          />
+        )}
         
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
