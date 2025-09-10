@@ -2719,7 +2719,10 @@ async def get_apartments(
     skip = (page - 1) * limit
     
     # Use aggregation pipeline to handle priority sorting correctly
-    # Priority apartments first, then non-priority apartments
+    # 1. Priority apartments first (priority field)
+    # 2. Apartments with multiple images (>2 images)  
+    # 3. Featured apartments
+    # 4. Newest apartments
     pipeline = [
         {"$match": query},
         {"$addFields": {
@@ -2731,6 +2734,14 @@ async def get_apartments(
                 }
             },
             "priority_sort": {"$ifNull": ["$priority", 999]},
+            "image_count": {"$size": "$images"},
+            "has_multiple_images": {
+                "$cond": {
+                    "if": {"$gt": [{"$size": "$images"}, 2]},
+                    "then": 1,  # Has multiple images (>2)
+                    "else": 0   # Few images (<=2)
+                }
+            },
             "featured_sort": {
                 "$cond": {
                     "if": {"$eq": ["$featured", True]},
@@ -2740,10 +2751,11 @@ async def get_apartments(
             }
         }},
         {"$sort": {
-            "has_priority": -1,       # 1 (has priority) first, then 0
-            "priority_sort": 1,       # Within priority group: 1, 2, 3...
-            "featured_sort": -1,      # 1 (featured) first, then 0
-            "created_at": -1          # Newest first
+            "has_priority": -1,        # 1 (has priority) first, then 0
+            "priority_sort": 1,        # Within priority group: 1, 2, 3...
+            "has_multiple_images": -1, # 1 (multiple images) first, then 0
+            "featured_sort": -1,       # 1 (featured) first, then 0
+            "created_at": -1           # Newest first
         }},
         {"$skip": skip},
         {"$limit": limit}
