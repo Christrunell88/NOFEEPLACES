@@ -270,10 +270,10 @@ const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [imageError, setImageError] = useState(false);
 
-  // Hero background images - will be updated with your uploaded images
+  // Hero background images - your uploaded images
   const heroImages = [
-    'https://i.imgur.com/OnhxbRC.jpg', // Placeholder - will replace with your first image
-    'https://i.imgur.com/OnhxbRC.jpg'  // Placeholder - will replace with your second image
+    '/images/hero-image-1.jpg', // Cozy apartment workspace image
+    '/images/hero-image-2.jpg'  // NYC skyline window view image
   ];
 
   // Auto-advance carousel every 5 seconds
