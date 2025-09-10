@@ -1921,11 +1921,22 @@ const AuthModal = ({ onClose }) => {
     setLoading(true);
     setError('');
     
-    // Demo Facebook login simulation
+    // Demo Facebook login simulation with SDK-like behavior
     setTimeout(() => {
-      setError('Facebook login demo completed! (This would integrate with Facebook SDK in production)');
-      setLoading(false);
-      setTimeout(() => onClose(), 2000);
+      // Simulate Facebook SDK login flow
+      if (typeof window !== 'undefined' && window.FB) {
+        // In production, this would be: FB.login(handleFacebookResponse, {scope: 'email'});
+        console.log('Facebook SDK initialized - demo login flow');
+      }
+      
+      // Simulate successful Facebook OAuth response
+      handleFacebookResponse({
+        authResponse: {
+          accessToken: 'demo-facebook-token',
+          userID: 'demo-user-id'
+        },
+        status: 'connected'
+      });
     }, 1000);
   };
 
@@ -1933,11 +1944,28 @@ const AuthModal = ({ onClose }) => {
     setLoading(true);
     setError('');
     
-    // Demo Apple login simulation
+    // Demo Apple login simulation with Apple ID-like behavior
     setTimeout(() => {
-      setError('Apple Sign In demo completed! (This would integrate with Apple ID in production)');
-      setLoading(false);
-      setTimeout(() => onClose(), 2000);
+      // Simulate Apple Sign In flow
+      if (typeof window !== 'undefined' && window.AppleID) {
+        // In production, this would be: AppleID.auth.signIn()
+        console.log('Apple Sign In SDK initialized - demo login flow');
+      }
+      
+      // Simulate successful Apple Sign In response
+      handleAppleResponse({
+        authorization: {
+          code: 'demo-apple-code',
+          id_token: 'demo-apple-id-token'
+        },
+        user: {
+          email: 'demo.user@icloud.com',
+          name: {
+            firstName: 'Demo',
+            lastName: 'User'
+          }
+        }
+      });
     }, 1000);
   };
 
