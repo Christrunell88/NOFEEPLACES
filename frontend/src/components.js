@@ -457,6 +457,18 @@ const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount }) => {
 
         {/* Quick Filters - Always Visible - Sleek & Compact */}
         <div className="flex flex-wrap gap-2 items-center">
+          {/* General Search Input */}
+          <div className="flex items-center space-x-2">
+            <label className="text-xs font-medium text-gray-400">Search:</label>
+            <input
+              type="text"
+              placeholder="Search apartments..."
+              value={filters.search_term || ''}
+              onChange={(e) => handleFilterChange('search_term', e.target.value)}
+              className="bg-gray-800 border border-gray-600 rounded-md px-2 py-1.5 text-xs text-gray-200 placeholder-gray-500 focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none w-40"
+            />
+          </div>
+
           <div className="flex items-center space-x-2">
             <label className="text-xs font-medium text-gray-400">Neighborhood:</label>
             <input
