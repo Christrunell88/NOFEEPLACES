@@ -1879,6 +1879,22 @@ const AuthModal = ({ onClose }) => {
     }
   };
 
+  // Handle Apple Sign In
+  const handleAppleLogin = async () => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      // Redirect to Apple OAuth
+      window.location.href = `${process.env.REACT_APP_BACKEND_URL}/api/auth/apple/login`;
+      
+    } catch (error) {
+      console.error('Apple login error:', error);
+      setError('Apple sign-in failed. Please try again.');
+      setLoading(false);
+    }
+  };
+
   // Handle Apple Sign In response
   const handleAppleResponse = async (response) => {
     try {
