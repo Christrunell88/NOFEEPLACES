@@ -1241,7 +1241,35 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               <span className="transition-all duration-300 group-hover:text-blue-400">Call</span>
             </button>
             <button
-              onClick={() => window.open(`mailto:placesfirm@gmail.com?subject=Inquiry about ${apartment.title}&body=Hi, I'm interested in learning more about this apartment: ${apartment.title}%0A%0AProperty Details:%0A- Address: ${apartment.address}%0A- Price: $${apartment.price}%0A- Bedrooms: ${apartment.bedrooms}%0A- Bathrooms: ${apartment.bathrooms}%0A- Square Feet: ${apartment.sqft}%0A%0APlease let me know when I can schedule a viewing.%0A%0AThank you!`, '_self')}
+              onClick={() => {
+                // First try to open mailto link
+                const emailSubject = `Inquiry about ${apartment.title}`;
+                const emailBody = `Hi, I'm interested in learning more about this apartment: ${apartment.title}%0A%0AProperty Details:%0A- Address: ${apartment.address}%0A- Price: $${apartment.price}%0A- Bedrooms: ${apartment.bedrooms}%0A- Bathrooms: ${apartment.bathrooms}%0A- Square Feet: ${apartment.sqft}%0A%0APlease let me know when I can schedule a viewing.%0A%0AThank you!`;
+                const mailtoURL = `mailto:placesfirm@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+                
+                // Try to open mailto link
+                try {
+                  window.open(mailtoURL, '_self');
+                } catch (error) {
+                  console.log('Mailto failed, showing fallback');
+                }
+                
+                // Show fallback after a brief delay to handle cases where mailto doesn't work
+                setTimeout(() => {
+                  const confirmed = window.confirm(
+                    `Email Client Not Available?\n\n` +
+                    `Copy this email address: placesfirm@gmail.com\n\n` +
+                    `Subject: ${apartment.title}\n\n` +
+                    `Or click OK to go to Gmail web interface.`
+                  );
+                  
+                  if (confirmed) {
+                    // Open Gmail compose in new tab as fallback
+                    const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=placesfirm@gmail.com&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody.replace(/%0A/g, '\n'))}`;
+                    window.open(gmailURL, '_blank');
+                  }
+                }, 1000);
+              }}
               className="flex items-center justify-center bg-gray-700 text-gray-300 px-3 py-2 rounded transition-all duration-300 hover:bg-gray-600 hover:text-white hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 text-sm font-medium border border-gray-600 hover:border-gray-500 group"
             >
               <svg className="w-4 h-4 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
