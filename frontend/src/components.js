@@ -3302,7 +3302,7 @@ const FavoritesPage = () => {
                     <div className="flex justify-between items-center pt-4 border-t border-white/10">
                       <div className="flex gap-2">
                         <button
-                          onClick={() => window.open(`tel:${apartment.contact_info?.phone}`, '_self')}
+                          onClick={() => window.open(`tel:646-408-8048`, '_self')}
                           className="bg-gray-700 text-gray-300 px-3 py-2 rounded-lg hover:bg-gray-600 hover:text-white transition-all duration-300 text-xs font-medium border border-gray-600 hover:border-gray-500 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 transform group flex items-center"
                         >
                           <svg className="w-3 h-3 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
