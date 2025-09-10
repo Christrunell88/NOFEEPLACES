@@ -289,23 +289,22 @@ const Hero = () => {
       aria-label="NYC no fee apartments hero section"
     >
       {/* Vimeo Video Background or Image Fallback */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
+      <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ margin: 0, padding: 0 }}>
         {!videoError ? (
-          <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 w-full h-full" style={{ margin: 0, padding: 0 }}>
             <iframe
-              src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0`}
+              src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0&responsive=1`}
               className="absolute"
               style={{
                 position: 'absolute',
-                top: '0',
-                left: '0',
-                width: '100%',
-                height: '100%',
+                top: '-5%',
+                left: '-5%',
+                width: '110%',
+                height: '110%',
                 border: 'none',
                 margin: '0',
                 padding: '0',
-                transform: 'scale(1.1)', // Scale up to eliminate any edge gaps
-                transformOrigin: 'center center'
+                outline: 'none'
               }}
               frameBorder="0"
               allow="autoplay; fullscreen; picture-in-picture"
