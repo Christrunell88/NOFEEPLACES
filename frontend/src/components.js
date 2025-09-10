@@ -2301,12 +2301,8 @@ const ApartmentDetails = ({ apartmentId }) => {
   };
 
   const handleContactAgent = () => {
-    if (apartment?.contact_info?.phone) {
-      // Open phone dialer
-      window.open(`tel:${apartment.contact_info.phone}`, '_self');
-    } else {
-      setShowContactModal(true);
-    }
+    // Always use your phone number
+    window.open(`tel:646-408-8048`, '_self');
   };
 
   const handleScheduleTour = () => {
