@@ -1877,7 +1877,7 @@ const AuthModal = ({ onClose }) => {
       setError('Facebook sign-in failed. Please try again.');
       setLoading(false);
     }
-
+  };
 
   // Handle Apple Sign In response
   const handleAppleResponse = async (response) => {
