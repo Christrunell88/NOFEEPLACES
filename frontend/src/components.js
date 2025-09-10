@@ -1573,7 +1573,8 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
       )}
     } catch (error) {
       console.error('Error fetching available slots:', error);
-      setAvailableSlots([]);
+      // Mock available slots for demo
+      setAvailableSlots(['10:00 AM', '2:00 PM', '4:00 PM', '6:00 PM']);
     } finally {
       setLoading(false);
     }
@@ -1582,8 +1583,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   const handleDateSelect = (day) => {
     if (day.isPast || !day.isCurrentMonth) return;
     setSelectedDate(day.date);
-    setSelectedTime('');
-    setShowBookingForm(false);
+    setSelectedTime(''); // Reset time selection
   };
 
   const handleTimeSelect = (time) => {
@@ -1596,11 +1596,17 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     setLoading(true);
 
     try {
+      const API = process.env.REACT_APP_BACKEND_URL + '/api';
+      
       const appointmentData = {
         apartment_id: apartmentId,
-        appointment_date: selectedDate.toISOString().split('T')[0],
-        appointment_time: selectedTime,
-        ...bookingData
+        date: selectedDate.toISOString().split('T')[0],
+        time: selectedTime,
+        visitor_name: bookingData.visitor_name,
+        visitor_email: bookingData.visitor_email,
+        visitor_phone: bookingData.visitor_phone,
+        notes: bookingData.notes,
+        status: 'scheduled'
       };
 
       const response = await axios.post(`${API}/appointments`, appointmentData);
@@ -1615,26 +1621,16 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
       setShowBookingForm(false);
       setSelectedDate(null);
       setSelectedTime('');
+
+      // Show success message
+      toast && toast.success('Appointment booked successfully!');
       
       if (onBookingComplete) {
         onBookingComplete(response.data);
       }
-
-      // Show success notification
-      if (toast) {
-        toast.success('Appointment scheduled! Calendar invite sent to your email and our agent.');
-      } else {
-        alert('Appointment scheduled! Calendar invite sent to your email and our agent.');
-      }
     } catch (error) {
-      const errorMessage = error.response?.data?.detail || 'Failed to book appointment';
-      
-      // Show error notification
-      if (toast) {
-        toast.error(errorMessage);
-      } else {
-        alert(errorMessage);
-      }
+      console.error('Booking error:', error);
+      toast && toast.error(error.response?.data?.detail || 'Failed to book appointment');
     } finally {
       setLoading(false);
     }
@@ -1643,68 +1639,68 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   const days = getDaysInMonth(currentMonth);
 
   return (
-    <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-lg">
-      <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
-        <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mr-3">
-          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
+      <h3 className="text-lg font-semibold text-gray-200 mb-4 flex items-center">
+        <div className="w-6 h-6 bg-purple-600/20 rounded-lg flex items-center justify-center mr-2">
+          <svg className="w-3 h-3 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
-        Schedule Your Viewing
+        Schedule Viewing
       </h3>
 
-      {/* Modern Calendar Header */}
-      <div className="flex items-center justify-between mb-6">
+      {/* Compact Calendar Header */}
+      <div className="flex items-center justify-between mb-3">
         <button
           onClick={previousMonth}
-          className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+          className="p-1.5 hover:bg-gray-700 rounded-lg transition-colors"
         >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         
-        <h4 className="text-xl font-semibold text-gray-900">
+        <h4 className="text-sm font-medium text-gray-300">
           {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
         </h4>
         
         <button
           onClick={nextMonth}
-          className="p-2 hover:bg-gray-100 rounded-xl transition-colors"
+          className="p-1.5 hover:bg-gray-700 rounded-lg transition-colors"
         >
-          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
       </div>
 
-      {/* Week Day Headers */}
+      {/* Compact Week Day Headers */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {weekDays.map(day => (
-          <div key={day} className="text-center py-2 text-sm font-medium text-gray-500">
+          <div key={day} className="text-center py-1 text-xs font-medium text-gray-500">
             {day}
           </div>
         ))}
       </div>
 
-      {/* Modern Calendar Grid */}
-      <div className="grid grid-cols-7 gap-1 mb-6">
+      {/* Compact Calendar Grid */}
+      <div className="grid grid-cols-7 gap-1 mb-4">
         {days.map((day, index) => (
           <button
             key={index}
             onClick={() => handleDateSelect(day)}
             disabled={day.isPast || !day.isCurrentMonth}
             className={`
-              h-12 w-full text-sm rounded-xl transition-all duration-200 hover:scale-105
+              h-8 w-full text-xs rounded-md transition-all duration-200
               ${day.isCurrentMonth 
                 ? day.isPast
-                  ? 'text-gray-300 cursor-not-allowed'
+                  ? 'text-gray-600 cursor-not-allowed'
                   : day.isSelected
-                    ? 'bg-blue-600 text-white shadow-lg transform scale-105'
+                    ? 'bg-purple-600 text-white shadow-lg'
                     : day.isToday
-                      ? 'bg-blue-100 text-blue-800 font-bold hover:bg-blue-200'
-                      : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-                : 'text-gray-300'
+                      ? 'bg-purple-600/20 text-purple-400 font-bold hover:bg-purple-600/30'
+                      : 'text-gray-400 hover:bg-gray-700 hover:text-gray-200'
+                : 'text-gray-600'
               }
             `}
           >
@@ -1713,40 +1709,39 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
         ))}
       </div>
 
-      {/* Selected Date Display */}
+      {/* Selected Date Display - Compact */}
       {selectedDate && (
-        <div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-          <p className="text-blue-800 font-medium text-center">
-            Selected: {selectedDate.toLocaleDateString('en-US', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
+        <div className="mb-3 p-2 bg-purple-600/10 rounded-lg border border-purple-600/20">
+          <p className="text-purple-400 text-xs text-center font-medium">
+            {selectedDate.toLocaleDateString('en-US', { 
+              weekday: 'short', 
+              month: 'short', 
               day: 'numeric' 
             })}
           </p>
         </div>
       )}
 
-      {/* Time Selection */}
+      {/* Compact Time Selection */}
       {selectedDate && (
-        <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-700 mb-3">Available Times</label>
+        <div className="mb-4">
+          <label className="block text-xs font-medium text-gray-400 mb-2">Available Times</label>
           {loading ? (
-            <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-2 text-gray-600">Loading available times...</span>
+            <div className="flex items-center justify-center py-4">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-600"></div>
+              <span className="ml-2 text-gray-400 text-xs">Loading...</span>
             </div>
           ) : availableSlots.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {availableSlots.map(slot => (
                 <button
                   key={slot}
                   onClick={() => handleTimeSelect(slot)}
                   className={`
-                    py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200
+                    py-2 px-3 rounded-lg text-xs font-medium transition-all duration-200
                     ${selectedTime === slot
-                      ? 'bg-blue-600 text-white shadow-lg transform scale-105'
-                      : 'bg-gray-50 text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover:scale-105'
+                      ? 'bg-purple-600 text-white shadow-lg'
+                      : 'bg-gray-700 text-gray-300 hover:bg-gray-600 hover:text-white'
                     }
                   `}
                 >
@@ -1755,83 +1750,74 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500">
-              <svg className="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              No available slots for this date
+            <div className="text-center py-4 text-gray-500">
+              <div className="text-xs">No slots available</div>
             </div>
           )}
         </div>
       )}
 
-      {/* Modern Booking Form */}
+      {/* Compact Booking Form */}
       {showBookingForm && (
-        <div className="border-t border-gray-200 pt-6">
-          <h4 className="text-lg font-semibold text-gray-900 mb-4">Booking Details</h4>
-          <form onSubmit={handleBookingSubmit} className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  required
-                  value={bookingData.visitor_name}
-                  onChange={(e) => setBookingData({...bookingData, visitor_name: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="Enter your full name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                <input
-                  type="email"
-                  required
-                  value={bookingData.visitor_email}
-                  onChange={(e) => setBookingData({...bookingData, visitor_email: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="Enter your email"
-                />
-              </div>
+        <div className="border-t border-gray-700 pt-4">
+          <h4 className="text-sm font-medium text-gray-300 mb-3">Contact Details</h4>
+          <form onSubmit={handleBookingSubmit} className="space-y-3">
+            <div>
+              <input
+                type="text"
+                required
+                value={bookingData.visitor_name}
+                onChange={(e) => setBookingData({...bookingData, visitor_name: e.target.value})}
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm"
+                placeholder="Your full name"
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-3">
+              <input
+                type="email"
+                required
+                value={bookingData.visitor_email}
+                onChange={(e) => setBookingData({...bookingData, visitor_email: e.target.value})}
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm"
+                placeholder="Your email"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
               <input
                 type="tel"
                 required
                 value={bookingData.visitor_phone}
                 onChange={(e) => setBookingData({...bookingData, visitor_phone: e.target.value})}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                placeholder="Enter your phone number"
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-sm"
+                placeholder="Your phone"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Notes (Optional)</label>
               <textarea
                 value={bookingData.notes}
                 onChange={(e) => setBookingData({...bookingData, notes: e.target.value})}
-                rows={3}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
-                placeholder="Any specific requirements or questions..."
+                rows={2}
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors resize-none text-sm"
+                placeholder="Any notes (optional)"
               />
             </div>
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-2 pt-2">
               <button
                 type="submit"
                 disabled={loading}
-                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg"
+                className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
               >
                 {loading ? (
                   <span className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                     Booking...
                   </span>
-                ) : 'Confirm Booking'}
+                ) : 'Book Tour'}
               </button>
               <button
                 type="button"
                 onClick={() => setShowBookingForm(false)}
-                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 border border-gray-600 text-gray-400 rounded-lg font-medium hover:bg-gray-700 transition-colors text-sm"
               >
                 Cancel
               </button>
