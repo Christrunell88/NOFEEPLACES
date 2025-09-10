@@ -3446,6 +3446,41 @@ async def trigger_scraping():
 async def root():
     return {"message": "NoFeePlaces.com API - Your no-fee apartment finder"}
 
+@api_router.get("/admin/status")
+async def get_admin_status():
+    """Get current system configuration and data status"""
+    apartment_count = await db.apartments.count_documents({})
+    
+    # Count manually added apartments
+    manual_count = await db.apartments.count_documents({
+        "$and": [
+            {"source_url": {"$not": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}}},
+            {"source": {"$exists": True}}
+        ]
+    })
+    
+    # Count mock/scraped apartments
+    mock_count = await db.apartments.count_documents({
+        "$or": [
+            {"source_url": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}},
+            {"source_url": {"$exists": False}, "source": {"$exists": False}}
+        ]
+    })
+    
+    return {
+        "configuration": {
+            "use_mock_data": USE_MOCK_DATA,
+            "enable_auto_scraping": ENABLE_AUTO_SCRAPING,
+            "preserve_manual_data": PRESERVE_MANUAL_DATA
+        },
+        "data_status": {
+            "total_apartments": apartment_count,
+            "manual_apartments": manual_count,
+            "mock_apartments": mock_count
+        },
+        "safety_status": "Data is protected" if not USE_MOCK_DATA else "Mock data enabled - scraping will modify database"
+    }
+
 @api_router.get("/health")
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow()}
