@@ -2718,16 +2718,30 @@ async def get_apartments(
     # Calculate skip for pagination
     skip = (page - 1) * limit
     
-    # Execute query with newest listings first
-    apartments_cursor = db.apartments.find(query).skip(skip).limit(limit)
+    # Use aggregation pipeline to handle priority sorting correctly
+    # Apartments with priority get sorted first (ascending: 1,2,3...)
+    # Then apartments without priority (null) sorted by featured and created_at
+    pipeline = [
+        {"$match": query},
+        {"$addFields": {
+            "priority_order": {
+                "$cond": {
+                    "if": {"$ne": ["$priority", None]},
+                    "then": "$priority",
+                    "else": 999  # Put null priorities last
+                }
+            }
+        }},
+        {"$sort": {
+            "priority_order": 1,      # Priority 1 = highest (ascending: 1, 2, 3, 999...)
+            "featured": -1,           # Featured apartments first
+            "created_at": -1          # Newest apartments first
+        }},
+        {"$skip": skip},
+        {"$limit": limit}
+    ]
     
-    # Sort by priority first (if exists), then creation date descending (newest first)
-    apartments_cursor = apartments_cursor.sort([
-        ("priority", 1),        # Priority 1 = highest priority (ascending: 1, 2, 3...)
-        ("featured", -1),       # Featured apartments first
-        ("created_at", -1)      # Newest apartments first
-    ])
-    
+    apartments_cursor = db.apartments.aggregate(pipeline)
     apartments = await apartments_cursor.to_list(length=limit)
     
     return [Apartment(**apt) for apt in apartments]
