@@ -3321,12 +3321,12 @@ const FavoritesPage = () => {
                       <div className="flex gap-2">
                         <button
                           onClick={() => window.open(`tel:${apartment.contact_info?.phone}`, '_self')}
-                          className="bg-green-600 text-white px-3 py-2 rounded-lg hover:bg-green-500 transition-colors text-xs font-medium hover-lift flex items-center"
+                          className="bg-gray-700 text-gray-300 px-3 py-2 rounded-lg hover:bg-gray-600 hover:text-white transition-all duration-300 text-xs font-medium border border-gray-600 hover:border-gray-500 hover:shadow-lg hover:shadow-blue-500/30 hover:scale-105 transform group flex items-center"
                         >
-                          <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-3 h-3 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                           </svg>
-                          Call
+                          <span className="transition-all duration-300 group-hover:text-blue-400">Call</span>
                         </button>
                         <button
                           onClick={() => navigate(`/apartment/${apartment.id}`)}
