@@ -289,17 +289,18 @@ const Hero = () => {
           <div className="absolute inset-0 w-full h-full">
             <iframe
               src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0`}
-              className="absolute w-full h-full"
+              className="absolute"
               style={{
                 position: 'absolute',
-                top: '50%',
-                left: '50%',
-                width: '100vw',
-                height: '100vh',
-                minWidth: '100%',
-                minHeight: '100%',
-                transform: 'translate(-50%, -50%) scale(1.02)', // Slight scale to remove any edge gaps
-                objectFit: 'cover'
+                top: '0',
+                left: '0',
+                width: '100%',
+                height: '100%',
+                border: 'none',
+                margin: '0',
+                padding: '0',
+                transform: 'scale(1.1)', // Scale up to eliminate any edge gaps
+                transformOrigin: 'center center'
               }}
               frameBorder="0"
               allow="autoplay; fullscreen; picture-in-picture"
