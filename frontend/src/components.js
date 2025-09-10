@@ -1745,26 +1745,69 @@ const AuthModal = ({ onClose }) => {
   const [error, setError] = useState('');
   const { login, register } = useAuth();
 
-  // Social login handlers (these would integrate with actual OAuth providers)
+  // Initialize Google Sign-In when component mounts
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.google) {
+      window.google.accounts.id.initialize({
+        client_id: "your-google-client-id", // Replace with actual client ID
+        callback: handleGoogleResponse,
+        auto_select: false,
+        cancel_on_tap_outside: false
+      });
+    }
+  }, []);
+
+  // Handle Google OAuth response
+  const handleGoogleResponse = async (response) => {
+    try {
+      setLoading(true);
+      setError('');
+      
+      // Decode the JWT token to get user info
+      const decoded = JSON.parse(atob(response.credential.split('.')[1]));
+      
+      // For now, we'll simulate a successful login with Google data
+      // In a real implementation, you'd send this to your backend
+      const result = await register(decoded.email, 'google-oauth', decoded.name);
+      
+      if (result.success) {
+        onClose();
+      } else {
+        // Try login if register fails (user might already exist)
+        const loginResult = await login(decoded.email, 'google-oauth');
+        if (loginResult.success) {
+          onClose();
+        } else {
+          setError('Authentication failed. Please try again.');
+        }
+      }
+    } catch (error) {
+      console.error('Google Sign-In error:', error);
+      setError('Google Sign-In failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Social login handlers
   const handleGoogleLogin = () => {
-    // Placeholder for Google OAuth integration
-    console.log('Google login clicked');
-    // In a real implementation, this would redirect to Google OAuth
-    alert('Google login integration would be implemented here');
+    if (typeof window !== 'undefined' && window.google) {
+      window.google.accounts.id.prompt(); // Show Google One Tap
+    } else {
+      setError('Google Sign-In is not available. Please try again later.');
+    }
   };
 
   const handleFacebookLogin = () => {
-    // Placeholder for Facebook OAuth integration
+    // Facebook SDK integration would go here
     console.log('Facebook login clicked');
-    // In a real implementation, this would redirect to Facebook OAuth
-    alert('Facebook login integration would be implemented here');
+    setError('Facebook login is not yet implemented. Coming soon!');
   };
 
   const handleAppleLogin = () => {
-    // Placeholder for Apple Sign In integration
+    // Apple Sign In integration would go here
     console.log('Apple login clicked');
-    // In a real implementation, this would redirect to Apple Sign In
-    alert('Apple Sign In integration would be implemented here');
+    setError('Apple Sign In is not yet implemented. Coming soon!');
   };
 
   const handleSubmit = async (e) => {
