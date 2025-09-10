@@ -46,6 +46,11 @@ EMAIL_USER = os.environ.get('EMAIL_USER', 'placesfirm@gmail.com')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
 
+# Data Management Configuration
+USE_MOCK_DATA = os.environ.get('USE_MOCK_DATA', 'false').lower() == 'true'
+ENABLE_AUTO_SCRAPING = os.environ.get('ENABLE_AUTO_SCRAPING', 'false').lower() == 'true'
+PRESERVE_MANUAL_DATA = os.environ.get('PRESERVE_MANUAL_DATA', 'true').lower() == 'true'
+
 app = FastAPI(title="NoFeePlaces.com API", version="1.0.0")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer()
