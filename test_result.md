@@ -461,6 +461,18 @@ backend:
           comment: "SEARCH FUNCTIONALITY COMPREHENSIVE TESTING COMPLETED: Performed thorough testing of search_term parameter functionality with 100% success rate (33/33 tests passed). GENERAL SEARCH ENDPOINT VERIFIED: GET /api/apartments with search_term parameter working perfectly for all test keywords - 'luxury', 'studio', 'manhattan', 'bedroom' all return relevant results with proper field matching. SEARCH TERM COVERAGE EXCELLENT: Confirmed search functionality covers all required fields - title, description, neighborhood, address, location, source, and source_url. Field-specific analysis shows: bedroom (description matches), luxury (title + description), studio (title + description), manhattan (title + description + address + source_url), chelsea (title + description + neighborhood + source_url), waterline (title + description + source_url). COMBINED FILTERS WORKING PERFECTLY: All combinations tested successfully - search_term + bedrooms, search_term + price ranges, search_term + neighborhood, search_term + borough, search_term + sqft filters all work correctly with 100% accuracy. CASE SENSITIVITY CONFIRMED: Search is properly case-insensitive - all variations (bedroom/BEDROOM/Bedroom/BeDrOoM, luxury/LUXURY/Luxury/LuXuRy, manhattan/MANHATTAN/Manhattan/MaNhAtTaN, studio/STUDIO/Studio/StUdIo) return identical results. REGEX/PARTIAL MATCHING VERIFIED: Partial matches work correctly - 'bed' matches 'bedroom', 'lux' matches 'luxury', 'man' matches 'manhattan', 'stud' matches 'studio', 'chel' matches 'chelsea'. NO RESULTS HANDLING PROPER: Invalid search terms (xyzzyx123, mars_apartment, unicorn_penthouse, qwertyuiop, antarctica_luxury) correctly return 0 results. EMPTY SEARCH HANDLING: Empty string and whitespace-only search terms handled appropriately. PERFORMANCE EXCELLENT: All 33 tests completed in 17.78 seconds with consistent response times. CONCLUSION: Search functionality is working flawlessly across all test scenarios with comprehensive field coverage, proper case handling, partial matching, combined filtering, and appropriate edge case handling."
 
 frontend:
+  - task: "CalendarBooking Component Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "CALENDARBOOKING COMPONENT TESTING INITIATED: User reported critical issue - 'Calendar is not allowing me to enter my name; make it more compact too'. Need to test: (1) Compact design verification - smaller headers, reduced padding, efficient space usage, (2) Name input issue resolution - CRITICAL test that users can type in 'Your full name' field, (3) Full booking flow - date selection, time selection, form completion, (4) Form field validation - name, email, phone, notes fields, (5) UI/UX verification - calendar size, dark theme styling, responsive behavior, input field styling, (6) Navigation testing - month navigation, date selection, time selection, form submission. Component located at lines 1239-1576 in components.js file."
+
   - task: "Search Functionality Comprehensive Testing"
     implemented: true
     working: true
