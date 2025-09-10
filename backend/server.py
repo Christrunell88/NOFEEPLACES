@@ -3497,7 +3497,7 @@ app.include_router(api_router)
 # Include social authentication router
 try:
     from social_routes import social_router
-    app.include_router(social_router)
+    app.include_router(social_router, prefix="/api")
     logging.info("Social authentication routes loaded successfully")
 except ImportError as e:
     logging.warning(f"Social authentication routes not available: {e}")
