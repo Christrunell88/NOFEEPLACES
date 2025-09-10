@@ -2719,9 +2719,11 @@ async def get_apartments(
     # Execute query with newest listings first
     apartments_cursor = db.apartments.find(query).skip(skip).limit(limit)
     
-    # Sort by creation date descending (newest first)
+    # Sort by priority first (if exists), then creation date descending (newest first)
     apartments_cursor = apartments_cursor.sort([
-        ("created_at", -1)  # Newest apartments first
+        ("priority", 1),        # Priority 1 = highest priority (ascending: 1, 2, 3...)
+        ("featured", -1),       # Featured apartments first
+        ("created_at", -1)      # Newest apartments first
     ])
     
     apartments = await apartments_cursor.to_list(length=limit)
