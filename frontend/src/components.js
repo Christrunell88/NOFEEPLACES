@@ -2480,7 +2480,7 @@ const ApartmentDetails = ({ apartmentId }) => {
                     {/* Quick Actions */}
                     <div className="flex items-center justify-center space-x-6 pt-2">
                       <button 
-                        onClick={() => window.open(`sms:${apartment.contact_info?.phone}`, '_self')}
+                        onClick={() => window.open(`sms:646-408-8048`, '_self')}
                         className="flex items-center text-gray-600 hover:text-blue-600 transition-colors"
                       >
                         <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
