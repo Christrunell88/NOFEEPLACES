@@ -1956,68 +1956,7 @@ const AuthModal = ({ onClose }) => {
     }
   };
 
-  // Social login handlers
-  const handleGoogleLogin = () => {
-    setLoading(true);
-    setError('');
-    
-    // For demo purposes, simulate Google OAuth flow
-    setTimeout(() => {
-      handleGoogleResponse({ credential: 'demo-jwt-token' });
-    }, 1000);
-  };
 
-  const handleFacebookLogin = () => {
-    setLoading(true);
-    setError('');
-    
-    // Demo Facebook login simulation with SDK-like behavior
-    setTimeout(() => {
-      // Simulate Facebook SDK login flow
-      if (typeof window !== 'undefined' && window.FB) {
-        // In production, this would be: FB.login(handleFacebookResponse, {scope: 'email'});
-        console.log('Facebook SDK initialized - demo login flow');
-      }
-      
-      // Simulate successful Facebook OAuth response
-      handleFacebookResponse({
-        authResponse: {
-          accessToken: 'demo-facebook-token',
-          userID: 'demo-user-id'
-        },
-        status: 'connected'
-      });
-    }, 1000);
-  };
-
-  const handleAppleLogin = () => {
-    setLoading(true);
-    setError('');
-    
-    // Demo Apple login simulation with Apple ID-like behavior
-    setTimeout(() => {
-      // Simulate Apple Sign In flow
-      if (typeof window !== 'undefined' && window.AppleID) {
-        // In production, this would be: AppleID.auth.signIn()
-        console.log('Apple Sign In SDK initialized - demo login flow');
-      }
-      
-      // Simulate successful Apple Sign In response
-      handleAppleResponse({
-        authorization: {
-          code: 'demo-apple-code',
-          id_token: 'demo-apple-id-token'
-        },
-        user: {
-          email: 'demo.user@icloud.com',
-          name: {
-            firstName: 'Demo',
-            lastName: 'User'
-          }
-        }
-      });
-    }, 1000);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
