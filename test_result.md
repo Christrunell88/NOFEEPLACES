@@ -461,6 +461,18 @@ backend:
           comment: "SEARCH FUNCTIONALITY COMPREHENSIVE TESTING COMPLETED: Performed thorough testing of search_term parameter functionality with 100% success rate (33/33 tests passed). GENERAL SEARCH ENDPOINT VERIFIED: GET /api/apartments with search_term parameter working perfectly for all test keywords - 'luxury', 'studio', 'manhattan', 'bedroom' all return relevant results with proper field matching. SEARCH TERM COVERAGE EXCELLENT: Confirmed search functionality covers all required fields - title, description, neighborhood, address, location, source, and source_url. Field-specific analysis shows: bedroom (description matches), luxury (title + description), studio (title + description), manhattan (title + description + address + source_url), chelsea (title + description + neighborhood + source_url), waterline (title + description + source_url). COMBINED FILTERS WORKING PERFECTLY: All combinations tested successfully - search_term + bedrooms, search_term + price ranges, search_term + neighborhood, search_term + borough, search_term + sqft filters all work correctly with 100% accuracy. CASE SENSITIVITY CONFIRMED: Search is properly case-insensitive - all variations (bedroom/BEDROOM/Bedroom/BeDrOoM, luxury/LUXURY/Luxury/LuXuRy, manhattan/MANHATTAN/Manhattan/MaNhAtTaN, studio/STUDIO/Studio/StUdIo) return identical results. REGEX/PARTIAL MATCHING VERIFIED: Partial matches work correctly - 'bed' matches 'bedroom', 'lux' matches 'luxury', 'man' matches 'manhattan', 'stud' matches 'studio', 'chel' matches 'chelsea'. NO RESULTS HANDLING PROPER: Invalid search terms (xyzzyx123, mars_apartment, unicorn_penthouse, qwertyuiop, antarctica_luxury) correctly return 0 results. EMPTY SEARCH HANDLING: Empty string and whitespace-only search terms handled appropriately. PERFORMANCE EXCELLENT: All 33 tests completed in 17.78 seconds with consistent response times. CONCLUSION: Search functionality is working flawlessly across all test scenarios with comprehensive field coverage, proper case handling, partial matching, combined filtering, and appropriate edge case handling."
 
 frontend:
+  - task: "Email Button Duplication Fix Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "EMAIL BUTTON DUPLICATION FIX TESTING INITIATED: User reported critical issues - 'There are now two email buttons on the listing card; the top one does not work delete it; once i press email button it stays open, allow it to close if user clicks elsewhere'. Need to test: (1) Button Count Verification - each apartment card should have exactly ONE email button (not two), (2) Email Button Functionality - remaining email button works properly and opens email client, (3) Visual Layout - apartment cards look clean without duplicate buttons, (4) Email Modal Close Functionality - click outside to close, escape key close, close button functionality, (5) Apartment Card Layout - exactly 2 buttons (Call + Email), (6) Contact Information - verify all contact info uses user's phone (646-408-8048) and email (placesfirm@gmail.com), (7) User Experience Testing - email button opens default email client with pre-filled content, call button functionality, mobile responsiveness. Component located at lines 1069-1264 in components.js file."
+
   - task: "CalendarBooking Component Testing"
     implemented: true
     working: true
