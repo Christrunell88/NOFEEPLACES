@@ -279,22 +279,27 @@ const Hero = () => {
   
   return (
     <section 
-      className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
+      className="relative py-20 md:py-32 lg:py-40"
       style={{
         width: '100vw',
         marginLeft: 'calc(-50vw + 50%)',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
       }}
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
-      {/* Vimeo Video Background or Image Fallback */}
+      {/* Video Background Container - NO container class here */}
       <div 
-        className="absolute inset-0"
         style={{
-          width: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100vw',
           height: '100%',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          zIndex: 0
         }}
       >
         {!videoError ? (
@@ -321,19 +326,35 @@ const Hero = () => {
         ) : (
           // Fallback to original image if video fails to load
           <div 
-            className="absolute inset-0 w-full h-full"
             style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
               backgroundImage: `url('https://i.imgur.com/OnhxbRC.jpg')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
             }}
           />
         )}
-        
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </div>
 
+      {/* Dark overlay for text readability */}
+      <div 
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+          zIndex: 1
+        }}
+      ></div>
+
+      {/* Text Content Container - container class ONLY here */}
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 drop-shadow-2xl leading-tight">
