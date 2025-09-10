@@ -2726,7 +2726,10 @@ async def get_apartments(
         {"$addFields": {
             "priority_order": {
                 "$cond": {
-                    "if": {"$ne": ["$priority", None]},
+                    "if": {"$and": [
+                        {"$ne": ["$priority", None]},
+                        {"$ne": ["$priority", "$missing"]}
+                    ]},
                     "then": "$priority",
                     "else": 999  # Put null priorities last
                 }
@@ -2734,7 +2737,7 @@ async def get_apartments(
         }},
         {"$sort": {
             "priority_order": 1,      # Priority 1 = highest (ascending: 1, 2, 3, 999...)
-            "featured": -1,           # Featured apartments first
+            "featured": -1,           # Featured apartments first  
             "created_at": -1          # Newest apartments first
         }},
         {"$skip": skip},
