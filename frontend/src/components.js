@@ -265,18 +265,45 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   );
 };
 
-// Professional Hero Section with Vimeo Video Background
+// Professional Hero Section with Image Carousel Background
 const Hero = () => {
-  const [videoError, setVideoError] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
 
-  const handleVideoError = () => {
-    setVideoError(true);
-    console.log('Video failed to load, falling back to image background');
+  // Hero background images - will be updated with your uploaded images
+  const heroImages = [
+    'https://i.imgur.com/OnhxbRC.jpg', // Placeholder - will replace with your first image
+    'https://i.imgur.com/OnhxbRC.jpg'  // Placeholder - will replace with your second image
+  ];
+
+  // Auto-advance carousel every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => 
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
+  const handleImageError = () => {
+    setImageError(true);
+    console.log('Image failed to load, using fallback');
   };
 
-  // Vimeo video ID extracted from the URL
-  const vimeoVideoId = "1117501540";
-  
+  const goToImage = (index) => {
+    setCurrentImageIndex(index);
+  };
+
+  const goToPrevious = () => {
+    setCurrentImageIndex(currentImageIndex === 0 ? heroImages.length - 1 : currentImageIndex - 1);
+  };
+
+  const goToNext = () => {
+    setCurrentImageIndex(currentImageIndex === heroImages.length - 1 ? 0 : currentImageIndex + 1);
+  };
+
   return (
     <section 
       className="relative py-20 md:py-32 lg:py-40"
@@ -289,7 +316,7 @@ const Hero = () => {
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
-      {/* Video Background Container - NO container class here */}
+      {/* Image Carousel Background Container - NO container class here */}
       <div 
         style={{
           position: 'absolute',
@@ -302,42 +329,64 @@ const Hero = () => {
           zIndex: 0
         }}
       >
-        {!videoError ? (
-          <iframe
-            src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0&quality=720p`}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '100vw',
-              height: '56.25vw',
-              minHeight: '100vh',
-              minWidth: '177.78vh',
-              transform: 'translate(-50%, -50%)',
-              border: 'none',
-              pointerEvents: 'none'
-            }}
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            onError={handleVideoError}
-            title="Hero Background Video"
-          ></iframe>
-        ) : (
-          // Fallback to original image if video fails to load
-          <div 
+        {/* Background Images */}
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
               width: '100%',
               height: '100%',
-              backgroundImage: `url('https://i.imgur.com/OnhxbRC.jpg')`,
+              backgroundImage: `url('${image}')`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center'
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              opacity: index === currentImageIndex ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
+              zIndex: index === currentImageIndex ? 1 : 0
             }}
+            onError={handleImageError}
           />
-        )}
+        ))}
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+          aria-label="Previous image"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={goToNext}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 hover:scale-110"
+          aria-label="Next image"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Carousel Indicators */}
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-30">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToImage(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentImageIndex
+                  ? 'bg-white shadow-lg scale-125'
+                  : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Dark overlay for text readability */}
@@ -350,7 +399,7 @@ const Hero = () => {
           width: '100%',
           height: '100%',
           backgroundColor: 'rgba(0, 0, 0, 0.4)',
-          zIndex: 1
+          zIndex: 2
         }}
       ></div>
 
