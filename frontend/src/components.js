@@ -2455,7 +2455,7 @@ const ApartmentDetails = ({ apartmentId }) => {
                     <div className="grid grid-cols-2 gap-3">
                       {/* Email Button */}
                       <button 
-                        onClick={handleEmailContact}
+                        onClick={() => window.open(`mailto:placesfirm@gmail.com?subject=Inquiry about ${apartment?.title || 'Apartment'}&body=Hi, I'm interested in learning more about this apartment.%0A%0AProperty: ${apartment?.title || 'N/A'}%0A%0APlease contact me to schedule a viewing.%0A%0AThank you!`, '_self')}
                         className="flex items-center justify-center bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white py-3 px-4 rounded-lg font-medium border border-gray-600 hover:border-gray-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 group"
                       >
                         <svg className="w-4 h-4 mr-2 transition-all duration-300 group-hover:scale-110 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
