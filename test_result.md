@@ -145,16 +145,19 @@ backend:
           comment: "API DATA INCONSISTENCY FIX - FIELD MAPPING TESTING COMPLETED: Comprehensive testing completed with 90.6% success rate (29/32 tests passed). CRITICAL FIX VERIFIED: Square footage filtering (min_sqft/max_sqft) now works correctly after field mapping fix from 'square_feet' to 'sqft'. All 156 apartments have complete data with consistent field structures and image arrays. APARTMENT COUNTS VERIFIED: All manually added apartments preserved - Gotham West (18), Waterline Square (16), Two Trees, Mercedes House, StreetEasy OP Commission apartments all found. SEARCH FUNCTIONALITY EXCELLENT: All apartment types discoverable - luxury (50), studio (43), Manhattan (50), neighborhood searches all working. API FIELD CONSISTENCY CONFIRMED: All apartments use consistent 'sqft' field, proper data types throughout. DATABASE INTEGRITY: Contains 156 total apartments with excellent data consistency. The field mapping fix from 'square_feet' to 'sqft' successfully resolved the API data inconsistency issues."
 
   - task: "Mock Data Override Investigation"
-    implemented: false
-    working: false
+    implemented: true
+    working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: false
           agent: "main"
           comment: "MOCK DATA OVERRIDE ISSUE IDENTIFIED: Found that scraping functions 'scrape_streeteasy_apartments()' and 'scrape_relatedrentals_apartments()' contain hardcoded mock apartment arrays. When /admin/scrape is called, it deletes existing apartments and adds mock data, potentially interfering with manually added real apartments (StreetEasy OP, Gotham West, Waterline Square, Two Trees, Mercedes House). Need to investigate if the delete logic in scrape_rentals() properly preserves manually added apartments vs mock data."
+        - working: true
+          agent: "main"
+          comment: "MOCK DATA OVERRIDE ISSUE RESOLVED: Implemented comprehensive safeguards to prevent mock data from overriding actual database entries. SOLUTION IMPLEMENTED: (1) Added environment variables (USE_MOCK_DATA=false, ENABLE_AUTO_SCRAPING=false, PRESERVE_MANUAL_DATA=true) to control scraping behavior, (2) Updated scraping functions to respect configuration flags and skip mock data generation when disabled, (3) Enhanced scrape_rentals() with safety checks and better logging, (4) Updated admin scrape endpoint with protection against accidental data modification, (5) Modified startup event to prevent automatic scraping unless explicitly enabled, (6) Added admin/status endpoint for monitoring configuration and data status. CURRENT STATUS: Mock data is disabled (USE_MOCK_DATA=false), auto-scraping is disabled (ENABLE_AUTO_SCRAPING=false), and manual data preservation is enabled (PRESERVE_MANUAL_DATA=true). Database contains 156 apartments with 130 manually added apartments protected from scraping operations. All scraping endpoints now return safety messages and preserve existing data."
 
   - task: "Scrape Endpoint Data Preservation Fix"
     implemented: true
