@@ -38,43 +38,48 @@ async def debug_priority():
         print(f"    Created: {apt.get('created_at', 'None')}")
         print()
     
-    print("🔍 Testing NEW aggregation pipeline...")
+    print("🔍 Examining Claridge's apartment directly...")
     print("=" * 60)
     
-    # Test the NEW aggregation pipeline
-    pipeline = [
-        {"$addFields": {
-            "has_priority": {"$ifNull": ["$priority", False]},
-            "priority_sort": {"$ifNull": ["$priority", 999]},
-            "featured_sort": {"$ifNull": ["$featured", False]}
-        }},
-        {"$sort": {
-            "has_priority": -1,       # True (has priority) first, then False
-            "priority_sort": 1,       # Within priority group: 1, 2, 3...
-            "featured_sort": -1,      # Featured first
-            "created_at": -1          # Newest first
-        }},
-        {"$limit": 5},
-        {"$project": {
-            "title": 1,
-            "priority": 1,
-            "featured": 1,
-            "has_priority": 1,
-            "priority_sort": 1,
-            "featured_sort": 1,
-            "created_at": 1
-        }}
-    ]
+    # Find the Claridge's apartment directly
+    claridges = await db.apartments.find_one({"title": {"$regex": "Claridge", "$options": "i"}})
     
-    results = await db.apartments.aggregate(pipeline).to_list(length=5)
-    
-    print(f"📊 Top 5 apartments with NEW aggregation:")
-    for i, apt in enumerate(results, 1):
-        print(f"  {i}. {apt['title'][:50]}...")
-        print(f"     Priority: {apt.get('priority', 'None')} (has: {apt.get('has_priority', 'None')}, sort: {apt.get('priority_sort', 'None')})")
-        print(f"     Featured: {apt.get('featured', 'None')} (sort: {apt.get('featured_sort', 'None')})")
-        print(f"     Created: {apt.get('created_at', 'None')}")
-        print()
+    if claridges:
+        print("✅ Found Claridge's apartment:")
+        print(f"   Title: {claridges['title']}")
+        print(f"   Priority: {claridges.get('priority')} (type: {type(claridges.get('priority'))})")
+        print(f"   Featured: {claridges.get('featured')} (type: {type(claridges.get('featured'))})")
+        print(f"   Created: {claridges.get('created_at')}")
+        
+        # Test aggregation with just this one apartment
+        test_pipeline = [
+            {"$match": {"title": {"$regex": "Claridge", "$options": "i"}}},
+            {"$addFields": {
+                "has_priority": {"$ifNull": ["$priority", False]},
+                "priority_sort": {"$ifNull": ["$priority", 999]},
+                "featured_sort": {"$ifNull": ["$featured", False]}
+            }},
+            {"$project": {
+                "title": 1,
+                "priority": 1,
+                "featured": 1,
+                "has_priority": 1,
+                "priority_sort": 1,
+                "featured_sort": 1
+            }}
+        ]
+        
+        test_result = await db.apartments.aggregate(test_pipeline).to_list(length=1)
+        if test_result:
+            result = test_result[0]
+            print(f"\n🧪 Aggregation test result:")
+            print(f"   has_priority: {result.get('has_priority')} (type: {type(result.get('has_priority'))})")
+            print(f"   priority_sort: {result.get('priority_sort')} (type: {type(result.get('priority_sort'))})")
+            print(f"   featured_sort: {result.get('featured_sort')} (type: {type(result.get('featured_sort'))})")
+    else:
+        print("❌ Claridge's apartment not found!")
+        
+    print()
     
     print("🔍 Simple find with sort...")
     print("=" * 60)
