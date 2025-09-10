@@ -2482,6 +2482,15 @@ async def scrape_streeteasy_apartments():
 
 async def scrape_rentals():
     """Main scraping function that aggregates from multiple sources"""
+    
+    # Safety check - prevent accidental data corruption in production
+    if not USE_MOCK_DATA:
+        logging.info("Scraping disabled (USE_MOCK_DATA=false). No apartment data will be modified.")
+        existing_count = await db.apartments.count_documents({})
+        return existing_count
+    
+    logging.warning("Mock data scraping is enabled. This will modify apartment data in the database.")
+    
     all_apartments = []
     
     # Scrape from different sources
@@ -2491,6 +2500,24 @@ async def scrape_rentals():
     # Add Related Rentals apartments
     relatedrentals_apartments = await scrape_relatedrentals_apartments()
     all_apartments.extend(relatedrentals_apartments)
+    
+    # Safety check - if no new apartments to add, don't modify database
+    if not all_apartments:
+        logging.info("No new apartments to add from scraping sources.")
+        existing_count = await db.apartments.count_documents({})
+        return existing_count
+    
+    # Additional safety check for manual data preservation
+    if PRESERVE_MANUAL_DATA:
+        manual_count = await db.apartments.count_documents({
+            "$and": [
+                {"source_url": {"$not": {"$regex": "streeteasy.com|relatedrentals.com|fortysixfifty.com"}}},
+                {"source": {"$exists": True}}
+            ]
+        })
+        
+        if manual_count > 0:
+            logging.info(f"Found {manual_count} manually added apartments that will be preserved.")
     
     # Only delete apartments from specific scraping sources, preserve manually added ones
     # Delete apartments that don't have a "source" field or have source_url from these domains
@@ -2512,11 +2539,16 @@ async def scrape_rentals():
     
     # Delete only scraping-sourced apartments, preserve manual additions
     delete_result = await db.apartments.delete_many(delete_query)
-    print(f"Deleted {delete_result.deleted_count} apartments from scraping sources")
+    logging.info(f"Deleted {delete_result.deleted_count} apartments from scraping sources")
     
     # Store new scraped apartments in database
+    inserted_count = 0
     for apartment in all_apartments:
-        await db.apartments.insert_one(apartment.dict())
+        try:
+            await db.apartments.insert_one(apartment.dict())
+            inserted_count += 1
+        except Exception as e:
+            logging.error(f"Failed to insert apartment: {apartment.title}. Error: {e}")
     
     # Count preserved apartments (manually added ones like StreetEasy OP Commission)
     preserved_count = await db.apartments.count_documents({
@@ -2526,8 +2558,8 @@ async def scrape_rentals():
         ]
     })
     
-    total_apartments = len(all_apartments) + preserved_count
-    print(f"Added {len(all_apartments)} new scraped apartments, preserved {preserved_count} manually added apartments")
+    total_apartments = inserted_count + preserved_count
+    logging.info(f"Added {inserted_count} new scraped apartments, preserved {preserved_count} manually added apartments")
     
     return total_apartments
 
