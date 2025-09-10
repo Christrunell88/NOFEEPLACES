@@ -280,6 +280,11 @@ const Hero = () => {
   return (
     <section 
       className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
+      style={{
+        margin: '0',
+        padding: '0',
+        width: '100%'
+      }}
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
