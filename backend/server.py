@@ -211,6 +211,13 @@ async def scrape_relatedrentals_apartments():
     """Scrape Related Rentals for no-fee luxury apartments in NYC"""
     apartments = []
     
+    # Check if mock data should be used
+    if not USE_MOCK_DATA:
+        logging.info("Mock data disabled. Skipping Related Rentals mock data generation.")
+        return apartments
+    
+    logging.info("Using mock data for Related Rentals apartments.")
+    
     # Related Rentals apartments in the $3,800-$5,400 range
     related_apartments = [
         {
