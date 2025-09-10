@@ -1222,15 +1222,6 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               </svg>
               <span className="transition-all duration-300 group-hover:text-green-400">Email</span>
             </button>
-            <button
-              onClick={() => setShowEmailModal(true)}
-              className="flex items-center justify-center bg-gray-700 text-gray-300 px-3 py-2 rounded transition-all duration-300 hover:bg-gray-600 hover:text-white hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 text-sm font-medium border border-gray-600 hover:border-gray-500 group"
-            >
-              <svg className="w-4 h-4 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a1 1 0 001.42 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <span className="transition-all duration-300 group-hover:text-green-400">Email</span>
-            </button>
           </div>
         </div>
       </div>
