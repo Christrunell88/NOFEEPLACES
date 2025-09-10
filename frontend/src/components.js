@@ -898,7 +898,7 @@ const EmailContactModal = ({ isOpen, onClose, apartment }) => {
               </svg>
             </div>
             <h4 className="text-lg font-semibold text-gray-900 mb-2">Message Sent!</h4>
-            <p className="text-gray-600">Chris will get back to you within 24 hours.</p>
+            <p className="text-gray-600">Our licensed agent will get back to you within 24 hours.</p>
           </div>
         ) : (
           <>
