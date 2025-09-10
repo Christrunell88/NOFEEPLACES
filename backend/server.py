@@ -2723,14 +2723,26 @@ async def get_apartments(
     pipeline = [
         {"$match": query},
         {"$addFields": {
-            "has_priority": {"$ifNull": ["$priority", False]},
+            "has_priority": {
+                "$cond": {
+                    "if": {"$ne": ["$priority", None]},
+                    "then": 1,  # Has priority
+                    "else": 0   # No priority
+                }
+            },
             "priority_sort": {"$ifNull": ["$priority", 999]},
-            "featured_sort": {"$ifNull": ["$featured", False]}
+            "featured_sort": {
+                "$cond": {
+                    "if": {"$eq": ["$featured", True]},
+                    "then": 1,  # Featured
+                    "else": 0   # Not featured
+                }
+            }
         }},
         {"$sort": {
-            "has_priority": -1,       # True (has priority) first, then False
+            "has_priority": -1,       # 1 (has priority) first, then 0
             "priority_sort": 1,       # Within priority group: 1, 2, 3...
-            "featured_sort": -1,      # Featured first
+            "featured_sort": -1,      # 1 (featured) first, then 0
             "created_at": -1          # Newest first
         }},
         {"$skip": skip},
