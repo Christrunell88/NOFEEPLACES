@@ -1877,44 +1877,7 @@ const AuthModal = ({ onClose }) => {
       setError('Facebook sign-in failed. Please try again.');
       setLoading(false);
     }
-  };
-    try {
-      setLoading(true);
-      setError('');
-      
-      // In a real implementation, you'd get user data from Facebook
-      // For demo purposes, we'll simulate a successful Facebook login
-      const demoFacebookUser = {
-        email: 'demo.user@facebook.com',
-        name: 'Demo Facebook User',
-        picture: 'https://via.placeholder.com/150'
-      };
-      
-      // Simulate successful authentication
-      const result = await register(demoFacebookUser.email, 'facebook-demo-password', demoFacebookUser.name);
-      
-      if (result.success) {
-        setError('Facebook demo login successful! Welcome to NoFeePlaces!');
-        setTimeout(() => onClose(), 1500);
-      } else {
-        // Try login if register fails (user might already exist)
-        const loginResult = await login(demoFacebookUser.email, 'facebook-demo-password');
-        if (loginResult.success) {
-          setError('Facebook demo login successful! Welcome back!');
-          setTimeout(() => onClose(), 1500);
-        } else {
-          setError('Facebook demo authentication completed! (In production, this would be a real Facebook account)');
-          setTimeout(() => onClose(), 2000);
-        }
-      }
-    } catch (error) {
-      console.error('Facebook Sign-In demo error:', error);
-      setError('Facebook demo Sign-In completed! (This would be real Facebook authentication in production)');
-      setTimeout(() => onClose(), 2000);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   // Handle Apple Sign In response
   const handleAppleResponse = async (response) => {
