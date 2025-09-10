@@ -265,7 +265,7 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
   );
 };
 
-// Professional Hero Section with Video Background
+// Professional Hero Section with Vimeo Video Background
 const Hero = () => {
   const [videoError, setVideoError] = useState(false);
 
@@ -274,30 +274,38 @@ const Hero = () => {
     console.log('Video failed to load, falling back to image background');
   };
 
+  // Vimeo video ID extracted from the URL
+  const vimeoVideoId = "1117501540";
+  
   return (
     <section 
       className="relative py-20 md:py-32 lg:py-40 overflow-hidden"
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
-      {/* Video Background or Image Fallback */}
+      {/* Vimeo Video Background or Image Fallback */}
       <div className="absolute inset-0 w-full h-full">
         {!videoError ? (
-          <video
-            className="absolute inset-0 w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="https://i.imgur.com/OnhxbRC.jpg"
-            onError={handleVideoError}
-            preload="metadata"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-            <source src="/hero-video.webm" type="video/webm" />
-            {/* Fallback for browsers that don't support video */}
-            Your browser does not support the video tag.
-          </video>
+          <div className="absolute inset-0 w-full h-full">
+            <iframe
+              src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0`}
+              className="absolute inset-0 w-full h-full object-cover"
+              style={{
+                width: '100vw',
+                height: '56.25vw', // 16:9 aspect ratio
+                minHeight: '100vh',
+                minWidth: '177.77vh', // 16:9 aspect ratio
+                transform: 'translate(-50%, -50%)',
+                left: '50%',
+                top: '50%'
+              }}
+              frameBorder="0"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowFullScreen
+              onError={handleVideoError}
+              title="Hero Background Video"
+            ></iframe>
+          </div>
         ) : (
           // Fallback to original image if video fails to load
           <div 
@@ -311,7 +319,7 @@ const Hero = () => {
         )}
         
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
