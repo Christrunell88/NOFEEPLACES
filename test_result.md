@@ -561,11 +561,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "CalendarBooking Component Testing"
+  current_focus: []
   stuck_tasks: []
   test_all: false
-  test_priority: "high_first"
+  test_priority: "calendarbooking_testing_completed"
 
 agent_communication:
     - agent: "main"
