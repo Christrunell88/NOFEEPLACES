@@ -534,7 +534,7 @@ test_plan:
   current_focus: []
   stuck_tasks: []
   test_all: false
-  test_priority: "comprehensive_backend_health_completed"
+  test_priority: "search_functionality_testing_completed"
 
 agent_communication:
     - agent: "main"
