@@ -1745,8 +1745,9 @@ const AuthModal = ({ onClose }) => {
   const [error, setError] = useState('');
   const { login, register } = useAuth();
 
-  // Initialize Google Sign-In when component mounts
+  // Initialize social sign-in SDKs when component mounts
   useEffect(() => {
+    // Initialize Google Sign-In
     if (typeof window !== 'undefined' && window.google) {
       try {
         window.google.accounts.id.initialize({
@@ -1757,6 +1758,33 @@ const AuthModal = ({ onClose }) => {
         });
       } catch (error) {
         console.log('Google Sign-In initialization failed:', error);
+      }
+    }
+
+    // Initialize Facebook SDK
+    if (typeof window !== 'undefined' && !window.fbAsyncInit) {
+      window.fbAsyncInit = function() {
+        window.FB.init({
+          appId: 'demo-facebook-app-id', // Demo app ID
+          cookie: true,
+          xfbml: true,
+          version: 'v18.0'
+        });
+      };
+    }
+
+    // Initialize Apple Sign In  
+    if (typeof window !== 'undefined' && window.AppleID) {
+      try {
+        window.AppleID.auth.init({
+          clientId: 'demo.apple.signin.service',
+          scope: 'name email',
+          redirectURI: window.location.origin,
+          state: 'demo-state',
+          usePopup: true
+        });
+      } catch (error) {
+        console.log('Apple Sign In initialization failed:', error);
       }
     }
   }, []);
