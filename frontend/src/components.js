@@ -2975,32 +2975,33 @@ const AIChatbot = ({ apartmentId = null, apartment = null }) => {
 
   return (
     <>
-      {/* Chat Toggle Button - Orange and Prominent */}
-      <div className="fixed bottom-20 right-8 z-[60]">
+      {/* Chat Toggle Button - Smaller size with blue theme */}
+      <div className="fixed bottom-16 right-6 z-[60]">
         <button
           onClick={toggleChat}
-          className={`w-24 h-24 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center ${
+          className={`w-16 h-16 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center ${
             isOpen 
               ? 'bg-red-500 hover:bg-red-600' 
-              : 'bg-orange-500 hover:bg-orange-600 animate-pulse'
+              : 'bg-blue-500 hover:bg-blue-600 animate-pulse'
           }`}
           style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)' }}
+          aria-label="Open AI Assistant chat"
         >
           {isOpen ? (
-            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           )}
         </button>
         
-        {/* Help text bubble when closed */}
+        {/* Help text bubble when closed - smaller and blue themed */}
         {!isOpen && (
-          <div className="absolute bottom-full right-2 mb-3 bg-orange-500 text-white px-4 py-2 rounded-lg text-sm whitespace-nowrap animate-bounce shadow-lg font-medium">
-            Ask me anything!
+          <div className="absolute bottom-full right-2 mb-2 bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs whitespace-nowrap animate-bounce shadow-lg font-medium">
+            AI Assistant
           </div>
         )}
       </div>
