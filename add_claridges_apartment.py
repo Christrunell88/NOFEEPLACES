@@ -9,6 +9,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import asyncio
 from datetime import datetime, timezone
 import uuid
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('/app/backend/.env')
 
 # Database configuration
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
