@@ -2474,13 +2474,12 @@ const ApartmentDetails = ({ apartmentId }) => {
                       {/* Email Button */}
                       <button 
                         onClick={handleEmailContact}
-                        className="flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+                        className="flex items-center justify-center bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white py-3 px-4 rounded-lg font-medium border border-gray-600 hover:border-gray-500 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 group"
                       >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        <svg className="w-4 h-4 mr-2 transition-all duration-300 group-hover:scale-110 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span className="hidden sm:inline">Send Email</span>
-                        <span className="sm:hidden">Email</span>
+                        <span className="transition-all duration-300 group-hover:text-green-400">Email</span>
                       </button>
 
                       {/* Schedule Tour Button */}
