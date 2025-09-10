@@ -37,6 +37,43 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure main containers have no margins */
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Hero section full-width */
+.hero-section {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Force iframe video to fill completely */
+.hero-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-video-iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 56.25vw; /* 16:9 aspect ratio */
+  min-height: 100vh;
+  min-width: 177.78vh; /* 16:9 aspect ratio */
+  transform: translate(-50%, -50%);
+  border: none;
 }
 
 /* Philosopher font for main heading */
