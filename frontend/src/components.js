@@ -279,45 +279,16 @@ const Hero = () => {
   
   return (
     <section 
-      className="relative py-20 md:py-32 lg:py-40"
-      style={{
-        margin: '0',
-        padding: '0',
-        width: '100vw',
-        overflow: 'hidden',
-        position: 'relative'
-      }}
+      className="hero-section relative py-20 md:py-32 lg:py-40"
       role="banner"
       aria-label="NYC no fee apartments hero section"
     >
       {/* Vimeo Video Background or Image Fallback */}
-      <div 
-        className="absolute"
-        style={{
-          top: '0',
-          left: '0',
-          width: '100vw',
-          height: '100vh',
-          overflow: 'hidden',
-          zIndex: '0'
-        }}
-      >
+      <div className="hero-video-container">
         {!videoError ? (
           <iframe
             src={`https://player.vimeo.com/video/${vimeoVideoId}?background=1&autoplay=1&loop=1&byline=0&title=0&portrait=0&muted=1&controls=0&responsive=1`}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '100vw',
-              height: '56.25vw', // 16:9 aspect ratio
-              minHeight: '100vh',
-              minWidth: '177.78vh', // 16:9 aspect ratio
-              transform: 'translate(-50%, -50%)',
-              border: 'none',
-              margin: '0',
-              padding: '0'
-            }}
+            className="hero-video-iframe"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
