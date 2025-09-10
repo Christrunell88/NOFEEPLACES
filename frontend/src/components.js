@@ -1211,7 +1211,16 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
               <svg className="w-4 h-4 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <span className="transition-all duration-300 group-hover:text-blue-400">Call (646) 408-8048</span>
+              <span className="transition-all duration-300 group-hover:text-blue-400">Call</span>
+            </button>
+            <button
+              onClick={() => window.open(`mailto:placesfirm@gmail.com?subject=Inquiry about ${apartment.title}&body=Hi, I'm interested in learning more about this apartment: ${apartment.title}%0A%0AProperty Details:%0A- Address: ${apartment.address}%0A- Price: $${rent}%0A- Bedrooms: ${apartment.bedrooms}%0A- Bathrooms: ${apartment.bathrooms}%0A- Square Feet: ${apartment.sqft}%0A%0APlease let me know when I can schedule a viewing.%0A%0AThank you!`, '_self')}
+              className="flex items-center justify-center bg-gray-700 text-gray-300 px-3 py-2 rounded transition-all duration-300 hover:bg-gray-600 hover:text-white hover:shadow-lg hover:shadow-green-500/30 hover:scale-105 text-sm font-medium border border-gray-600 hover:border-gray-500 group"
+            >
+              <svg className="w-4 h-4 mr-1 transition-all duration-300 group-hover:scale-110 group-hover:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 7.89a2 2 0 002.83 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span className="transition-all duration-300 group-hover:text-green-400">Email</span>
             </button>
             <button
               onClick={() => setShowEmailModal(true)}
