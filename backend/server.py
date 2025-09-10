@@ -660,6 +660,13 @@ async def scrape_streeteasy_apartments():
     """Scrape StreetEasy for no-fee apartments"""
     apartments = []
     
+    # Check if mock data should be used
+    if not USE_MOCK_DATA:
+        logging.info("Mock data disabled. Skipping StreetEasy mock data generation.")
+        return apartments
+    
+    logging.info("Using mock data for StreetEasy apartments.")
+    
     # Mock data for now - in production, you'd implement actual scraping
     mock_apartments = [
         {
