@@ -2661,7 +2661,7 @@ async def get_apartments(
     min_sqft: Optional[int] = Query(None),
     max_sqft: Optional[int] = Query(None),
     page: int = Query(1, ge=1),
-    limit: int = Query(20, ge=1, le=100)
+    limit: int = Query(50, ge=1, le=500)  # Increased default to 50, max to 500
 ):
     # Build filter query - updated to handle both is_no_fee and no_fee fields
     query = {
