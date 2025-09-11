@@ -1658,8 +1658,8 @@ const AdminAppointments = () => {
 
   const fetchApartments = async () => {
     try {
-      const response = await axios.get(`${API}/apartments?limit=100`);
-      setApartments(response.data);
+      const response = await axios.get(`${API}/apartments?limit=200`);
+      setApartments(response.data.apartments || response.data);
     } catch (error) {
       console.error('Error fetching apartments:', error);
     }
