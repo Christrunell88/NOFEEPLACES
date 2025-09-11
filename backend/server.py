@@ -110,6 +110,13 @@ class Apartment(BaseModel):
     priority: Optional[int] = None  # For sorting apartments (1 = highest priority)
     featured: Optional[bool] = None  # For featured apartments
 
+class ApartmentListResponse(BaseModel):
+    apartments: List[Apartment]
+    total: int
+    page: int
+    limit: int
+    has_more: bool
+
 class SearchFilters(BaseModel):
     min_price: Optional[int] = None
     max_price: Optional[int] = None
