@@ -196,8 +196,8 @@ const Home = () => {
       params.append('limit', 200); // Increased to accommodate all apartments
 
       const response = await axios.get(`${API}/apartments?${params}`);
-      setApartments(response.data);
-      setTotalApartments(response.data.length);
+      setApartments(response.data.apartments);
+      setTotalApartments(response.data.total);
     } catch (error) {
       console.error('Failed to fetch apartments:', error);
       setApartments([]);
