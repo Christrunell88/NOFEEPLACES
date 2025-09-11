@@ -193,7 +193,7 @@ const Home = () => {
       });
       
       params.append('page', currentPage);
-      params.append('limit', 100);
+      params.append('limit', 200); // Increased to accommodate all apartments
 
       const response = await axios.get(`${API}/apartments?${params}`);
       setApartments(response.data);
