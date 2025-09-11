@@ -89,7 +89,7 @@ class Apartment(BaseModel):
     title: str
     address: str
     price: int
-    bedrooms: int
+    bedrooms: Optional[Union[int, str]] = None
     bathrooms: float
     sqft: Optional[int] = None
     neighborhood: str
