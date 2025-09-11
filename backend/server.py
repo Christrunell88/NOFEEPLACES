@@ -3169,7 +3169,7 @@ async def get_appointments(
     date_from: Optional[str] = Query(None),
     date_to: Optional[str] = Query(None),
     page: int = Query(1, ge=1),
-    limit: int = Query(20, ge=1, le=100)
+    limit: int = Query(50, ge=1, le=500)  # Increased default to 50, max to 500
 ):
     # Build filter query
     query = {}
