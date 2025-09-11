@@ -2771,7 +2771,19 @@ async def get_apartments(
     apartments_cursor = db.apartments.aggregate(pipeline)
     apartments = await apartments_cursor.to_list(length=limit)
     
-    return [Apartment(**apt) for apt in apartments]
+    # Get total count for pagination
+    total_count = await db.apartments.count_documents(query)
+    
+    # Calculate pagination info
+    has_more = (skip + len(apartments)) < total_count
+    
+    return ApartmentListResponse(
+        apartments=[Apartment(**apt) for apt in apartments],
+        total=total_count,
+        page=page,
+        limit=limit,
+        has_more=has_more
+    )
 
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
