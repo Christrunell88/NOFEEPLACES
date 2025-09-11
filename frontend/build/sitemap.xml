@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    
+    <!-- Homepage - Highest Priority -->
+    <url>
+        <loc>https://nofeeplaces.com/</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg</image:loc>
+            <image:caption>No fee apartments NYC - Young woman finding her dream apartment</image:caption>
+            <image:title>No Fee Apartments NYC Hero</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Main Category Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.95</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-nyc</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.95</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-broker-fee-rentals-nyc</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
+    
+    <!-- Borough-Specific Landing Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-manhattan</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-brooklyn</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-queens</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/no-fee-apartments-bronx</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    
+    <!-- High-Value Keyword Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/luxury-no-fee-apartments-manhattan</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/studio-no-fee-apartments-nyc</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/1-bedroom-no-fee-apartments-nyc</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/2-bedroom-no-fee-apartments-nyc</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+    </url>
+    
+    <!-- Manhattan Neighborhood Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/upper-east-side-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/upper-west-side-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/chelsea-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/midtown-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/financial-district-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/soho-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/manhattan/tribeca-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <!-- Brooklyn Neighborhood Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/williamsburg-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/dumbo-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/park-slope-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/brooklyn-heights-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/brooklyn/bed-stuy-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <!-- Queens Neighborhood Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/queens/long-island-city-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/queens/astoria-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/queens/forest-hills-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <!-- Price Range Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/affordable-no-fee-apartments-under-3000</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/luxury-no-fee-apartments-over-5000</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <!-- Service Pages -->
+    <url>
+        <loc>https://nofeeplaces.com/how-to-find-no-fee-apartments</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.65</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/nyc-rental-guide</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.65</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/contact</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.60</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/about</loc>
+        <lastmod>2025-08-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.50</priority>
+    </url>
+    
+</urlset>
