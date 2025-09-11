@@ -91,7 +91,7 @@ class Apartment(BaseModel):
     price: int
     bedrooms: int
     bathrooms: float
-    sqft: int
+    sqft: Optional[int] = None
     neighborhood: str
     borough: str
     description: str
