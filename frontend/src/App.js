@@ -424,4 +424,5 @@ function App() {
   );
 }
 
-export default App;// Build timestamp: Thu Sep 11 11:14:05 UTC 2025
+export default App;// Cache-busting version: 2.0.1
+const CACHE_VERSION = '2.0.1';
