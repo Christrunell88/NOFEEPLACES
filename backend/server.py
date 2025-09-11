@@ -2657,7 +2657,7 @@ async def get_current_user_info(current_user: User = Depends(get_current_user)):
     return current_user
 
 # Apartment Routes
-@api_router.get("/apartments", response_model=List[Apartment])
+@api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
     min_price: Optional[int] = Query(None),
     max_price: Optional[int] = Query(None),
