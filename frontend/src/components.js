@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from './App';
 import { Link, useNavigate } from 'react-router-dom';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
 // Header Dropdown Icons Component
