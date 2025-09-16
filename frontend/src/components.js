@@ -1494,7 +1494,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
 
       {/* Compact Calendar Grid */}
       <div className="grid grid-cols-7 gap-1 mb-4">
-        {days.map((day, index) => (
+        {days && days.length > 0 ? days.map((day, index) => (
           <button
             key={index}
             onClick={() => handleDateSelect(day)}
@@ -1513,9 +1513,13 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
               }
             `}
           >
-            {day.dayNumber}
+            {day.dayNumber || ''}
           </button>
-        ))}
+        )) : (
+          <div className="col-span-7 text-center text-gray-500 py-4">
+            Loading calendar...
+          </div>
+        )}
       </div>
 
       {/* Selected Date Display - Compact */}
