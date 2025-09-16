@@ -1442,7 +1442,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
     }
   };
 
-  const days = getDaysInMonth(currentMonth);
+  const days = getDaysInMonth(currentMonth) || []; // Ensure we always have an array
 
   return (
     <div className="bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700">
