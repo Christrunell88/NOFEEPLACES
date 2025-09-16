@@ -1467,7 +1467,10 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
         </button>
         
         <h4 className="text-sm font-medium text-gray-300">
-          {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+          {currentMonth && currentMonth instanceof Date 
+            ? `${monthNames[currentMonth.getMonth()] || 'Unknown'} ${currentMonth.getFullYear() || 'Unknown'}`
+            : 'Calendar'
+          }
         </h4>
         
         <button
