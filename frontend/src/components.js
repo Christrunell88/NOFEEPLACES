@@ -1529,7 +1529,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
       )}
 
       {/* Compact Time Selection */}
-      {selectedDate && (
+      {selectedDate && selectedDate instanceof Date && (
         <div className="mb-4">
           <label className="block text-xs font-medium text-gray-400 mb-2">Available Times</label>
           {loading ? (
