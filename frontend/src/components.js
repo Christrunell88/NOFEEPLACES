@@ -1516,7 +1516,7 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
       </div>
 
       {/* Selected Date Display - Compact */}
-      {selectedDate && (
+      {selectedDate && selectedDate instanceof Date && (
         <div className="mb-3 p-2 bg-purple-600/10 rounded-lg border border-purple-600/20">
           <p className="text-purple-400 text-xs text-center font-medium">
             {selectedDate.toLocaleDateString('en-US', { 
