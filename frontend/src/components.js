@@ -1367,11 +1367,16 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   }, [selectedDate]);
 
   const fetchAvailableSlots = async () => {
+    if (!selectedDate || !(selectedDate instanceof Date)) {
+      console.error('Invalid selectedDate for fetching slots');
+      return;
+    }
+    
     setLoading(true);
     try {
       const dateString = selectedDate.toISOString().split('T')[0];
       const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/apartments/${apartmentId}/available-slots?date=${dateString}`);
-      setAvailableSlots(response.data.available_slots);
+      setAvailableSlots(response.data.available_slots || []);
     } catch (error) {
       console.error('Error fetching available slots:', error);
       // Mock available slots for demo
