@@ -1298,40 +1298,49 @@ const CalendarBooking = ({ apartmentId, onBookingComplete }) => {
   });
   const toast = useToast && useToast();
 
-  // Compact calendar date generation
+  // Compact calendar date generation with error handling
   const getDaysInMonth = (date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const startDate = new Date(firstDay);
-    startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
-    
-    const days = [];
-    const currentDate = new Date(startDate);
-    
-    // Generate 35 days (5 weeks) for more compact calendar grid
-    for (let i = 0; i < 35; i++) {
-      const day = new Date(currentDate);
-      const isCurrentMonth = day.getMonth() === month;
-      const isToday = day.toDateString() === new Date().toDateString();
-      const isPast = day < new Date().setHours(0, 0, 0, 0);
-      const isSelected = selectedDate && day.toDateString() === selectedDate.toDateString();
+    try {
+      if (!date || !(date instanceof Date)) {
+        date = new Date(); // Fallback to current date
+      }
       
-      days.push({
-        date: day,
-        dayNumber: day.getDate(),
-        isCurrentMonth,
-        isToday,
-        isPast,
-        isSelected,
-        dateString: day.toISOString().split('T')[0]
-      });
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay()); // Start from Sunday
       
-      currentDate.setDate(currentDate.getDate() + 1);
+      const days = [];
+      const currentDate = new Date(startDate);
+      
+      // Generate 35 days (5 weeks) for more compact calendar grid
+      for (let i = 0; i < 35; i++) {
+        const day = new Date(currentDate);
+        const isCurrentMonth = day.getMonth() === month;
+        const isToday = day.toDateString() === new Date().toDateString();
+        const isPast = day < new Date().setHours(0, 0, 0, 0);
+        const isSelected = selectedDate && selectedDate instanceof Date && day.toDateString() === selectedDate.toDateString();
+        
+        days.push({
+          date: day,
+          dayNumber: day.getDate(), // This should always be a number
+          isCurrentMonth,
+          isToday,
+          isPast,
+          isSelected,
+          dateString: day.toISOString().split('T')[0]
+        });
+        
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      
+      return days;
+    } catch (error) {
+      console.error('Error generating calendar days:', error);
+      return []; // Return empty array on error
     }
-    
-    return days;
   };
 
   const monthNames = [
