@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "1. Fix Claridge's apartment visibility issue - ensure it appears at the top of listings with proper priority field implementation. 2. Implement logic to prioritize listings with multiple pictures at the top of the list."
+user_problem_statement: "Fix blog functionality that was broken - Backend blog API endpoints returning 'Not Found' or KeyError on 'total' and frontend BlogListPage component showing React rendering error 'Element type is invalid: expected a string but got: undefined'."
 
 backend:
   - task: "Claridge's Apartment Priority Implementation"
