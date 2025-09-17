@@ -65,7 +65,7 @@ class Apartment(BaseModel):
     description: str = ""
     price: float
     location: Union[str, dict] = ""
-    bedrooms: Optional[int] = None
+    bedrooms: Union[int, str, None] = None  # Handle both int and string like "Studio"
     bathrooms: Optional[float] = None
     sqft: Optional[int] = None
     amenities: List[str] = []
