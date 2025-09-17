@@ -62,16 +62,16 @@ logger.info(f"Using database: {db_name}")
 class Apartment(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
-    description: str
+    description: str = ""
     price: float
-    location: str
+    location: Union[str, dict] = ""
     bedrooms: Optional[int] = None
     bathrooms: Optional[float] = None
     sqft: Optional[int] = None
     amenities: List[str] = []
     images: List[str] = []
-    contact_email: str
-    contact_phone: str
+    contact_email: Optional[str] = "placesfirm@gmail.com"
+    contact_phone: Optional[str] = "+1-646-408-8048"
     available: bool = True
     created_at: Union[datetime, str] = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     updated_at: Union[datetime, str] = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -89,6 +89,7 @@ class Apartment(BaseModel):
     doorman: Optional[bool] = False
     gym: Optional[bool] = False
     rooftop: Optional[bool] = False
+    address: Optional[str] = None  # Add address field for compatibility
     
     class Config:
         json_encoders = {
