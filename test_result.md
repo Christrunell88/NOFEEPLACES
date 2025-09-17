@@ -105,44 +105,32 @@
 user_problem_statement: "Fix blog functionality that was broken - Backend blog API endpoints returning 'Not Found' or KeyError on 'total' and frontend BlogListPage component showing React rendering error 'Element type is invalid: expected a string but got: undefined'."
 
 backend:
-  - task: "Claridge's Apartment Priority Implementation"
+  - task: "Blog API Endpoints Implementation"
     implemented: true
     working: true
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "BLOG API ISSUE IDENTIFIED: Blog API endpoints (/api/blog and /api/blog/{post_id}) were returning 'Not Found' or encountering KeyError on 'total'. Root cause found: blog endpoints were defined AFTER app.include_router(api_router) call, meaning they were never actually registered with the FastAPI router."
+        - working: true
+          agent: "main"
+          comment: "BLOG API ENDPOINTS FIXED: Successfully moved all blog endpoint definitions (lines 3650-3813) to BEFORE the app.include_router(api_router) call. This ensures the blog routes are properly registered. Removed duplicate endpoints that were at the end of the file. Blog API now working correctly - tested /api/blog returns 5 posts with proper BlogListResponse structure, and /api/blog/{slug} returns individual posts successfully."
+
+  - task: "Blog Database and Sample Content"
+    implemented: true
+    working: true
+    file: "/app/create_sample_blog_posts.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
     status_history:
         - working: true
           agent: "main"
-          comment: "CLARIDGE'S APARTMENT PRIORITY IMPLEMENTATION COMPLETED: Successfully added priority and featured fields to Apartment model, updated Claridge's apartment script to use correct database connection (DB_NAME instead of hardcoded database), implemented sophisticated aggregation pipeline for proper priority sorting. Claridge's apartment now appears at the top with priority=1 and featured=true as verified by API calls and frontend screenshot."
-
-  - task: "Multiple Images Priority Logic"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-        - working: true
-          agent: "main"
-          comment: "MULTIPLE IMAGES PRIORITY LOGIC COMPLETED: Updated aggregation pipeline to prioritize apartments with >2 images. Implemented sophisticated sorting: 1) Priority apartments first, 2) Apartments with multiple images (68 apartments with 4 images), 3) Featured apartments, 4) Newest apartments. Verified through API calls that apartments with 4 images are now appearing at the top after priority apartments. Image analysis shows 43.3% of apartments (68 out of 157) have 4 images and will be prioritized."
-        - working: true
-          agent: "testing"
-          comment: "MULTIPLE IMAGES PRIORITY LOGIC TESTING COMPLETED: Comprehensive testing completed with 90% success rate (27/30 tests passed). CLARIDGE'S APARTMENT PRIORITY VERIFIED: ✅ Claridge's apartment appears first in listings with priority=1, featured=true, and correct Midtown West location with 4 images as expected. MULTIPLE IMAGES PRIORITY LOGIC CONFIRMED: ✅ Found exactly 68 apartments with 4 images (matching expected count), ✅ 4-image apartments average position 34.5 vs 2-image apartments at 84.5, ✅ 100% of top 20 apartments have 4 images, ✅ Perfect sorting order: priority apartments → multiple images → featured → newest. DATABASE INTEGRATION VERIFIED: ✅ Total apartment count confirmed as 157 (156 + 1 Claridge's), ✅ All filtering functionality working correctly, ✅ All apartments have required fields with 5% having priority/featured fields. API ENDPOINT FUNCTIONALITY EXCELLENT: ✅ All search functionality working with new sorting maintained, ✅ Claridge's found with priority=1 in search results, ✅ Combined filters working correctly with priority apartments appearing first. SORTING ALGORITHM PERFECT: ✅ Priority apartments appear before non-priority apartments, ✅ Multiple image apartments prioritized correctly, ✅ Featured apartments identified and positioned correctly, ✅ Creation date sorting working within same criteria groups. Minor Issues: Pagination has 4 apartment overlap (non-critical), edge case testing had one exception (non-critical). CONCLUSION: Priority and multiple images sorting logic working excellently with sophisticated aggregation pipeline successfully implemented."
-
-  - task: "Priority Sorting Algorithm Comprehensive Testing"
-    implemented: true
-    working: true
-    file: "/app/priority_sorting_test.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-        - working: true
-          agent: "testing"
-          comment: "PRIORITY SORTING ALGORITHM COMPREHENSIVE TESTING COMPLETED: Created and executed comprehensive test suite specifically for priority and multiple images sorting logic as requested in review. TESTING SCOPE: ✅ Claridge's Apartment Priority Testing (5/5 tests passed), ✅ Multiple Images Priority Logic Testing (3/3 tests passed), ✅ Sorting Algorithm Verification (4/4 tests passed), ✅ Database Integration Testing (5/6 tests passed), ✅ API Endpoint Functionality Testing (8/9 tests passed), ✅ Edge Cases Testing (2/3 tests passed). OVERALL RESULTS: 27/30 tests passed (90% success rate). KEY FINDINGS: Claridge's apartment correctly appears first with priority=1 and featured=true, exactly 68 apartments with 4 images are properly prioritized, sophisticated sorting algorithm working perfectly (priority → multiple images → featured → newest), total apartment count verified as 157 (156 + 1 Claridge's), all search and filtering functionality maintained with new sorting. Minor non-critical issues: pagination overlap (4 apartments), edge case exception handling. CONCLUSION: Priority and multiple images sorting logic implementation is excellent and meets all requirements from the review request."
+          comment: "BLOG CONTENT VERIFIED: Database contains 5 sample blog posts - 'The Ultimate Guide to No Fee Apartments in NYC 2025', 'Hell's Kitchen No Fee Apartments Guide', 'NYC Rental Market Report September 2025', '5 Mistakes to Avoid When Hunting for No Fee Apartments', and 'Williamsburg No Fee Apartments Guide'. All posts have proper structure with categories (Renter's Guide, Neighborhood Guide, Market Report, Tips & Advice), tags, featured images, and full HTML content."
 
 frontend:
   - task: "Apartment Listing Display Verification"
