@@ -3585,6 +3585,165 @@ async def get_admin_status():
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.utcnow()}
 
+# BLOG API ENDPOINTS
+# =============================================
+
+def create_slug(title: str) -> str:
+    """Create URL-friendly slug from title"""
+    import re
+    slug = re.sub(r'[^\w\s-]', '', title.lower())
+    slug = re.sub(r'[-\s]+', '-', slug)
+    return slug.strip('-')
+
+def calculate_read_time(content: str) -> int:
+    """Calculate estimated read time in minutes"""
+    words = len(content.split())
+    return max(1, round(words / 200))  # Average reading speed: 200 words/minute
+
+@api_router.get("/blog", response_model=BlogListResponse)
+async def get_blog_posts(
+    page: int = Query(1, ge=1),
+    limit: int = Query(10, ge=1, le=50),
+    category: Optional[str] = None,
+    tag: Optional[str] = None,
+    status: str = "published"
+):
+    """Get blog posts with pagination and filtering"""
+    skip = (page - 1) * limit
+    
+    # Build query
+    query = {"status": status}
+    if category:
+        query["category"] = category
+    if tag:
+        query["tags"] = {"$in": [tag]}
+    
+    # Get posts with pagination
+    posts_cursor = db.blog_posts.find(query).sort("published_at", -1).skip(skip).limit(limit)
+    posts = await posts_cursor.to_list(length=limit)
+    
+    # Get total count
+    total_count = await db.blog_posts.count_documents(query)
+    
+    return BlogListResponse(
+        posts=[BlogPost(**post) for post in posts],
+        total=total_count,
+        page=page,
+        limit=limit,
+        has_more=(skip + len(posts)) < total_count
+    )
+
+@api_router.get("/blog/{slug}", response_model=BlogPost)
+async def get_blog_post(slug: str):
+    """Get a single blog post by slug"""
+    post = await db.blog_posts.find_one({"slug": slug, "status": "published"})
+    
+    if not post:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    
+    # Increment view count
+    await db.blog_posts.update_one(
+        {"slug": slug},
+        {"$inc": {"view_count": 1}}
+    )
+    
+    return BlogPost(**post)
+
+@api_router.post("/blog", response_model=BlogPost)
+async def create_blog_post(post: BlogPost):
+    """Create a new blog post"""
+    # Generate slug if not provided
+    if not post.slug:
+        post.slug = create_slug(post.title)
+    
+    # Calculate read time
+    post.read_time = calculate_read_time(post.content)
+    
+    # Check if slug already exists
+    counter = 1
+    original_slug = post.slug
+    while True:
+        existing = await db.blog_posts.find_one({"slug": post.slug})
+        if not existing:
+            break
+        post.slug = f"{original_slug}-{counter}"
+        counter += 1
+        if counter > 100:  # Prevent infinite loop
+            existing = await db.blog_posts.find_one({"slug": post.slug})
+            if existing:
+                raise HTTPException(status_code=400, detail="Unable to generate unique slug")
+            break
+    
+    await db.blog_posts.insert_one(post.dict())
+    return post
+
+@api_router.put("/blog/{slug}", response_model=BlogPost)
+async def update_blog_post(slug: str, updated_post: BlogPost):
+    """Update an existing blog post"""
+    existing_post = await db.blog_posts.find_one({"slug": slug})
+    
+    if not existing_post:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    
+    # Keep original creation date and ID
+    updated_post.id = existing_post["id"]
+    updated_post.created_at = existing_post["created_at"]
+    
+    # Update read time
+    updated_post.read_time = calculate_read_time(updated_post.content)
+    
+    # Set publication date if changing to published
+    if updated_post.status == "published" and existing_post.get("status") != "published":
+        updated_post.published_at = datetime.now(timezone.utc).isoformat()
+    
+    # Update post
+    await db.blog_posts.replace_one({"slug": slug}, updated_post.dict())
+    return updated_post
+
+@api_router.delete("/blog/{slug}")
+async def delete_blog_post(slug: str):
+    """Delete a blog post"""
+    result = await db.blog_posts.delete_one({"slug": slug})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    
+    return {"message": "Blog post deleted successfully"}
+
+@api_router.get("/blog/categories/list")
+async def get_blog_categories():
+    """Get all blog categories"""
+    categories = await db.blog_posts.distinct("category", {"status": "published"})
+    return {"categories": categories}
+
+@api_router.get("/blog/tags/list")
+async def get_blog_tags():
+    """Get all blog tags"""
+    tags = await db.blog_posts.distinct("tags", {"status": "published"})
+    return {"tags": tags}
+
+@api_router.get("/blog/related/{slug}")
+async def get_related_posts(slug: str, limit: int = 3):
+    """Get related blog posts based on categories and tags"""
+    # Get current post
+    current_post = await db.blog_posts.find_one({"slug": slug, "status": "published"})
+    
+    if not current_post:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    
+    # Find related posts by category and tags
+    query = {
+        "status": "published",
+        "slug": {"$ne": slug},
+        "$or": [
+            {"category": current_post["category"]},
+            {"tags": {"$in": current_post.get("tags", [])}}
+        ]
+    }
+    
+    related_posts = await db.blog_posts.find(query).limit(limit).to_list(length=limit)
+    return [BlogPost(**post) for post in related_posts]
+
 # Include router in main app
 app.include_router(api_router)
 
