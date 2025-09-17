@@ -3512,7 +3512,14 @@ const ApartmentComparison = ({ apartments, onClose }) => {
                 </div>
               </div>
               <h3 className="text-lg font-bold text-slate-100 mb-1">{apartment.title}</h3>
-              <p className="text-sm text-slate-400">{apartment.address}</p>
+              <p className="text-sm text-slate-400">
+                {getDisplayAddress(apartment, isAuthenticated)}
+                {!isAuthenticated && (
+                  <span className="ml-1 text-xs bg-orange-100 text-orange-800 px-1 py-0.5 rounded">
+                    Sign in
+                  </span>
+                )}
+              </p>
             </div>
           ))}
         </div>
