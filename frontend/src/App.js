@@ -121,7 +121,9 @@ const {
   ApartmentComparison,
   ToastProvider,
   ErrorBoundary,
-  CompleteGuideNoFeeApartments
+  CompleteGuideNoFeeApartments,
+  BlogList,
+  BlogPost
 } = Components;
 
 const Home = () => {
