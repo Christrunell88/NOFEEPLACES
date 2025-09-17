@@ -2384,6 +2384,7 @@ const ApartmentDetails = ({ apartmentId }) => {
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     fetchApartmentDetails();
