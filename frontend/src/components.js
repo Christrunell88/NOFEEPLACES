@@ -3449,6 +3449,7 @@ const FavoritesPage = () => {
 // Apartment Comparison Component
 const ApartmentComparison = ({ apartments, onClose }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const features = [
     { key: 'price', label: 'Monthly Rent', format: (val) => `$${val?.toLocaleString()}` },
     { key: 'bedrooms', label: 'Bedrooms', format: (val) => val === 0 ? 'Studio' : val },
