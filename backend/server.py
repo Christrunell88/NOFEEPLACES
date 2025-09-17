@@ -12,6 +12,10 @@ import os
 import uuid
 import json
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('/app/backend/.env')
 
 # Enhanced logging configuration
 logging.basicConfig(
