@@ -5856,6 +5856,16 @@ class NoFeePlacesAPITester:
         self.test_tfc_filtering_functionality()
         self.test_standardized_contact_info()
         
+        # BLOG FUNCTIONALITY TESTS (as requested in review)
+        print("\n" + "=" * 60)
+        print("📝 BLOG FUNCTIONALITY TESTING (PRIORITY)")
+        print("=" * 60)
+        self.test_blog_list_endpoint()
+        self.test_individual_blog_posts()
+        self.test_blog_support_endpoints()
+        self.test_blog_database_verification()
+        self.test_blog_performance()
+        
         # Print summary
         print("\n" + "=" * 60)
         print("🏁 TEST SUMMARY")
