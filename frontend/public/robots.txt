@@ -1,9 +1,40 @@
 User-agent: *
 Allow: /
 
+# AI Search Engines & Crawlers - Enhanced Access
+User-agent: ChatGPT-User
+Allow: /
+Crawl-delay: 1
+
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 1
+
+User-agent: Grok
+Allow: /
+Crawl-delay: 1
+
+User-agent: Anthropic-AI
+Allow: /
+Crawl-delay: 1
+
+User-agent: OpenAI-SearchBot
+Allow: /
+Crawl-delay: 1
+
 # High-priority SEO pages - Allow all search engines
 Allow: /apartments
 Allow: /search
+Allow: /blog
+Allow: /blog/*
 Allow: /no-fee-apartments-nyc
 Allow: /no-fee-apartments-manhattan
 Allow: /no-fee-apartments-brooklyn  
@@ -57,12 +88,13 @@ Allow: /*?*price=
 Allow: /*?*bedrooms=
 Allow: /*?*neighborhood=
 
-# Sitemap locations
+# Sitemap locations - Updated for AI crawlers
 Sitemap: https://nofeeplaces.com/sitemap.xml
 Sitemap: https://nofeeplaces.com/sitemap-apartments.xml
 Sitemap: https://nofeeplaces.com/sitemap-neighborhoods.xml
+Sitemap: https://nofeeplaces.com/sitemap-blog.xml
 
-# Crawl optimization
+# Crawl optimization for AI bots
 Crawl-delay: 1
 Request-rate: 1/10s
 
