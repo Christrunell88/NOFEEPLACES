@@ -2286,6 +2286,7 @@ const UserDashboard = ({ user }) => {
   const [favorites, setFavorites] = useState([]);
   const [savedSearches, setSavedSearches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     fetchUserData();
