@@ -167,16 +167,18 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Blog API Endpoints Implementation"
+    - "Blog Database and Sample Content"
+    - "Blog Components Frontend Implementation"
+    - "Blog Routing and Navigation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
     - agent: "main"
-      message: "Completed both requested features: 1) Fixed Claridge's apartment visibility by implementing priority field and proper database connection, 2) Implemented multiple images priority logic using aggregation pipeline. Both features verified working through API testing and frontend screenshot. Ready for backend testing to ensure all functionality is working correctly."
-    - agent: "testing"
-      message: "PRIORITY AND MULTIPLE IMAGES SORTING TESTING COMPLETED: Comprehensive testing of the updated apartment listing system completed with excellent results (90% success rate). All major requirements from review request successfully verified: ✅ Claridge's apartment priority implementation working perfectly (appears first with priority=1, featured=true, 4 images, Midtown West location), ✅ Multiple images priority logic working excellently (68 apartments with 4 images prioritized correctly, perfect sorting order maintained), ✅ API endpoints functioning correctly with new sorting algorithm, ✅ Database integration confirmed with 157 total apartments, ✅ Sophisticated sorting algorithm verified: priority → multiple images → featured → newest. Minor issues found are non-critical (pagination overlap, edge case exception). The implementation meets all user requirements for both Claridge's apartment priority and multiple images priority logic. System is production-ready with robust priority sorting functionality."
+      message: "Fixed blog functionality issues: 1) Moved blog API endpoints to before router inclusion in server.py - this was the root cause of 404 Not Found errors, 2) Verified blog components are properly exported/imported with no React rendering errors, 3) Confirmed 5 sample blog posts exist in database, 4) Tested both blog list page (/blog) and individual post pages (/blog/{slug}) - both working correctly. Blog system now fully functional. Ready for comprehensive testing to verify all blog functionality works end-to-end."
 
 backend:
   - task: "Apartment Image Enhancement Verification"
