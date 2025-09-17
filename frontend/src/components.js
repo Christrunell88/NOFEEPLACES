@@ -2466,7 +2466,14 @@ const ApartmentDetails = ({ apartmentId }) => {
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h1 className="text-3xl font-bold text-slate-800 mb-2">{apartment.title}</h1>
-                    <p className="text-slate-600 mb-2">{apartment.address}</p>
+                    <p className="text-slate-600 mb-2">
+                      {getDisplayAddress(apartment, isAuthenticated)}
+                      {!isAuthenticated && (
+                        <span className="ml-2 text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">
+                          Sign in for full address
+                        </span>
+                      )}
+                    </p>
                     <div className="flex items-center space-x-2">
                       <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                         No Fee
