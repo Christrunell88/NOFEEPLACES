@@ -82,14 +82,14 @@ class Apartment(BaseModel):
     borough: Optional[str] = None
     lease_terms: Optional[str] = None
     pet_policy: Optional[str] = None
-    utilities_included: Optional[List[str]] = []
+    utilities_included: Union[List[str], bool, None] = []  # Handle both list and boolean
     parking_available: Optional[bool] = False
     laundry: Optional[str] = None
     elevator: Optional[bool] = False
     doorman: Optional[bool] = False
     gym: Optional[bool] = False
     rooftop: Optional[bool] = False
-    address: Optional[str] = None  # Add address field for compatibility
+    address: Optional[str] = None
     
     class Config:
         json_encoders = {
