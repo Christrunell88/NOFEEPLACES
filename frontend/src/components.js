@@ -1138,7 +1138,7 @@ const ApartmentCard = ({ apartment, setShowAuthModal }) => {
         "name": apartment.title,
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": apartment.address,
+          "streetAddress": isAuthenticated ? apartment.address : apartment.neighborhood,
           "addressLocality": apartment.neighborhood,
           "addressRegion": apartment.borough,
           "addressCountry": "US"
