@@ -105,8 +105,8 @@ class Apartment(BaseModel):
     parking: Optional[bool] = None
     utilities_included: Optional[bool] = None
     furnished: Optional[bool] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
+    created_at: Optional[Union[str, datetime]] = None
+    updated_at: Optional[Union[str, datetime]] = None
     is_no_fee: Optional[bool] = None
     no_fee: Optional[bool] = None
     contact_info: Optional[dict] = None
