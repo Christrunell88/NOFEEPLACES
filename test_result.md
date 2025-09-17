@@ -174,8 +174,6 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Blog API Endpoints Implementation"
-    - "Blog Database and Sample Content"
     - "Blog Components Frontend Implementation"
     - "Blog Routing and Navigation"
   stuck_tasks: []
