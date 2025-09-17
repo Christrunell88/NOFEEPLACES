@@ -3681,6 +3681,363 @@ export const Components = {
 };
 
 
+// =============================================
+// BLOG COMPONENTS
+// =============================================
+
+// Blog List Component
+const BlogList = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [hasMore, setHasMore] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [categories, setCategories] = useState([]);
+
+  const API = (process.env.REACT_APP_BACKEND_URL || '') + '/api';
+
+  useEffect(() => {
+    fetchPosts();
+    fetchCategories();
+  }, [page, selectedCategory]);
+
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: '9'
+      });
+      
+      if (selectedCategory) {
+        params.append('category', selectedCategory);
+      }
+
+      const response = await axios.get(`${API}/blog?${params}`);
+      
+      if (page === 1) {
+        setPosts(response.data.posts);
+      } else {
+        setPosts(prev => [...prev, ...response.data.posts]);
+      }
+      
+      setTotalPosts(response.data.total);
+      setHasMore(response.data.has_more);
+    } catch (error) {
+      console.error('Error fetching blog posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axios.get(`${API}/blog/categories/list`);
+      setCategories(response.data.categories);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const handleCategoryFilter = (category) => {
+    setSelectedCategory(category);
+    setPage(1);
+    setPosts([]);
+  };
+
+  const loadMore = () => {
+    setPage(prev => prev + 1);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-900 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Blog Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            NYC Rental <span className="gradient-text">Insights</span>
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Your ultimate guide to no-fee apartments, neighborhood insights, and NYC rental market trends
+          </p>
+        </div>
+
+        {/* Category Filter */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-4">
+            <button
+              onClick={() => handleCategoryFilter('')}
+              className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
+                selectedCategory === '' 
+                  ? 'bg-purple-600 text-white shadow-lg' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              All Posts
+            </button>
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => handleCategoryFilter(category)}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
+                  selectedCategory === category 
+                    ? 'bg-purple-600 text-white shadow-lg' 
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Blog Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {posts.map(post => (
+            <article key={post.id} className="bg-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105">
+              {post.featured_image && (
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={post.featured_image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+              
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="px-3 py-1 bg-purple-600/20 text-purple-400 rounded-full text-xs font-medium">
+                    {post.category}
+                  </span>
+                  <span className="text-gray-400 text-sm">
+                    {post.read_time} min read
+                  </span>
+                </div>
+                
+                <h2 className="text-xl font-bold text-white mb-3 hover:text-purple-400 transition-colors">
+                  <a href={`/blog/${post.slug}`}>
+                    {post.title}
+                  </a>
+                </h2>
+                
+                <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+                  {post.excerpt}
+                </p>
+                
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">NF</span>
+                    </div>
+                    <div>
+                      <p className="text-white text-sm font-medium">{post.author}</p>
+                      <p className="text-gray-400 text-xs">{formatDate(post.published_at)}</p>
+                    </div>
+                  </div>
+                  
+                  <a 
+                    href={`/blog/${post.slug}`}
+                    className="text-purple-400 hover:text-purple-300 font-medium text-sm flex items-center"
+                  >
+                    Read More
+                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {/* Load More Button */}
+        {hasMore && (
+          <div className="text-center">
+            <button
+              onClick={loadMore}
+              disabled={loading}
+              className="px-8 py-4 bg-purple-600 text-white rounded-xl font-medium hover:bg-purple-700 transition-colors disabled:opacity-50"
+            >
+              {loading ? 'Loading...' : 'Load More Posts'}
+            </button>
+          </div>
+        )}
+
+        {/* Blog Stats */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-400">
+            Showing {posts.length} of {totalPosts} posts
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Blog Post Detail Component
+const BlogPost = ({ slug }) => {
+  const [post, setPost] = useState(null);
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const API = (process.env.REACT_APP_BACKEND_URL || '') + '/api';
+
+  useEffect(() => {
+    if (slug) {
+      fetchPost();
+      fetchRelatedPosts();
+    }
+  }, [slug]);
+
+  const fetchPost = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${API}/blog/${slug}`);
+      setPost(response.data);
+    } catch (error) {
+      console.error('Error fetching blog post:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRelatedPosts = async () => {
+    try {
+      const response = await axios.get(`${API}/blog/related/${slug}`);
+      setRelatedPosts(response.data);
+    } catch (error) {
+      console.error('Error fetching related posts:', error);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
+          <p className="text-gray-400 mb-8">The blog post you're looking for doesn't exist.</p>
+          <a href="/blog" className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+            Back to Blog
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-900">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-purple-900 via-blue-900 to-purple-900 py-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <span className="px-4 py-2 bg-purple-600/20 text-purple-400 rounded-full text-sm font-medium mb-6 inline-block">
+              {post.category}
+            </span>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              {post.title}
+            </h1>
+            <div className="flex items-center justify-center space-x-6 text-gray-300">
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-sm font-bold">NF</span>
+                </div>
+                <span>{post.author}</span>
+              </div>
+              <span>•</span>
+              <span>{formatDate(post.published_at)}</span>
+              <span>•</span>
+              <span>{post.read_time} min read</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Article Content */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <article className="prose prose-lg prose-invert max-w-none">
+          <div 
+            dangerouslySetInnerHTML={{ __html: post.content }}
+            className="text-gray-300 leading-relaxed"
+          />
+        </article>
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-12 pt-8 border-t border-gray-800">
+            <h3 className="text-white font-medium mb-4">Tags:</h3>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map(tag => (
+                <span 
+                  key={tag}
+                  className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-sm"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-white mb-8">Related Articles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map(relatedPost => (
+                <article key={relatedPost.id} className="bg-gray-800 rounded-xl p-6 hover:bg-gray-750 transition-colors">
+                  <span className="px-3 py-1 bg-purple-600/20 text-purple-400 rounded-full text-xs font-medium mb-3 inline-block">
+                    {relatedPost.category}
+                  </span>
+                  <h4 className="text-white font-bold mb-2 hover:text-purple-400">
+                    <a href={`/blog/${relatedPost.slug}`}>
+                      {relatedPost.title}
+                    </a>
+                  </h4>
+                  <p className="text-gray-400 text-sm mb-4">
+                    {relatedPost.excerpt}
+                  </p>
+                  <a 
+                    href={`/blog/${relatedPost.slug}`}
+                    className="text-purple-400 hover:text-purple-300 text-sm font-medium"
+                  >
+                    Read More →
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export {
   Header,
   Hero,
@@ -3695,12 +4052,18 @@ export {
   UserDashboard,
   ApartmentDetails,
   SavedSearches,
+  CalendarBooking,
   AdminAppointments,
   AIChatbot,
   FavoritesPage,
   ApartmentComparison,
-  ErrorBoundary,
   LazyImage,
+  ErrorBoundary,
+  Toast,
+  ToastProvider,
+  useToast,
   EmailContactModal,
-  CompleteGuideNoFeeApartments
+  CompleteGuideNoFeeApartments,
+  BlogList,
+  BlogPost
 };
