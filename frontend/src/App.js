@@ -435,6 +435,8 @@ function App() {
                 <Route path="/saved-searches" element={<SavedSearchesPage />} />
                 <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
                 <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
+                <Route path="/blog" element={<BlogListPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
