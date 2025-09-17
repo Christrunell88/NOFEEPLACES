@@ -2335,7 +2335,7 @@ const UserDashboard = ({ user }) => {
                     />
                     <div className="flex-1">
                       <h3 className="font-semibold text-slate-800">{apartment.title}</h3>
-                      <p className="text-sm text-slate-600">{apartment.address}</p>
+                      <p className="text-sm text-slate-600">{getDisplayAddress(apartment, true)}</p>
                       <p className="text-lg font-bold text-amber-600">${apartment.price?.toLocaleString()}</p>
                     </div>
                   </div>
