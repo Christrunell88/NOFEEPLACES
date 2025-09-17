@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { Components } from './components';
+import * as Components from './components';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
