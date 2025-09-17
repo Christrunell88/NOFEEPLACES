@@ -87,28 +87,65 @@ class Token(BaseModel):
 class Apartment(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str
-    address: str
+    description: str
     price: int
     bedrooms: Optional[Union[int, str]] = None
     bathrooms: float
     sqft: Optional[int] = None
     neighborhood: str
     borough: str
-    description: str
-    amenities: List[str]
-    images: List[str]
-    contact_info: Dict[str, Any]
-    available_date: Optional[datetime] = None
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-    is_no_fee: bool = True
+    address: str
     latitude: Optional[float] = None
     longitude: Optional[float] = None
+    images: List[str] = []
+    amenities: Optional[List[str]] = None
+    available_date: Optional[str] = None
+    lease_terms: Optional[str] = None
+    pet_policy: Optional[str] = None
+    parking: Optional[bool] = None
+    utilities_included: Optional[bool] = None
+    furnished: Optional[bool] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+    is_no_fee: Optional[bool] = None
+    no_fee: Optional[bool] = None
+    contact_info: Optional[dict] = None
+    min_sqft: Optional[int] = None
+    max_sqft: Optional[int] = None
     source_url: Optional[str] = None
     source: Optional[str] = None
     owner_paid_commission: Optional[bool] = None
     priority: Optional[int] = None  # For sorting apartments (1 = highest priority)
     featured: Optional[bool] = None  # For featured apartments
+
+# Blog Models
+class BlogPost(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    title: str
+    slug: str  # URL-friendly version of title
+    excerpt: str  # Short description for listings
+    content: str  # Full blog post content (HTML)
+    author: str = "NoFeePlaces Team"
+    category: str  # e.g., "Neighborhood Guide", "Market Report", "Tips"
+    tags: List[str] = []  # SEO tags
+    featured_image: Optional[str] = None
+    meta_title: Optional[str] = None  # SEO title
+    meta_description: Optional[str] = None  # SEO description
+    status: str = "draft"  # draft, published, archived
+    published_at: Optional[str] = None
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    updated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    read_time: Optional[int] = None  # Estimated read time in minutes
+    view_count: int = 0
+    related_neighborhoods: List[str] = []  # For apartment cross-referencing
+    seo_keywords: List[str] = []  # Target keywords
+
+class BlogListResponse(BaseModel):
+    posts: List[BlogPost]
+    total: int
+    page: int
+    limit: int
+    has_more: bool
 
 class ApartmentListResponse(BaseModel):
     apartments: List[Apartment]
