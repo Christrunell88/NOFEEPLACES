@@ -5452,6 +5452,257 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("StreetEasy Owner-Paid Commission Integration", False, f"Exception: {str(e)}")
 
+    def test_blog_list_endpoint(self):
+        """Test blog list endpoint with pagination and filtering"""
+        print("\n=== Testing Blog List Endpoint ===")
+        try:
+            # Test basic blog list
+            response = self.make_request("GET", "/blog")
+            if response.status_code == 200:
+                data = response.json()
+                if "posts" in data and "total" in data and "page" in data and "limit" in data and "has_more" in data:
+                    posts_count = len(data["posts"])
+                    total_count = data["total"]
+                    self.log_result("Blog List (Basic)", True, f"Retrieved {posts_count} posts out of {total_count} total")
+                    
+                    # Verify BlogListResponse structure
+                    if posts_count > 0:
+                        first_post = data["posts"][0]
+                        required_fields = ["id", "title", "slug", "excerpt", "content", "author", "category", "tags", "status", "published_at", "created_at", "updated_at", "read_time", "view_count"]
+                        missing_fields = [field for field in required_fields if field not in first_post]
+                        if not missing_fields:
+                            self.log_result("Blog Post Structure", True, "All required fields present in blog posts")
+                        else:
+                            self.log_result("Blog Post Structure", False, f"Missing fields: {missing_fields}")
+                else:
+                    self.log_result("Blog List (Basic)", False, f"Invalid BlogListResponse structure: {data}")
+            else:
+                self.log_result("Blog List (Basic)", False, f"Status code: {response.status_code}, Response: {response.text}")
+            
+            # Test pagination
+            response = self.make_request("GET", "/blog", {"page": 1, "limit": 2})
+            if response.status_code == 200:
+                data = response.json()
+                if len(data["posts"]) <= 2:
+                    self.log_result("Blog List (Pagination)", True, f"Pagination working, got {len(data['posts'])} posts")
+                else:
+                    self.log_result("Blog List (Pagination)", False, f"Pagination not working, got {len(data['posts'])} posts")
+            else:
+                self.log_result("Blog List (Pagination)", False, f"Status code: {response.status_code}")
+            
+            # Test category filtering
+            categories = ["Renter's Guide", "Neighborhood Guide", "Market Report", "Tips & Advice"]
+            for category in categories:
+                response = self.make_request("GET", "/blog", {"category": category})
+                if response.status_code == 200:
+                    data = response.json()
+                    category_posts = [post for post in data["posts"] if post.get("category") == category]
+                    if len(category_posts) == len(data["posts"]):
+                        self.log_result(f"Blog Category Filter ({category})", True, f"Found {len(category_posts)} posts")
+                    else:
+                        self.log_result(f"Blog Category Filter ({category})", False, f"Filter not working properly")
+                else:
+                    self.log_result(f"Blog Category Filter ({category})", False, f"Status code: {response.status_code}")
+            
+            # Test tag filtering
+            response = self.make_request("GET", "/blog", {"tag": "no fee apartments"})
+            if response.status_code == 200:
+                data = response.json()
+                self.log_result("Blog Tag Filter", True, f"Tag filtering returned {len(data['posts'])} posts")
+            else:
+                self.log_result("Blog Tag Filter", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Blog List Endpoint", False, f"Exception: {str(e)}")
+    
+    def test_individual_blog_posts(self):
+        """Test individual blog post retrieval"""
+        print("\n=== Testing Individual Blog Posts ===")
+        try:
+            # Test specific slugs mentioned in review request
+            test_slugs = [
+                "hells-kitchen-no-fee-apartments-complete-neighborhood-guide-2025",
+                "the-ultimate-guide-to-no-fee-apartments-in-nyc-2025"
+            ]
+            
+            for slug in test_slugs:
+                response = self.make_request("GET", f"/blog/{slug}")
+                if response.status_code == 200:
+                    data = response.json()
+                    if "id" in data and "title" in data and "slug" in data:
+                        self.log_result(f"Blog Post ({slug})", True, f"Retrieved post: {data['title']}")
+                        
+                        # Test view count increment
+                        initial_views = data.get("view_count", 0)
+                        
+                        # Make another request to test view count increment
+                        response2 = self.make_request("GET", f"/blog/{slug}")
+                        if response2.status_code == 200:
+                            data2 = response2.json()
+                            new_views = data2.get("view_count", 0)
+                            if new_views > initial_views:
+                                self.log_result(f"View Count Increment ({slug})", True, f"Views increased from {initial_views} to {new_views}")
+                            else:
+                                self.log_result(f"View Count Increment ({slug})", False, f"Views did not increment: {initial_views} -> {new_views}")
+                    else:
+                        self.log_result(f"Blog Post ({slug})", False, f"Invalid post structure: {data}")
+                elif response.status_code == 404:
+                    self.log_result(f"Blog Post ({slug})", False, f"Post not found: {slug}")
+                else:
+                    self.log_result(f"Blog Post ({slug})", False, f"Status code: {response.status_code}")
+            
+            # Test 404 for non-existent slug
+            response = self.make_request("GET", "/blog/non-existent-blog-post-slug")
+            if response.status_code == 404:
+                self.log_result("Blog Post (404 Test)", True, "Non-existent slug properly returns 404")
+            else:
+                self.log_result("Blog Post (404 Test)", False, f"Expected 404, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Individual Blog Posts", False, f"Exception: {str(e)}")
+    
+    def test_blog_support_endpoints(self):
+        """Test blog support endpoints (categories, tags, related posts)"""
+        print("\n=== Testing Blog Support Endpoints ===")
+        try:
+            # Test categories list
+            response = self.make_request("GET", "/blog/categories/list")
+            if response.status_code == 200:
+                data = response.json()
+                if "categories" in data and isinstance(data["categories"], list):
+                    self.log_result("Blog Categories List", True, f"Retrieved {len(data['categories'])} categories: {data['categories']}")
+                else:
+                    self.log_result("Blog Categories List", False, f"Invalid categories response: {data}")
+            else:
+                self.log_result("Blog Categories List", False, f"Status code: {response.status_code}")
+            
+            # Test tags list
+            response = self.make_request("GET", "/blog/tags/list")
+            if response.status_code == 200:
+                data = response.json()
+                if "tags" in data and isinstance(data["tags"], list):
+                    self.log_result("Blog Tags List", True, f"Retrieved {len(data['tags'])} tags")
+                else:
+                    self.log_result("Blog Tags List", False, f"Invalid tags response: {data}")
+            else:
+                self.log_result("Blog Tags List", False, f"Status code: {response.status_code}")
+            
+            # Test related posts (using a known slug)
+            response = self.make_request("GET", "/blog/related/the-ultimate-guide-to-no-fee-apartments-in-nyc-2025")
+            if response.status_code == 200:
+                data = response.json()
+                if isinstance(data, list):
+                    self.log_result("Blog Related Posts", True, f"Retrieved {len(data)} related posts")
+                else:
+                    self.log_result("Blog Related Posts", False, f"Invalid related posts response: {data}")
+            elif response.status_code == 404:
+                self.log_result("Blog Related Posts", False, "Base post not found for related posts test")
+            else:
+                self.log_result("Blog Related Posts", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Blog Support Endpoints", False, f"Exception: {str(e)}")
+    
+    def test_blog_database_verification(self):
+        """Test blog database content and structure"""
+        print("\n=== Testing Blog Database Verification ===")
+        try:
+            # Get all blog posts to verify sample content
+            response = self.make_request("GET", "/blog", {"limit": 50})
+            if response.status_code == 200:
+                data = response.json()
+                posts = data["posts"]
+                total = data["total"]
+                
+                # Verify we have at least 5 sample posts
+                if total >= 5:
+                    self.log_result("Blog Sample Content", True, f"Database contains {total} blog posts (expected 5+)")
+                else:
+                    self.log_result("Blog Sample Content", False, f"Only {total} blog posts found, expected 5+")
+                
+                # Verify all posts have status="published"
+                published_posts = [post for post in posts if post.get("status") == "published"]
+                if len(published_posts) == len(posts):
+                    self.log_result("Blog Published Status", True, f"All {len(posts)} posts have published status")
+                else:
+                    self.log_result("Blog Published Status", False, f"Only {len(published_posts)}/{len(posts)} posts are published")
+                
+                # Verify slug uniqueness and URL-friendly format
+                slugs = [post.get("slug") for post in posts]
+                unique_slugs = set(slugs)
+                if len(unique_slugs) == len(slugs):
+                    self.log_result("Blog Slug Uniqueness", True, f"All {len(slugs)} slugs are unique")
+                else:
+                    self.log_result("Blog Slug Uniqueness", False, f"Duplicate slugs found: {len(slugs)} total, {len(unique_slugs)} unique")
+                
+                # Verify URL-friendly slug format
+                import re
+                url_friendly_slugs = [slug for slug in slugs if re.match(r'^[a-z0-9-]+$', slug)]
+                if len(url_friendly_slugs) == len(slugs):
+                    self.log_result("Blog Slug Format", True, "All slugs are URL-friendly")
+                else:
+                    self.log_result("Blog Slug Format", False, f"Only {len(url_friendly_slugs)}/{len(slugs)} slugs are URL-friendly")
+                
+                # Verify content HTML formatting
+                posts_with_html = [post for post in posts if "<" in post.get("content", "") and ">" in post.get("content", "")]
+                if len(posts_with_html) > 0:
+                    self.log_result("Blog HTML Content", True, f"{len(posts_with_html)} posts contain HTML formatting")
+                else:
+                    self.log_result("Blog HTML Content", False, "No posts contain HTML formatting")
+                
+                # Verify required fields are populated
+                required_fields = ["id", "title", "slug", "excerpt", "content", "author", "category"]
+                posts_with_all_fields = 0
+                for post in posts:
+                    if all(field in post and post[field] for field in required_fields):
+                        posts_with_all_fields += 1
+                
+                if posts_with_all_fields == len(posts):
+                    self.log_result("Blog Required Fields", True, f"All {len(posts)} posts have required fields populated")
+                else:
+                    self.log_result("Blog Required Fields", False, f"Only {posts_with_all_fields}/{len(posts)} posts have all required fields")
+                
+            else:
+                self.log_result("Blog Database Verification", False, f"Failed to retrieve blog posts: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Blog Database Verification", False, f"Exception: {str(e)}")
+    
+    def test_blog_performance(self):
+        """Test blog API performance"""
+        print("\n=== Testing Blog API Performance ===")
+        try:
+            import time
+            
+            # Test blog list endpoint performance
+            start_time = time.time()
+            response = self.make_request("GET", "/blog")
+            end_time = time.time()
+            response_time = end_time - start_time
+            
+            if response.status_code == 200 and response_time < 2.0:
+                self.log_result("Blog List Performance", True, f"Response time: {response_time:.3f}s (< 2s)")
+            elif response.status_code == 200:
+                self.log_result("Blog List Performance", False, f"Response time too slow: {response_time:.3f}s (>= 2s)")
+            else:
+                self.log_result("Blog List Performance", False, f"Request failed: {response.status_code}")
+            
+            # Test individual blog post performance
+            start_time = time.time()
+            response = self.make_request("GET", "/blog/the-ultimate-guide-to-no-fee-apartments-in-nyc-2025")
+            end_time = time.time()
+            response_time = end_time - start_time
+            
+            if response.status_code == 200 and response_time < 2.0:
+                self.log_result("Blog Post Performance", True, f"Response time: {response_time:.3f}s (< 2s)")
+            elif response.status_code == 200:
+                self.log_result("Blog Post Performance", False, f"Response time too slow: {response_time:.3f}s (>= 2s)")
+            else:
+                self.log_result("Blog Post Performance", False, f"Request failed: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Blog API Performance", False, f"Exception: {str(e)}")
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting NoFeePlaces.com Backend API Tests")
