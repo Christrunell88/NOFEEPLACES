@@ -213,8 +213,16 @@ const Header = ({ isAuthenticated, user, logout, setShowAuthModal }) => {
             </div>
           </Link>
 
-          {/* Center - Header Dropdown Icons */}
-          <HeaderDropdownIcons />
+          {/* Center - Navigation Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            <HeaderDropdownIcons />
+            <Link 
+              to="/blog" 
+              className="text-gray-300 hover:text-white font-medium transition-colors hover:bg-purple-900/20 px-3 py-2 rounded-lg"
+            >
+              Blog
+            </Link>
+          </div>
 
           {/* Desktop & Mobile Sign In/Sign Up Button */}
           <div className="flex items-center">
