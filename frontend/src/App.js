@@ -399,6 +399,27 @@ const CompleteGuidePage = () => {
   return <CompleteGuideNoFeeApartments />;
 };
 
+// Blog Pages
+const BlogListPage = () => (
+  <div>
+    <Header />
+    <BlogList />
+    <Footer />
+  </div>
+);
+
+const BlogPostPage = () => {
+  const { slug } = useParams();
+  
+  return (
+    <div>
+      <Header />
+      <BlogPost slug={slug} />
+      <Footer />
+    </div>
+  );
+};
+
 function App() {
   return (
     <ErrorBoundary>
