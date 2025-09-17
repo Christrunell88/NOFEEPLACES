@@ -6,6 +6,17 @@ import { Link, useNavigate } from 'react-router-dom';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
+// Helper function to determine what address to show based on authentication
+const getDisplayAddress = (apartment, isAuthenticated) => {
+  if (isAuthenticated) {
+    // Show full address for authenticated users
+    return apartment.address || apartment.location || 'Address not available';
+  } else {
+    // Show only neighborhood for non-authenticated users
+    return apartment.neighborhood || apartment.borough || 'Neighborhood not available';
+  }
+};
+
 // Header Dropdown Icons Component
 const HeaderDropdownIcons = () => {
   const [expandedDropdown, setExpandedDropdown] = useState(null);
