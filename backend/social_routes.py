@@ -13,6 +13,7 @@ from pydantic import BaseModel
 import jwt
 
 from social_auth import social_auth_manager, emergent_google_auth, facebook_oauth, apple_signin
+from email_service import email_service
 
 logger = logging.getLogger(__name__)
 
