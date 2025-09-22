@@ -743,15 +743,20 @@ export const ApartmentCard = ({ apartment, onFavorite, onCompare, onContact }) =
             </button>
           </div>
 
-          {/* Newsletter CTA for non-authenticated users */}
+          {/* CTA for non-authenticated users */}
           {!isAuthenticated && (
             <div className="mt-4 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
               <div className="text-sm text-center">
                 <p className="text-gray-600 mb-2">Want full details and early access?</p>
-                <NewsletterSignup 
-                  source="apartment_card_cta"
-                  size="compact"
-                />
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium"
+                >
+                  📧 Get Early Access
+                </button>
+                <p className="text-xs text-gray-500 mt-1">
+                  Scroll to top to join our newsletter
+                </p>
               </div>
             </div>
           )}
