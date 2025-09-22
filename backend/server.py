@@ -786,6 +786,33 @@ async def chat_endpoint(request: Request):
         logger.error(f"Chat endpoint error: {str(e)}")
         return {"error": "Failed to process request"}
 
+# Newsletter endpoints
+@api_router.post("/newsletter/subscribe")
+async def subscribe_to_newsletter(subscription: NewsletterSubscription):
+    """Subscribe user to newsletter"""
+    result = await newsletter_service.subscribe_to_newsletter(
+        email=subscription.email,
+        full_name=subscription.full_name,
+        source=subscription.source,
+        preferences=subscription.preferences
+    )
+    
+    if result["status"] == "error":
+        raise HTTPException(status_code=400, detail=result["message"])
+    
+    return result
+
+@api_router.get("/newsletter/stats")
+async def get_newsletter_stats():
+    """Get newsletter statistics"""
+    total_subscribers = await newsletter_service.get_subscriber_count()
+    sources = await newsletter_service.get_subscribers_by_source()
+    
+    return {
+        "total_subscribers": total_subscribers,
+        "sources": sources
+    }
+
 # Health check
 @api_router.get("/health")
 async def health_check():
