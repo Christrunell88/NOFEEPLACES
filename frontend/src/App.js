@@ -31,7 +31,6 @@ const {
   BlogList,
   BlogPost,
   NewsletterPage,
-  NewsletterSignup,
   NewsletterExitPopup
 } = Components;
 
