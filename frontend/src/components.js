@@ -3,6 +3,29 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } 
 import axios from 'axios';
 import { useAuth } from './auth';
 
+// Import all missing components
+import {
+  Hero,
+  SEOContentSection,
+  AdvancedSearchFilters,
+  MapView,
+  Footer,
+  LoadingSpinner,
+  AuthModal,
+  UserDashboard,
+  SavedSearches,
+  AdminAppointments,
+  AIChatbot,
+  FavoritesPage,
+  ApartmentComparison,
+  ToastProvider,
+  ErrorBoundary,
+  CompleteGuideNoFeeApartments,
+  BlogList,
+  BlogPost,
+  EmailContactModal
+} from './missing-components';
+
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
@@ -15,6 +38,29 @@ const getDisplayAddress = (apartment, isAuthenticated) => {
     // Show only neighborhood for non-authenticated users
     return apartment.neighborhood || apartment.borough || 'Neighborhood not available';
   }
+};
+
+// Re-export all imported components
+export {
+  Hero,
+  SEOContentSection,
+  AdvancedSearchFilters,
+  MapView,
+  Footer,
+  LoadingSpinner,
+  AuthModal,
+  UserDashboard,
+  SavedSearches,
+  AdminAppointments,
+  AIChatbot,
+  FavoritesPage,
+  ApartmentComparison,
+  ToastProvider,
+  ErrorBoundary,
+  CompleteGuideNoFeeApartments,
+  BlogList,
+  BlogPost,
+  EmailContactModal
 };
 
 // Toast notification component
