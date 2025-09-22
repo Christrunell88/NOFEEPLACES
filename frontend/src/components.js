@@ -779,8 +779,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onCompare, onContact }) =
 
 // Export components for app routing
 export {
-  AuthProvider,
-  useAuth,
   Header,
   NewsletterPage,
   NewsletterSignup,
