@@ -192,7 +192,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Comprehensive Frontend Testing After Black Screen Fix"
+    - "Zillow-Style Search Box Frontend Format & Functionality Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
