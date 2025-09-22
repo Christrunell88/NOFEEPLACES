@@ -440,7 +440,7 @@ async def get_apartment(apartment_id: str):
 
 @api_router.post("/contact", response_model=ContactResponse)
 async def contact_apartment(contact: ContactRequest):
-    """Handle apartment contact requests"""
+    """Handle apartment contact requests with email notifications"""
     # Store contact request
     contact_data = contact.dict()
     contact_data["id"] = str(uuid.uuid4())
@@ -451,8 +451,36 @@ async def contact_apartment(contact: ContactRequest):
     
     logger.info(f"New contact request: {contact.name} - {contact.email}")
     
+    # Get apartment details for email
+    apartment_title = "No Fee Apartment"
+    if contact.apartment_id:
+        apartment = await db.apartments.find_one({"id": contact.apartment_id})
+        if apartment:
+            apartment_title = apartment.get("title", "No Fee Apartment")
+            contact_data["apartment_title"] = apartment_title
+    
+    # Send confirmation email to user (if email provided)
+    if contact.email:
+        try:
+            await email_service.send_apartment_inquiry_confirmation(
+                user_email=contact.email,
+                user_name=contact.name,
+                apartment_title=apartment_title,
+                apartment_id=contact.apartment_id or "N/A"
+            )
+            logger.info(f"Confirmation email sent to {contact.email}")
+        except Exception as e:
+            logger.error(f"Failed to send confirmation email to {contact.email}: {str(e)}")
+    
+    # Send notification email to admin
+    try:
+        await email_service.send_contact_notification(contact_data)
+        logger.info("Contact notification sent to admin")
+    except Exception as e:
+        logger.error(f"Failed to send admin notification: {str(e)}")
+    
     return ContactResponse(
-        message="Contact request submitted successfully. We'll be in touch within 24 hours.",
+        message="Contact request submitted successfully. We'll be in touch within 24 hours. Check your email for confirmation!",
         contact_id=contact_data["id"]
     )
 
