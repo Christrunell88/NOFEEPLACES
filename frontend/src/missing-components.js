@@ -113,7 +113,7 @@ export const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount 
     <div className="bg-white shadow-sm border-b py-4">
       <div className="container mx-auto px-4">
         {/* Main Search Bar */}
-        <div className="flex flex-col md:flex-row items-center gap-3 max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center gap-3 max-w-5xl mx-auto">
           {/* Location Search */}
           <div className="flex-1 relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -124,71 +124,85 @@ export const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount 
             <input
               type="text"
               placeholder="Enter an address, neighborhood, city, or ZIP code"
-              value={filters.search_term}
+              value={filters.search_term || ''}
               onChange={(e) => onFilterChange('search_term', e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+              style={{ color: '#1f2937', fontSize: '16px' }}
+              className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
             />
           </div>
 
           {/* Price Range */}
-          <div className="flex items-center gap-2">
-            <select
-              value={filters.min_price}
-              onChange={(e) => onFilterChange('min_price', e.target.value)}
-              className="px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white min-w-[100px]"
-            >
-              <option value="">Min Price</option>
-              <option value="1000">$1,000</option>
-              <option value="2000">$2,000</option>
-              <option value="3000">$3,000</option>
-              <option value="4000">$4,000</option>
-              <option value="5000">$5,000</option>
-              <option value="7500">$7,500</option>
-              <option value="10000">$10,000</option>
-            </select>
+          <div className="flex items-center gap-3">
+            <div className="text-center">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Min Price</label>
+              <select
+                value={filters.min_price || ''}
+                onChange={(e) => onFilterChange('min_price', e.target.value)}
+                className="px-3 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base bg-white min-w-[110px] text-gray-900"
+              >
+                <option value="">Any Min</option>
+                <option value="1000">$1,000</option>
+                <option value="2000">$2,000</option>
+                <option value="3000">$3,000</option>
+                <option value="4000">$4,000</option>
+                <option value="5000">$5,000</option>
+                <option value="7500">$7,500</option>
+                <option value="10000">$10,000</option>
+              </select>
+            </div>
             
-            <span className="text-gray-400">to</span>
-            
-            <select
-              value={filters.max_price}
-              onChange={(e) => onFilterChange('max_price', e.target.value)}
-              className="px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white min-w-[100px]"
-            >
-              <option value="">Max Price</option>
-              <option value="3000">$3,000</option>
-              <option value="4000">$4,000</option>
-              <option value="5000">$5,000</option>
-              <option value="7500">$7,500</option>
-              <option value="10000">$10,000</option>
-              <option value="15000">$15,000</option>
-              <option value="25000">$25,000+</option>
-            </select>
+            <div className="text-center">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Max Price</label>
+              <select
+                value={filters.max_price || ''}
+                onChange={(e) => onFilterChange('max_price', e.target.value)}
+                className="px-3 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base bg-white min-w-[110px] text-gray-900"
+              >
+                <option value="">Any Max</option>
+                <option value="3000">$3,000</option>
+                <option value="4000">$4,000</option>
+                <option value="5000">$5,000</option>
+                <option value="7500">$7,500</option>
+                <option value="10000">$10,000</option>
+                <option value="15000">$15,000</option>
+                <option value="25000">$25,000+</option>
+              </select>
+            </div>
           </div>
 
           {/* Bedrooms */}
-          <select
-            value={filters.bedrooms}
-            onChange={(e) => onFilterChange('bedrooms', e.target.value)}
-            className="px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm bg-white min-w-[120px]"
-          >
-            <option value="">Any Beds</option>
-            <option value="0">Studio</option>
-            <option value="1">1 Bed</option>
-            <option value="2">2 Beds</option>
-            <option value="3">3 Beds</option>
-            <option value="4">4+ Beds</option>
-          </select>
+          <div className="text-center">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
+            <select
+              value={filters.bedrooms || ''}
+              onChange={(e) => onFilterChange('bedrooms', e.target.value)}
+              className="px-3 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-base bg-white min-w-[120px] text-gray-900"
+            >
+              <option value="">Any Beds</option>
+              <option value="0">Studio</option>
+              <option value="1">1 Bedroom</option>
+              <option value="2">2 Bedrooms</option>
+              <option value="3">3 Bedrooms</option>
+              <option value="4">4+ Bedrooms</option>
+            </select>
+          </div>
 
           {/* Search Button */}
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors whitespace-nowrap">
+          <button 
+            onClick={() => {
+              // Trigger search/filter update
+              console.log('Search clicked with filters:', filters);
+            }}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors whitespace-nowrap text-base shadow-md hover:shadow-lg"
+          >
             🔍 Search
           </button>
         </div>
 
         {/* Results Count */}
-        <div className="mt-3 text-center">
-          <p className="text-sm text-gray-600">
-            <span className="font-semibold">{apartmentCount}</span> no fee apartments found
+        <div className="mt-4 text-center">
+          <p className="text-base text-gray-700">
+            <span className="font-bold text-blue-600">{apartmentCount}</span> no fee apartments found
           </p>
         </div>
       </div>
