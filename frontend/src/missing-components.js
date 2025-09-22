@@ -524,12 +524,16 @@ export const BlogList = () => {
 export const BlogPost = ({ slug }) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { slug: routeSlug } = useParams();
+  
+  // Use slug from props or route params
+  const actualSlug = slug || routeSlug;
 
   useEffect(() => {
-    if (slug) {
+    if (actualSlug) {
       fetchBlogPost();
     }
-  }, [slug]);
+  }, [actualSlug]);
 
   const fetchBlogPost = async () => {
     try {
