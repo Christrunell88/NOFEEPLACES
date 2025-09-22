@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from './auth';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
@@ -15,8 +16,6 @@ const getDisplayAddress = (apartment, isAuthenticated) => {
     return apartment.neighborhood || apartment.borough || 'Neighborhood not available';
   }
 };
-
-// Note: AuthProvider and useAuth are now imported from App.js to avoid duplication
 
 // Toast notification component
 export const Toast = ({ message, type = 'success', onClose, duration = 5000 }) => {
