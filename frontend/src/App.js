@@ -30,8 +30,7 @@ const {
   CompleteGuideNoFeeApartments,
   BlogList,
   BlogPost,
-  NewsletterPage,
-  NewsletterExitPopup
+  NewsletterPage
 } = Components;
 
 const Home = () => {
