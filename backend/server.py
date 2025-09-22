@@ -13,6 +13,7 @@ import uuid
 import json
 from pathlib import Path
 from dotenv import load_dotenv
+from email_service import email_service
 
 # Load environment variables
 load_dotenv('/app/backend/.env')
