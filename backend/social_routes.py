@@ -138,6 +138,18 @@ async def create_or_update_social_user(user_data: Dict[str, Any]) -> Dict[str, A
         result = await db.users.insert_one(new_user)
         new_user["_id"] = result.inserted_id
         
+        # Send welcome email to new user
+        if new_user.get("email") and new_user.get("full_name"):
+            try:
+                await email_service.send_welcome_email(
+                    user_email=new_user["email"],
+                    user_name=new_user["full_name"], 
+                    signup_method=provider
+                )
+                logger.info(f"Welcome email sent to new user: {new_user['email']}")
+            except Exception as e:
+                logger.error(f"Failed to send welcome email to {new_user['email']}: {str(e)}")
+        
         return {
             "id": new_user["id"],
             "email": new_user.get("email"),
