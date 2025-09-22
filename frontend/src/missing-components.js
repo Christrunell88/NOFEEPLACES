@@ -6,20 +6,77 @@ import { useAuth } from './auth';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
-// Hero Component
+// Hero Component with Image Carousel
 export const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [
+    'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1559767949-0faa5c7e9992?w=1200&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&h=600&fit=crop'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const scrollToListings = () => {
+    window.scrollTo({ top: 1200, behavior: 'smooth' });
+  };
+
   return (
-    <section className="bg-gradient-to-r from-purple-800 via-purple-900 to-black text-white py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-5xl font-bold mb-6">
-          Find Your Perfect <span className="text-yellow-400">No Fee</span> Apartment
-        </h1>
-        <p className="text-xl mb-8">
-          Browse thousands of NYC apartments with zero broker fees
-        </p>
-        <button className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-colors">
-          Start Searching
-        </button>
+    <section className="relative h-96 overflow-hidden">
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0">
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={image}
+              alt={`NYC Apartment ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+      
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      
+      {/* Content */}
+      <div className="relative z-10 flex items-center justify-center h-full">
+        <div className="text-center text-white px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+            No Fee <span className="text-yellow-400">NYC</span> Apartments
+          </h1>
+          <p className="text-xl mb-8">Save $3,000+ on broker fees</p>
+          <button 
+            onClick={scrollToListings}
+            className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-lg"
+          >
+            🏠 Browse Apartments
+          </button>
+        </div>
+      </div>
+      
+      {/* Image Indicators */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-3 h-3 rounded-full transition-colors ${
+              index === currentImageIndex ? 'bg-yellow-400' : 'bg-white bg-opacity-50'
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
