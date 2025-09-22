@@ -10,7 +10,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://rental-enhance.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-enhancement.preview.emergentagent.com/api"
 
 class ApartmentSortingTester:
     def __init__(self):

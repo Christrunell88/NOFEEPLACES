@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://rental-enhance.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-enhancement.preview.emergentagent.com/api"
 
 class EmailChangeAPITester:
     def __init__(self):
