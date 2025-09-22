@@ -157,22 +157,7 @@ const Home = () => {
       <Hero />
       <SEOContentSection />
       
-      {/* Newsletter Section - App-like, Less Text */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-xl p-6 text-white text-center">
-              <div className="text-3xl mb-3">📧</div>
-              <h2 className="text-2xl font-bold mb-3">Get Early Access</h2>
-              <p className="mb-6 opacity-90">Join 1,000+ renters getting the best no fee apartments first</p>
-              
-              <div className="bg-white rounded-xl p-4">
-                <NewsletterSignup source="homepage_hero" size="large" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Newsletter Section Removed - SEO preserved */}
       
       <AdvancedSearchFilters 
         filters={searchFilters} 
