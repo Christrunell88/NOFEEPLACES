@@ -784,26 +784,6 @@ async def chat_endpoint(request: Request):
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-# Email service test endpoint (remove in production)
-@api_router.post("/test-email")
-async def test_email_service(recipient_email: str = "placesfirm@gmail.com"):
-    """Test email service functionality - FOR TESTING ONLY"""
-    try:
-        success = await email_service.send_welcome_email(
-            user_email=recipient_email,
-            user_name="Test User",
-            signup_method="manual testing"
-        )
-        
-        if success:
-            return {"status": "success", "message": f"Test email sent successfully to {recipient_email}"}
-        else:
-            return {"status": "error", "message": "Failed to send test email"}
-            
-    except Exception as e:
-        logger.error(f"Email test failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Email test failed: {str(e)}")
-
 # Include router in main app
 app.include_router(api_router)
 
