@@ -250,6 +250,41 @@ const Home = () => {
       />
       <Hero />
       <SEOContentSection />
+      
+      {/* Newsletter Section */}
+      <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+              📧 Never Miss a Great No Fee Apartment
+            </h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Join 1,000+ smart renters getting exclusive early access to NYC's best no fee apartments.
+              Get weekly listings, market reports, and money-saving tips delivered to your inbox.
+            </p>
+            
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
+              <NewsletterSignup source="homepage_hero" size="large" />
+            </div>
+            
+            <div className="mt-8 flex justify-center space-x-8 text-sm text-gray-600">
+              <div className="flex items-center space-x-2">
+                <span>✅</span>
+                <span>Early Access</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>✅</span>
+                <span>Market Reports</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <span>✅</span>
+                <span>Zero Spam</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       <AdvancedSearchFilters 
         filters={searchFilters} 
         onFilterChange={handleFilterChange}
