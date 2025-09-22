@@ -16,60 +16,7 @@ const getDisplayAddress = (apartment, isAuthenticated) => {
   }
 };
 
-// Authentication Context
-const AuthContext = createContext({
-  isAuthenticated: false,
-  user: null,
-  login: () => {},
-  logout: () => {}
-});
-
-export const useAuth = () => useContext(AuthContext);
-
-export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
-  const checkAuthStatus = async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        const response = await axios.get(`${API}/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setUser(response.data);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      localStorage.removeItem('authToken');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const login = (userData, token) => {
-    localStorage.setItem('authToken', token);
-    setUser(userData);
-    setIsAuthenticated(true);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('authToken');
-    setUser(null);
-    setIsAuthenticated(false);
-  };
-
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, loading }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+// Note: AuthProvider and useAuth are now imported from App.js to avoid duplication
 
 // Toast notification component
 export const Toast = ({ message, type = 'success', onClose, duration = 5000 }) => {
