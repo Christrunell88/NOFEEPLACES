@@ -387,7 +387,7 @@ async def get_apartments(
             {"description": {"$regex": search, "$options": "i"}},
             {"location": {"$regex": search, "$options": "i"}},
             {"neighborhood": {"$regex": search, "$options": "i"}},
-            {"amenities": {"$in": [{"$regex": search, "$options": "i"}]}}
+            {"amenities": {"$elemMatch": {"$regex": search, "$options": "i"}}}
         ]
     
     pipeline.append({"$match": match_query})
