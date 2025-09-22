@@ -123,7 +123,10 @@ const {
   ErrorBoundary,
   CompleteGuideNoFeeApartments,
   BlogList,
-  BlogPost
+  BlogPost,
+  NewsletterPage,
+  NewsletterSignup,
+  NewsletterExitPopup
 } = Components;
 
 const Home = () => {
