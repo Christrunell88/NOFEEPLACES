@@ -157,34 +157,17 @@ const Home = () => {
       <Hero />
       <SEOContentSection />
       
-      {/* Newsletter Section */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 to-pink-50">
+      {/* Newsletter Section - App-like, Less Text */}
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              📧 Never Miss a Great No Fee Apartment
-            </h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Join 1,000+ smart renters getting exclusive early access to NYC's best no fee apartments.
-              Get weekly listings, market reports, and money-saving tips delivered to your inbox.
-            </p>
-            
-            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-2xl mx-auto">
-              <NewsletterSignup source="homepage_hero" size="large" />
-            </div>
-            
-            <div className="mt-8 flex justify-center space-x-8 text-sm text-gray-600">
-              <div className="flex items-center space-x-2">
-                <span>✅</span>
-                <span>Early Access</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span>✅</span>
-                <span>Market Reports</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span>✅</span>
-                <span>Zero Spam</span>
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-xl p-6 text-white text-center">
+              <div className="text-3xl mb-3">📧</div>
+              <h2 className="text-2xl font-bold mb-3">Get Early Access</h2>
+              <p className="mb-6 opacity-90">Join 1,000+ renters getting the best no fee apartments first</p>
+              
+              <div className="bg-white rounded-xl p-4">
+                <NewsletterSignup source="homepage_hero" size="large" />
               </div>
             </div>
           </div>
