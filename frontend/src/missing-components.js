@@ -82,18 +82,27 @@ export const Hero = () => {
   );
 };
 
-// SEO Content Section
+// SEO Content Section - More App-like, Less Text
 export const SEOContentSection = () => {
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="py-8 bg-gradient-to-r from-purple-50 to-pink-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">
-            NYC's Largest No Fee Apartment Database
-          </h2>
-          <p className="text-lg text-gray-600">
-            Save thousands on broker fees with our curated collection of no fee apartments across all five boroughs.
-          </p>
+        <div className="flex justify-center space-x-8 text-center">
+          <div className="flex flex-col items-center">
+            <div className="text-3xl mb-2">🏠</div>
+            <div className="text-2xl font-bold text-purple-600">316+</div>
+            <div className="text-sm text-gray-600">Apartments</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="text-3xl mb-2">💰</div>
+            <div className="text-2xl font-bold text-green-600">$0</div>
+            <div className="text-sm text-gray-600">Broker Fees</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="text-3xl mb-2">⚡</div>
+            <div className="text-2xl font-bold text-orange-600">24/7</div>
+            <div className="text-sm text-gray-600">Access</div>
+          </div>
         </div>
       </div>
     </section>
