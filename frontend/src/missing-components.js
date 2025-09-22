@@ -537,7 +537,7 @@ export const BlogPost = ({ slug }) => {
 
   const fetchBlogPost = async () => {
     try {
-      const response = await axios.get(`${API}/blog/${slug}`);
+      const response = await axios.get(`${API}/blog/${actualSlug}`);
       setPost(response.data);
     } catch (error) {
       console.error('Failed to fetch blog post:', error);
