@@ -777,8 +777,8 @@ export const ApartmentCard = ({ apartment, onFavorite, onCompare, onContact }) =
   );
 };
 
-// Continue with other components...
-// (Rest of the components remain the same but with newsletter CTAs integrated where appropriate)
+// ApartmentDetails Component
+export const ApartmentDetails = ({ apartmentId }) => {
   const [apartment, setApartment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
