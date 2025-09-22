@@ -440,6 +440,7 @@ function App() {
                 <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
                 <Route path="/blog" element={<BlogListPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/newsletter" element={<NewsletterPage />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
