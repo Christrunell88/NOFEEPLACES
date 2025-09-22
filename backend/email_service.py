@@ -21,6 +21,10 @@ logger = logging.getLogger(__name__)
 
 class EmailService:
     def __init__(self):
+        # Load environment variables when initializing
+        from dotenv import load_dotenv
+        load_dotenv('/app/backend/.env')
+        
         self.smtp_server = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
         self.smtp_port = int(os.environ.get('EMAIL_PORT', '587'))
         self.email_user = os.environ.get('EMAIL_USER', 'placesfirm@gmail.com')
@@ -28,9 +32,14 @@ class EmailService:
         self.use_tls = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
         self.executor = ThreadPoolExecutor(max_workers=3)
         
+        # Log configuration for debugging
+        logger.info(f"Email service initialized: {self.email_user} via {self.smtp_server}:{self.smtp_port}")
+        
         # Validate configuration
         if not self.email_password:
             logger.warning("Email password not configured. Email sending will fail.")
+        else:
+            logger.info("Email password configured successfully")
     
     async def send_email_async(self, to_email: str, subject: str, html_content: str, 
                               text_content: Optional[str] = None, 
