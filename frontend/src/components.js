@@ -158,15 +158,22 @@ export const NewsletterSignup = ({ source = "website", size = "default", classNa
             placeholder="Enter your email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onFocus={(e) => e.target.style.outline = '2px solid #8b5cf6'}
+            onBlur={(e) => e.target.style.outline = 'none'}
             required
-            className={`flex-1 px-4 py-${isLarge ? '3' : '2'} border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent`}
+            autoComplete="email"
+            style={{
+              WebkitAppearance: 'none',
+              MozAppearance: 'textfield'
+            }}
+            className={`flex-1 px-4 ${isLarge ? 'py-3' : 'py-2'} border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 focus:outline-none transition-all`}
           />
           <button
             type="submit"
-            disabled={loading}
-            className={`${isCompact ? 'px-4' : 'px-6'} py-${isLarge ? '3' : '2'} bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 ${isCompact ? 'whitespace-nowrap' : ''}`}
+            disabled={loading || !email.trim()}
+            className={`${isCompact ? 'px-4' : 'px-6'} ${isLarge ? 'py-3' : 'py-2'} bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl ${isCompact ? 'whitespace-nowrap' : ''}`}
           >
-            {loading ? '...' : '📧 Subscribe'}
+            {loading ? '⏳ Subscribing...' : '📧 Subscribe'}
           </button>
         </div>
         
