@@ -11,7 +11,7 @@ export const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1559767949-0faa5c7e9992?w=1200&h=600&fit=crop'
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=600&fit=crop'
   ];
 
   useEffect(() => {
