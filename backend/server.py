@@ -150,6 +150,12 @@ class SearchRequest(BaseModel):
     bathrooms: Optional[float] = None
     amenities: Optional[List[str]] = []
 
+class NewsletterSubscription(BaseModel):
+    email: str
+    full_name: Optional[str] = ""
+    source: str = "website"
+    preferences: Optional[Dict[str, bool]] = None
+
 class ContactResponse(BaseModel):
     message: str
     contact_id: str
