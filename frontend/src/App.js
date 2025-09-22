@@ -480,6 +480,9 @@ function App() {
               
               {/* AI Chatbot - Available on all pages */}
               <AIChatbot />
+              
+              {/* Newsletter Exit Intent Popup */}
+              <NewsletterExitPopup />
             </BrowserRouter>
           </div>
         </AuthProvider>
