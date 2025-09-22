@@ -385,8 +385,9 @@ async def get_apartments(
         match_query["$or"] = [
             {"title": {"$regex": search, "$options": "i"}},
             {"description": {"$regex": search, "$options": "i"}},
-            {"location": {"$regex": search, "$options": "i"}},
+            {"address": {"$regex": search, "$options": "i"}},
             {"neighborhood": {"$regex": search, "$options": "i"}},
+            {"borough": {"$regex": search, "$options": "i"}},
             {"amenities": {"$elemMatch": {"$regex": search, "$options": "i"}}}
         ]
     
