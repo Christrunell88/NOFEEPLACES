@@ -174,7 +174,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Backend API Comprehensive Testing After Frontend Fix"
+    - "Comprehensive Frontend Testing After Black Screen Fix"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
