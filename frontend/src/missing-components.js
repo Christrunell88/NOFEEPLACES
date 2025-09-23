@@ -698,14 +698,26 @@ export const EmailContactModal = ({ apartment, onClose }) => {
     setSending(true);
     
     try {
-      // Simulate sending email
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setSent(true);
-      setTimeout(() => {
-        onClose();
-      }, 2000);
+      // Call backend API to send actual email
+      const response = await axios.post(`${API}/contact`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || null,
+        message: formData.message,
+        apartment_id: apartment?.id || null
+      });
+      
+      if (response.status === 200) {
+        setSent(true);
+        setTimeout(() => {
+          onClose();
+        }, 3000); // Show success message for 3 seconds
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
       console.error('Failed to send message:', error);
+      alert('Failed to send message. Please try again or contact us directly.');
     } finally {
       setSending(false);
     }
