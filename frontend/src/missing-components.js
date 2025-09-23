@@ -728,8 +728,8 @@ export const EmailContactModal = ({ apartment, onClose }) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-lg max-w-md w-full p-6 text-center">
           <div className="text-green-600 text-4xl mb-4">✓</div>
-          <h2 className="text-2xl font-bold mb-2">Message Sent!</h2>
-          <p className="text-gray-600">We'll get back to you soon.</p>
+          <h2 className="text-2xl font-bold mb-2">Email Sent Successfully!</h2>
+          <p className="text-gray-600">Your message has been sent. We'll contact you within 24 hours. Please check your email for confirmation!</p>
         </div>
       </div>
     );
