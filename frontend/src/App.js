@@ -37,7 +37,7 @@ const Home = () => {
   const [apartments, setApartments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchFilters, setSearchFilters] = useState({
-    search_term: '',
+    search: '',
     min_price: '',
     max_price: '',
     bedrooms: '',
