@@ -82,7 +82,7 @@ class Apartment(BaseModel):
     building_name: Optional[str] = None
     neighborhood: Optional[str] = None
     borough: Optional[str] = None
-    lease_terms: Optional[str] = None
+    lease_terms: Union[str, List[str], None] = None
     pet_policy: Optional[str] = None
     utilities_included: Union[List[str], bool, None] = []  # Handle both list and boolean
     parking_available: Optional[bool] = False
