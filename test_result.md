@@ -219,7 +219,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Zillow-Style Search Box Frontend Format & Functionality Testing"
+    - "Hero Image Carousel Functionality Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
