@@ -517,14 +517,7 @@ export const FavoritesPage = () => (
   </div>
 );
 
-export const ApartmentComparison = () => (
-  <div className="container mx-auto px-4 py-8">
-    <h1 className="text-3xl font-bold mb-6">Compare Apartments</h1>
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <p className="text-gray-600">Compare selected apartments side by side.</p>
-    </div>
-  </div>
-);
+// ApartmentComparison component removed as compare functionality is not needed
 
 export const ToastProvider = ({ children }) => {
   return <div>{children}</div>;
