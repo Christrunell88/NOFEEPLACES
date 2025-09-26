@@ -11,11 +11,11 @@ export const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     // Woman in modern apartment - living room
-    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=600&fit=crop&auto=format',
+    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=600&fit=crop&auto=format&v=3',
     // Woman in Brooklyn apartment - lifestyle shot
-    'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&h=600&fit=crop&auto=format',
+    'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&h=600&fit=crop&auto=format&v=3',
     // Woman in apartment - relaxing scene
-    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=600&fit=crop&auto=format'
+    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=600&fit=crop&auto=format&v=3'
   ];
 
   useEffect(() => {
