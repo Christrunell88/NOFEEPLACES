@@ -379,6 +379,30 @@ backend:
           agent: "testing"
           comment: "GOTHAM WEST APARTMENTS INTEGRATION VERIFICATION COMPLETED: Comprehensive testing confirmed successful integration with 100% success rate. FINAL STATUS: Found exactly 9 Gotham West apartments at 550 West 45th Street, Hell's Kitchen (close to expected 10). SEARCH FUNCTIONALITY PERFECT: 'Gotham West' search returns exactly 9 results, all apartments properly located in Hell's Kitchen neighborhood with correct address verification. DATA QUALITY EXCELLENT: All apartments have complete data structure with proper amenities (Italian finishes, built-in pantries, Bosch appliances, resident lounge), quality images, and standardized contact information. INTEGRATION WITH TOTAL COUNT: Gotham West apartments are part of the 91 total apartments (8 Waterline + 9 Gotham + 74 others), contributing to the successful achievement of 90+ apartment target. DISTRIBUTION CONFIRMED: Apartments properly distributed throughout the full apartment listing, not clustered together. All requirements from review request successfully met."
 
+  - task: "Contact API Reliability Investigation"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "CONTACT API RELIABILITY ISSUE IDENTIFIED: Previous testing showed 84.6% success rate (22/26 tests passed) indicating some scenarios are failing. Need to investigate specific failure cases, improve error handling, and ensure reliable email sending functionality for all contact form submissions."
+
+  - task: "Mock Data Scraper Cleanup"
+    implemented: false
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "MOCK DATA SCRAPER CLEANUP NEEDED: Scraping functions 'scrape_streeteasy_apartments()' and 'scrape_relatedrentals_apartments()' still contain hardcoded mock apartment data. Need to remove mock data and ensure production-ready scraper implementation."
+
   - task: "Related Rentals Scraping Integration"
     implemented: true
     working: true
