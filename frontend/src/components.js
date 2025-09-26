@@ -739,15 +739,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onCompare, onContact }) =
             >
               📧 Contact
             </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onCompare && onCompare(apartment);
-              }}
-              className="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors"
-            >
-              ⚖️ Compare
-            </button>
+
           </div>
 
           {/* CTA for non-authenticated users */}
