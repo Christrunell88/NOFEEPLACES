@@ -128,8 +128,8 @@ export const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount 
             <input
               type="text"
               placeholder="Enter an address, neighborhood, city, or ZIP code"
-              value={filters.search_term || ''}
-              onChange={(e) => onFilterChange('search_term', e.target.value)}
+              value={filters.search || ''}
+              onChange={(e) => onFilterChange('search', e.target.value)}
               style={{ color: '#1f2937', fontSize: '16px' }}
               className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 bg-white"
             />
