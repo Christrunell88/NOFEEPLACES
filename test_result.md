@@ -241,8 +241,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Hero Image Carousel Functionality Testing"
-  stuck_tasks: []
+    - "Production Search Functionality Fix"
+  stuck_tasks:
+    - "Production Search Functionality Fix"
   test_all: false
   test_priority: "high_first"
 
