@@ -135,6 +135,7 @@ const Home = () => {
 
   const clearFilters = () => {
     setSearchFilters({
+      search_term: '',
       min_price: '',
       max_price: '',
       bedrooms: '',
