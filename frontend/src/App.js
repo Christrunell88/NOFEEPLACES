@@ -139,8 +139,7 @@ const Home = () => {
       max_price: '',
       bedrooms: '',
       neighborhood: '',
-      borough: '',
-      search_term: ''
+      borough: ''
     });
     setCurrentPage(1);
   };
