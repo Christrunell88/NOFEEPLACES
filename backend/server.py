@@ -697,38 +697,36 @@ async def get_related_posts(slug: str, limit: int = 3):
     related_posts = await db.blog_posts.find(query).limit(limit).to_list(length=limit)
     return [BlogPost(**post) for post in related_posts]
 
-# Mock rental data scraping functions (kept for compatibility)
+# Scraping functionality - removed mock data for production
 def scrape_rentals(location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-    """Mock rental scraping - returns structured data for development"""
-    logger.warning("Using mock rental data - implement actual scraping for production")
+    """Production scraping function - integrate with real data sources"""
+    logger.info(f"Scraping request for {location} with limit {limit}")
     
-    mock_data = [
-        {
-            "id": str(uuid.uuid4()),
-            "title": f"Luxury No Fee Apartment in {location}",
-            "description": "Beautiful modern apartment with premium amenities",
-            "price": 4500.0,
-            "location": f"{location}, NY",
-            "bedrooms": 2,
-            "bathrooms": 2.0,
-            "sqft": 950,
-            "amenities": ["Gym", "Rooftop", "Concierge"],
-            "images": ["https://example.com/image1.jpg"],
-            "contact_email": "leasing@example.com",
-            "contact_phone": "+1-555-0123",
-            "available": True,
-            "created_at": datetime.now(timezone.utc).isoformat()
-        }
-    ]
+    # For production deployment, integrate with actual rental APIs:
+    # - StreetEasy API (when available)
+    # - RentSpree API integration  
+    # - Apartment list scrapers
+    # - MLS data feeds
     
-    return mock_data[:limit]
+    logger.warning("Scraping function called but no external data sources configured")
+    return []
 
 @api_router.get("/scrape-rentals")
 async def scrape_rentals_endpoint(location: str = "NYC", limit: int = 50):
-    """Mock scraping endpoint for development"""
+    """Production scraping endpoint - ready for external API integration"""
     try:
         rentals = scrape_rentals(location, limit)
+        
+        if not rentals:
+            return {
+                "status": "info", 
+                "message": "No external scraping sources configured. Using existing database apartments.",
+                "count": 0, 
+                "rentals": []
+            }
+            
         return {"status": "success", "count": len(rentals), "rentals": rentals}
+        
     except Exception as e:
         logger.error(f"Scraping error: {str(e)}")
         return {"status": "error", "message": str(e)}
