@@ -24,7 +24,6 @@ const {
   AdminAppointments,
   AIChatbot,
   FavoritesPage,
-  ApartmentComparison,
   ToastProvider,
   ErrorBoundary,
   CompleteGuideNoFeeApartments,
