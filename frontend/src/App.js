@@ -42,8 +42,7 @@ const Home = () => {
     max_price: '',
     bedrooms: '',
     neighborhood: '',
-    borough: '',
-    search_term: ''
+    borough: ''
   });
   const [viewMode, setViewMode] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
