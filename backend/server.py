@@ -84,6 +84,12 @@ class Apartment(BaseModel):
     borough: Optional[str] = None
     lease_terms: Union[str, List[str], None] = None
     pet_policy: Optional[str] = None
+    
+    @validator('lease_terms', pre=True)
+    def convert_lease_terms(cls, v):
+        if isinstance(v, list):
+            return ', '.join(str(term) for term in v)
+        return v
     utilities_included: Union[List[str], bool, None] = []  # Handle both list and boolean
     parking_available: Optional[bool] = False
     laundry: Optional[str] = None
