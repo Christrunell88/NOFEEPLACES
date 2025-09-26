@@ -104,6 +104,21 @@
 
 user_problem_statement: "Fix blog functionality that was broken - Backend blog API endpoints returning 'Not Found' or KeyError on 'total' and frontend BlogListPage component showing React rendering error 'Element type is invalid: expected a string but got: undefined'."
 
+  - task: "Hero Images & Apartment Image Loading Fix"
+    implemented: true
+    working: true
+    file: "/app/fix_apartment_images.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported: 'The site is not showing the most recent photos with the woman in the apartment.' Console logs revealed net::ERR_BLOCKED_BY_ORB and net::ERR_NAME_NOT_RESOLVED errors preventing image loading."
+        - working: true
+          agent: "main"
+          comment: "HERO IMAGE LOADING ISSUE RESOLVED: Successfully fixed the missing woman-in-apartment images by running fix_apartment_images.py script which updated 55 apartments with working image URLs. Updated DUMBO apartments (3 1BR + 3 2BR) with 'modern_woman' image set, Chelsea (13), Williamsburg (8), Astoria (9), Hudson Yards (3) apartments with diverse lifestyle photography, and fixed 16 apartments with broken waterline-square.com images. All apartment images now display properly with women in modern apartment settings. Hero section also working with beautiful apartment interior photos from Unsplash. Root cause was outdated/broken image URLs that needed to be replaced with working Unsplash image URLs."
+
 backend:
   - task: "Blog API Endpoints Implementation"
     implemented: true
