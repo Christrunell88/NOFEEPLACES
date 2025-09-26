@@ -139,6 +139,18 @@ backend:
           comment: "BLOG DATABASE AND SAMPLE CONTENT VERIFICATION COMPLETED: Comprehensive testing confirms all 5 sample blog posts are properly structured and accessible. DATABASE CONTENT VERIFIED: Contains exactly 5 blog posts as expected, all with status='published' and proper data structure. SLUG VERIFICATION: All 5 slugs are unique and URL-friendly format (matching regex ^[a-z0-9-]+$). CONTENT QUALITY: All 5 posts contain HTML formatting with proper structure, all required fields populated (id, title, slug, excerpt, content, author, category). CATEGORIES CONFIRMED: 4 distinct categories available - 'Market Report', 'Neighborhood Guide', 'Renter's Guide', 'Tips & Advice' with proper distribution. TAGS SYSTEM: 22 unique tags available for filtering and search functionality. SAMPLE POSTS ACCESSIBLE: Both test slugs from review request working correctly - Hell's Kitchen guide and Ultimate NYC guide both retrievable and functional. All blog database requirements met successfully."
 
 frontend:
+  - task: "Remove Compare Tab from Listing Cards"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "COMPARE TAB REMOVAL COMPLETED: Successfully removed compare button from ApartmentCard component in components.js. Removed onCompare parameter from function definition and replaced compare button with comment explaining removal. Also removed unused ApartmentComparison component from missing-components.js. Compare functionality was not being used in the application as onCompare prop was never passed from App.js, so removal has no impact on existing functionality."
+
   - task: "Zillow-Style Search Box Frontend Format & Functionality Testing"
     implemented: true
     working: true
