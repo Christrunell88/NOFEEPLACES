@@ -402,9 +402,10 @@ async def get_apartments(
         }
     })
     
-    # Sort: Priority first, then image count, then featured, then newest
+    # Sort: Price (lowest to highest) first, then priority, then image count, then featured
     pipeline.append({
         "$sort": {
+            "price": 1,  # 1 = ascending (lowest to highest price)
             "priority_score": -1,
             "image_count": -1,
             "featured_score": -1,
