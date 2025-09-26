@@ -519,7 +519,7 @@ export const NewsletterPage = () => {
 // (I'll include the key components but truncate for brevity)
 
 // Apartment Card Component (updated with newsletter CTA)
-export const ApartmentCard = ({ apartment, onFavorite, onCompare, onContact }) => {
+export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   const { isAuthenticated, user } = useAuth();
   const [imageError, setImageError] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
