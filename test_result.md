@@ -201,7 +201,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Zillow-Style Search Box Frontend Format & Functionality Testing"
+    - "Contact API Reliability Testing"
+    - "Mock Data Scraper Investigation"  
+    - "Compare Tab Removal"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
