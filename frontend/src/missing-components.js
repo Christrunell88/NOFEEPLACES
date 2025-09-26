@@ -190,7 +190,7 @@ export const AdvancedSearchFilters = ({ filters, onFilterChange, apartmentCount 
           {/* Search Button */}
           <button 
             onClick={() => {
-              // Trigger search/filter update
+              // Search is handled automatically by React state changes
               console.log('Search clicked with filters:', filters);
             }}
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors whitespace-nowrap text-base shadow-md hover:shadow-lg"
