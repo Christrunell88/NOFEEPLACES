@@ -15,6 +15,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from email_service import email_service
 from newsletter_service import newsletter_service
+from landlord_api import landlord_router, set_database
+from emergentintegrations.payments.stripe.checkout import StripeCheckout
 
 # Load environment variables
 load_dotenv('/app/backend/.env')
