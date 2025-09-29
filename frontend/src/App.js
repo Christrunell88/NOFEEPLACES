@@ -391,6 +391,14 @@ function App() {
                 <Route path="/blog" element={<BlogListPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/newsletter" element={<NewsletterPage />} />
+                
+                {/* Landlord Portal Routes */}
+                <Route path="/landlord" element={<LandlordPricing />} />
+                <Route path="/landlord/pricing" element={<LandlordPricing />} />
+                <Route path="/landlord/register" element={<LandlordRegistration />} />
+                <Route path="/landlord/dashboard/:landlordId" element={<LandlordDashboard />} />
+                <Route path="/landlord/success" element={<PaymentSuccess />} />
+                <Route path="/landlord/cancel" element={<LandlordPricing />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
