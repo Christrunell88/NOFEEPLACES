@@ -444,6 +444,48 @@ async def get_apartments(
         has_more=(skip + len(apartments)) < total_count
     )
 
+@api_router.get("/apartments/search/stats")
+async def get_search_stats():
+    """Get apartment search statistics"""
+    try:
+        # Get total apartment count
+        total_apartments = await db.apartments.count_documents({})
+        
+        # Get count by borough
+        borough_pipeline = [
+            {"$group": {"_id": "$borough", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}}
+        ]
+        borough_stats = await db.apartments.aggregate(borough_pipeline).to_list(length=None)
+        
+        # Get price range statistics
+        price_pipeline = [
+            {"$group": {
+                "_id": None,
+                "min_price": {"$min": "$price"},
+                "max_price": {"$max": "$price"},
+                "avg_price": {"$avg": "$price"}
+            }}
+        ]
+        price_stats = await db.apartments.aggregate(price_pipeline).to_list(length=1)
+        
+        # Get bedroom count statistics
+        bedroom_pipeline = [
+            {"$group": {"_id": "$bedrooms", "count": {"$sum": 1}}},
+            {"$sort": {"_id": 1}}
+        ]
+        bedroom_stats = await db.apartments.aggregate(bedroom_pipeline).to_list(length=None)
+        
+        return {
+            "total_apartments": total_apartments,
+            "boroughs": [{"name": stat["_id"], "count": stat["count"]} for stat in borough_stats if stat["_id"]],
+            "price_range": price_stats[0] if price_stats else {"min_price": 0, "max_price": 0, "avg_price": 0},
+            "bedrooms": [{"bedrooms": stat["_id"], "count": stat["count"]} for stat in bedroom_stats if stat["_id"] is not None]
+        }
+    except Exception as e:
+        logger.error(f"Error getting search stats: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get search statistics")
+
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
     """Get single apartment details"""
