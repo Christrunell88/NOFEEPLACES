@@ -30,6 +30,7 @@ class EmailService:
         self.email_user = os.environ.get('EMAIL_USER', 'placesfirm@gmail.com')
         self.email_password = os.environ.get('EMAIL_PASSWORD', '')
         self.use_tls = os.environ.get('EMAIL_USE_TLS', 'true').lower() == 'true'
+        self.admin_email = os.environ.get('ADMIN_EMAIL', 'placesfirm@gmail.com')
         self.executor = ThreadPoolExecutor(max_workers=3)
         
         # Log configuration for debugging
