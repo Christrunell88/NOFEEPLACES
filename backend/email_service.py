@@ -399,41 +399,79 @@ NoFeePlaces.com Team
         <!DOCTYPE html>
         <html>
         <head>
-            <title>New Contact Request - NoFeePlaces.com</title>
+            <title>New Apartment Inquiry - NoFeePlaces.com</title>
             <style>
-                body {{ font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }}
-                .container {{ max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; }}
-                .header {{ background: #dc2626; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }}
-                .content {{ padding: 20px 0; }}
-                .contact-details {{ background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; }}
-                .urgent {{ background: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 6px; margin: 15px 0; }}
+                body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background-color: #f8fafc; }}
+                .container {{ max-width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }}
+                .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }}
+                .content {{ padding: 30px; }}
+                .contact-details {{ background: #f0f4ff; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }}
+                .business-info {{ background: #f0fdf4; border: 1px solid #10b981; padding: 20px; border-radius: 8px; margin: 20px 0; }}
+                .contact-item {{ margin: 12px 0; display: flex; align-items: center; }}
+                .contact-label {{ font-weight: 600; color: #374151; min-width: 140px; }}
+                .contact-value {{ color: #111827; }}
+                .message-box {{ background: #fffbeb; border: 1px solid #f59e0b; padding: 20px; border-radius: 8px; margin: 20px 0; }}
+                .footer {{ background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; color: #6b7280; }}
+                .cta-button {{ display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 15px 5px; }}
             </style>
         </head>
         <body>
             <div class="container">
                 <div class="header">
-                    <h1>🚨 New Contact Request</h1>
+                    <h1>🏠 New Apartment Inquiry</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9;">A potential tenant is interested in your listing</p>
                 </div>
                 
                 <div class="content">
-                    <div class="urgent">
-                        <strong>⚠️ URGENT:</strong> New apartment inquiry requires response within 24 hours
+                    <div class="business-info">
+                        <h3 style="margin: 0 0 15px 0; color: #065f46;">📈 Business Opportunity</h3>
+                        <p style="margin: 0; color: #047857;">A qualified prospect has expressed interest in one of your no-fee apartment listings. Please respond within 24 hours to maintain service quality.</p>
                     </div>
                     
                     <div class="contact-details">
-                        <h3>Contact Information:</h3>
-                        <p><strong>Name:</strong> {contact.get('name', 'Not provided')}</p>
-                        <p><strong>Email:</strong> {contact.get('email', 'Not provided')}</p>
-                        <p><strong>Phone:</strong> {contact.get('phone', 'Not provided')}</p>
-                        <p><strong>Preferred Contact:</strong> {contact.get('preferred_contact', 'email').title()}</p>
-                        <p><strong>Apartment ID:</strong> {contact.get('apartment_id', 'Not specified')}</p>
-                        <p><strong>Date:</strong> {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
+                        <h3 style="margin: 0 0 20px 0; color: #4338ca;">👤 Contact Information</h3>
+                        <div class="contact-item">
+                            <span class="contact-label">Name:</span>
+                            <span class="contact-value">{contact.get('name', 'Not provided')}</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <span class="contact-value">{contact.get('email', 'Not provided')}</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <span class="contact-value">{contact.get('phone', 'Not provided')}</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Preferred Contact:</span>
+                            <span class="contact-value">{contact.get('preferred_contact', 'email').title()}</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Apartment ID:</span>
+                            <span class="contact-value">{contact.get('apartment_id', 'Not specified')}</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Inquiry Date:</span>
+                            <span class="contact-value">{datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}</span>
+                        </div>
                     </div>
                     
-                    <div class="contact-details">
-                        <h3>Message:</h3>
-                        <p>{contact.get('message', 'No message provided')}</p>
+                    {f'''
+                    <div class="message-box">
+                        <h4 style="margin: 0 0 12px 0; color: #92400e;">💬 Prospect's Message:</h4>
+                        <p style="margin: 0; color: #78350f; line-height: 1.6;">{contact.get('message', 'No message provided')}</p>
                     </div>
+                    ''' if contact.get('message') else ''}
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="mailto:{contact.get('email', '')}" class="cta-button">📧 Reply via Email</a>
+                        {f'<a href="tel:{contact.get("phone", "")}" class="cta-button">📞 Call Now</a>' if contact.get('phone') else ''}
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <p style="margin: 0 0 10px 0;"><strong>NoFeePlaces.com</strong> - NYC's Premier No Fee Apartment Platform</p>
+                    <p style="margin: 0; font-size: 14px;">This inquiry was generated from your apartment listing. Please respond promptly to maintain high service standards.</p>
                 </div>
             </div>
         </body>
