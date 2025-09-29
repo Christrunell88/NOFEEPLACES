@@ -2,7 +2,7 @@ from fastapi import FastAPI, APIRouter, Depends, HTTPException, Query, Request, 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any, Union
 from datetime import datetime, timezone
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -85,7 +85,8 @@ class Apartment(BaseModel):
     lease_terms: Union[str, List[str], None] = None
     pet_policy: Optional[str] = None
     
-    @validator('lease_terms', pre=True)
+    @field_validator('lease_terms', mode='before')
+    @classmethod
     def convert_lease_terms(cls, v):
         if isinstance(v, list):
             return ', '.join(str(term) for term in v)
