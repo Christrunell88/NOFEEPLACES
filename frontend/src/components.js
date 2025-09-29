@@ -339,6 +339,15 @@ export const Header = () => {
 
           {/* Desktop & Mobile Authentication Buttons */}
           <div className="flex items-center space-x-3">
+            {/* Landlord CTA Button */}
+            <Link
+              to="/landlord/pricing"
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm"
+              onClick={() => trackNavigationClick('List Your Apartment', '/landlord/pricing')}
+            >
+              📋 List Your Apartment
+            </Link>
+            
             {isAuthenticated ? (
               <div className="relative">
                 <button
