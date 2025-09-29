@@ -526,6 +526,16 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
+  // Import analytics tracking
+  const { trackApartmentView, trackContactForm } = require('./analytics');
+
+  // Track apartment view when card is visible
+  useEffect(() => {
+    if (apartment) {
+      trackApartmentView(apartment);
+    }
+  }, [apartment]);
+
   // Create JSON-LD structured data for each apartment
   const structuredData = {
     "@context": "https://schema.org",
