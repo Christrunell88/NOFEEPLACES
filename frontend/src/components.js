@@ -321,10 +321,18 @@ export const Header = () => {
 
           {/* Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
+            <Link 
+              to="/blog" 
+              className="text-gray-300 hover:text-white transition-colors"
+              onClick={() => trackNavigationClick('Blog', '/blog')}
+            >
               Blog
             </Link>
-            <Link to="/newsletter" className="text-gray-300 hover:text-white transition-colors">
+            <Link 
+              to="/newsletter" 
+              className="text-gray-300 hover:text-white transition-colors"
+              onClick={() => trackNavigationClick('Newsletter', '/newsletter')}
+            >
               Newsletter
             </Link>
           </div>
