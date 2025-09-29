@@ -23,7 +23,7 @@ export const trackEvent = (eventName, parameters = {}) => {
   }
 };
 
-// Page view tracking
+// Page view tracking with visitor notification
 export const trackPageView = (pagePath, pageTitle) => {
   if (isGtagAvailable()) {
     window.gtag('config', 'G-XMDGXKJJ8M', {
@@ -31,6 +31,38 @@ export const trackPageView = (pagePath, pageTitle) => {
       page_title: pageTitle,
     });
     console.log(`📊 GA4 Page View: ${pageTitle} (${pagePath})`);
+  }
+  
+  // Send visitor notification to admin (only for homepage visits)
+  if (pagePath === '/' || pagePath === '' || !pagePath) {
+    trackVisitorArrival();
+  }
+};
+
+// Track visitor arrival and send email notification
+export const trackVisitorArrival = async () => {
+  try {
+    const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://apartment-finder-3.preview.emergentagent.com';
+    
+    const response = await fetch(`${API_URL}/api/visitor/track`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        page: window.location.pathname,
+        referrer: document.referrer || 'direct'
+      })
+    });
+    
+    if (response.ok) {
+      console.log('📧 Visitor tracking notification sent');
+    } else {
+      console.log('⚠️ Visitor tracking failed');
+    }
+  } catch (error) {
+    console.log('⚠️ Visitor tracking error:', error);
   }
 };
 
