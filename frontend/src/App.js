@@ -12,6 +12,12 @@ import {
   trackPerformanceMetric,
   trackVisitorArrival
 } from './analytics';
+import { 
+  LandlordPricing, 
+  LandlordRegistration, 
+  LandlordDashboard, 
+  PaymentSuccess 
+} from './LandlordPortal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
