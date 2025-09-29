@@ -321,12 +321,6 @@ export const Header = () => {
 
           {/* Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/apartments" className="text-gray-300 hover:text-white transition-colors">
-              Apartments
-            </Link>
-            <Link to="/search" className="text-gray-300 hover:text-white transition-colors">
-              Search
-            </Link>
             <Link to="/blog" className="text-gray-300 hover:text-white transition-colors">
               Blog
             </Link>
