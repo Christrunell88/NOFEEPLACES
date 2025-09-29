@@ -33,6 +33,7 @@ export const Hero = () => {
   }, []);
 
   const scrollToListings = () => {
+    trackHeroAction('scroll', 'Browse Apartments');
     window.scrollTo({ top: 1200, behavior: 'smooth' });
   };
 
