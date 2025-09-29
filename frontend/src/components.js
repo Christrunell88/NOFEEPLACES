@@ -503,7 +503,7 @@ export const NewsletterPage = () => {
                 <div className="text-gray-600">Newsletter Subscribers</div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-purple-600">316+</div>
+                <div className="text-4xl font-bold text-purple-600">335+</div>
                 <div className="text-gray-600">No Fee Apartments</div>
               </div>
               <div>
