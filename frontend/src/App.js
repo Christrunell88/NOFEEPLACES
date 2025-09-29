@@ -4,6 +4,13 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import axios from "axios";
 import * as Components from './components';
 import { AuthProvider, useAuth } from './auth';
+import { 
+  trackPageView, 
+  trackApartmentSearch, 
+  trackFilterUsage, 
+  trackListingImpression,
+  trackPerformanceMetric 
+} from './analytics';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
