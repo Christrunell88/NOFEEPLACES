@@ -542,6 +542,68 @@ async def contact_apartment(contact: ContactRequest):
         contact_id=contact_data["id"]
     )
 
+@api_router.post("/visitor/track")
+async def track_visitor(request: Request):
+    """Track website visitors and send email notifications"""
+    try:
+        # Get visitor information
+        client_ip = request.client.host
+        user_agent = request.headers.get("user-agent", "Unknown")
+        timestamp = datetime.now(timezone.utc)
+        
+        # Create session ID based on IP and user agent (for uniqueness)
+        session_id = f"{client_ip}_{hash(user_agent)}_{timestamp.strftime('%Y%m%d')}"
+        
+        # Check if we've already notified for this session today
+        existing_visit = await db.visitor_sessions.find_one({
+            "session_id": session_id,
+            "date": timestamp.strftime('%Y-%m-%d')
+        })
+        
+        # Store visitor data
+        visitor_data = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "ip_address": client_ip,
+            "user_agent": user_agent,
+            "timestamp": timestamp.isoformat(),
+            "date": timestamp.strftime('%Y-%m-%d'),
+            "notified": False
+        }
+        
+        await db.visitor_sessions.insert_one(visitor_data)
+        
+        # Send email notification only for new sessions (first visit of the day)
+        if not existing_visit:
+            logger.info(f"New visitor detected: {client_ip}")
+            
+            # Send email notification
+            try:
+                success = await email_service.send_visitor_notification(
+                    ip_address=client_ip,
+                    user_agent=user_agent,
+                    timestamp=timestamp
+                )
+                
+                if success:
+                    # Update notification status
+                    await db.visitor_sessions.update_one(
+                        {"id": visitor_data["id"]},
+                        {"$set": {"notified": True}}
+                    )
+                    logger.info(f"Visitor notification email sent for {client_ip}")
+                else:
+                    logger.error(f"Failed to send visitor notification for {client_ip}")
+                    
+            except Exception as e:
+                logger.error(f"Error sending visitor notification: {str(e)}")
+        
+        return {"message": "Visitor tracked successfully"}
+        
+    except Exception as e:
+        logger.error(f"Error tracking visitor: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to track visitor")
+
 @api_router.post("/search", response_model=ApartmentListResponse)
 async def search_apartments(search_request: SearchRequest):
     """Enhanced search with AI-friendly results"""
