@@ -100,7 +100,7 @@ export const SEOContentSection = () => {
         <div className="flex justify-center space-x-8 text-center">
           <div className="flex flex-col items-center">
             <div className="text-3xl mb-2">🏠</div>
-            <div className="text-2xl font-bold text-purple-600">316+</div>
+            <div className="text-2xl font-bold text-purple-600">335+</div>
             <div className="text-sm text-gray-600">Apartments</div>
           </div>
           <div className="flex flex-col items-center">
