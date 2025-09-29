@@ -528,8 +528,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   const [showContactModal, setShowContactModal] = useState(false);
 
   // Import analytics tracking
-  const { trackApartmentView, trackContactForm } = require('./analytics');
-
   // Track apartment view when card is visible
   useEffect(() => {
     if (apartment) {
