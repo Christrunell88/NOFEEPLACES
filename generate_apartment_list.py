@@ -7,6 +7,8 @@ import asyncio
 import csv
 from datetime import datetime, timezone
 from motor.motor_asyncio import AsyncIOMotorClient
+import sys
+sys.path.append('/app/backend')
 from email_service import email_service
 import os
 from dotenv import load_dotenv
