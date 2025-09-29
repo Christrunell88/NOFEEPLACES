@@ -9,7 +9,8 @@ import {
   trackApartmentSearch, 
   trackFilterUsage, 
   trackListingImpression,
-  trackPerformanceMetric 
+  trackPerformanceMetric,
+  trackVisitorArrival
 } from './analytics';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
