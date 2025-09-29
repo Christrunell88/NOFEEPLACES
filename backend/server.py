@@ -933,8 +933,12 @@ async def get_newsletter_stats():
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-# Include router in main app
+# Include API routers
 app.include_router(api_router)
+app.include_router(landlord_router)
+
+# Set database for landlord API
+set_database(db)
 
 # Include social authentication router
 try:
