@@ -99,6 +99,8 @@ const Home = () => {
 
   const fetchApartments = async () => {
     setLoading(true);
+    const searchStartTime = performance.now();
+    
     try {
       const params = new URLSearchParams();
       
@@ -114,6 +116,23 @@ const Home = () => {
       const response = await axios.get(`${API}/apartments?${params}`);
       setApartments(response.data.apartments);
       setTotalApartments(response.data.total);
+      
+      // Track search performance and results
+      const searchTime = performance.now() - searchStartTime;
+      trackPerformanceMetric('apartment_search_time', Math.round(searchTime));
+      
+      // Track search event if filters are applied
+      const hasActiveFilters = Object.values(searchFilters).some(value => value !== '' && value !== null);
+      if (hasActiveFilters) {
+        trackApartmentSearch(searchFilters);
+      }
+      
+      // Track listing impressions
+      if (response.data.apartments?.length > 0) {
+        const listContext = hasActiveFilters ? 'search_results' : 'browse_all';
+        trackListingImpression(response.data.apartments, listContext);
+      }
+      
     } catch (error) {
       console.error('Failed to fetch apartments:', error);
       setApartments([]);
