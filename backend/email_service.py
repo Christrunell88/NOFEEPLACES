@@ -478,6 +478,120 @@ NoFeePlaces.com Team
         </html>
         """
     
+    def _get_visitor_notification_template(self, ip_address: str, user_agent: str, timestamp: datetime) -> str:
+        """Generate visitor notification email for admin"""
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>New Website Visitor - NoFeePlaces.com</title>
+            <style>
+                body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background-color: #f8fafc; }}
+                .container {{ max-width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }}
+                .header {{ background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }}
+                .content {{ padding: 30px; }}
+                .visitor-details {{ background: #f0fdf4; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10b981; }}
+                .stats-info {{ background: #eff6ff; border: 1px solid #3b82f6; padding: 20px; border-radius: 8px; margin: 20px 0; }}
+                .visitor-item {{ margin: 12px 0; display: flex; align-items: center; }}
+                .visitor-label {{ font-weight: 600; color: #374151; min-width: 120px; }}
+                .visitor-value {{ color: #111827; }}
+                .footer {{ background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; color: #6b7280; }}
+                .cta-button {{ display: inline-block; background: #10b981; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 600; margin: 15px 5px; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>👋 New Website Visitor</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9;">Someone just visited NoFeePlaces.com</p>
+                </div>
+                
+                <div class="content">
+                    <div class="stats-info">
+                        <h3 style="margin: 0 0 15px 0; color: #1e40af;">📈 Visitor Activity</h3>
+                        <p style="margin: 0; color: #1e3a8a;">A new visitor has arrived on your no-fee apartment platform. This could be a potential tenant searching for apartments!</p>
+                    </div>
+                    
+                    <div class="visitor-details">
+                        <h3 style="margin: 0 0 20px 0; color: #059669;">🔍 Visitor Information</h3>
+                        <div class="visitor-item">
+                            <span class="visitor-label">Visit Time:</span>
+                            <span class="visitor-value">{timestamp.strftime('%B %d, %Y at %I:%M %p UTC')}</span>
+                        </div>
+                        <div class="visitor-item">
+                            <span class="visitor-label">IP Address:</span>
+                            <span class="visitor-value">{ip_address}</span>
+                        </div>
+                        <div class="visitor-item">
+                            <span class="visitor-label">Browser/Device:</span>
+                            <span class="visitor-value">{user_agent[:100]}{'...' if len(user_agent) > 100 else ''}</span>
+                        </div>
+                        <div class="visitor-item">
+                            <span class="visitor-label">Platform:</span>
+                            <span class="visitor-value">NoFeePlaces.com</span>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="https://apartment-finder-3.preview.emergentagent.com" class="cta-button">🏠 View Live Site</a>
+                        <a href="https://analytics.google.com" class="cta-button">📊 Check Analytics</a>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <p style="margin: 0 0 10px 0;"><strong>NoFeePlaces.com</strong> - Visitor Tracking System</p>
+                    <p style="margin: 0; font-size: 14px;">You're receiving this because visitor notifications are enabled. This helps you track real-time interest in your apartment listings.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+
+    async def send_visitor_notification(self, ip_address: str, user_agent: str, timestamp: datetime) -> bool:
+        """Send visitor notification email to admin"""
+        try:
+            subject = f"🏠 New Visitor on NoFeePlaces.com - {timestamp.strftime('%I:%M %p')}"
+            
+            html_content = self._get_visitor_notification_template(ip_address, user_agent, timestamp)
+            
+            text_content = f"""
+New Website Visitor - NoFeePlaces.com
+
+A new visitor has arrived on your no-fee apartment platform!
+
+Visitor Details:
+- Visit Time: {timestamp.strftime('%B %d, %Y at %I:%M %p UTC')}
+- IP Address: {ip_address}
+- Browser/Device: {user_agent}
+- Platform: NoFeePlaces.com
+
+This could be a potential tenant searching for apartments. Check your Google Analytics for more details about their activity.
+
+---
+NoFeePlaces.com Visitor Tracking System
+"""
+            
+            success = await self.send_email_async(
+                to_email=self.admin_email,
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            if success:
+                await self._log_email_attempt(self.admin_email, subject, "visitor_notification", True)
+                print(f"✅ Visitor notification sent for IP: {ip_address}")
+            else:
+                await self._log_email_attempt(self.admin_email, subject, "visitor_notification", False)
+                print(f"❌ Failed to send visitor notification for IP: {ip_address}")
+            
+            return success
+            
+        except Exception as e:
+            print(f"❌ Error in send_visitor_notification: {str(e)}")
+            await self._log_email_attempt(self.admin_email, "Visitor Notification", "visitor_notification", False)
+            return False
+    
     async def _log_email_attempt(self, recipient: str, subject: str, 
                                 email_type: str, success: bool) -> None:
         """Log email sending attempts for tracking"""
