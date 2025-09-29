@@ -720,6 +720,10 @@ export const EmailContactModal = ({ apartment, onClose }) => {
       
       if (response.status === 200) {
         setSent(true);
+        
+        // Track successful contact form submission
+        trackContactForm(formData, apartment);
+        
         setTimeout(() => {
           onClose();
         }, 3000); // Show success message for 3 seconds
