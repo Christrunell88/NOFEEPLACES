@@ -98,6 +98,11 @@ const Home = () => {
     fetchSearchStats();
   }, [searchFilters, currentPage]);
 
+  // Track visitor arrival on initial load
+  useEffect(() => {
+    trackVisitorArrival();
+  }, []); // Empty dependency array means this runs once on mount
+
   const fetchApartments = async () => {
     setLoading(true);
     const searchStartTime = performance.now();
