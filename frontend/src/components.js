@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './auth';
+import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationClick } from './analytics';
 
 // Import all missing components
 import {
