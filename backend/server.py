@@ -446,6 +446,50 @@ async def get_apartments(
         has_more=(skip + len(apartments)) < total_count
     )
 
+@api_router.post("/webhook/stripe")
+async def stripe_webhook(request: Request):
+    """Handle Stripe webhook events"""
+    try:
+        # Get request body and signature
+        body = await request.body()
+        signature = request.headers.get("Stripe-Signature")
+        
+        # Initialize Stripe checkout
+        stripe_api_key = os.environ.get('STRIPE_API_KEY')
+        stripe_checkout = StripeCheckout(api_key=stripe_api_key, webhook_url="")
+        
+        # Handle webhook
+        webhook_response = await stripe_checkout.handle_webhook(body, signature)
+        
+        # Log webhook event
+        logger.info(f"Stripe webhook received: {webhook_response.event_type}")
+        
+        # Handle specific events
+        if webhook_response.event_type == "checkout.session.completed":
+            # Update payment transaction
+            await db.payment_transactions.update_one(
+                {"session_id": webhook_response.session_id},
+                {
+                    "$set": {
+                        "payment_status": webhook_response.payment_status,
+                        "updated_at": datetime.now(timezone.utc).isoformat()
+                    }
+                }
+            )
+            
+            # If payment successful, activate subscription
+            if webhook_response.payment_status == "paid":
+                transaction = await db.payment_transactions.find_one({"session_id": webhook_response.session_id})
+                if transaction and transaction.get("metadata", {}).get("type") == "landlord_subscription":
+                    from landlord_api import activate_landlord_subscription
+                    await activate_landlord_subscription(transaction["landlord_id"], transaction)
+        
+        return {"status": "success"}
+        
+    except Exception as e:
+        logger.error(f"Stripe webhook error: {str(e)}")
+        raise HTTPException(status_code=400, detail="Webhook processing failed")
+
 @api_router.get("/apartments/search/stats")
 async def get_search_stats():
     """Get apartment search statistics"""
