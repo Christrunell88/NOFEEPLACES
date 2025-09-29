@@ -156,6 +156,11 @@ const Home = () => {
       [key]: value
     }));
     setCurrentPage(1);
+    
+    // Track filter usage
+    if (value !== '' && value !== null && value !== undefined) {
+      trackFilterUsage(key, value);
+    }
   };
 
   const clearFilters = () => {
