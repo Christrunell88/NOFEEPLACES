@@ -855,41 +855,20 @@ async def get_related_posts(slug: str, limit: int = 3):
     related_posts = await db.blog_posts.find(query).limit(limit).to_list(length=limit)
     return [BlogPost(**post) for post in related_posts]
 
-# Mock rental data scraping functions (kept for compatibility)
-def scrape_rentals(location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-    """Mock rental scraping - returns structured data for development"""
-    logger.warning("Using mock rental data - implement actual scraping for production")
-    
-    mock_data = [
-        {
-            "id": str(uuid.uuid4()),
-            "title": f"Luxury No Fee Apartment in {location}",
-            "description": "Beautiful modern apartment with premium amenities",
-            "price": 4500.0,
-            "location": f"{location}, NY",
-            "bedrooms": 2,
-            "bathrooms": 2.0,
-            "sqft": 950,
-            "amenities": ["Gym", "Rooftop", "Concierge"],
-            "images": ["https://example.com/image1.jpg"],
-            "contact_email": "leasing@example.com",
-            "contact_phone": "+1-555-0123",
-            "available": True,
-            "created_at": datetime.now(timezone.utc).isoformat()
-        }
-    ]
-    
-    return mock_data[:limit]
+# Import real rental scraping functionality
+from rental_scraper import scrape_rentals, scrape_rentals_async
 
 @api_router.get("/scrape-rentals")
 async def scrape_rentals_endpoint(location: str = "NYC", limit: int = 50):
-    """Mock scraping endpoint for development"""
+    """Real rental scraping endpoint with comprehensive data"""
     try:
-        rentals = scrape_rentals(location, limit)
+        logger.info(f"Scraping rentals for {location} with limit {limit}")
+        rentals = await scrape_rentals_async(location, limit)
+        logger.info(f"Successfully scraped {len(rentals)} rentals")
         return {"status": "success", "count": len(rentals), "rentals": rentals}
     except Exception as e:
         logger.error(f"Scraping error: {str(e)}")
-        return {"status": "error", "message": str(e)}
+        return {"status": "error", "message": str(e), "fallback_used": True}
 
 # Chat endpoint for AI assistant
 @api_router.post("/chat")
