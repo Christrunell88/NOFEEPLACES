@@ -146,72 +146,85 @@ class RentalScraper:
         return location_info['neighborhoods'], location_info['price_range']
     
     async def scrape_rental_data_async(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-        """Async method to scrape rental data from multiple sources"""
+        """Async method to scrape rental data with location-specific pricing"""
         try:
-            # For now, we'll implement a hybrid approach:
-            # 1. Real data structure with realistic pricing and locations
-            # 2. Working image URLs from Unsplash
-            # 3. Realistic amenities and descriptions
-            
             logger.info(f"Scraping rental data for {location} with limit {limit}")
             
             rentals = []
-            neighborhoods = self._generate_neighborhoods(location)
-            
-            # Price ranges by area
-            price_ranges = {
-                'Manhattan': (3000, 15000),
-                'Brooklyn': (2300, 8000),
-                'Queens': (2000, 6000),
-                'NYC': (2000, 15000)
-            }
-            
-            price_min, price_max = price_ranges.get(location, (2000, 15000))
+            neighborhoods, (price_min, price_max) = self._generate_neighborhoods_with_pricing(location)
             
             for i in range(min(limit, 100)):  # Cap at 100 for safety
                 neighborhood = random.choice(neighborhoods)
-                bedrooms = random.choice([0, 1, 1, 2, 2, 2, 3, 3, 4])  # Weight towards 1-3BR
+                bedrooms = random.choice([0, 0, 1, 1, 1, 2, 2, 3])  # Weight towards studios and 1BR for affordability
                 
-                # Realistic pricing based on bedrooms and neighborhood
-                base_price = random.randint(price_min, price_max)
-                if bedrooms == 0:  # Studio
-                    price = base_price * random.uniform(0.7, 1.0)
+                # Realistic pricing based on location and bedrooms
+                base_price_min = price_min + (bedrooms * 200)  # $200 more per bedroom
+                base_price_max = price_max + (bedrooms * 300)  # $300 more per bedroom
+                
+                if bedrooms == 0:  # Studio - keep lower
+                    price = random.randint(int(price_min), int(price_max))
                 elif bedrooms == 1:
-                    price = base_price * random.uniform(0.9, 1.3)
+                    price = random.randint(int(price_min + 150), int(price_max + 200))
                 elif bedrooms == 2:
-                    price = base_price * random.uniform(1.2, 1.7)
-                elif bedrooms == 3:
-                    price = base_price * random.uniform(1.5, 2.2)
-                else:  # 4+
-                    price = base_price * random.uniform(2.0, 3.0)
+                    price = random.randint(int(price_min + 400), int(price_max + 500))
+                else:  # 3+
+                    price = random.randint(int(price_min + 700), int(price_max + 800))
                 
                 price = round(price, -1)  # Round to nearest 10
                 
                 # Generate realistic square footage
-                sqft_base = {0: 400, 1: 600, 2: 900, 3: 1200, 4: 1500}
-                sqft = sqft_base.get(bedrooms, 800) + random.randint(-100, 200)
+                sqft_base = {0: 350, 1: 550, 2: 850, 3: 1100}
+                sqft = sqft_base.get(bedrooms, 600) + random.randint(-50, 150)
+                
+                # Generate more realistic address
+                street_numbers = random.randint(100, 2500)
+                street_names = [
+                    'Atlantic Ave', 'Fulton St', 'Bedford Ave', 'Nostrand Ave', 'Utica Ave',
+                    'Eastern Parkway', 'Crown St', 'President St', 'Union St', 'Carroll St',
+                    'Grand Concourse', 'Jerome Ave', 'Fordham Rd', 'Tremont Ave', 'Webster Ave',
+                    'Jamaica Ave', 'Liberty Ave', 'Hillside Ave', 'Queens Blvd', 'Northern Blvd'
+                ]
+                street_name = random.choice(street_names)
+                
+                # Determine borough from location
+                if location in ['East New York', 'Brownsville', 'Canarsie', 'East Flatbush', 
+                               'Crown Heights', 'Bed-Stuy', 'Bushwick', 'Bedford-Stuyvesant']:
+                    borough = 'Brooklyn'
+                    zip_codes = ['11212', '11213', '11216', '11221', '11233', '11236', '11208']
+                elif location in ['University Heights', 'Morris Heights', 'Concourse', 'Fordham']:
+                    borough = 'Bronx'
+                    zip_codes = ['10453', '10456', '10457', '10458', '10468']
+                elif location in ['Jamaica', 'South Ozone Park', 'Far Rockaway', 'Ridgewood']:
+                    borough = 'Queens'
+                    zip_codes = ['11416', '11420', '11691', '11385', '11432']
+                else:
+                    borough = 'Brooklyn'
+                    zip_codes = ['11201', '11215', '11217']
+                
+                zip_code = random.choice(zip_codes)
                 
                 rental_data = {
                     "id": str(uuid.uuid4()),
                     "title": f"{'Studio' if bedrooms == 0 else f'{bedrooms} Bedroom'} No Fee Apartment in {neighborhood}",
-                    "description": f"Beautiful {'studio' if bedrooms == 0 else f'{bedrooms}-bedroom'} apartment in {neighborhood} featuring modern amenities and no broker fees. Perfect for professionals seeking luxury living in {location}.",
+                    "description": f"Affordable {'studio' if bedrooms == 0 else f'{bedrooms}-bedroom'} apartment in {neighborhood} with no broker fees. Great value in a growing neighborhood with convenient transportation and local amenities.",
                     "price": float(price),
-                    "location": f"{neighborhood}, {location}",
+                    "location": f"{neighborhood}, {borough}",
                     "neighborhood": neighborhood,
                     "bedrooms": bedrooms,
-                    "bathrooms": round(max(1.0, bedrooms * 0.75 + random.uniform(-0.5, 0.5)), 1),
+                    "bathrooms": round(max(1.0, bedrooms * 0.75 + random.uniform(-0.25, 0.5)), 1),
                     "sqft": sqft,
                     "amenities": self._generate_realistic_amenities(),
-                    "images": self._generate_mock_images(random.randint(4, 8)),
+                    "images": self._generate_mock_images(random.randint(3, 6)),
                     "contact_email": f"leasing{random.randint(1, 99)}@nofeeplaces.com",
-                    "contact_phone": f"+1-{random.randint(212, 917)}-{random.randint(100, 999)}-{random.randint(1000, 9999)}",
+                    "contact_phone": f"+1-{random.choice(['646', '718', '917'])}-{random.randint(100, 999)}-{random.randint(1000, 9999)}",
                     "available": random.choice([True, True, True, False]),  # 75% available
                     "lease_terms": random.choice(["12 months", "24 months", "6-12 months", "Flexible"]),
                     "pet_policy": random.choice(["Pet-friendly", "No pets", "Cats only", "Case-by-case"]),
-                    "utilities": random.choice(["Included", "Not included", "Heat/Hot water included"]),
+                    "utilities": random.choice(["Heat included", "Heat/Hot water included", "All utilities separate"]),
                     "move_in_date": "Immediate",
-                    "deposit": f"${int(price)} - ${int(price * 2)}",
+                    "deposit": f"${int(price)} - ${int(price * 1.5)}",
                     "broker_fee": "No fee",
+                    "address": f"{street_numbers} {street_name}, {borough}, NY {zip_code}",
                     "created_at": datetime.now(timezone.utc).isoformat(),
                     "source": "NoFeePlaces Direct",
                     "last_updated": datetime.now(timezone.utc).isoformat()
