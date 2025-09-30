@@ -306,26 +306,34 @@ async def get_landlord_listings(landlord_id: str):
     """Get all listings for a landlord with view counts"""
     try:
         # Get all apartments for this landlord
-        apartments = await db.apartments.find({"landlord_id": landlord_id}).to_list(length=None)
+        apartments_cursor = db.apartments.find({"landlord_id": landlord_id})
+        apartments = await apartments_cursor.to_list(length=None)
         
-        # Get view counts for each apartment
+        # Convert ObjectId to string and add view counts
+        cleaned_apartments = []
         for apartment in apartments:
-            # Count views from visitor tracking (basic implementation)
-            view_count = await db.apartment_views.count_documents({"apartment_id": apartment["id"]})
+            # Remove MongoDB ObjectId
+            if "_id" in apartment:
+                del apartment["_id"]
+            
+            # Count views from visitor tracking
+            view_count = await db.apartment_views.count_documents({"apartment_id": apartment.get("id", "")})
             apartment["view_count"] = view_count
             
             # Count inquiries for this apartment
-            inquiry_count = await db.contacts.count_documents({"apartment_id": apartment["id"]})
+            inquiry_count = await db.contacts.count_documents({"apartment_id": apartment.get("id", "")})
             apartment["inquiry_count"] = inquiry_count
+            
+            cleaned_apartments.append(apartment)
         
         return {
-            "listings": apartments,
-            "total": len(apartments)
+            "listings": cleaned_apartments,
+            "total": len(cleaned_apartments)
         }
         
     except Exception as e:
         logger.error(f"Error fetching listings: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to fetch listings")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch listings: {str(e)}")
 
 @landlord_router.patch("/listings/{listing_id}/status")
 async def toggle_listing_status(listing_id: str, status_update: dict):
