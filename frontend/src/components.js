@@ -44,7 +44,7 @@ const getDisplayAddress = (apartment, isAuthenticated) => {
 // Re-export all imported components
 export {
   Hero,
-  SEOContentSection,
+  FeaturedApartments,
   AdvancedSearchFilters,
   MapView,
   Footer,
