@@ -306,20 +306,32 @@ export const Header = () => {
     <header className="bg-black text-white shadow-2xl sticky top-0 z-40">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🏢</span>
-            </div>
-            <div>
-              <div className="font-bold text-xl">
-                No Fee <span className="text-yellow-400">Places</span>
+          {/* Left Side: Logo + Landlord Sign In */}
+          <div className="flex items-center space-x-6">
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">🏢</span>
               </div>
-              <div className="text-xs text-gray-400">NYC RENTALS</div>
-            </div>
-          </Link>
+              <div>
+                <div className="font-bold text-xl">
+                  No Fee <span className="text-yellow-400">Places</span>
+                </div>
+                <div className="text-xs text-gray-400">NYC RENTALS</div>
+              </div>
+            </Link>
+            
+            {/* Landlord Sign In */}
+            <Link
+              to="/landlord/login"
+              className="hidden md:flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-sm"
+              onClick={() => trackNavigationClick('Landlord Sign In', '/landlord/login')}
+            >
+              <span>🏢</span>
+              <span>Landlord Sign In</span>
+            </Link>
+          </div>
 
-          {/* Navigation */}
+          {/* Center Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/blog" 
@@ -337,16 +349,8 @@ export const Header = () => {
             </Link>
           </div>
 
-          {/* Desktop & Mobile Authentication Buttons */}
+          {/* Right Side: User Authentication */}
           <div className="flex items-center space-x-3">
-            {/* Landlord CTA Button */}
-            <Link
-              to="/landlord/pricing"
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors font-semibold text-sm"
-              onClick={() => trackNavigationClick('List Your Apartment', '/landlord/pricing')}
-            >
-              📋 List Your Apartment
-            </Link>
             
             {isAuthenticated ? (
               <div className="relative">
