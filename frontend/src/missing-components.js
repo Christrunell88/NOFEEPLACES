@@ -94,32 +94,128 @@ export const Hero = () => {
   );
 };
 
-// SEO Content Section - Streamlined Stats
-export const SEOContentSection = () => {
+// Featured Apartments Preview Section
+export const FeaturedApartments = () => {
+  const [featuredApartments, setFeaturedApartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedApartments = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/apartments?limit=6&featured=true`);
+        if (response.data && response.data.apartments) {
+          setFeaturedApartments(response.data.apartments);
+        }
+      } catch (error) {
+        console.error('Error fetching featured apartments:', error);
+        // Fallback to regular apartments if featured fails
+        try {
+          const fallbackResponse = await axios.get(`${BACKEND_URL}/api/apartments?limit=6`);
+          if (fallbackResponse.data && fallbackResponse.data.apartments) {
+            setFeaturedApartments(fallbackResponse.data.apartments);
+          }
+        } catch (fallbackError) {
+          console.error('Error fetching fallback apartments:', fallbackError);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedApartments();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-12 bg-slate-50">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center h-32">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-12 bg-slate-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-center text-slate-800 mb-8">
-            Why Choose NoFeePlaces?
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-slate-800 mb-2">
+            Available Now
           </h2>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <div className="text-4xl mb-3">🏠</div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">335+</div>
-              <div className="text-slate-600">Verified No-Fee Apartments</div>
+          <p className="text-slate-600">No fees. No waiting. Move in today.</p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-8">
+          {featuredApartments.slice(0, 6).map((apartment, index) => (
+            <div 
+              key={apartment.id} 
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group cursor-pointer"
+              onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={apartment.images && apartment.images[0] ? apartment.images[0] : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop'}
+                  alt={apartment.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 right-3 flex gap-2">
+                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                    ✓ VERIFIED
+                  </span>
+                  <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    NO FEE
+                  </span>
+                </div>
+              </div>
+              
+              <div className="p-5">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="font-semibold text-lg text-slate-800 line-clamp-1">
+                      {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms}BR`} in {apartment.neighborhood || 'NYC'}
+                    </h3>
+                    <p className="text-slate-600 text-sm">{apartment.location}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-bold text-slate-800">
+                      ${apartment.price?.toLocaleString()}
+                    </div>
+                    <div className="text-xs text-slate-500">/month</div>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 text-sm text-slate-600 mb-3">
+                  {apartment.bedrooms !== undefined && (
+                    <span>{apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}</span>
+                  )}
+                  {apartment.bathrooms && (
+                    <span>{apartment.bathrooms} bath</span>
+                  )}
+                  {apartment.sqft && (
+                    <span>{apartment.sqft} sqft</span>
+                  )}
+                </div>
+                
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                  View Details
+                </button>
+              </div>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <div className="text-4xl mb-3">💰</div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">$3,000+</div>
-              <div className="text-slate-600">Average Savings Per Renter</div>
-            </div>
-            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
-              <div className="text-4xl mb-3">⚡</div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
-              <div className="text-slate-600">Instant Access & Support</div>
-            </div>
-          </div>
+          ))}
+        </div>
+        
+        <div className="text-center">
+          <button 
+            onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
+            className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+          >
+            <span>View All {featuredApartments.length}+ Apartments</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
