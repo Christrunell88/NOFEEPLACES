@@ -323,11 +323,11 @@ export const Header = () => {
             {/* Landlord Sign In */}
             <Link
               to="/landlord/login"
-              className="hidden md:flex items-center space-x-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-sm"
+              className="hidden md:flex items-center space-x-2 bg-purple-600 text-white px-5 py-2.5 rounded-lg hover:bg-purple-700 transition-colors font-bold text-base shadow-lg border border-purple-500"
               onClick={() => trackNavigationClick('Landlord Sign In', '/landlord/login')}
             >
               <span>🏢</span>
-              <span>Landlord Sign In</span>
+              <span>Owner Sign In</span>
             </Link>
           </div>
 
