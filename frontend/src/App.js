@@ -22,6 +22,10 @@ import {
   LandlordLogin, 
   DemoLandlordAccess 
 } from './LandlordAuth';
+import { 
+  AddListing, 
+  ViewListings 
+} from './LandlordListings';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
