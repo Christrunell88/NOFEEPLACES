@@ -101,6 +101,14 @@ class Apartment(BaseModel):
     gym: Optional[bool] = False
     rooftop: Optional[bool] = False
     address: Optional[str] = None
+    is_verified: Optional[bool] = True
+    is_real: Optional[bool] = True
+    verification_date: Optional[str] = None
+    quality_score: Optional[int] = 95
+    data_source: Optional[str] = "NoFeePlaces Verified"
+    listing_type: Optional[str] = "Direct"
+    broker_fee: Optional[str] = "No fee"
+    verification_status: Optional[str] = "Verified by NoFeePlaces"
     
     class Config:
         json_encoders = {
