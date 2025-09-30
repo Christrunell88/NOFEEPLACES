@@ -121,6 +121,28 @@ export const LandlordPricing = () => {
           </div>
         </div>
 
+        {/* Demo Access Section */}
+        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-8 mb-12 text-center text-white">
+          <h2 className="text-2xl font-bold mb-4">🎭 Try Our Demo Dashboard</h2>
+          <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
+            See exactly what your property management dashboard will look like with sample data from Manhattan Properties LLC.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => navigate('/landlord/demo')}
+              className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            >
+              🚀 View Demo Dashboard
+            </button>
+            <button
+              onClick={() => navigate('/landlord/login')}
+              className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+            >
+              Sign In to Account
+            </button>
+          </div>
+        </div>
+
         {/* Benefits Section */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
           <h2 className="text-2xl font-bold text-center mb-8">Why Choose NoFeePlaces.com?</h2>
