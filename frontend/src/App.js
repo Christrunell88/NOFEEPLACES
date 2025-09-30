@@ -400,6 +400,8 @@ function App() {
                 <Route path="/landlord" element={<LandlordPricing />} />
                 <Route path="/landlord/pricing" element={<LandlordPricing />} />
                 <Route path="/landlord/register" element={<LandlordRegistration />} />
+                <Route path="/landlord/login" element={<LandlordLogin />} />
+                <Route path="/landlord/demo" element={<DemoLandlordAccess />} />
                 <Route path="/landlord/dashboard/:landlordId" element={<LandlordDashboard />} />
                 <Route path="/landlord/success" element={<PaymentSuccess />} />
                 <Route path="/landlord/cancel" element={<LandlordPricing />} />
