@@ -62,15 +62,12 @@ export const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
-        <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        <div className="text-center text-white px-4 max-w-3xl">
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
             Find Your Perfect NYC Apartment
-            <span className="block text-2xl md:text-3xl font-normal mt-4 text-blue-200">
-              No broker fees. No hidden costs. Just great apartments.
-            </span>
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Join thousands who've saved over $3,000 on broker fees. Browse 335+ verified no-fee apartments across Manhattan, Brooklyn, and Queens.
+          <p className="text-xl md:text-2xl mb-8 text-blue-100 font-light">
+            No broker fees. No hidden costs.
           </p>
           <button 
             onClick={scrollToListings}
