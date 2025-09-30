@@ -125,7 +125,7 @@ class RentalScraper:
                 
                 rental_data = {
                     "id": str(uuid.uuid4()),
-                    "title": f"{"Studio" if bedrooms == 0 else f"{bedrooms} Bedroom"} No Fee Apartment in {neighborhood}",
+                    "title": f"{'Studio' if bedrooms == 0 else f'{bedrooms} Bedroom'} No Fee Apartment in {neighborhood}",
                     "description": f"Beautiful {'studio' if bedrooms == 0 else f'{bedrooms}-bedroom'} apartment in {neighborhood} featuring modern amenities and no broker fees. Perfect for professionals seeking luxury living in {location}.",
                     "price": float(price),
                     "location": f"{neighborhood}, {location}",
