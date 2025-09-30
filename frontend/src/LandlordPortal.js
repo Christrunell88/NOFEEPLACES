@@ -426,13 +426,22 @@ export const LandlordDashboard = () => {
           <div className="bg-white rounded-lg shadow p-6">
             <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
             <div className="space-y-4">
-              <button className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors">
+              <button 
+                onClick={() => navigate(`/landlord/add-listing/${landlordId}`)}
+                className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors"
+              >
                 + Add New Listing
               </button>
-              <button className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
-                View All Listings
+              <button 
+                onClick={() => navigate(`/landlord/listings/${landlordId}`)}
+                className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
+              >
+                View All Listings ({dashboardData.active_listings})
               </button>
-              <button className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+              <button 
+                onClick={() => navigate(`/landlord/pricing`)}
+                className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
+              >
                 Manage Account
               </button>
             </div>
