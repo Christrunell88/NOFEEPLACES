@@ -97,26 +97,31 @@ export const Hero = () => {
   );
 };
 
-// SEO Content Section - More App-like, Less Text
+// SEO Content Section - Streamlined Stats
 export const SEOContentSection = () => {
   return (
-    <section className="py-8 bg-gradient-to-r from-purple-50 to-pink-50">
+    <section className="py-12 bg-slate-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-center space-x-8 text-center">
-          <div className="flex flex-col items-center">
-            <div className="text-3xl mb-2">🏠</div>
-            <div className="text-2xl font-bold text-purple-600">335+</div>
-            <div className="text-sm text-gray-600">Apartments</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-3xl mb-2">💰</div>
-            <div className="text-2xl font-bold text-green-600">$0</div>
-            <div className="text-sm text-gray-600">Broker Fees</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="text-3xl mb-2">⚡</div>
-            <div className="text-2xl font-bold text-orange-600">24/7</div>
-            <div className="text-sm text-gray-600">Access</div>
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center text-slate-800 mb-8">
+            Why Choose NoFeePlaces?
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+              <div className="text-4xl mb-3">🏠</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">335+</div>
+              <div className="text-slate-600">Verified No-Fee Apartments</div>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+              <div className="text-4xl mb-3">💰</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">$3,000+</div>
+              <div className="text-slate-600">Average Savings Per Renter</div>
+            </div>
+            <div className="bg-white rounded-lg p-6 shadow-sm border border-slate-200">
+              <div className="text-4xl mb-3">⚡</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
+              <div className="text-slate-600">Instant Access & Support</div>
+            </div>
           </div>
         </div>
       </div>
