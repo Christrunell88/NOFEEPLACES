@@ -173,6 +173,18 @@ backend:
           agent: "testing"
           comment: "BLOG API ENDPOINTS COMPREHENSIVE TESTING COMPLETED: All 24 blog functionality tests passed with 100% success rate. BLOG LIST ENDPOINT VERIFIED: GET /api/blog returns proper BlogListResponse structure with posts array (5 posts), total count, pagination info, and has_more flag. Pagination working correctly with page/limit parameters. Category filtering working for all 4 categories (Renter's Guide: 1 post, Neighborhood Guide: 2 posts, Market Report: 1 post, Tips & Advice: 1 post). Tag filtering functional returning 4 posts for 'no fee apartments' tag. INDIVIDUAL BLOG POSTS VERIFIED: Both test slugs working correctly - 'hells-kitchen-no-fee-apartments-complete-neighborhood-guide-2025' and 'the-ultimate-guide-to-no-fee-apartments-in-nyc-2025' return proper blog post data. View count increment working (319→320 and 226→227). 404 error handling working for non-existent slugs. BLOG SUPPORT ENDPOINTS WORKING: Categories list returns 4 categories, tags list returns 22 tags, related posts endpoint returns 3 related posts. DATABASE STRUCTURE VERIFIED: All 5 sample posts have status='published', unique URL-friendly slugs, HTML content formatting, and all required fields populated. PERFORMANCE EXCELLENT: Blog list response time 0.020s, individual post response time 0.029s (both under 2s requirement). All blog functionality working perfectly end-to-end."
 
+  - task: "Apartment Verification Status Implementation"
+    implemented: false
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "VERIFICATION STATUS MISSING: Quick verification test revealed that apartments do not have is_verified and is_real flags set to true as requested in the review. All 357 apartments are missing these verification fields. This was a specific requirement to confirm apartments have proper verification data after UI updates. The Apartment model in server.py needs to be updated to include these fields and existing apartments need to be updated with verification status."
+
   - task: "Blog Database and Sample Content"
     implemented: true
     working: true
