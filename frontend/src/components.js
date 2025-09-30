@@ -137,7 +137,7 @@ export const NewsletterSignup = ({ source = "website", size = "default", classNa
             📧 Get NYC's Best No Fee Apartments First
           </h3>
           <p className={`text-gray-600 ${isLarge ? 'text-base' : 'text-sm'}`}>
-            Join 1,000+ smart renters who get early access to new listings, market insights, and exclusive deals.
+            Join 1,000+ smart renters who get new listings, market insights, and exclusive deals.
           </p>
         </div>
       )}
