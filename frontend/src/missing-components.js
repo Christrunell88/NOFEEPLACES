@@ -62,16 +62,21 @@ export const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
-        <div className="text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            No Fee <span className="text-yellow-400">NYC</span> Apartments
+        <div className="text-center text-white px-4 max-w-4xl">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Find Your Perfect NYC Apartment
+            <span className="block text-2xl md:text-3xl font-normal mt-4 text-blue-200">
+              No broker fees. No hidden costs. Just great apartments.
+            </span>
           </h1>
-          <p className="text-xl mb-8">Save $3,000+ on broker fees</p>
+          <p className="text-lg md:text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
+            Join thousands who've saved over $3,000 on broker fees. Browse 335+ verified no-fee apartments across Manhattan, Brooklyn, and Queens.
+          </p>
           <button 
             onClick={scrollToListings}
-            className="bg-yellow-500 text-black px-8 py-3 rounded-lg font-semibold hover:bg-yellow-400 transition-all transform hover:scale-105 shadow-lg"
+            className="bg-blue-600 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-xl"
           >
-            🏠 Browse Apartments
+            Start Your Search
           </button>
         </div>
       </div>
