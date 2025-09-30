@@ -182,7 +182,7 @@ export const NewsletterSignup = ({ source = "website", size = "default", classNa
           <div className="flex items-center space-x-4 text-xs text-gray-500">
             <div className="flex items-center space-x-1">
               <span>✅</span>
-              <span>Early Access</span>
+              <span>New Listings</span>
             </div>
             <div className="flex items-center space-x-1">
               <span>✅</span>
