@@ -407,6 +407,8 @@ function App() {
                 <Route path="/landlord/login" element={<LandlordLogin />} />
                 <Route path="/landlord/demo" element={<DemoLandlordAccess />} />
                 <Route path="/landlord/dashboard/:landlordId" element={<LandlordDashboard />} />
+                <Route path="/landlord/add-listing/:landlordId" element={<AddListing />} />
+                <Route path="/landlord/listings/:landlordId" element={<ViewListings />} />
                 <Route path="/landlord/success" element={<PaymentSuccess />} />
                 <Route path="/landlord/cancel" element={<LandlordPricing />} />
               </Routes>
