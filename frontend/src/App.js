@@ -33,7 +33,7 @@ const API = `${BACKEND_URL}/api`;
 const { 
   Header, 
   Hero, 
-  SEOContentSection,
+  FeaturedApartments,
   AdvancedSearchFilters, 
   ApartmentCard, 
   MapView, 
