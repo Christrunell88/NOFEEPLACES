@@ -204,7 +204,7 @@ const Home = () => {
         setShowAuthModal={setShowAuthModal}
       />
       <Hero />
-      <SEOContentSection />
+      <FeaturedApartments />
       
       {/* Newsletter Section Removed - SEO preserved */}
       
