@@ -301,6 +301,89 @@ async def submit_listing(landlord_id: str, listing: ListingSubmission):
         logger.error(f"Listing submission error: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to submit listing")
 
+@landlord_router.get("/listings/{landlord_id}")
+async def get_landlord_listings(landlord_id: str):
+    """Get all listings for a landlord with view counts"""
+    try:
+        # Get all apartments for this landlord
+        apartments = await db.apartments.find({"landlord_id": landlord_id}).to_list(length=None)
+        
+        # Get view counts for each apartment
+        for apartment in apartments:
+            # Count views from visitor tracking (basic implementation)
+            view_count = await db.apartment_views.count_documents({"apartment_id": apartment["id"]})
+            apartment["view_count"] = view_count
+            
+            # Count inquiries for this apartment
+            inquiry_count = await db.contacts.count_documents({"apartment_id": apartment["id"]})
+            apartment["inquiry_count"] = inquiry_count
+        
+        return {
+            "listings": apartments,
+            "total": len(apartments)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching listings: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch listings")
+
+@landlord_router.patch("/listings/{listing_id}/status")
+async def toggle_listing_status(listing_id: str, status_update: dict):
+    """Toggle listing active/inactive status"""
+    try:
+        # Update listing status
+        result = await db.apartments.update_one(
+            {"id": listing_id},
+            {
+                "$set": {
+                    "available": status_update.get("available", True),
+                    "updated_at": datetime.utcnow().isoformat()
+                }
+            }
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Listing not found")
+        
+        return {"message": "Status updated successfully"}
+        
+    except Exception as e:
+        logger.error(f"Error updating listing status: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update listing status")
+
+@landlord_router.post("/apartment/{apartment_id}/view")
+async def track_apartment_view(apartment_id: str, request: Request):
+    """Track apartment view for analytics"""
+    try:
+        # Get visitor info
+        client_ip = request.client.host
+        user_agent = request.headers.get("user-agent", "Unknown")
+        
+        # Check if this IP has viewed this apartment recently (prevent spam)
+        recent_view = await db.apartment_views.find_one({
+            "apartment_id": apartment_id,
+            "ip_address": client_ip,
+            "timestamp": {"$gte": (datetime.utcnow() - timedelta(hours=1)).isoformat()}
+        })
+        
+        if not recent_view:
+            # Record the view
+            view_record = {
+                "id": str(uuid.uuid4()),
+                "apartment_id": apartment_id,
+                "ip_address": client_ip,
+                "user_agent": user_agent,
+                "timestamp": datetime.utcnow().isoformat()
+            }
+            
+            await db.apartment_views.insert_one(view_record)
+        
+        return {"message": "View tracked"}
+        
+    except Exception as e:
+        logger.error(f"Error tracking view: {str(e)}")
+        return {"message": "View tracking failed"}
+
 @landlord_router.get("/pricing")
 async def get_pricing_plans():
     """Get all available pricing plans"""
