@@ -7,7 +7,7 @@ import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationC
 // Import all missing components
 import {
   Hero,
-  SEOContentSection,
+  FeaturedApartments,
   AdvancedSearchFilters,
   MapView,
   Footer,
