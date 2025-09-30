@@ -34,7 +34,6 @@ const API = `${BACKEND_URL}/api`;
 const { 
   Header, 
   Hero, 
-  FeaturedApartments,
   AdvancedSearchFilters, 
   ApartmentCard, 
   MapView, 
