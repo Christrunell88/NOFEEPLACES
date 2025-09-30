@@ -880,8 +880,14 @@ export const ApartmentDetails = ({ apartmentId }) => {
         {/* Apartment Details */}
         <div className="space-y-6">
           <div>
-            <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold inline-block mb-4">
-              NO FEE
+            <div className="flex gap-2 mb-4">
+              <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                NO FEE
+              </div>
+              <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                <span>✓</span>
+                <span>VERIFIED</span>
+              </div>
             </div>
             
             <div>
