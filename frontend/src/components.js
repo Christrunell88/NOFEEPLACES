@@ -306,50 +306,45 @@ export const Header = () => {
     <header className="bg-black text-white shadow-2xl sticky top-0 z-40">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Left Side: Logo + Landlord Sign In */}
-          <div className="flex items-center space-x-6">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">🏢</span>
+          {/* Left Side: Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">🏢</span>
+            </div>
+            <div>
+              <div className="font-bold text-xl text-white">
+                NoFee<span className="text-blue-400">Places</span>
               </div>
-              <div>
-                <div className="font-bold text-xl">
-                  No Fee <span className="text-yellow-400">Places</span>
-                </div>
-                <div className="text-xs text-gray-400">NYC RENTALS</div>
-              </div>
-            </Link>
-            
-            {/* Landlord Sign In */}
-            <Link
-              to="/landlord/login"
-              className="hidden md:flex items-center space-x-2 bg-purple-600 text-white px-5 py-2.5 rounded-lg hover:bg-purple-700 transition-colors font-bold text-base shadow-lg border border-purple-500"
-              onClick={() => trackNavigationClick('Landlord Sign In', '/landlord/login')}
-            >
-              <span>🏢</span>
-              <span>Owner Sign In</span>
-            </Link>
-          </div>
+              <div className="text-xs text-gray-400">NYC No-Fee Rentals</div>
+            </div>
+          </Link>
 
           {/* Center Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/blog" 
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
               onClick={() => trackNavigationClick('Blog', '/blog')}
             >
-              Blog
+              Guides
             </Link>
             <Link 
               to="/newsletter" 
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
               onClick={() => trackNavigationClick('Newsletter', '/newsletter')}
             >
-              Newsletter
+              Updates
+            </Link>
+            <Link
+              to="/landlord/login"
+              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
+              onClick={() => trackNavigationClick('Owner Portal', '/landlord/login')}
+            >
+              Owner Portal
             </Link>
           </div>
 
-          {/* Right Side: User Authentication */}
+          {/* Right Side: Single CTA */}
           <div className="flex items-center space-x-3">
             
             {isAuthenticated ? (
