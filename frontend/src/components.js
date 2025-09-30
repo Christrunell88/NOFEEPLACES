@@ -684,7 +684,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
           {/* Favorite Button */}
           <button
             onClick={handleFavorite}
-            className={`absolute top-2 right-16 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+            className={`absolute top-2 right-32 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
               isFavorited 
                 ? 'bg-red-500 text-white' 
                 : 'bg-white text-gray-400 hover:text-red-500'
