@@ -54,28 +54,96 @@ class RentalScraper:
         ]
         return random.sample(all_amenities, random.randint(4, 8))
     
-    def _generate_neighborhoods(self, location: str) -> List[str]:
-        """Generate realistic neighborhoods based on location"""
-        neighborhood_map = {
-            'Manhattan': [
-                'Upper East Side', 'Upper West Side', 'Midtown', 'Chelsea', 'SoHo',
-                'Greenwich Village', 'East Village', 'Lower East Side', 'Tribeca', 
-                'Financial District', 'Hell\'s Kitchen', 'Murray Hill', 'Gramercy',
-                'NoHo', 'Nolita', 'Washington Heights', 'Hamilton Heights'
-            ],
-            'Brooklyn': [
-                'Williamsburg', 'DUMBO', 'Park Slope', 'Brooklyn Heights', 'Cobble Hill',
-                'Carroll Gardens', 'Red Hook', 'Greenpoint', 'Long Island City',
-                'Astoria', 'Bed-Stuy', 'Crown Heights', 'Prospect Heights', 'Boerum Hill',
-                'Gowanus', 'Bay Ridge', 'Bushwick', 'Fort Greene'
-            ],
-            'Queens': [
-                'Long Island City', 'Astoria', 'Sunnyside', 'Woodside', 'Jackson Heights',
-                'Forest Hills', 'Elmhurst', 'Corona', 'Flushing', 'Bayside',
-                'Ridgewood', 'Middle Village', 'Rego Park', 'Kew Gardens'
-            ]
+    def _generate_neighborhoods_with_pricing(self, location: str) -> tuple:
+        """Generate realistic neighborhoods with appropriate pricing based on location"""
+        neighborhood_data = {
+            # Brooklyn - Budget Friendly
+            'East New York': {
+                'neighborhoods': ['East New York', 'Cypress Hills', 'City Line'],
+                'price_range': (1400, 1800)
+            },
+            'Brownsville': {
+                'neighborhoods': ['Brownsville', 'Ocean Hill'],
+                'price_range': (1450, 1750)
+            },
+            'Canarsie': {
+                'neighborhoods': ['Canarsie', 'Flatlands', 'Mill Basin'],
+                'price_range': (1500, 1900)
+            },
+            'East Flatbush': {
+                'neighborhoods': ['East Flatbush', 'Farragut', 'Rugby'],
+                'price_range': (1550, 1950)
+            },
+            'Crown Heights': {
+                'neighborhoods': ['Crown Heights', 'Prospect Heights', 'Lefferts Gardens'],
+                'price_range': (1600, 2000)
+            },
+            'Bed-Stuy': {
+                'neighborhoods': ['Bedford-Stuyvesant', 'Stuyvesant Heights', 'Ocean Hill'],
+                'price_range': (1650, 2100)
+            },
+            'Bushwick': {
+                'neighborhoods': ['Bushwick', 'East Williamsburg', 'Ridgewood Border'],
+                'price_range': (1700, 2200)
+            },
+            
+            # Bronx - Affordable
+            'University Heights': {
+                'neighborhoods': ['University Heights', 'Morris Heights', 'Tremont'],
+                'price_range': (1400, 1700)
+            },
+            'Morris Heights': {
+                'neighborhoods': ['Morris Heights', 'Highbridge', 'Mount Eden'],
+                'price_range': (1450, 1750)
+            },
+            'Concourse': {
+                'neighborhoods': ['Concourse', 'Melrose', 'Mott Haven'],
+                'price_range': (1500, 1800)
+            },
+            'Fordham': {
+                'neighborhoods': ['Fordham', 'Belmont', 'Bathgate'],
+                'price_range': (1600, 1900)
+            },
+            
+            # Queens - Outer Areas
+            'Jamaica': {
+                'neighborhoods': ['Jamaica', 'South Jamaica', 'Hollis'],
+                'price_range': (1500, 1800)
+            },
+            'South Ozone Park': {
+                'neighborhoods': ['South Ozone Park', 'Howard Beach', 'Ozone Park'],
+                'price_range': (1450, 1750)
+            },
+            'Far Rockaway': {
+                'neighborhoods': ['Far Rockaway', 'Rockaway Beach', 'Arverne'],
+                'price_range': (1400, 1700)
+            },
+            'Ridgewood': {
+                'neighborhoods': ['Ridgewood', 'Middle Village', 'Glendale'],
+                'price_range': (1700, 2000)
+            },
+            
+            # Default fallback
+            'Manhattan': {
+                'neighborhoods': ['Upper Manhattan', 'Washington Heights', 'Inwood'],
+                'price_range': (2200, 2800)
+            },
+            'Brooklyn': {
+                'neighborhoods': ['Outer Brooklyn', 'Bay Ridge', 'Bensonhurst'],
+                'price_range': (1800, 2400)
+            },
+            'Queens': {
+                'neighborhoods': ['Outer Queens', 'Flushing', 'Corona'],
+                'price_range': (1600, 2000)
+            },
+            'NYC': {
+                'neighborhoods': ['Brooklyn', 'Queens', 'Bronx'],
+                'price_range': (1500, 2200)
+            }
         }
-        return neighborhood_map.get(location, ['NYC'])
+        
+        location_info = neighborhood_data.get(location, neighborhood_data['NYC'])
+        return location_info['neighborhoods'], location_info['price_range']
     
     async def scrape_rental_data_async(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
         """Async method to scrape rental data from multiple sources"""
