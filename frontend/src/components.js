@@ -547,8 +547,25 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   useEffect(() => {
     if (apartment) {
       trackApartmentView(apartment);
+      
+      // Also track for landlord analytics if apartment has landlord_id
+      if (apartment.landlord_id) {
+        trackApartmentViewForLandlord(apartment.id);
+      }
     }
   }, [apartment]);
+
+  const trackApartmentViewForLandlord = async (apartmentId) => {
+    try {
+      const API = process.env.REACT_APP_BACKEND_URL;
+      await fetch(`${API}/api/landlord/apartment/${apartmentId}/view`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.log('View tracking failed:', error);
+    }
+  };
 
   // Create JSON-LD structured data for each apartment
   const structuredData = {
