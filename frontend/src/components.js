@@ -441,8 +441,8 @@ export const NewsletterPage = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           <div className="bg-white rounded-xl p-6 shadow-lg">
             <div className="text-4xl mb-4">🏠</div>
-            <h3 className="text-xl font-bold mb-2">Early Access</h3>
-            <p className="text-gray-600">Get notified about new no fee apartments 24-48 hours before public listing</p>
+            <h3 className="text-xl font-bold mb-2">New Listings</h3>
+            <p className="text-gray-600">Get notified about new no fee apartments as soon as they're available</p>
           </div>
           
           <div className="bg-white rounded-xl p-6 shadow-lg">
