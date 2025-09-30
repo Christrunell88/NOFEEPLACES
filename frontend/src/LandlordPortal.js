@@ -357,6 +357,7 @@ export const LandlordRegistration = () => {
 // Dashboard Component
 export const LandlordDashboard = () => {
   const { landlordId } = useParams();
+  const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
 
