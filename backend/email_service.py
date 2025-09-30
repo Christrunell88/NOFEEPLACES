@@ -534,7 +534,7 @@ NoFeePlaces.com Team
                     </div>
                     
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://apartment-finder-3.preview.emergentagent.com" class="cta-button">🏠 View Live Site</a>
+                        <a href="https://nofeeplaces-app.preview.emergentagent.com" class="cta-button">🏠 View Live Site</a>
                         <a href="https://analytics.google.com" class="cta-button">📊 Check Analytics</a>
                     </div>
                 </div>

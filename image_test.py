@@ -9,7 +9,7 @@ import json
 from typing import Dict, Any
 
 # Configuration
-BASE_URL = "https://apartment-finder-3.preview.emergentagent.com/api"
+BASE_URL = "https://nofeeplaces-app.preview.emergentagent.com/api"
 
 class ImageEnhancementTester:
     def __init__(self):

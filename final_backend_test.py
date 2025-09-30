@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://apartment-finder-3.preview.emergentagent.com/api"
+BASE_URL = "https://nofeeplaces-app.preview.emergentagent.com/api"
 
 class FinalBackendTester:
     def __init__(self):
