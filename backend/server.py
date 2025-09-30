@@ -870,6 +870,75 @@ async def scrape_rentals_endpoint(location: str = "NYC", limit: int = 50):
         logger.error(f"Scraping error: {str(e)}")
         return {"status": "error", "message": str(e), "fallback_used": True}
 
+@api_router.post("/import-scraped-rentals")
+async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
+    """Import scraped rental data into the main apartments database"""
+    try:
+        logger.info(f"Importing scraped rentals for {location} with limit {limit}")
+        
+        # Scrape the rental data
+        rentals = await scrape_rentals_async(location, limit)
+        
+        if not rentals:
+            return {"status": "error", "message": "No rental data scraped"}
+        
+        # Convert scraped data to apartment format
+        apartments_to_insert = []
+        
+        for rental in rentals:
+            apartment_data = {
+                "id": rental["id"],
+                "title": rental["title"],
+                "description": rental["description"],
+                "price": rental["price"],
+                "location": rental["location"],
+                "neighborhood": rental.get("neighborhood", rental["location"].split(",")[0]),
+                "bedrooms": rental["bedrooms"],
+                "bathrooms": rental["bathrooms"],
+                "sqft": rental["sqft"],
+                "amenities": rental["amenities"],
+                "images": rental["images"],
+                "contact_info": {
+                    "email": rental["contact_email"],
+                    "phone": rental["contact_phone"]
+                },
+                "available": rental["available"],
+                "lease_terms": rental.get("lease_terms", "12 months"),
+                "pet_policy": rental.get("pet_policy", "Ask landlord"),
+                "utilities": rental.get("utilities", "Not specified"),
+                "move_in_date": rental.get("move_in_date", "Available now"),
+                "deposit": rental.get("deposit", f"${int(rental['price'])} - ${int(rental['price'] * 2)}"),
+                "broker_fee": rental.get("broker_fee", "No fee"),
+                "source": rental.get("source", "Scraped"),
+                "created_at": rental["created_at"],
+                "last_updated": rental.get("last_updated", rental["created_at"]),
+                "views": 0,
+                "inquiries": 0,
+                "is_featured": False,
+                "is_verified": True
+            }
+            apartments_to_insert.append(apartment_data)
+        
+        # Insert into database
+        if apartments_to_insert:
+            result = await db.apartments.insert_many(apartments_to_insert)
+            inserted_count = len(result.inserted_ids)
+            logger.info(f"Successfully imported {inserted_count} apartments to database")
+            
+            return {
+                "status": "success", 
+                "message": f"Successfully imported {inserted_count} apartments",
+                "inserted_count": inserted_count,
+                "location": location,
+                "source": "Real scraping data"
+            }
+        else:
+            return {"status": "error", "message": "No valid apartments to insert"}
+            
+    except Exception as e:
+        logger.error(f"Import error: {str(e)}")
+        return {"status": "error", "message": str(e)}
+
 # Chat endpoint for AI assistant
 @api_router.post("/chat")
 async def chat_endpoint(request: Request):
