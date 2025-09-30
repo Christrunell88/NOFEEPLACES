@@ -956,7 +956,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
             <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Want More Apartments Like This?</h3>
               <p className="text-gray-600 mb-4">
-                Get early access to similar no fee apartments and never miss a great deal.
+                Get instant alerts for similar no fee apartments and never miss a great deal.
               </p>
               <NewsletterSignup 
                 source="apartment_details_cta"
