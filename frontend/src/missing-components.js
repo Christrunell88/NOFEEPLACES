@@ -678,34 +678,162 @@ export const AdminAppointments = () => (
 
 export const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const [messages, setMessages] = useState([
+    {
+      type: 'bot',
+      text: "👋 Hi! I'm NoFeeBot, your AI assistant for finding no-fee apartments in NYC. How can I help you today?",
+      timestamp: new Date()
+    }
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
+
+  const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://rentalnobroker.preview.emergentagent.com';
+
+  const sendMessage = async () => {
+    if (!inputMessage.trim() || isLoading) return;
+
+    const userMessage = inputMessage.trim();
+    setInputMessage('');
+    
+    // Add user message to chat
+    const newUserMessage = {
+      type: 'user',
+      text: userMessage,
+      timestamp: new Date()
+    };
+    setMessages(prev => [...prev, newUserMessage]);
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(`${API_URL}/api/chat`, {
+        message: userMessage,
+        session_id: sessionId
+      });
+
+      // Update session ID if it's the first message
+      if (!sessionId) {
+        setSessionId(response.data.session_id);
+      }
+
+      // Add bot response to chat
+      const botMessage = {
+        type: 'bot',
+        text: response.data.response,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, botMessage]);
+
+    } catch (error) {
+      console.error('Chat error:', error);
+      const errorMessage = {
+        type: 'bot',
+        text: "I apologize, but I'm experiencing technical difficulties. Please try again or contact us at placesfirm@gmail.com for assistance.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
   return (
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-purple-700 transition-colors z-40"
+        className="fixed bottom-4 right-4 bg-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center hover:bg-teal-600 transition-all duration-300 z-40 shadow-lg hover:shadow-xl transform hover:scale-105"
+        aria-label="Open AI Assistant"
       >
-        💬
+        <span className="text-2xl">🤖</span>
       </button>
       
       {isOpen && (
-        <div className="fixed bottom-20 right-4 bg-white rounded-lg shadow-xl w-80 h-96 z-50 border">
-          <div className="bg-purple-600 text-white p-4 rounded-t-lg">
-            <div className="flex justify-between items-center">
-              <h3 className="font-semibold">AI Assistant</h3>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:text-gray-200"
+        <div className="fixed bottom-24 right-4 bg-white rounded-lg shadow-xl w-96 h-[500px] z-50 border flex flex-col">
+          {/* Header */}
+          <div className="bg-teal-500 text-white p-4 rounded-t-lg flex justify-between items-center">
+            <div className="flex items-center space-x-2">
+              <span className="text-xl">🤖</span>
+              <div>
+                <h3 className="font-semibold">NoFeeBot</h3>
+                <p className="text-xs text-teal-100">AI Apartment Assistant</p>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-200 text-xl font-bold"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                ×
+                <div
+                  className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                    message.type === 'user'
+                      ? 'bg-teal-500 text-white'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}
+                >
+                  <p className="whitespace-pre-wrap">{message.text}</p>
+                  <p className={`text-xs mt-1 ${
+                    message.type === 'user' ? 'text-teal-100' : 'text-gray-500'
+                  }`}>
+                    {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </p>
+                </div>
+              </div>
+            ))}
+            
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-gray-100 text-gray-800 px-3 py-2 rounded-lg text-sm">
+                  <div className="flex items-center space-x-1">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
+                    <span className="text-xs text-gray-500 ml-2">NoFeeBot is typing...</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input */}
+          <div className="border-t p-4">
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Ask about NYC apartments..."
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
+                disabled={isLoading}
+              />
+              <button
+                onClick={sendMessage}
+                disabled={!inputMessage.trim() || isLoading}
+                className="bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="text-sm">📤</span>
               </button>
             </div>
-          </div>
-          <div className="p-4 h-80 flex items-center justify-center">
-            <p className="text-gray-600 text-center">
-              AI chatbot coming soon! <br />
-              Get help finding your perfect apartment.
-            </p>
           </div>
         </div>
       )}
