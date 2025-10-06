@@ -23,18 +23,18 @@ export const Hero = () => {
 
   return (
     <section className="relative h-96 overflow-hidden">
-      {/* Background Image - Woman in Modern Apartment */}
+      {/* Background Image - Elegant Apartment with Natural Light */}
       <div 
         className="absolute inset-0"
         style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1749878064741-75d7ef992d36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fHx8MTc1OTc4NDA5MHww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop)',
+          backgroundImage: 'url(https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwYXBhcnRtZW50JTIwbmF0dXJhbCUyMGxpZ2h0fGVufDB8fHx8MTc1OTc4NjM1Nnww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop)',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
         }}
       />
       
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+      {/* Light Overlay - Reduced opacity to preserve the elegant, bright aesthetic */}
+      <div className="absolute inset-0 bg-black bg-opacity-25"></div>
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
