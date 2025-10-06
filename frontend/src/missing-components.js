@@ -756,7 +756,7 @@ export const AIChatbot = () => {
       </button>
       
       {isOpen && (
-        <div className="fixed bottom-24 left-4 bg-white rounded-lg shadow-xl w-96 h-[500px] z-50 border flex flex-col">
+        <div className="fixed bottom-24 left-4 bg-white rounded-lg shadow-xl w-96 h-[500px] z-[9999] border flex flex-col">
           {/* Header */}
           <div className="bg-teal-500 text-white p-4 rounded-t-lg flex justify-between items-center">
             <div className="flex items-center space-x-2">
