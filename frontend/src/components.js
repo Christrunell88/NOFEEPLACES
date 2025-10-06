@@ -324,7 +324,7 @@ export const Header = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <Link 
               to="/blog" 
-              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
+              className="text-gray-300 hover:text-teal-400 transition-colors font-medium"
               onClick={() => trackNavigationClick('Blog', '/blog')}
             >
               Guides
