@@ -700,6 +700,70 @@ async def chat_with_ai(chat_request: ChatRequest):
             session_id=chat_request.session_id or nofeebbot.generate_session_id()
         )
 
+# Newsletter Subscription Endpoint
+@api_router.post("/newsletter/subscribe", response_model=SubscriptionResponse)
+async def subscribe_to_newsletter(subscription: NewsletterSubscription):
+    """Subscribe to NoFeePlaces newsletter"""
+    try:
+        # Check if email already subscribed
+        existing_sub = await db.newsletter_subscribers.find_one({"email": subscription.email})
+        
+        if existing_sub:
+            return SubscriptionResponse(
+                success=True,
+                message="You're already subscribed to our newsletter!"
+            )
+        
+        # Create new subscription
+        subscriber_data = {
+            "id": str(uuid.uuid4()),
+            "email": subscription.email,
+            "name": subscription.name,
+            "interests": subscription.interests or [],
+            "subscribed_at": datetime.now(timezone.utc).isoformat(),
+            "active": True,
+            "source": "website"
+        }
+        
+        await db.newsletter_subscribers.insert_one(subscriber_data)
+        
+        # Send welcome email
+        try:
+            success = await email_service.send_welcome_email(
+                email=subscription.email,
+                name=subscription.name or "Fellow Apartment Hunter"
+            )
+            
+            if success:
+                logger.info(f"Welcome email sent to new subscriber: {subscription.email}")
+            else:
+                logger.error(f"Failed to send welcome email to: {subscription.email}")
+                
+        except Exception as e:
+            logger.error(f"Error sending welcome email: {e}")
+        
+        # Send notification to admin about new subscriber (meaningful action)
+        try:
+            await email_service.send_subscriber_notification(
+                subscriber_email=subscription.email,
+                subscriber_name=subscription.name,
+                interests=subscription.interests or []
+            )
+        except Exception as e:
+            logger.error(f"Error sending subscriber notification: {e}")
+        
+        return SubscriptionResponse(
+            success=True,
+            message="Thank you for subscribing! Check your email for a welcome message."
+        )
+        
+    except Exception as e:
+        logger.error(f"Error in newsletter subscription: {e}")
+        return SubscriptionResponse(
+            success=False,
+            message="Failed to subscribe. Please try again."
+        )
+
 # Original apartment endpoints
 @api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
