@@ -401,13 +401,21 @@ export const Header = () => {
               </div>
             ) : (
               <>
-                {/* Social Auth CTA */}
-                <button
-                  onClick={() => setShowAuthModal(true)}
-                  className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                >
-                  Get Started Free
-                </button>
+                {/* Authentication CTAs */}
+                <div className="flex items-center space-x-3">
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="px-4 py-2 text-gray-300 hover:text-white transition-colors font-medium"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => setShowAuthModal(true)}
+                    className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  >
+                    Get Started Free
+                  </button>
+                </div>
               </>
             )}
           </div>
