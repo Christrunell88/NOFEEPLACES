@@ -222,6 +222,14 @@ export const FeaturedApartments = () => {
           </button>
         </div>
       </div>
+      
+      {/* Apartment Details Modal */}
+      {selectedApartment && (
+        <ApartmentDetailsModal 
+          apartment={selectedApartment}
+          onClose={() => setSelectedApartment(null)}
+        />
+      )}
     </section>
   );
 };
