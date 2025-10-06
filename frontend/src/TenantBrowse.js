@@ -348,7 +348,10 @@ export const TenantBrowsePage = () => {
                       View Details
                     </button>
                     <button
-                      onClick={() => window.open(`mailto:placesfirm@gmail.com?subject=Interest in ${listing.title}&body=Hi, I'm interested in this ${listing.listing_type} listing in ${listing.neighborhood}. Please connect me with the tenant.`)}
+                      onClick={() => {
+                        setContactListing(convertToApartmentFormat(listing));
+                        setShowContactModal(true);
+                      }}
                       className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
                     >
                       📧 Contact
