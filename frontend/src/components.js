@@ -757,7 +757,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             </button>
             <button
               onClick={() => setShowDetailsModal(true)}
-              className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="flex-1 bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors font-medium"
             >
               🏠 View Details
             </button>
