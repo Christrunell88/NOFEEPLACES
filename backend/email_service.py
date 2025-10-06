@@ -716,6 +716,148 @@ Submitted: {datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}
 Reply directly to this email to respond to {sender_name}
 © {datetime.now().year} NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform
         """
+    
+    async def send_welcome_email(self, email: str, name: str) -> bool:
+        """Send welcome email to new newsletter subscriber"""
+        try:
+            subject = "Welcome to NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform!"
+            
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Welcome to NoFeePlaces.com</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px;">
+                    <h1 style="margin: 0; font-size: 28px;">🏢 Welcome to NoFeePlaces.com</h1>
+                    <p style="margin: 10px 0 0 0; opacity: 0.9;">NYC's Premier No-Fee Apartment Platform</p>
+                </div>
+                
+                <div style="background-color: white; padding: 30px; border-radius: 10px; margin-top: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h2 style="color: #14b8a6; margin-bottom: 20px;">Hi {name}! 👋</h2>
+                    
+                    <p>Thank you for subscribing to NoFeePlaces.com! We're excited to help you find your perfect no-fee apartment in NYC.</p>
+                    
+                    <div style="background: #f0fdfa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #14b8a6;">
+                        <h3 style="color: #14b8a6; margin: 0 0 15px 0;">What you can expect:</h3>
+                        <ul style="margin: 0; padding-left: 20px;">
+                            <li>Weekly updates on the best no-fee apartments</li>
+                            <li>Exclusive listings before they hit the market</li>
+                            <li>NYC rental market insights and tips</li>
+                            <li>Neighborhood guides and price trends</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="https://nofeeplaces.com" 
+                           style="display: inline-block; background: #14b8a6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                            🔍 Start Browsing Apartments
+                        </a>
+                    </div>
+                    
+                    <p style="font-size: 14px; color: #666; border-top: 1px solid #e5e7eb; padding-top: 20px; margin-top: 30px;">
+                        Need help? Reply to this email or contact us at placesfirm@gmail.com<br>
+                        © {datetime.now().year} NoFeePlaces.com - All rights reserved
+                    </p>
+                </div>
+            </body>
+            </html>
+            """
+            
+            text_content = f"""
+            Welcome to NoFeePlaces.com!
+            
+            Hi {name}!
+            
+            Thank you for subscribing to NoFeePlaces.com! We're excited to help you find your perfect no-fee apartment in NYC.
+            
+            What you can expect:
+            - Weekly updates on the best no-fee apartments
+            - Exclusive listings before they hit the market
+            - NYC rental market insights and tips
+            - Neighborhood guides and price trends
+            
+            Start browsing apartments: https://nofeeplaces.com
+            
+            Need help? Reply to this email or contact us at placesfirm@gmail.com
+            © {datetime.now().year} NoFeePlaces.com - All rights reserved
+            """
+            
+            success = await self.send_email_async(
+                to_email=email,
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            await self._log_email_attempt(email, subject, "welcome_email", success)
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending welcome email: {str(e)}")
+            await self._log_email_attempt(email, "Welcome Email", "welcome_email", False)
+            return False
+    
+    async def send_subscriber_notification(self, subscriber_email: str, subscriber_name: Optional[str], interests: List[str]) -> bool:
+        """Send notification about new newsletter subscriber"""
+        try:
+            subject = f"New Newsletter Subscriber - {subscriber_email}"
+            
+            interests_text = ", ".join(interests) if interests else "No specific interests selected"
+            
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>New Newsletter Subscriber</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+                <div style="background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%); color: white; padding: 20px; text-align: center; border-radius: 8px;">
+                    <h1 style="margin: 0; font-size: 24px;">📧 New Newsletter Subscriber</h1>
+                </div>
+                
+                <div style="background: #f9fafb; padding: 20px; margin: 20px 0; border-radius: 8px;">
+                    <h3 style="color: #14b8a6; margin: 0 0 15px 0;">Subscriber Details:</h3>
+                    <p style="margin: 5px 0;"><strong>Email:</strong> {subscriber_email}</p>
+                    <p style="margin: 5px 0;"><strong>Name:</strong> {subscriber_name or 'Not provided'}</p>
+                    <p style="margin: 5px 0;"><strong>Interests:</strong> {interests_text}</p>
+                    <p style="margin: 5px 0;"><strong>Subscribed:</strong> {datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                </div>
+                
+                <p style="color: #666; font-size: 14px;">This is a meaningful engagement - someone actively subscribed to your newsletter!</p>
+            </body>
+            </html>
+            """
+            
+            text_content = f"""
+            New Newsletter Subscriber - NoFeePlaces.com
+            
+            Subscriber Details:
+            Email: {subscriber_email}
+            Name: {subscriber_name or 'Not provided'}
+            Interests: {interests_text}
+            Subscribed: {datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}
+            
+            This is a meaningful engagement - someone actively subscribed to your newsletter!
+            """
+            
+            success = await self.send_email_async(
+                to_email="placesfirm@gmail.com",
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            await self._log_email_attempt("placesfirm@gmail.com", subject, "subscriber_notification", success)
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending subscriber notification: {str(e)}")
+            await self._log_email_attempt("placesfirm@gmail.com", "Subscriber Notification", "subscriber_notification", False)
+            return False
 
     async def _log_email_attempt(self, recipient: str, subject: str, 
                                 email_type: str, success: bool) -> None:
