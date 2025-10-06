@@ -1198,13 +1198,7 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                   onClick={() => setShowContactModal(true)}
                   className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-lg"
                 >
-                  📧 Contact About This Apartment
-                </button>
-                <button
-                  onClick={() => window.open(`mailto:${apartment.contact_email}?subject=Interest in ${apartment.title}&body=Hi, I'm interested in this apartment listing in ${locationInfo}. Please provide more details.`)}
-                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-semibold"
-                >
-                  💬 Send Direct Email
+                  📧 Send Email Inquiry
                 </button>
                 <button
                   onClick={() => window.open(`tel:${apartment.contact_phone}`)}
