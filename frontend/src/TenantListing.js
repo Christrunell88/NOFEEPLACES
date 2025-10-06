@@ -450,14 +450,21 @@ export const TenantListingPage = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Street Address *
                       </label>
-                      <input
-                        type="text"
+                      <AddressAutocomplete
                         name="address"
                         value={formData.address}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="123 Main Street, Apt 4B"
-                        required
+                        onPlaceSelect={(addressData) => {
+                          // Auto-populate neighborhood and borough from Google Places
+                          setFormData(prev => ({
+                            ...prev,
+                            address: addressData.formatted_address,
+                            neighborhood: addressData.neighborhood || prev.neighborhood,
+                            borough: addressData.borough || prev.borough
+                          }));
+                        }}
+                        placeholder="123 Main Street, Apt 4B, New York, NY"
+                        required={true}
                       />
                     </div>
                     
