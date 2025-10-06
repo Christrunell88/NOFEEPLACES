@@ -1009,6 +1009,32 @@ async def get_uploaded_image(filename: str):
         logger.error(f"Error serving image {filename}: {str(e)}")
         raise HTTPException(status_code=404, detail="Image not found")
 
+@api_router.get("/tenant/listings/approved")
+async def get_approved_tenant_listings():
+    """Get approved tenant listings for public browsing"""
+    try:
+        cursor = db.tenant_listings.find({
+            "status": "approved",
+            "available": {"$ne": False}
+        }).sort("submitted_at", -1)
+        
+        listings = await cursor.to_list(length=100)  # Limit to 100 for performance
+        
+        # Convert ObjectId to string
+        for listing in listings:
+            if '_id' in listing:
+                listing['_id'] = str(listing['_id'])
+        
+        return {
+            "success": True,
+            "listings": listings,
+            "total": len(listings)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching approved tenant listings: {str(e)}")
+        return {"success": False, "message": str(e)}
+
 @api_router.get("/tenant/listings/{listing_id}/review")
 async def get_tenant_listing_details(listing_id: str):
     """Get detailed view of a specific tenant listing for review"""
