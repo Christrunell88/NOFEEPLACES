@@ -180,6 +180,33 @@ class ContactResponse(BaseModel):
     message: str
     contact_id: str
 
+# Social Authentication Models
+class FacebookAuthRequest(BaseModel):
+    access_token: str
+    user_id: str
+
+class AppleAuthRequest(BaseModel):
+    authorization_code: str
+    identity_token: str
+    user_data: Optional[Dict[str, Any]] = None
+
+class SocialAuthResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: Dict[str, Any]
+
+class User(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: str
+    name: str
+    profile_picture: Optional[str] = None
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    last_login: Optional[str] = None
+    # Social provider IDs
+    google_id: Optional[str] = None
+    facebook_id: Optional[str] = None
+    apple_id: Optional[str] = None
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
