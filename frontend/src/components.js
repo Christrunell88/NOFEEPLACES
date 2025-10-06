@@ -401,12 +401,9 @@ export const Header = () => {
               </div>
             ) : (
               <>
-                {/* Single Primary CTA */}
+                {/* Social Auth CTA */}
                 <button
-                  onClick={() => {
-                    // Direct Google sign-in for Try for Free
-                    window.location.href = `${BACKEND_URL}/api/auth/google/login`;
-                  }}
+                  onClick={() => setShowAuthModal(true)}
                   className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
                 >
                   Get Started Free
