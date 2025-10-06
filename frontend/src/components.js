@@ -1205,7 +1205,7 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                   📧 Contact About This Apartment
                 </button>
                 <button
-                  onClick={() => window.open(`mailto:${apartment.contact_email}?subject=Interest in ${apartment.title}&body=Hi, I'm interested in this apartment listing. Please provide more details.`)}
+                  onClick={() => window.open(`mailto:${apartment.contact_email}?subject=Interest in ${apartment.title}&body=Hi, I'm interested in this apartment listing in ${locationInfo}. Please provide more details.`)}
                   className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-semibold"
                 >
                   💬 Send Direct Email
