@@ -943,7 +943,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
               required
               value={formData.senderName}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="Enter your full name"
             />
           </div>
@@ -958,7 +958,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
               required
               value={formData.senderEmail}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="your.email@example.com"
             />
           </div>
@@ -972,7 +972,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
               name="senderPhone"
               value={formData.senderPhone}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="(555) 123-4567"
             />
           </div>
@@ -986,7 +986,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
 
@@ -1000,7 +1000,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
               rows="4"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="Please enter your message here..."
             />
           </div>
