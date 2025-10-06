@@ -729,7 +729,7 @@ async def subscribe_to_newsletter(subscription: NewsletterSubscription):
         
         # Send welcome email
         try:
-            success = await email_service.send_welcome_email(
+            success = await email_service.send_newsletter_welcome_email(
                 email=subscription.email,
                 name=subscription.name or "Fellow Apartment Hunter"
             )
