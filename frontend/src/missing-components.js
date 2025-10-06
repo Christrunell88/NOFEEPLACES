@@ -127,7 +127,7 @@ export const Hero = () => {
       </div>
       
       {/* Apartment Style Label */}
-      <div className="absolute bottom-6 right-6 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-light">
+      <div className="absolute bottom-6 right-6 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-light z-20">
         {heroImages[currentImageIndex].style}
       </div>
     </section>
