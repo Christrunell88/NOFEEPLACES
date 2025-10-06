@@ -119,7 +119,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
               required
               value={formData.senderName}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="Enter your full name"
             />
           </div>
@@ -134,7 +134,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
               required
               value={formData.senderEmail}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="your.email@example.com"
             />
           </div>
@@ -148,7 +148,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
               name="senderPhone"
               value={formData.senderPhone}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder="(555) 123-4567"
             />
           </div>
@@ -162,7 +162,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
               name="subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           </div>
 
@@ -176,7 +176,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
               rows="4"
               value={formData.message}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
               placeholder={apartmentDetails 
                 ? `Hi, I'm interested in this apartment listing. Please provide more details about availability, viewing schedule, and any additional information.`
                 : "Please enter your message here..."
