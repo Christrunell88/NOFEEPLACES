@@ -624,13 +624,16 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
       </script>
       
       <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
-        {/* Image Section */}
-        <div className="relative h-64 bg-gray-200 overflow-hidden">
+        {/* Image Section - Clickable */}
+        <div 
+          className="relative h-64 bg-gray-200 overflow-hidden cursor-pointer group"
+          onClick={() => setShowDetailsModal(true)}
+        >
           {!imageError ? (
             <img
               src={currentImage}
               alt={apartment.title}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
               onError={() => setImageError(true)}
             />
           ) : (
@@ -641,6 +644,13 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
               </div>
             </div>
           )}
+          
+          {/* Hover Overlay with "View Details" hint */}
+          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-medium text-lg">
+              <span className="bg-teal-500 px-4 py-2 rounded-lg shadow-lg">View Details</span>
+            </div>
+          </div>
 
           {/* Image Navigation */}
           {imageCount > 1 && (
