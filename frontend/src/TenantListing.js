@@ -162,9 +162,41 @@ export const TenantListingPage = () => {
     setSubmitting(true);
 
     try {
+      // First, upload images if any
+      let uploadedImageUrls = [];
+      
+      if (formData.uploaded_image_files.length > 0) {
+        setUploadingImages(true);
+        
+        for (const file of formData.uploaded_image_files) {
+          const imageFormData = new FormData();
+          imageFormData.append('image', file);
+          imageFormData.append('user_id', user?.id || 'anonymous');
+          
+          try {
+            const imageResponse = await axios.post(`${API}/upload/image`, imageFormData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            });
+            
+            if (imageResponse.data.success) {
+              uploadedImageUrls.push(imageResponse.data.image_url);
+            }
+          } catch (imageError) {
+            console.error('Image upload failed:', imageError);
+          }
+        }
+        setUploadingImages(false);
+      }
+
+      // Submit the listing with uploaded image URLs
       const response = await axios.post(`${API}/tenant/list-apartment`, {
         ...formData,
+        images: uploadedImageUrls,
+        uploaded_image_files: undefined, // Remove file objects from submission
         user_id: user?.id || 'anonymous',
+        user_email: user?.email || formData.contact_email,
         submitted_at: new Date().toISOString()
       });
 
@@ -178,6 +210,7 @@ export const TenantListingPage = () => {
       alert('Failed to submit listing. Please check your information and try again.');
     } finally {
       setSubmitting(false);
+      setUploadingImages(false);
     }
   };
 
