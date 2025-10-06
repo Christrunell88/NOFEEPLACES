@@ -370,9 +370,6 @@ export const Header = () => {
               </div>
             ) : (
               <>
-                <div className="hidden md:flex items-center space-x-1 text-gray-400 text-sm">
-                  <span>Owner/Manager?</span>
-                </div>
                 <button
                   onClick={() => setShowAuthModal(true)}
                   className="hidden md:block text-gray-300 hover:text-blue-400 transition-colors font-medium"
