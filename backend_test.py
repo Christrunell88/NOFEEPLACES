@@ -3303,6 +3303,259 @@ class NoFeePlacesAPITester:
         except Exception as e:
             self.log_result("Enhanced Calendar Booking with Email", False, f"Exception: {str(e)}")
     
+    def test_chatbot_environment_variables(self):
+        """Test if EMERGENT_LLM_KEY is properly configured"""
+        print("\n=== Testing Chatbot Environment Variables ===")
+        try:
+            # Check if we can make a basic request to see if the service is configured
+            test_data = {
+                "message": "Hi",
+                "session_id": None
+            }
+            
+            response = self.make_request("POST", "/chat", test_data)
+            if response.status_code == 200:
+                chat_response = response.json()
+                if "response" in chat_response and chat_response["response"]:
+                    # Check if it's an error message about missing API key
+                    if "temporarily unavailable" in chat_response["response"].lower():
+                        self.log_result("Environment Variables - EMERGENT_LLM_KEY", False, "API key not configured properly")
+                    else:
+                        self.log_result("Environment Variables - EMERGENT_LLM_KEY", True, "API key configured and working")
+                else:
+                    self.log_result("Environment Variables - EMERGENT_LLM_KEY", False, "No response from chatbot")
+            else:
+                self.log_result("Environment Variables - EMERGENT_LLM_KEY", False, f"Endpoint not accessible: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Environment Variables - EMERGENT_LLM_KEY", False, f"Exception: {str(e)}")
+    
+    def test_chatbot_endpoint_basic(self):
+        """Test basic POST /api/chat endpoint functionality"""
+        print("\n=== Testing Basic Chat Endpoint ===")
+        try:
+            # Test with sample apartment-related question
+            test_data = {
+                "message": "I need help finding a no-fee apartment in Brooklyn",
+                "session_id": None
+            }
+            
+            response = self.make_request("POST", "/chat", test_data)
+            
+            if response.status_code == 200:
+                chat_response = response.json()
+                
+                # Check required fields
+                has_response = "response" in chat_response and isinstance(chat_response["response"], str)
+                has_session_id = "session_id" in chat_response and isinstance(chat_response["session_id"], str)
+                response_not_empty = len(chat_response.get("response", "")) > 0
+                session_id_valid = len(chat_response.get("session_id", "")) > 0
+                
+                if has_response and has_session_id and response_not_empty and session_id_valid:
+                    self.log_result("Basic Chat Endpoint", True, f"Response: {len(chat_response['response'])} chars, Session ID: {chat_response['session_id'][:8]}...")
+                    return chat_response.get("session_id")
+                else:
+                    self.log_result("Basic Chat Endpoint", False, f"Missing required fields: response={has_response}, session_id={has_session_id}")
+            else:
+                self.log_result("Basic Chat Endpoint", False, f"Status code: {response.status_code}, Response: {response.text}")
+                
+        except Exception as e:
+            self.log_result("Basic Chat Endpoint", False, f"Exception: {str(e)}")
+        
+        return None
+    
+    def test_chatbot_session_management(self, session_id):
+        """Test session management across multiple messages"""
+        print("\n=== Testing Session Management ===")
+        if not session_id:
+            self.log_result("Session Management", False, "No session_id from previous test")
+            return
+        
+        try:
+            # Send follow-up message with same session_id
+            test_data = {
+                "message": "What neighborhoods have the best no-fee apartments?",
+                "session_id": session_id
+            }
+            
+            response = self.make_request("POST", "/chat", test_data)
+            
+            if response.status_code == 200:
+                chat_response = response.json()
+                
+                # Check if session ID is maintained
+                if chat_response.get("session_id") == session_id:
+                    self.log_result("Session Management", True, f"Session ID maintained: {session_id[:8]}...")
+                else:
+                    self.log_result("Session Management", False, f"Session ID changed: {session_id[:8]}... -> {chat_response.get('session_id', 'None')[:8]}...")
+            else:
+                self.log_result("Session Management", False, f"Status code: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Session Management", False, f"Exception: {str(e)}")
+    
+    def test_chatbot_apartment_questions(self):
+        """Test AI responses to apartment-specific questions"""
+        print("\n=== Testing Apartment-Specific Questions ===")
+        
+        test_cases = [
+            {
+                "message": "I'm looking for a 1-bedroom apartment in Manhattan under $3000",
+                "expected_keywords": ["manhattan", "1-bedroom", "apartment", "search", "budget"]
+            },
+            {
+                "message": "What neighborhoods have the best no-fee apartments?",
+                "expected_keywords": ["neighborhood", "no-fee", "apartment", "brooklyn", "manhattan"]
+            },
+            {
+                "message": "How does NoFeePlaces work?",
+                "expected_keywords": ["nofeeplaces", "work", "platform", "broker", "fee"]
+            }
+        ]
+        
+        passed_tests = 0
+        total_tests = len(test_cases)
+        
+        for i, test_case in enumerate(test_cases):
+            try:
+                test_data = {
+                    "message": test_case["message"],
+                    "session_id": None
+                }
+                
+                response = self.make_request("POST", "/chat", test_data)
+                
+                if response.status_code == 200:
+                    chat_response = response.json()
+                    ai_response = chat_response.get("response", "").lower()
+                    
+                    keywords_found = sum(1 for keyword in test_case["expected_keywords"] if keyword.lower() in ai_response)
+                    
+                    # Consider test passed if at least 40% of keywords are found and response is substantial
+                    test_passed = keywords_found >= len(test_case["expected_keywords"]) * 0.4 and len(ai_response) > 50
+                    
+                    if test_passed:
+                        passed_tests += 1
+                    
+                    print(f"   Test {i+1}: {'✅' if test_passed else '❌'} - Keywords found: {keywords_found}/{len(test_case['expected_keywords'])}")
+                else:
+                    print(f"   Test {i+1}: ❌ - Request failed with status {response.status_code}")
+                    
+            except Exception as e:
+                print(f"   Test {i+1}: ❌ - Exception: {str(e)}")
+        
+        success = passed_tests >= total_tests * 0.7  # 70% pass rate
+        self.log_result("Apartment-Specific Questions", success, f"Passed {passed_tests}/{total_tests} tests")
+    
+    def test_chatbot_error_handling(self):
+        """Test error handling for invalid requests"""
+        print("\n=== Testing Error Handling ===")
+        
+        test_cases = [
+            {
+                "name": "Empty message",
+                "data": {"message": "", "session_id": None},
+                "expected_status": [400, 422]
+            },
+            {
+                "name": "Missing message field",
+                "data": {"session_id": None},
+                "expected_status": [400, 422]
+            },
+            {
+                "name": "Invalid JSON structure",
+                "data": {"invalid_field": "test"},
+                "expected_status": [400, 422]
+            }
+        ]
+        
+        passed_tests = 0
+        total_tests = len(test_cases)
+        
+        for test_case in test_cases:
+            try:
+                response = self.make_request("POST", "/chat", test_case["data"])
+                
+                # For error cases, we expect either proper error handling or graceful fallback
+                test_passed = (
+                    response.status_code in test_case["expected_status"] or
+                    (response.status_code == 200 and "response" in response.json())  # Graceful fallback
+                )
+                
+                if test_passed:
+                    passed_tests += 1
+                
+                print(f"   {test_case['name']}: {'✅' if test_passed else '❌'} - Status: {response.status_code}")
+                
+            except Exception as e:
+                print(f"   {test_case['name']}: ❌ - Exception: {str(e)}")
+        
+        success = passed_tests >= total_tests * 0.7
+        self.log_result("Error Handling", success, f"Passed {passed_tests}/{total_tests} tests")
+    
+    def test_chatbot_response_quality(self):
+        """Test the quality and relevance of AI responses"""
+        print("\n=== Testing Response Quality ===")
+        
+        try:
+            test_data = {
+                "message": "I'm looking for a 2-bedroom apartment in Brooklyn with no broker fees. What can you help me with?",
+                "session_id": None
+            }
+            
+            response = self.make_request("POST", "/chat", test_data)
+            
+            if response.status_code == 200:
+                chat_response = response.json()
+                ai_response = chat_response.get("response", "")
+                
+                # Quality checks
+                length_check = len(ai_response) >= 100  # Substantial response
+                brooklyn_mentioned = "brooklyn" in ai_response.lower()
+                no_fee_mentioned = any(term in ai_response.lower() for term in ["no fee", "no-fee", "broker fee"])
+                helpful_tone = any(term in ai_response.lower() for term in ["help", "assist", "find", "search"])
+                contact_info = "placesfirm@gmail.com" in ai_response.lower()
+                
+                quality_score = sum([length_check, brooklyn_mentioned, no_fee_mentioned, helpful_tone])
+                success = quality_score >= 3  # At least 3 out of 4 quality checks
+                
+                self.log_result("Response Quality", success, f"Quality score: {quality_score}/4 (Length: {length_check}, Brooklyn: {brooklyn_mentioned}, No-fee: {no_fee_mentioned}, Helpful: {helpful_tone})")
+            else:
+                self.log_result("Response Quality", False, f"Request failed - Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("Response Quality", False, f"Exception: {str(e)}")
+    
+    def test_chatbot_llm_service_availability(self):
+        """Test if the LLM service is available and responding"""
+        print("\n=== Testing LLM Service Availability ===")
+        
+        try:
+            # Simple test to check if the service responds
+            test_data = {
+                "message": "Hi",
+                "session_id": None
+            }
+            
+            response = self.make_request("POST", "/chat", test_data)
+            
+            if response.status_code == 200:
+                chat_response = response.json()
+                ai_response = chat_response.get("response", "")
+                
+                # Check if we get a proper AI response (not just an error message)
+                is_error_response = any(term in ai_response.lower() for term in [
+                    "temporarily unavailable", "technical difficulties", "experiencing issues"
+                ])
+                
+                success = not is_error_response and len(ai_response) > 10
+                self.log_result("LLM Service Availability", success, f"Response received: {len(ai_response)} chars, Error response: {is_error_response}")
+            else:
+                self.log_result("LLM Service Availability", False, f"Request failed - Status: {response.status_code}")
+                
+        except Exception as e:
+            self.log_result("LLM Service Availability", False, f"Exception: {str(e)}")
+
     def test_enhanced_ai_chatbot_with_context(self):
         """Test enhanced AI chatbot with context awareness"""
         print("\n=== Testing Enhanced AI Chatbot with Context Awareness ===")
