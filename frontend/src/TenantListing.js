@@ -95,13 +95,13 @@ export const TenantListingPage = () => {
             </div>
           </div>
         </div>
+        
+        {/* Authentication Modal */}
+        {showAuthModal && (
+          <AuthModal onClose={() => setShowAuthModal(false)} />
+        )}
       </div>
-      
-      {/* Authentication Modal */}
-      {showAuthModal && (
-        <AuthModal onClose={() => setShowAuthModal(false)} />
-      )}
-    </div>
+    );
   }
 
   const listingTypes = [
