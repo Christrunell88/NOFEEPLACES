@@ -103,12 +103,12 @@ export const Hero = () => {
       </div>
       
       {/* Elegant Carousel Indicators */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
         {heroImages.map((image, index) => (
           <button
             key={index}
             onClick={() => goToImage(index)}
-            className={`group relative transition-all duration-300 ${
+            className={`group relative transition-all duration-300 z-20 ${
               index === currentImageIndex ? 'scale-110' : 'hover:scale-105'
             }`}
             aria-label={`View ${image.style} apartment`}
