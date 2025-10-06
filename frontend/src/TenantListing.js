@@ -68,7 +68,7 @@ export const TenantListingPage = () => {
             </div>
             <div className="space-y-3">
               <button
-                onClick={() => window.location.href = '/'}
+                onClick={() => setShowAuthModal(true)}
                 className="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
               >
                 Sign In / Create Account
@@ -83,7 +83,12 @@ export const TenantListingPage = () => {
           </div>
         </div>
       </div>
-    );
+      
+      {/* Authentication Modal */}
+      {showAuthModal && (
+        <AuthModal onClose={() => setShowAuthModal(false)} />
+      )}
+    </div>
   }
 
   const listingTypes = [
