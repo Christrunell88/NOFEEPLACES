@@ -749,7 +749,7 @@ export const AIChatbot = () => {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 left-4 bg-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center hover:bg-teal-600 transition-all duration-300 z-50 shadow-lg hover:shadow-xl transform hover:scale-105"
+        className="fixed bottom-4 left-4 bg-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center hover:bg-teal-600 transition-all duration-300 z-[9999] shadow-lg hover:shadow-xl transform hover:scale-105"
         aria-label="Open AI Assistant"
       >
         <span className="text-2xl">🤖</span>
