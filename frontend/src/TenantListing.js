@@ -54,9 +54,9 @@ export const TenantListingPage = () => {
             <p className="text-gray-600 mb-6">
               You need to sign in to your NoFeePlaces account to list your apartment. This helps us verify listings and protect both tenants and landlords.
             </p>
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-              <h3 className="font-semibold text-orange-800 mb-2">Why Sign In?</h3>
-              <ul className="text-sm text-orange-700 space-y-1 text-left">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+              <h3 className="font-semibold text-green-800 mb-2">Why Sign In?</h3>
+              <ul className="text-sm text-green-700 space-y-1 text-left">
                 <li>• Verify your identity for trusted listings</li>
                 <li>• Track your listing status and inquiries</li>
                 <li>• Upload photos directly to our secure platform</li>
