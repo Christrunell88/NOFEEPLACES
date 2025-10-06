@@ -1,7 +1,8 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import FastAPI, APIRouter, Depends, HTTPException, Query, Request, status, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
+import aiofiles
 from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any, Union
 from datetime import datetime, timezone
