@@ -18,6 +18,8 @@ from email_service import email_service
 from newsletter_service import newsletter_service
 from landlord_api import landlord_router, set_database
 from emergentintegrations.payments.stripe.checkout import StripeCheckout
+from facebook_auth import facebook_auth_service
+from apple_auth import apple_auth_service
 
 # Load environment variables
 load_dotenv('/app/backend/.env')
