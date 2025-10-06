@@ -315,6 +315,8 @@ test_plan:
 agent_communication:
     - agent: "main"
       message: "Fixed blog functionality issues: 1) Moved blog API endpoints to before router inclusion in server.py - this was the root cause of 404 Not Found errors, 2) Verified blog components are properly exported/imported with no React rendering errors, 3) Confirmed 5 sample blog posts exist in database, 4) Tested both blog list page (/blog) and individual post pages (/blog/{slug}) - both working correctly. Blog system now fully functional. Ready for comprehensive testing to verify all blog functionality works end-to-end."
+    - agent: "testing"
+      message: "SOCIAL AUTHENTICATION MODAL TESTING INITIATED: Starting comprehensive testing of social authentication modal and buttons implementation. Testing Facebook and Apple social login integration alongside existing Google OAuth system. Will verify modal functionality, button styling, error handling, and UI/UX as requested in review."
     - agent: "main"
       message: "HERO IMAGE LOADING ISSUE RESOLVED: Successfully fixed the missing woman-in-apartment images by running fix_apartment_images.py script which updated 55 apartments with working image URLs including specific 'modern_woman' and 'brooklyn_woman' image sets. The script specifically updated DUMBO apartments (3 1BR + 3 2BR), Chelsea (13), Williamsburg (8), Astoria (9), Hudson Yards (3) apartments and fixed 16 apartments with broken waterline-square.com images. All apartment images are now displaying properly with diverse people in apartments including women in modern apartment lifestyle shots. Hero section images are also working correctly with beautiful apartment interior photos."
     - agent: "main"
