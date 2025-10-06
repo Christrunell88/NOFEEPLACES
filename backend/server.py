@@ -20,6 +20,7 @@ from landlord_api import landlord_router, set_database
 from emergentintegrations.payments.stripe.checkout import StripeCheckout
 from facebook_auth import facebook_auth_service
 from apple_auth import apple_auth_service
+from chatbot_service import nofeebbot
 
 # Load environment variables
 load_dotenv('/app/backend/.env')
