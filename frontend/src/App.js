@@ -412,6 +412,9 @@ function App() {
                 <Route path="/landlord/listings/:landlordId" element={<ViewListings />} />
                 <Route path="/landlord/success" element={<PaymentSuccess />} />
                 <Route path="/landlord/cancel" element={<LandlordPricing />} />
+                
+                {/* Tenant Listing Routes */}
+                <Route path="/tenant/list-apartment" element={<TenantListingPage />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
