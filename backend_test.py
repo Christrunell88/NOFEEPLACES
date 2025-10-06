@@ -6368,7 +6368,31 @@ if __name__ == "__main__":
     print("🎯 Focus Areas: POST /api/chat endpoint, session management, AI responses, error handling")
     print("=" * 70)
     
-    # Run the chatbot test
+    # Run comprehensive chatbot tests
+    print("\n🔍 Running Comprehensive AI Chatbot Tests...")
+    
+    # 1. Test environment variables
+    tester.test_chatbot_environment_variables()
+    
+    # 2. Test LLM service availability
+    tester.test_chatbot_llm_service_availability()
+    
+    # 3. Test basic endpoint functionality
+    session_id = tester.test_chatbot_endpoint_basic()
+    
+    # 4. Test session management
+    tester.test_chatbot_session_management(session_id)
+    
+    # 5. Test apartment-specific questions
+    tester.test_chatbot_apartment_questions()
+    
+    # 6. Test response quality
+    tester.test_chatbot_response_quality()
+    
+    # 7. Test error handling
+    tester.test_chatbot_error_handling()
+    
+    # 8. Run the original enhanced test for context awareness
     tester.test_enhanced_ai_chatbot_with_context()
     
     # Print summary
@@ -6385,6 +6409,15 @@ if __name__ == "__main__":
         print(f"\n🚨 FAILED TESTS:")
         for error in tester.results['errors']:
             print(f"   • {error}")
+    
+    # Overall assessment
+    print(f"\n🎯 OVERALL ASSESSMENT:")
+    if success_rate >= 80:
+        print("🎉 AI CHATBOT FUNCTIONALITY: EXCELLENT")
+    elif success_rate >= 60:
+        print("⚠️  AI CHATBOT FUNCTIONALITY: GOOD (some issues)")
+    else:
+        print("❌ AI CHATBOT FUNCTIONALITY: NEEDS ATTENTION")
     
     print("\n" + "=" * 70)
     print("📝 AI CHATBOT TESTING COMPLETE")
