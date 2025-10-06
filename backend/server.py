@@ -592,7 +592,7 @@ async def get_current_user(request: Request):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Token has expired"
         )
-    except pyjwt.JWTError:
+    except pyjwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token"
