@@ -307,80 +307,56 @@ export const Header = () => {
     <header className="bg-black text-white shadow-2xl sticky top-0 z-40">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Left Side: Logo and Owner Portal */}
-          <div className="flex items-center space-x-6">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">🏢</span>
+          {/* Left Side: Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">🏢</span>
+            </div>
+            <div>
+              <div className="font-bold text-xl text-white">
+                NoFee<span className="text-blue-400">Places</span>
               </div>
-              <div>
-                <div className="font-bold text-xl text-white">
-                  NoFee<span className="text-blue-400">Places</span>
-                </div>
-                <div className="text-xs text-gray-400">NYC No-Fee Rentals</div>
-              </div>
-            </Link>
-            
-            {/* Owner Portal - Prominent */}
-            <Link
-              to="/landlord/login"
-              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
-              onClick={() => trackNavigationClick('Owner Portal', '/landlord/login')}
-            >
-              <span>🏠</span>
-              <span>Owner Portal</span>
-            </Link>
-          </div>
+              <div className="text-xs text-gray-400">NYC No-Fee Rentals</div>
+            </div>
+          </Link>
 
           {/* Center Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             <Link 
               to="/blog" 
-              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
+              className="text-gray-300 hover:text-white transition-colors font-medium"
               onClick={() => trackNavigationClick('Blog', '/blog')}
             >
               Guides
             </Link>
             <Link 
               to="/tenant/browse" 
-              className="text-gray-300 hover:text-orange-400 transition-colors font-medium"
+              className="text-gray-300 hover:text-white transition-colors font-medium"
               onClick={() => trackNavigationClick('Tenant Listings', '/tenant/browse')}
             >
-              Tenant Listings
+              Browse Listings
             </Link>
             <Link 
-              to="/newsletter" 
-              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
-              onClick={() => trackNavigationClick('Newsletter', '/newsletter')}
+              to="/landlord/login" 
+              className="text-gray-300 hover:text-white transition-colors font-medium"
+              onClick={() => trackNavigationClick('Owner Portal', '/landlord/login')}
             >
-              Updates
+              List Property
             </Link>
           </div>
 
-          {/* Right Side: Single CTA */}
-          <div className="flex items-center space-x-3">
-            <Link
-              to="/tenant/list-apartment"
-              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
-              onClick={() => trackNavigationClick('Post My Place', '/tenant/list-apartment')}
-            >
-              <span>🏠</span>
-              <span>Post My Place</span>
-            </Link>
-            
+          {/* Right Side: Authentication */}
+          <div className="flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="relative">
                 <button
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-3 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-black rounded-lg px-3 py-2 transition-colors"
+                  className="flex items-center space-x-2 text-gray-300 hover:text-white focus:outline-none rounded-lg px-3 py-2 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                   <span className="hidden md:block font-medium">{user?.full_name || 'User'}</span>
-                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
                 </button>
 
                 {/* User Dropdown Menu */}
@@ -388,7 +364,7 @@ export const Header = () => {
                   <div className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-lg shadow-2xl py-2 z-50 border border-gray-700">
                     <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Dashboard</Link>
                     <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Favorites</Link>
-                    <Link to="/saved-searches" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Saved Searches</Link>
+                    <Link to="/tenant/list-apartment" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Post Listing</Link>
                     <hr className="my-2 border-gray-700" />
                     <button 
                       onClick={logout}
@@ -401,21 +377,18 @@ export const Header = () => {
               </div>
             ) : (
               <>
-                {/* Authentication CTAs */}
-                <div className="flex items-center space-x-3">
-                  <button
-                    onClick={() => setShowAuthModal(true)}
-                    className="px-4 py-2 text-gray-300 hover:text-white transition-colors font-medium"
-                  >
-                    Sign In
-                  </button>
-                  <button
-                    onClick={() => setShowAuthModal(true)}
-                    className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
-                  >
-                    Get Started Free
-                  </button>
-                </div>
+                <button
+                  onClick={() => setShowAuthModal(true)}
+                  className="hidden md:block text-gray-300 hover:text-white transition-colors font-medium"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => setShowAuthModal(true)}
+                  className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  Get Started Free
+                </button>
               </>
             )}
           </div>
