@@ -231,6 +231,16 @@ class ChatResponse(BaseModel):
     response: str
     session_id: str
 
+# Newsletter Subscription Models
+class NewsletterSubscription(BaseModel):
+    email: str
+    name: Optional[str] = None
+    interests: Optional[List[str]] = None  # e.g., ["Manhattan", "Brooklyn", "1BR", "2BR"]
+
+class SubscriptionResponse(BaseModel):
+    success: bool
+    message: str
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
