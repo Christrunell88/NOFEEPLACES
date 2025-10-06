@@ -352,6 +352,14 @@ export const Header = () => {
 
           {/* Right Side: Single CTA */}
           <div className="flex items-center space-x-3">
+            <Link
+              to="/tenant/list-apartment"
+              className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center space-x-2"
+              onClick={() => trackNavigationClick('List your APT', '/tenant/list-apartment')}
+            >
+              <span>🏠</span>
+              <span>List your APT!</span>
+            </Link>
             
             {isAuthenticated ? (
               <div className="relative">
