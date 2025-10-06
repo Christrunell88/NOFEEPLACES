@@ -947,7 +947,252 @@ async def tenant_list_apartment(request: Request):
         logger.error(f"Tenant listing submission error: {str(e)}")
         return {"success": False, "message": str(e)}
 
-@api_router.get("/tenant/listings")
+@api_router.post("/upload/image")
+async def upload_image(image: UploadFile = File(...), user_id: str = "anonymous"):
+    """Handle image uploads for tenant listings"""
+    try:
+        # Validate file type
+        if not image.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="File must be an image")
+        
+        # Validate file size (10MB limit)
+        MAX_SIZE = 10 * 1024 * 1024  # 10MB
+        file_size = 0
+        
+        # Create unique filename
+        file_extension = image.filename.split('.')[-1] if '.' in image.filename else 'jpg'
+        unique_filename = f"{uuid.uuid4()}.{file_extension}"
+        file_path = f"/app/backend/uploads/{unique_filename}"
+        
+        # Save file
+        async with aiofiles.open(file_path, 'wb') as f:
+            while True:
+                chunk = await image.read(1024)  # Read in chunks
+                if not chunk:
+                    break
+                file_size += len(chunk)
+                if file_size > MAX_SIZE:
+                    # Delete partial file and raise error
+                    os.remove(file_path) if os.path.exists(file_path) else None
+                    raise HTTPException(status_code=413, detail="File too large (max 10MB)")
+                await f.write(chunk)
+        
+        # Generate URL for the uploaded image
+        image_url = f"/api/uploads/{unique_filename}"
+        
+        logger.info(f"Image uploaded successfully: {unique_filename} by user {user_id}")
+        
+        return {
+            "success": True,
+            "image_url": image_url,
+            "filename": unique_filename,
+            "file_size": file_size
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Image upload error: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+@api_router.get("/uploads/{filename}")
+async def get_uploaded_image(filename: str):
+    """Serve uploaded images"""
+    try:
+        file_path = f"/app/backend/uploads/{filename}"
+        if not os.path.exists(file_path):
+            raise HTTPException(status_code=404, detail="Image not found")
+        
+        return FileResponse(file_path)
+        
+    except Exception as e:
+        logger.error(f"Error serving image {filename}: {str(e)}")
+        raise HTTPException(status_code=404, detail="Image not found")
+
+@api_router.get("/tenant/listings/{listing_id}/review")
+async def get_tenant_listing_details(listing_id: str):
+    """Get detailed view of a specific tenant listing for review"""
+    try:
+        listing = await db.tenant_listings.find_one({"id": listing_id})
+        if not listing:
+            return {"success": False, "message": "Listing not found"}
+        
+        # Convert ObjectId to string
+        if '_id' in listing:
+            listing['_id'] = str(listing['_id'])
+        
+        return {"success": True, "listing": listing}
+        
+    except Exception as e:
+        logger.error(f"Error getting listing details: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+@api_router.put("/tenant/listings/{listing_id}/review")
+async def review_tenant_listing(listing_id: str, request: Request):
+    """Review a tenant listing (approve/reject)"""
+    try:
+        data = await request.json()
+        action = data.get("action")  # "approve" or "reject"
+        admin_notes = data.get("admin_notes", "")
+        
+        if action not in ["approve", "reject"]:
+            return {"success": False, "message": "Invalid action"}
+        
+        # Get the listing
+        listing = await db.tenant_listings.find_one({"id": listing_id})
+        if not listing:
+            return {"success": False, "message": "Listing not found"}
+        
+        if action == "approve":
+            # Move listing to main apartments database
+            apartment_data = {
+                "id": str(uuid.uuid4()),
+                "title": listing["title"],
+                "description": listing["description"],
+                "price": float(listing["rent_price"]),
+                "location": f"{listing['neighborhood']}, {listing['borough']}",
+                "neighborhood": listing["neighborhood"],
+                "bedrooms": int(listing["bedrooms"]) if listing["bedrooms"].isdigit() else 0,
+                "bathrooms": float(listing["bathrooms"]) if listing["bathrooms"].replace(".", "").isdigit() else 1.0,
+                "sqft": int(listing["sqft"]) if listing.get("sqft", "").isdigit() else 800,
+                "amenities": listing.get("amenities", []),
+                "images": listing.get("images", []),
+                "contact_email": "placesfirm@gmail.com",
+                "contact_phone": "+1-646-408-8048",
+                "available": True,
+                "lease_terms": "Flexible",
+                "pet_policy": "Pets allowed" if listing.get("pets_allowed") else "No pets",
+                "utilities": "Utilities included" if listing.get("utilities_included") else "Not included",
+                "move_in_date": listing.get("available_date", "Immediate"),
+                "deposit": listing.get("deposit_required", "First month's rent"),
+                "broker_fee": "No fee",
+                "address": listing.get("address", ""),
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "source": "Tenant Listing",
+                "last_updated": datetime.now(timezone.utc).isoformat(),
+                "is_verified": True,
+                "is_real": True,
+                "verification_status": "Approved Tenant Listing",
+                "listing_type": listing.get("listing_type", "sublet"),
+                "original_tenant": {
+                    "name": listing["contact_name"],
+                    "email": listing["contact_email"],
+                    "phone": listing["contact_phone"]
+                }
+            }
+            
+            # Insert into main apartments database
+            apartment_result = await db.apartments.insert_one(apartment_data)
+            
+            if apartment_result.inserted_id:
+                # Update tenant listing status
+                await db.tenant_listings.update_one(
+                    {"id": listing_id},
+                    {
+                        "$set": {
+                            "status": "approved",
+                            "reviewed_at": datetime.now(timezone.utc).isoformat(),
+                            "admin_notes": admin_notes,
+                            "apartment_id": apartment_data["id"]
+                        }
+                    }
+                )
+                
+                # Send approval email to tenant
+                try:
+                    await send_email(
+                        to_email=listing["contact_email"],
+                        subject=f"Your NoFeePlaces Listing Has Been Approved!",
+                        message=f"""
+                        Great news! Your apartment listing has been approved and is now live on NoFeePlaces.com.
+                        
+                        Listing: {listing['title']}
+                        Location: {listing['neighborhood']}, {listing['borough']}
+                        
+                        Your listing is now visible to thousands of apartment seekers. We'll forward any inquiries directly to you.
+                        
+                        Thank you for using NoFeePlaces!
+                        
+                        Best regards,
+                        NoFeePlaces Team
+                        placesfirm@gmail.com
+                        """
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to send approval email: {str(e)}")
+                
+                return {"success": True, "message": "Listing approved and added to main database"}
+            else:
+                return {"success": False, "message": "Failed to add listing to main database"}
+        
+        elif action == "reject":
+            # Update tenant listing status
+            await db.tenant_listings.update_one(
+                {"id": listing_id},
+                {
+                    "$set": {
+                        "status": "rejected",
+                        "reviewed_at": datetime.now(timezone.utc).isoformat(),
+                        "admin_notes": admin_notes
+                    }
+                }
+            )
+            
+            # Send rejection email to tenant
+            try:
+                await send_email(
+                    to_email=listing["contact_email"],
+                    subject=f"Update on Your NoFeePlaces Listing",
+                    message=f"""
+                    Thank you for submitting your apartment listing to NoFeePlaces.
+                    
+                    After review, we're unable to approve your listing at this time.
+                    
+                    Reason: {admin_notes}
+                    
+                    Please feel free to resubmit with corrections or contact us for clarification.
+                    
+                    Best regards,
+                    NoFeePlaces Team
+                    placesfirm@gmail.com
+                    """
+                )
+            except Exception as e:
+                logger.error(f"Failed to send rejection email: {str(e)}")
+            
+            return {"success": True, "message": "Listing rejected"}
+        
+    except Exception as e:
+        logger.error(f"Error reviewing listing: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+@api_router.get("/admin/dashboard")
+async def admin_dashboard():
+    """Get admin dashboard metrics"""
+    try:
+        # Get metrics
+        total_apartments = await db.apartments.count_documents({})
+        available_apartments = await db.apartments.count_documents({"available": True})
+        pending_listings = await db.tenant_listings.count_documents({"status": "pending_review"})
+        
+        # Count contacts and subscribers (approximate)
+        total_contacts = await db.contacts.count_documents({}) if hasattr(db, 'contacts') else 0
+        newsletter_subscribers = await db.newsletter_subscribers.count_documents({}) if hasattr(db, 'newsletter_subscribers') else 0
+        
+        return {
+            "success": True,
+            "metrics": {
+                "total_apartments": total_apartments,
+                "available_apartments": available_apartments,
+                "pending_listings": pending_listings,
+                "total_contacts": total_contacts,
+                "newsletter_subscribers": newsletter_subscribers
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting dashboard metrics: {str(e)}")
+        return {"success": False, "message": str(e)}
 async def get_tenant_listings(status: str = "all", limit: int = 50):
     """Get tenant listings for admin review"""
     try:
