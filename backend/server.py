@@ -958,30 +958,9 @@ async def track_visitor(request: Request):
         
         await db.visitor_sessions.insert_one(visitor_data)
         
-        # Send email notification only for new sessions (first visit of the day)
+        # Log new visitor for analytics (no email notifications for visits)
         if not existing_visit:
-            logger.info(f"New visitor detected: {client_ip}")
-            
-            # Send email notification
-            try:
-                success = await email_service.send_visitor_notification(
-                    ip_address=client_ip,
-                    user_agent=user_agent,
-                    timestamp=timestamp
-                )
-                
-                if success:
-                    # Update notification status
-                    await db.visitor_sessions.update_one(
-                        {"id": visitor_data["id"]},
-                        {"$set": {"notified": True}}
-                    )
-                    logger.info(f"Visitor notification email sent for {client_ip}")
-                else:
-                    logger.error(f"Failed to send visitor notification for {client_ip}")
-                    
-            except Exception as e:
-                logger.error(f"Error sending visitor notification: {str(e)}")
+            logger.info(f"New visitor detected: {client_ip} - tracked for analytics")
         
         return {"message": "Visitor tracked successfully"}
         
