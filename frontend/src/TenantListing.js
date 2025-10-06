@@ -21,11 +21,12 @@ export const TenantListingPage = () => {
     borough: 'Manhattan',
     available_date: '',
     lease_end_date: '',
-    contact_name: '',
-    contact_email: '',
+    contact_name: user?.name || '',
+    contact_email: user?.email || '',
     contact_phone: '',
     amenities: [],
     images: [],
+    uploaded_image_files: [], // For actual file uploads
     utilities_included: false,
     pets_allowed: false,
     furnished: false,
@@ -38,6 +39,50 @@ export const TenantListingPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [imagePreview, setImagePreview] = useState([]);
+  const [uploadingImages, setUploadingImages] = useState(false);
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
+            <div className="text-6xl mb-4">🔐</div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">
+              Sign In Required
+            </h2>
+            <p className="text-gray-600 mb-6">
+              You need to sign in to your NoFeePlaces account to list your apartment. This helps us verify listings and protect both tenants and landlords.
+            </p>
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+              <h3 className="font-semibold text-orange-800 mb-2">Why Sign In?</h3>
+              <ul className="text-sm text-orange-700 space-y-1 text-left">
+                <li>• Verify your identity for trusted listings</li>
+                <li>• Track your listing status and inquiries</li>
+                <li>• Upload photos directly to our secure platform</li>
+                <li>• Edit your listing after submission</li>
+                <li>• Get notifications when someone is interested</li>
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <button
+                onClick={() => window.location.href = '/'}
+                className="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              >
+                Sign In / Create Account
+              </button>
+              <button
+                onClick={() => window.location.href = '/'}
+                className="w-full bg-gray-200 text-gray-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors"
+              >
+                Back to Homepage
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const listingTypes = [
     { value: 'sublet', label: 'Sublet (Temporary rental of your apartment)' },
