@@ -13,6 +13,8 @@ export const TenantBrowsePage = () => {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedListing, setSelectedListing] = useState(null);
+  const [showContactModal, setShowContactModal] = useState(false);
+  const [contactListing, setContactListing] = useState(null);
   const [filters, setFilters] = useState({
     listing_type: 'all',
     borough: 'all',
