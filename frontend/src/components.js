@@ -668,12 +668,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             NO FEE
           </div>
 
-          {/* Verified Badge */}
-          <div className="absolute top-2 right-20 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-            <span>✓</span>
-            <span>VERIFIED</span>
-          </div>
-
           {/* Favorite Button */}
           <button
             onClick={handleFavorite}
