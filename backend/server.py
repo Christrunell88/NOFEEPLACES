@@ -932,6 +932,34 @@ async def tenant_list_apartment(request: Request):
     except Exception as e:
         logger.error(f"Tenant listing submission error: {str(e)}")
         return {"success": False, "message": str(e)}
+
+@api_router.get("/tenant/listings")
+async def get_tenant_listings(status: str = "all", limit: int = 50):
+    """Get tenant listings for admin review"""
+    try:
+        filter_query = {}
+        if status != "all":
+            filter_query["status"] = status
+            
+        cursor = db.tenant_listings.find(filter_query).sort("submitted_at", -1).limit(limit)
+        listings = await cursor.to_list(length=limit)
+        
+        # Convert ObjectId to string for JSON serialization
+        for listing in listings:
+            if '_id' in listing:
+                listing['_id'] = str(listing['_id'])
+        
+        return {
+            "success": True,
+            "listings": listings,
+            "total": len(listings)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching tenant listings: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+@api_router.post("/import-scraped-rentals")
 async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
     """Import scraped rental data into the main apartments database"""
     try:
