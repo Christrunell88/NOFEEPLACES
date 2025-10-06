@@ -77,6 +77,78 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithFacebook = async (accessToken, userId) => {
+    try {
+      const response = await axios.post(`${API}/auth/facebook`, {
+        access_token: accessToken,
+        user_id: userId
+      });
+      
+      const { access_token } = response.data;
+      
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      
+      await fetchUser();
+      return { success: true, user: response.data.user };
+    } catch (error) {
+      console.error('Facebook login error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.detail || 'Facebook login failed' 
+      };
+    }
+  };
+
+  const loginWithApple = async (authorizationCode, identityToken, userData = null) => {
+    try {
+      const response = await axios.post(`${API}/auth/apple`, {
+        authorization_code: authorizationCode,
+        identity_token: identityToken,
+        user_data: userData
+      });
+      
+      const { access_token } = response.data;
+      
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      
+      await fetchUser();
+      return { success: true, user: response.data.user };
+    } catch (error) {
+      console.error('Apple login error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.detail || 'Apple login failed' 
+      };
+    }
+  };
+
+  const loginWithGoogle = async (googleToken) => {
+    try {
+      const response = await axios.post(`${API}/auth/google`, {
+        token: googleToken
+      });
+      
+      const { access_token } = response.data;
+      
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      
+      await fetchUser();
+      return { success: true, user: response.data.user };
+    } catch (error) {
+      console.error('Google login error:', error);
+      return { 
+        success: false, 
+        error: error.response?.data?.detail || 'Google login failed' 
+      };
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem('token');
     setToken(null);
@@ -89,6 +161,9 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
+    loginWithFacebook,
+    loginWithApple,
+    loginWithGoogle,
     loading,
     isAuthenticated: !!user
   };
