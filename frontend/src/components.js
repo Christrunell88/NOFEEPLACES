@@ -791,6 +791,14 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
           onClose={() => setShowContactModal(false)}
         />
       )}
+      
+      {/* Apartment Details Modal */}
+      {showDetailsModal && (
+        <ApartmentDetailsModal 
+          apartment={apartment}
+          onClose={() => setShowDetailsModal(false)}
+        />
+      )}
     </>
   );
 };
