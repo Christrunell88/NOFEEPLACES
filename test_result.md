@@ -312,6 +312,18 @@ test_plan:
           agent: "testing"
           comment: "REAL RENTAL SCRAPING FUNCTIONALITY COMPREHENSIVE TESTING COMPLETED: Executed comprehensive testing of new rental scraping endpoints with 93.3% success rate (14/15 tests passed). SCRAPING ENDPOINTS EXCELLENT: ✅ GET /api/scrape-rentals working perfectly with default parameters (NYC, limit=50) returning 50 properly structured rentals, ✅ Location-specific scraping working for Manhattan, Brooklyn, Queens (100% location accuracy), ✅ Limit parameter working correctly for 10, 25, 50 rental requests, ✅ All scraped data contains required fields (id, title, price, location, bedrooms, bathrooms, amenities, images). DATA QUALITY OUTSTANDING: ✅ 100% of prices are realistic ($1,500-$50,000 NYC range), ✅ 100% of images are working Unsplash URLs (62/62 tested), ✅ 24 unique amenities providing excellent variety, ✅ 100% neighborhood-location matching accuracy, ✅ Overall data quality score: 100%. IMPORT FUNCTIONALITY WORKING: ✅ POST /api/import-scraped-rentals successfully imported 25 Manhattan apartments into main database, ✅ Apartment count increased from 338 to 357 (19 net increase after duplicates), ✅ Imported apartments properly structured with all required fields, ✅ Database integration working correctly. REALISTIC DATA GENERATION: ✅ Price ranges appropriate by location (Manhattan: $3K-$15K, Brooklyn: $2.3K-$8K, Queens: $2K-$6K), ✅ Bedroom distribution realistic (weighted towards 1-3BR), ✅ Square footage calculations appropriate for bedroom count, ✅ Amenities varied and realistic for NYC apartments, ✅ Contact information properly formatted. SEARCH INTEGRATION VERIFIED: ✅ Imported apartments accessible through main /api/apartments endpoint, ✅ Search functionality working with specific neighborhoods (Chelsea search returns 5 results), ✅ Total apartment count properly updated to 357. MINOR ISSUE: Manhattan general search returns 0 relevant results because imported apartments use specific neighborhood names (Chelsea, East Village, Financial District) rather than 'Manhattan' - this is correct behavior as NYC apartments are typically searched by specific neighborhood. CONCLUSION: Real rental scraping functionality is working excellently and successfully replacing mock data system. All critical requirements met: scraping endpoints functional, data quality outstanding, import working, realistic pricing and amenities, proper database integration. The new system provides high-quality rental data that enhances the NoFeePlaces.com platform significantly."
 
+  - task: "Social Authentication Modal and Buttons Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/SocialAuth.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "SOCIAL AUTHENTICATION TESTING INITIATED: Starting comprehensive testing of social authentication modal and buttons. Need to verify Facebook and Apple social login integration alongside existing Google OAuth system. Testing modal functionality, button styling, error handling, and UI/UX as requested."
+
 agent_communication:
     - agent: "main"
       message: "Fixed blog functionality issues: 1) Moved blog API endpoints to before router inclusion in server.py - this was the root cause of 404 Not Found errors, 2) Verified blog components are properly exported/imported with no React rendering errors, 3) Confirmed 5 sample blog posts exist in database, 4) Tested both blog list page (/blog) and individual post pages (/blog/{slug}) - both working correctly. Blog system now fully functional. Ready for comprehensive testing to verify all blog functionality works end-to-end."
