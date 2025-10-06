@@ -960,6 +960,163 @@ async def get_tenant_listings(status: str = "all", limit: int = 50):
         logger.error(f"Error fetching tenant listings: {str(e)}")
         return {"success": False, "message": str(e)}
 
+@api_router.put("/tenant/listings/{listing_id}/review")
+async def review_tenant_listing(listing_id: str, request: Request):
+    """Admin endpoint to approve/reject tenant listings"""
+    try:
+        data = await request.json()
+        action = data.get("action")  # "approve" or "reject"
+        admin_notes = data.get("admin_notes", "")
+        
+        if action not in ["approve", "reject"]:
+            return {"success": False, "message": "Action must be 'approve' or 'reject'"}
+        
+        # Find the listing
+        listing = await db.tenant_listings.find_one({"id": listing_id})
+        if not listing:
+            return {"success": False, "message": "Listing not found"}
+        
+        # Update listing status
+        update_data = {
+            "status": "approved" if action == "approve" else "rejected",
+            "reviewed": True,
+            "approved": action == "approve",
+            "admin_notes": admin_notes,
+            "reviewed_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        await db.tenant_listings.update_one(
+            {"id": listing_id},
+            {"$set": update_data}
+        )
+        
+        # If approved, convert to regular apartment listing
+        if action == "approve":
+            apartment_data = {
+                "id": str(uuid.uuid4()),
+                "title": listing.get("title", "Tenant Listed Apartment"),
+                "description": listing.get("description", ""),
+                "price": float(listing.get("rent_price", 0)),
+                "location": f"{listing.get('neighborhood', '')}, {listing.get('borough', '')}",
+                "neighborhood": listing.get("neighborhood", ""),
+                "borough": listing.get("borough", ""),
+                "bedrooms": listing.get("bedrooms", 1),
+                "bathrooms": listing.get("bathrooms", 1),
+                "sqft": listing.get("square_feet"),
+                "amenities": listing.get("amenities", []),
+                "images": listing.get("images", []),
+                "contact_email": listing.get("contact_email", "placesfirm@gmail.com"),
+                "contact_phone": listing.get("contact_phone", "+1-646-408-8048"),
+                "available": True,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+                "priority": 1,
+                "featured": False,
+                "lease_terms": listing.get("lease_terms", "12 months"),
+                "pet_policy": listing.get("pet_policy", "Ask landlord"),
+                "utilities_included": listing.get("utilities_included", []),
+                "parking_available": listing.get("parking_available", False),
+                "laundry": listing.get("laundry", "In building"),
+                "elevator": listing.get("elevator", False),
+                "doorman": listing.get("doorman", False),
+                "gym": listing.get("gym", False),
+                "rooftop": listing.get("rooftop", False),
+                "address": listing.get("address", ""),
+                "is_verified": True,
+                "is_real": True,
+                "verification_date": datetime.now(timezone.utc).isoformat(),
+                "quality_score": 85,
+                "data_source": "Tenant Submitted",
+                "listing_type": listing.get("listing_type", "Sublet"),
+                "broker_fee": "No fee",
+                "verification_status": "Verified by NoFeePlaces"
+            }
+            
+            # Insert into main apartments collection
+            await db.apartments.insert_one(apartment_data)
+            logger.info(f"Tenant listing {listing_id} approved and added to apartments")
+        
+        # Send notification email to tenant
+        try:
+            tenant_email = listing.get("contact_email")
+            if tenant_email:
+                subject = f"Your NoFeePlaces listing has been {'approved' if action == 'approve' else 'rejected'}"
+                message = f"""
+                Hello {listing.get('contact_name', 'Tenant')},
+                
+                Your apartment listing submission has been {'approved' if action == 'approve' else 'rejected'}.
+                
+                {'Your listing is now live on NoFeePlaces.com!' if action == 'approve' else f'Reason: {admin_notes}'}
+                
+                {'Thank you for using NoFeePlaces!' if action == 'approve' else 'Please feel free to resubmit with corrections.'}
+                
+                Best regards,
+                NoFeePlaces Team
+                """
+                
+                await email_service.send_email(
+                    to_email=tenant_email,
+                    subject=subject,
+                    message=message
+                )
+                logger.info(f"Notification sent to tenant: {tenant_email}")
+        except Exception as e:
+            logger.error(f"Failed to send tenant notification: {str(e)}")
+        
+        return {
+            "success": True,
+            "message": f"Listing {action}d successfully",
+            "listing_id": listing_id,
+            "action": action
+        }
+        
+    except Exception as e:
+        logger.error(f"Error reviewing tenant listing: {str(e)}")
+        return {"success": False, "message": str(e)}
+
+@api_router.get("/admin/dashboard")
+async def admin_dashboard():
+    """Admin dashboard with key metrics"""
+    try:
+        # Get counts
+        total_apartments = await db.apartments.count_documents({})
+        available_apartments = await db.apartments.count_documents({"available": True})
+        pending_listings = await db.tenant_listings.count_documents({"status": "pending_review"})
+        total_contacts = await db.contacts.count_documents({})
+        newsletter_subscribers = await db.newsletter_subscribers.count_documents({})
+        
+        # Get recent activity
+        recent_contacts = await db.contacts.find({}).sort("created_at", -1).limit(5).to_list(length=5)
+        recent_listings = await db.tenant_listings.find({}).sort("submitted_at", -1).limit(5).to_list(length=5)
+        
+        # Clean up ObjectIds for JSON serialization
+        for contact in recent_contacts:
+            if '_id' in contact:
+                contact['_id'] = str(contact['_id'])
+        
+        for listing in recent_listings:
+            if '_id' in listing:
+                listing['_id'] = str(listing['_id'])
+        
+        return {
+            "success": True,
+            "metrics": {
+                "total_apartments": total_apartments,
+                "available_apartments": available_apartments,
+                "pending_listings": pending_listings,
+                "total_contacts": total_contacts,
+                "newsletter_subscribers": newsletter_subscribers
+            },
+            "recent_activity": {
+                "contacts": recent_contacts,
+                "tenant_listings": recent_listings
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching admin dashboard: {str(e)}")
+        return {"success": False, "message": str(e)}
+
 @api_router.post("/import-scraped-rentals")
 async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
     """Import scraped rental data into the main apartments database"""
