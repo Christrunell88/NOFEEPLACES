@@ -717,7 +717,7 @@ Reply directly to this email to respond to {sender_name}
 © {datetime.now().year} NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform
         """
     
-    async def send_welcome_email(self, email: str, name: str) -> bool:
+    async def send_newsletter_welcome_email(self, email: str, name: str) -> bool:
         """Send welcome email to new newsletter subscriber"""
         try:
             subject = "Welcome to NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform!"
