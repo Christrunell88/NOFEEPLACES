@@ -901,10 +901,23 @@ async def tenant_list_apartment(request: Request):
         if result.inserted_id:
             # Send notification email to admin
             try:
-                await send_email(
+                await email_service.send_email_async(
                     to_email="placesfirm@gmail.com",
                     subject=f"New Tenant Listing: {data.get('listing_type', 'Unknown')} in {data.get('neighborhood', 'Unknown')}",
-                    message=f"""
+                    html_content=f"""
+                    <h3>New tenant listing submitted!</h3>
+                    
+                    <p><strong>Type:</strong> {data.get('listing_type', 'Unknown')}</p>
+                    <p><strong>Title:</strong> {data.get('title', 'No title')}</p>
+                    <p><strong>Location:</strong> {data.get('neighborhood', 'Unknown')}, {data.get('borough', 'Unknown')}</p>
+                    <p><strong>Price:</strong> ${data.get('rent_price', 'Unknown')}/month</p>
+                    <p><strong>Contact:</strong> {data.get('contact_name', 'Unknown')} ({data.get('contact_email', 'Unknown')})</p>
+                    
+                    <p>View full details in the admin panel.</p>
+                    
+                    <p>NoFeePlaces LLC</p>
+                    """,
+                    text_content=f"""
                     New tenant listing submitted!
                     
                     Type: {data.get('listing_type', 'Unknown')}
