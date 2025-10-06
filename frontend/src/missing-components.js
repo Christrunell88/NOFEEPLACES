@@ -88,10 +88,10 @@ export const Hero = () => {
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="text-center text-white px-4 max-w-4xl">
           <h1 className="text-2xl md:text-3xl font-light mb-4 text-white opacity-95">
-            NYC's Premier No-Fee Apartment Platform
+            Can't Find an Affordable Apartment in NYC?
           </h1>
           <p className="text-lg md:text-xl mb-8 text-teal-100 font-light opacity-90">
-            Discover elegant living spaces without broker fees or hidden costs
+            Discover 240+ no-fee apartments and save $3,000+ on broker fees
           </p>
           <button 
             onClick={scrollToListings}
