@@ -424,8 +424,12 @@ export const LoadingSpinner = () => {
   );
 };
 
-// Auth Modal
+// Import SocialAuth component
+import SocialAuthButtons from '../SocialAuth';
+
+// Auth Modal with Social Login
 export const AuthModal = ({ onClose }) => {
+  const [showSocialAuth, setShowSocialAuth] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
@@ -464,12 +468,21 @@ export const AuthModal = ({ onClose }) => {
     }
   };
 
+  const handleSocialSuccess = (user) => {
+    console.log('Social auth success:', user);
+    onClose();
+  };
+
+  const handleSocialError = (error) => {
+    setError(error);
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-lg max-w-md w-full p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">
-            {isLogin ? 'Sign In' : 'Sign Up'}
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">
+            {showSocialAuth ? 'Sign In' : (isLogin ? 'Sign In' : 'Sign Up')}
           </h2>
           <button
             onClick={onClose}
@@ -479,82 +492,111 @@ export const AuthModal = ({ onClose }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Full Name
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.fullName}
-                onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-              />
-            </div>
-          )}
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              style={{ color: '#1f2937', fontSize: '16px' }}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white"
-            />
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg">
+            {error}
           </div>
-          
+        )}
+
+        {showSocialAuth ? (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              required
-              value={formData.password}
-              onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+            <SocialAuthButtons 
+              onSuccess={handleSocialSuccess}
+              onError={handleSocialError}
+              onClose={onClose}
             />
-          </div>
-
-          {error && (
-            <div className="text-red-600 text-sm">
-              {error}
+            
+            <div className="mt-6 text-center">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+                </div>
+              </div>
+              
+              <button
+                onClick={() => setShowSocialAuth(false)}
+                className="mt-4 w-full text-center text-blue-600 hover:text-blue-800 font-medium"
+              >
+                Use Email & Password
+              </button>
             </div>
-          )}
+          </div>
+        ) : (
+          <div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {!isLogin && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.fullName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                  />
+                </div>
+              )}
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  style={{ color: '#1f2937', fontSize: '16px' }}
+                  className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={formData.password}
+                  onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
-          >
-            {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Sign Up')}
-          </button>
-        </form>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+              >
+                {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Sign Up')}
+              </button>
+            </form>
 
-        <div className="mt-4 text-center">
-          <button
-            onClick={() => setIsLogin(!isLogin)}
-            className="text-purple-600 hover:text-purple-800"
-          >
-            {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
-          </button>
-        </div>
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-purple-600 hover:text-purple-800"
+              >
+                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
+              </button>
+            </div>
 
-        <div className="mt-4 text-center">
-          <div className="text-sm text-gray-600 mb-2">Or continue with</div>
-          <button
-            onClick={() => window.location.href = `${BACKEND_URL}/api/auth/google/login`}
-            className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Continue with Google
-          </button>
-        </div>
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setShowSocialAuth(true)}
+                className="text-blue-600 hover:text-blue-800 text-sm"
+              >
+                ← Back to social login options
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
