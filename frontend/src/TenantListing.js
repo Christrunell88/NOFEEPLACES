@@ -43,6 +43,19 @@ export const TenantListingPage = () => {
   const [uploadingImages, setUploadingImages] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  // Monitor authentication status changes
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      // Update form data with user information
+      setFormData(prev => ({
+        ...prev,
+        contact_name: user.name || '',
+        contact_email: user.email || ''
+      }));
+      setShowAuthModal(false); // Close auth modal when logged in
+    }
+  }, [isAuthenticated, user]);
+
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
     return (
