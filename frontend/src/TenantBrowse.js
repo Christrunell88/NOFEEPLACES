@@ -394,6 +394,17 @@ export const TenantBrowsePage = () => {
           onClose={() => setSelectedListing(null)}
         />
       )}
+
+      {/* Email Contact Modal */}
+      {showContactModal && contactListing && (
+        <EmailContactModal
+          apartment={contactListing}
+          onClose={() => {
+            setShowContactModal(false);
+            setContactListing(null);
+          }}
+        />
+      )}
     </div>
   );
 };
