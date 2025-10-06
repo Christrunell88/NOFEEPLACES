@@ -528,6 +528,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isFavorited, setIsFavorited] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // Import analytics tracking
   // Track apartment view when card is visible
