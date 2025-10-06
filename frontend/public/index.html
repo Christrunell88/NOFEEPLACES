@@ -95,6 +95,36 @@
         <!-- Apple Sign In -->
         <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_us/appleid.auth.js"></script>
         
+        <!-- Structured Data for SEO -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          "name": "NoFeePlaces.com",
+          "url": "https://nofeeplaces.com",
+          "logo": "https://nofeeplaces.com/logo.png",
+          "description": "Can't find an affordable apartment in NYC? NoFeePlaces.com offers 240+ no fee apartments with zero broker fees across Manhattan, Brooklyn, and Queens.",
+          "areaServed": {
+            "@type": "Place",
+            "name": "New York City",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "New York",
+              "addressRegion": "NY",
+              "addressCountry": "US"
+            }
+          },
+          "serviceType": "No Fee Apartment Rentals",
+          "priceRange": "$1,900-$28,750",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-646-408-8048",
+            "email": "placesfirm@gmail.com",
+            "contactType": "Customer Service"
+          }
+        }
+        </script>
+        
         <!-- Enhanced Open Graph / Facebook -->
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://nofeeplaces.com/" />
