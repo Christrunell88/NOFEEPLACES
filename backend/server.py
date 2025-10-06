@@ -620,6 +620,40 @@ async def get_current_user(request: Request):
             detail="Internal server error"
         )
 
+# Contact Email Endpoint
+@api_router.post("/send-contact-email", response_model=ContactEmailResponse)
+async def send_contact_email(email_request: ContactEmailRequest):
+    """Send contact form email to specified recipient"""
+    try:
+        # Send email using email service
+        success = await email_service.send_contact_email(
+            to_email=email_request.to,
+            subject=email_request.subject,
+            sender_name=email_request.sender_name,
+            sender_email=email_request.sender_email,
+            sender_phone=email_request.sender_phone,
+            message=email_request.message,
+            apartment_details=email_request.apartment_details
+        )
+        
+        if success:
+            return ContactEmailResponse(
+                success=True,
+                message="Your message has been sent successfully!"
+            )
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Failed to send email. Please try again."
+            )
+            
+    except Exception as e:
+        logger.error(f"Error in send_contact_email endpoint: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to send email. Please try again."
+        )
+
 # Original apartment endpoints
 @api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
