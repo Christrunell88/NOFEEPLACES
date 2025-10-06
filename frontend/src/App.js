@@ -28,6 +28,7 @@ import {
 } from './LandlordListings';
 import { FeaturedApartments } from './missing-components';
 import TenantListingPage from './TenantListing';
+import TenantBrowsePage from './TenantBrowse';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
