@@ -1067,10 +1067,11 @@ async def review_tenant_listing(listing_id: str, request: Request):
                 NoFeePlaces Team
                 """
                 
-                await email_service.send_email(
+                await email_service.send_email_async(
                     to_email=tenant_email,
                     subject=subject,
-                    message=message
+                    html_content=f"<pre>{message}</pre>",
+                    text_content=message
                 )
                 logger.info(f"Notification sent to tenant: {tenant_email}")
         except Exception as e:
