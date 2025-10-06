@@ -115,17 +115,43 @@ export const TenantListingPage = () => {
     }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
-    const imageUrls = files.map(file => URL.createObjectURL(file));
-    setImagePreview(imageUrls);
-    // For demo purposes, we'll use placeholder URLs
-    const placeholderImages = [
-      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&h=600&fit=crop'
-    ];
-    setFormData(prev => ({ ...prev, images: placeholderImages.slice(0, files.length) }));
+    if (files.length === 0) return;
+
+    setUploadingImages(true);
+    
+    try {
+      const uploadedImageUrls = [];
+      const imageFiles = [];
+      
+      for (const file of files) {
+        // Create preview URL
+        const previewUrl = URL.createObjectURL(file);
+        
+        // Prepare file data for upload
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('listing_id', 'temp_' + Date.now());
+        
+        // For now, create preview and store file info
+        // Real upload will happen on form submission
+        uploadedImageUrls.push(previewUrl);
+        imageFiles.push(file);
+      }
+      
+      setImagePreview(prev => [...prev, ...uploadedImageUrls]);
+      setFormData(prev => ({ 
+        ...prev, 
+        uploaded_image_files: [...prev.uploaded_image_files, ...imageFiles]
+      }));
+      
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      alert('Failed to upload images. Please try again.');
+    } finally {
+      setUploadingImages(false);
+    }
   };
 
   const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 3));
