@@ -425,7 +425,7 @@ export const LoadingSpinner = () => {
 };
 
 // Import SocialAuth component
-import SocialAuthButtons from '../SocialAuth';
+import SocialAuthButtons from './SocialAuth';
 
 // Auth Modal with Social Login
 export const AuthModal = ({ onClose }) => {
