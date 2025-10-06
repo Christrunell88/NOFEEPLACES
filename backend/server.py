@@ -222,6 +222,15 @@ class ContactEmailResponse(BaseModel):
     success: bool
     message: str
 
+# Chatbot Models
+class ChatRequest(BaseModel):
+    message: str
+    session_id: Optional[str] = None
+
+class ChatResponse(BaseModel):
+    response: str
+    session_id: str
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
