@@ -353,7 +353,7 @@ export const Header = () => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center space-x-2 text-gray-300 hover:text-white focus:outline-none rounded-lg px-3 py-2 transition-colors"
                 >
-                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                   <span className="hidden md:block font-medium">{user?.full_name || 'User'}</span>
@@ -377,17 +377,20 @@ export const Header = () => {
               </div>
             ) : (
               <>
+                <div className="hidden md:flex items-center space-x-1 text-gray-400 text-sm">
+                  <span>Owner/Manager?</span>
+                </div>
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="hidden md:block text-gray-300 hover:text-white transition-colors font-medium"
+                  className="hidden md:block text-gray-300 hover:text-blue-400 transition-colors font-medium"
                 >
                   Sign In
                 </button>
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
                 >
-                  Get Started Free
+                  Try for Free
                 </button>
               </>
             )}
