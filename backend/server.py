@@ -597,6 +597,8 @@ async def get_current_user(request: Request):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token"
         )
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error getting current user: {e}")
         raise HTTPException(
