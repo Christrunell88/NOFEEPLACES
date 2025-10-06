@@ -72,7 +72,7 @@ export const Hero = () => {
           </p>
           <button 
             onClick={scrollToListings}
-            className="bg-blue-600 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors shadow-xl"
+            className="bg-teal-500 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-teal-600 transition-colors shadow-xl"
           >
             Start Your Search
           </button>
