@@ -1069,9 +1069,6 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                   ${apartment.price?.toLocaleString()}/month
                 </div>
                 <div className="flex gap-2">
-                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    ✓ VERIFIED
-                  </span>
                   <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                     NO FEE
                   </span>
