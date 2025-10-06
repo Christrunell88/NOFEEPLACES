@@ -1009,5 +1009,222 @@ export const ApartmentDetails = ({ apartmentId }) => {
   );
 };
 
+// Apartment Details Modal Component
+export const ApartmentDetailsModal = ({ apartment, onClose }) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showContactModal, setShowContactModal] = useState(false);
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === (apartment.images?.length || 1) - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? (apartment.images?.length || 1) - 1 : prev - 1
+    );
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+          <h2 className="text-2xl font-bold text-gray-800">{apartment.title}</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          {/* Image Gallery */}
+          <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden mb-6">
+            <img
+              src={apartment.images?.[currentImageIndex] || '/api/placeholder/800/400'}
+              alt={apartment.title}
+              className="w-full h-full object-cover"
+            />
+            
+            {/* Image Navigation */}
+            {apartment.images && apartment.images.length > 1 && (
+              <>
+                <button
+                  onClick={handlePrevImage}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={handleNextImage}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70"
+                >
+                  →
+                </button>
+                
+                {/* Image Counter */}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                  {currentImageIndex + 1} / {apartment.images.length}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Left Column - Details */}
+            <div>
+              {/* Price and Badges */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-3xl font-bold text-green-600">
+                  ${apartment.price?.toLocaleString()}/month
+                </div>
+                <div className="flex gap-2">
+                  <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    ✓ VERIFIED
+                  </span>
+                  <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    NO FEE
+                  </span>
+                </div>
+              </div>
+
+              {/* Basic Info */}
+              <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                <div className="text-center">
+                  <div className="text-xl font-bold text-gray-800">
+                    {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms}`}
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    {apartment.bedrooms === 0 ? '' : 'Bedrooms'}
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-bold text-gray-800">{apartment.bathrooms}</div>
+                  <div className="text-sm text-gray-600">Bathrooms</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-bold text-gray-800">{apartment.sqft}</div>
+                  <div className="text-sm text-gray-600">Sq Ft</div>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">📍 Location</h3>
+                <p className="text-gray-700">{apartment.address || apartment.location}</p>
+                <p className="text-gray-600">{apartment.neighborhood}</p>
+              </div>
+
+              {/* Description */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">📝 Description</h3>
+                <p className="text-gray-700">{apartment.description}</p>
+              </div>
+
+              {/* Amenities */}
+              {apartment.amenities && apartment.amenities.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold mb-2">✨ Amenities</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {apartment.amenities.map((amenity, index) => (
+                      <div key={index} className="flex items-center text-gray-700">
+                        <span className="text-green-500 mr-2">✓</span>
+                        {amenity}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Right Column - Additional Info */}
+            <div>
+              {/* Lease Information */}
+              <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 className="text-lg font-semibold mb-3 text-blue-800">📋 Lease Information</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Lease Terms:</span>
+                    <span className="font-medium">{apartment.lease_terms || '12 months'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Pet Policy:</span>
+                    <span className="font-medium">{apartment.pet_policy || 'Ask landlord'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Utilities:</span>
+                    <span className="font-medium">{apartment.utilities || 'Not specified'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Security Deposit:</span>
+                    <span className="font-medium">{apartment.deposit || '1-2 months rent'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Move-in Date:</span>
+                    <span className="font-medium">{apartment.move_in_date || 'Flexible'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Information */}
+              <div className="bg-purple-50 p-4 rounded-lg mb-6">
+                <h3 className="text-lg font-semibold mb-3 text-purple-800">📞 Contact Information</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center">
+                    <span className="text-purple-600 mr-2">📧</span>
+                    <span className="font-medium">{apartment.contact_email}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-purple-600 mr-2">📱</span>
+                    <span className="font-medium">{apartment.contact_phone}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-purple-600 mr-2">🏢</span>
+                    <span className="font-medium">NoFeePlaces LLC</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                <button
+                  onClick={() => setShowContactModal(true)}
+                  className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-lg"
+                >
+                  📧 Contact About This Apartment
+                </button>
+                <button
+                  onClick={() => window.open(`mailto:${apartment.contact_email}?subject=Interest in ${apartment.title}&body=Hi, I'm interested in this apartment listing. Please provide more details.`)}
+                  className="w-full bg-green-600 text-white py-3 px-4 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                >
+                  💬 Send Direct Email
+                </button>
+                <button
+                  onClick={() => window.open(`tel:${apartment.contact_phone}`)}
+                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                >
+                  📞 Call Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Modal */}
+        {showContactModal && (
+          <EmailContactModal
+            apartment={apartment}
+            onClose={() => setShowContactModal(false)}
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Continue with other components...
 // (Rest of the components remain the same but with newsletter CTAs integrated where appropriate)
