@@ -812,11 +812,18 @@ export const BlogPost = ({ slug }) => {
 
 // Email Contact Modal
 export const EmailContactModal = ({ apartment, onClose }) => {
+  const { isAuthenticated } = useAuth();
+  
+  // Use neighborhood for non-authenticated users, full address for authenticated users
+  const locationInfo = isAuthenticated 
+    ? (apartment.address || apartment.location)
+    : (apartment.neighborhood || apartment.location?.split(',')[0] || 'this property');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: `Hi, I'm interested in the apartment at ${apartment.address || apartment.location}. Please provide more information about availability and scheduling a viewing.`
+    message: `Hi, I'm interested in the apartment in ${locationInfo}. Please provide more information about availability and scheduling a viewing.`
   });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
