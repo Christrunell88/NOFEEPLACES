@@ -1368,8 +1368,8 @@ app.add_middleware(
 
 # Configure logging
 logger.info("NoFeePlaces.com API starting up...")
-logger.info(f"API Documentation available at: /docs")
-logger.info(f"Alternative docs at: /redoc")
+logger.info("API Documentation available at: /docs")
+logger.info("Alternative docs at: /redoc")
 
 # Startup event
 @app.on_event("startup")
