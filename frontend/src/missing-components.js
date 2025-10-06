@@ -862,65 +862,86 @@ export const EmailContactModal = ({ apartment, onClose }) => {
     : (apartment.neighborhood || apartment.location?.split(',')[0] || 'this property');
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: `Hi, I'm interested in the apartment in ${locationInfo}. Please provide more information about availability and scheduling a viewing.`
+    senderName: '',
+    senderEmail: '',
+    senderPhone: '',
+    message: `Hi, I'm interested in the apartment in ${locationInfo}. Please provide more information about availability and scheduling a viewing.`,
+    subject: apartment ? `Interest in ${apartment.title}` : 'Inquiry from NoFeePlaces.com'
   });
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSending(true);
-    
+    setIsLoading(true);
+    setStatus({ type: '', message: '' });
+
     try {
-      // Call backend API to send actual email
-      const response = await axios.post(`${API}/contact`, {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone || null,
-        message: formData.message,
-        apartment_id: apartment?.id || null
-      });
+      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://rentalnobroker.preview.emergentagent.com';
       
-      if (response.status === 200) {
-        setSent(true);
-        
-        // Track successful contact form submission
+      // Prepare apartment details for email
+      const apartmentDetails = apartment ? {
+        title: apartment.title,
+        neighborhood: apartment.neighborhood,
+        price: apartment.price,
+        bedrooms: apartment.bedrooms
+      } : null;
+
+      // Prepare email data
+      const emailData = {
+        to: 'placesfirm@gmail.com',
+        subject: formData.subject,
+        sender_name: formData.senderName,
+        sender_email: formData.senderEmail,
+        sender_phone: formData.senderPhone,
+        message: formData.message,
+        apartment_details: apartmentDetails
+      };
+
+      const response = await axios.post(`${API_URL}/api/send-contact-email`, emailData);
+
+      setStatus({ 
+        type: 'success', 
+        message: 'Your message has been sent successfully! We\'ll get back to you soon.' 
+      });
+
+      // Track successful contact form submission
+      try {
         trackContactForm(formData, apartment);
-        
-        setTimeout(() => {
-          onClose();
-        }, 3000); // Show success message for 3 seconds
-      } else {
-        throw new Error('Failed to send message');
+      } catch (trackError) {
+        console.log('Analytics tracking failed:', trackError);
       }
+
+      // Reset form after successful submission
+      setTimeout(() => {
+        onClose();
+      }, 2000);
+
     } catch (error) {
-      console.error('Failed to send message:', error);
-      alert('Failed to send message. Please try again or contact us directly.');
+      console.error('Error sending email:', error);
+      setStatus({ 
+        type: 'error', 
+        message: error.response?.data?.detail || 'Failed to send message. Please try again.' 
+      });
     } finally {
-      setSending(false);
+      setIsLoading(false);
     }
   };
 
-  if (sent) {
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-lg max-w-md w-full p-6 text-center">
-          <div className="text-green-600 text-4xl mb-4">✓</div>
-          <h2 className="text-2xl font-bold mb-2">Email Sent Successfully!</h2>
-          <p className="text-gray-600">Your message has been sent. We'll contact you within 24 hours. Please check your email for confirmation!</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg max-w-md w-full p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-bold">Contact About This Apartment</h2>
+      <div className="bg-white rounded-lg max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Send Message
+          </h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 text-2xl"
@@ -929,70 +950,125 @@ export const EmailContactModal = ({ apartment, onClose }) => {
           </button>
         </div>
 
+        {apartment && (
+          <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+            <h3 className="font-semibold text-gray-800 mb-2">About this listing:</h3>
+            <p className="text-sm text-gray-600">{apartment.title}</p>
+            {apartment.neighborhood && (
+              <p className="text-sm text-gray-500">{apartment.neighborhood}</p>
+            )}
+            {apartment.price && (
+              <p className="text-sm font-medium text-green-600">${apartment.price}/month</p>
+            )}
+          </div>
+        )}
+
+        {status.message && (
+          <div className={`mb-4 p-3 rounded-lg text-sm ${
+            status.type === 'success' 
+              ? 'bg-green-50 border border-green-200 text-green-700' 
+              : 'bg-red-50 border border-red-200 text-red-700'
+          }`}>
+            {status.message}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Your Name
+              Your Name *
             </label>
             <input
               type="text"
+              name="senderName"
               required
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              style={{ color: '#1f2937', fontSize: '16px' }}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              style={{ color: '#1f2937', fontSize: '16px' }}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Phone (optional)
-            </label>
-            <input
-              type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-              style={{ color: '#1f2937', fontSize: '16px' }}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Message
-            </label>
-            <textarea
-              required
-              rows="4"
-              value={formData.message}
-              onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-              style={{ color: '#1f2937', fontSize: '16px' }}
-              className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-gray-900 bg-white resize-vertical"
+              value={formData.senderName}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter your full name"
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={sending}
-            className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
-          >
-            {sending ? 'Sending...' : 'Send Message'}
-          </button>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Your Email *
+            </label>
+            <input
+              type="email"
+              name="senderEmail"
+              required
+              value={formData.senderEmail}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Your Phone Number
+            </label>
+            <input
+              type="tel"
+              name="senderPhone"
+              value={formData.senderPhone}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="(555) 123-4567"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Subject
+            </label>
+            <input
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Message *
+            </label>
+            <textarea
+              name="message"
+              required
+              rows="4"
+              value={formData.message}
+              onChange={handleChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Please enter your message here..."
+            />
+          </div>
+
+          <div className="flex space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Sending...' : 'Send Message'}
+            </button>
+          </div>
         </form>
+
+        <div className="mt-4 text-xs text-gray-500 text-center">
+          <p>
+            Message will be sent to placesfirm@gmail.com
+          </p>
+        </div>
       </div>
     </div>
   );
