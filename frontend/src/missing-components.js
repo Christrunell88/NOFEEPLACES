@@ -192,10 +192,12 @@ export const FeaturedApartments = () => {
           {featuredApartments.slice(0, 6).map((apartment, index) => (
             <div 
               key={apartment.id} 
-              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group cursor-pointer"
-              onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden group"
             >
-              <div className="relative h-48 overflow-hidden">
+              <div 
+                className="relative h-48 overflow-hidden cursor-pointer"
+                onClick={() => setSelectedApartment(apartment)}
+              >
                 <img
                   src={apartment.images && apartment.images[0] ? apartment.images[0] : 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop'}
                   alt={apartment.title}
@@ -205,6 +207,13 @@ export const FeaturedApartments = () => {
                   <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
                     NO FEE
                   </span>
+                </div>
+                
+                {/* Hover Overlay with "View Details" hint */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-medium">
+                    <span className="bg-teal-500 px-3 py-2 rounded-lg shadow-lg text-sm">View Details</span>
+                  </div>
                 </div>
               </div>
               
