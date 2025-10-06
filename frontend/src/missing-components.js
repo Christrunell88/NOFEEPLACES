@@ -245,12 +245,7 @@ export const FeaturedApartments = () => {
                   )}
                 </div>
                 
-                <button 
-                  onClick={() => setSelectedApartment(apartment)}
-                  className="w-full bg-teal-500 hover:bg-teal-600 text-white py-2 px-4 rounded-lg font-medium transition-colors"
-                >
-                  View Details
-                </button>
+                {/* Clean card bottom - click image to view details */}
               </div>
             </div>
           ))}
