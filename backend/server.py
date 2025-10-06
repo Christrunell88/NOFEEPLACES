@@ -207,6 +207,20 @@ class User(BaseModel):
     facebook_id: Optional[str] = None
     apple_id: Optional[str] = None
 
+# Contact Email Models
+class ContactEmailRequest(BaseModel):
+    to: str
+    subject: str
+    sender_name: str
+    sender_email: str
+    sender_phone: Optional[str] = None
+    message: str
+    apartment_details: Optional[Dict[str, Any]] = None
+
+class ContactEmailResponse(BaseModel):
+    success: bool
+    message: str
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
