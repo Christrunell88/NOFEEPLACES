@@ -324,24 +324,24 @@ export const Header = () => {
           <div className="hidden lg:flex items-center space-x-8">
             <Link 
               to="/blog" 
-              className="text-gray-300 hover:text-white transition-colors font-medium"
+              className="text-gray-300 hover:text-blue-400 transition-colors font-medium"
               onClick={() => trackNavigationClick('Blog', '/blog')}
             >
               Guides
             </Link>
             <Link 
               to="/tenant/browse" 
-              className="text-gray-300 hover:text-white transition-colors font-medium"
+              className="text-gray-300 hover:text-orange-400 transition-colors font-medium"
               onClick={() => trackNavigationClick('Tenant Listings', '/tenant/browse')}
             >
               Browse Listings
             </Link>
             <Link 
               to="/landlord/login" 
-              className="text-gray-300 hover:text-white transition-colors font-medium"
+              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
               onClick={() => trackNavigationClick('Owner Portal', '/landlord/login')}
             >
-              List Property
+              List Your Place
             </Link>
           </div>
 
