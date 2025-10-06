@@ -41,6 +41,7 @@ export const TenantListingPage = () => {
   const [submitted, setSubmitted] = useState(false);
   const [imagePreview, setImagePreview] = useState([]);
   const [uploadingImages, setUploadingImages] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   // Redirect to login if not authenticated
   if (!isAuthenticated) {
