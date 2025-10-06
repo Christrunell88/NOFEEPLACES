@@ -6109,14 +6109,33 @@ class NoFeePlacesAPITester:
 if __name__ == "__main__":
     tester = NoFeePlacesAPITester()
     
-    print("🏢 Testing Waterline Square and Gotham West Apartments Integration")
+    print("🤖 Testing AI Chatbot Functionality for NoFeePlaces")
     print("=" * 70)
-    print("📋 Review Request: Test updated apartments API after adding all missing apartments")
-    print("🎯 Expected: Original (~75) + Gotham West (10) + Waterline Square (8) = 90+ total")
+    print("📋 Review Request: Test new AI Chatbot functionality with Emergent LLM integration")
+    print("🎯 Focus Areas: POST /api/chat endpoint, session management, AI responses, error handling")
     print("=" * 70)
     
-    # Run the specific test for this review request
-    tester.test_waterline_square_and_gotham_west_verification()
+    # Run the chatbot test
+    tester.test_enhanced_ai_chatbot_with_context()
+    
+    # Print summary
+    print("\n" + "=" * 70)
+    print("🏁 AI CHATBOT TEST RESULTS SUMMARY")
+    print("=" * 70)
+    print(f"✅ Passed: {tester.results['passed']}")
+    print(f"❌ Failed: {tester.results['failed']}")
+    total_tests = tester.results['passed'] + tester.results['failed']
+    success_rate = (tester.results['passed'] / total_tests * 100) if total_tests > 0 else 0
+    print(f"📊 Success Rate: {success_rate:.1f}%")
+    
+    if tester.results['errors']:
+        print(f"\n🚨 FAILED TESTS:")
+        for error in tester.results['errors']:
+            print(f"   • {error}")
+    
+    print("\n" + "=" * 70)
+    print("📝 AI CHATBOT TESTING COMPLETE")
+    print("=" * 70)
     
     # Print final results
     print("\n" + "=" * 70)
