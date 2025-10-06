@@ -378,7 +378,7 @@ export const Header = () => {
                 </button>
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
+                  className="px-6 py-2.5 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
                 >
                   Try for Free
                 </button>
