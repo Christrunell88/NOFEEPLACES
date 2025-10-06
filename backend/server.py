@@ -1110,6 +1110,60 @@ async def get_newsletter_stats():
         "sources": sources
     }
 
+# Image upload endpoint
+@api_router.post("/upload-image")
+async def upload_image(file: UploadFile = File(...)):
+    """Upload image for tenant listings"""
+    try:
+        # Validate file type
+        if not file.content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="File must be an image")
+        
+        # Validate file size (max 10MB)
+        if file.size > 10 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="File size must be less than 10MB")
+        
+        # Create uploads directory if it doesn't exist
+        upload_dir = Path("/app/backend/uploads")
+        upload_dir.mkdir(exist_ok=True)
+        
+        # Generate unique filename
+        file_extension = file.filename.split('.')[-1] if '.' in file.filename else 'jpg'
+        unique_filename = f"{uuid.uuid4()}.{file_extension}"
+        file_path = upload_dir / unique_filename
+        
+        # Save file
+        async with aiofiles.open(file_path, 'wb') as f:
+            content = await file.read()
+            await f.write(content)
+        
+        # Return file URL
+        file_url = f"/api/uploads/{unique_filename}"
+        
+        logger.info(f"Image uploaded successfully: {unique_filename}")
+        
+        return {
+            "success": True,
+            "filename": unique_filename,
+            "url": file_url,
+            "size": len(content)
+        }
+        
+    except Exception as e:
+        logger.error(f"Image upload error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
+
+# Serve uploaded files
+@api_router.get("/uploads/{filename}")
+async def get_uploaded_file(filename: str):
+    """Serve uploaded images"""
+    file_path = Path("/app/backend/uploads") / filename
+    
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    return FileResponse(file_path)
+
 # Health check
 @api_router.get("/health")
 async def health_check():
