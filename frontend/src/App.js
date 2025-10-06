@@ -27,6 +27,7 @@ import {
   ViewListings 
 } from './LandlordListings';
 import { FeaturedApartments } from './missing-components';
+import SEOAffordableSection from './SEOAffordableSection';
 import TenantListingPage from './TenantListing';
 import TenantBrowsePage from './TenantBrowse';
 
