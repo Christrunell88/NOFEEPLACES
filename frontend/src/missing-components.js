@@ -14,25 +14,8 @@ import {
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
-// Hero Component with Image Carousel
+// Hero Component with Woman in Apartment
 export const Hero = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const heroImages = [
-    // Woman in modern apartment - living room
-    'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=600&fit=crop&auto=format&v=3',
-    // Woman in Brooklyn apartment - lifestyle shot
-    'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&h=600&fit=crop&auto=format&v=3',
-    // Woman in apartment - relaxing scene
-    'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=600&fit=crop&auto=format&v=3'
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
   const scrollToListings = () => {
     trackHeroAction('scroll', 'Browse Apartments');
     window.scrollTo({ top: 1200, behavior: 'smooth' });
@@ -40,34 +23,23 @@ export const Hero = () => {
 
   return (
     <section className="relative h-96 overflow-hidden">
-      {/* Background Image Carousel */}
-      <div className="absolute inset-0">
-        {heroImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <img
-              src={image}
-              alt={`NYC Apartment ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        ))}
-      </div>
+      {/* Background Image - Woman in Modern Apartment */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1749878064741-75d7ef992d36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fHx8MTc1OTc4NDA5MHww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }}
+      />
       
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="text-center text-white px-4 max-w-3xl">
-          <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
-            Find Your Perfect NYC Apartment
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-blue-100 font-light">
+          <p className="text-xl md:text-2xl mb-8 text-teal-100 font-light">
             No broker fees. No hidden costs.
           </p>
           <button 
@@ -77,19 +49,6 @@ export const Hero = () => {
             Start Your Search
           </button>
         </div>
-      </div>
-      
-      {/* Image Indicators */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentImageIndex ? 'bg-yellow-400' : 'bg-white bg-opacity-50'
-            }`}
-          />
-        ))}
       </div>
     </section>
   );
