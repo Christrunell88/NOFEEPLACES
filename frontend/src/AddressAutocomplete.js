@@ -5,7 +5,7 @@ const AddressAutocomplete = ({
   onChange, 
   onPlaceSelect = null,
   placeholder = "Enter your address",
-  className = "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent",
+  className = "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent",
   required = false,
   name = "address"
 }) => {
