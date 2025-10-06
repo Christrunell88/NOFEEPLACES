@@ -1014,6 +1014,12 @@ export const ApartmentDetails = ({ apartmentId }) => {
 const ApartmentDetailsModal = ({ apartment, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
+  const { isAuthenticated } = useAuth();
+
+  // Use neighborhood for non-authenticated users, full address for authenticated users
+  const locationInfo = isAuthenticated 
+    ? (apartment.address || apartment.location)
+    : (apartment.neighborhood || apartment.location?.split(',')[0] || 'this property');
 
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => 
