@@ -884,9 +884,8 @@ export const ApartmentDetails = ({ apartmentId }) => {
               <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                 NO FEE
               </div>
-              <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                <span>✓</span>
-                <span>VERIFIED</span>
+              <div className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                NO FEE
               </div>
             </div>
             
