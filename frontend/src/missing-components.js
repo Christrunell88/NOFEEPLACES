@@ -38,15 +38,18 @@ export const Hero = () => {
       
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
-        <div className="text-center text-white px-4 max-w-3xl">
-          <p className="text-xl md:text-2xl mb-8 text-teal-100 font-light">
-            No broker fees. No hidden costs.
+        <div className="text-center text-white px-4 max-w-4xl">
+          <h1 className="text-2xl md:text-3xl font-light mb-4 text-white opacity-95">
+            NYC's Premier No-Fee Apartment Platform
+          </h1>
+          <p className="text-lg md:text-xl mb-8 text-teal-100 font-light opacity-90">
+            Discover elegant living spaces without broker fees or hidden costs
           </p>
           <button 
             onClick={scrollToListings}
-            className="bg-teal-500 text-white px-10 py-4 rounded-lg text-lg font-semibold hover:bg-teal-600 transition-colors shadow-xl"
+            className="bg-teal-500 text-white px-12 py-4 rounded-lg text-lg font-medium hover:bg-teal-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
-            Start Your Search
+            Explore Premium Listings
           </button>
         </div>
       </div>
