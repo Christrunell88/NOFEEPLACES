@@ -1335,6 +1335,18 @@ async def get_uploaded_file(filename: str):
     
     return FileResponse(file_path)
 
+# Admin panel
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_panel():
+    """Serve admin panel HTML"""
+    admin_file = Path("/app/backend/admin_panel.html")
+    if admin_file.exists():
+        async with aiofiles.open(admin_file, 'r') as f:
+            content = await f.read()
+        return HTMLResponse(content=content)
+    else:
+        raise HTTPException(status_code=404, detail="Admin panel not found")
+
 # Health check
 @api_router.get("/health")
 async def health_check():
