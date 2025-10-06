@@ -664,6 +664,32 @@ async def send_contact_email(email_request: ContactEmailRequest):
             detail="Failed to send email. Please try again."
         )
 
+# AI Chatbot Endpoint
+@api_router.post("/chat", response_model=ChatResponse)
+async def chat_with_ai(chat_request: ChatRequest):
+    """Chat with NoFeeBot AI assistant"""
+    try:
+        # Generate session ID if not provided
+        session_id = chat_request.session_id or nofeebbot.generate_session_id()
+        
+        # Get AI response
+        response = await nofeebbot.get_chat_response(
+            user_message=chat_request.message,
+            session_id=session_id
+        )
+        
+        return ChatResponse(
+            response=response,
+            session_id=session_id
+        )
+        
+    except Exception as e:
+        logger.error(f"Error in chat endpoint: {e}")
+        return ChatResponse(
+            response="I apologize, but I'm experiencing technical difficulties. Please try again in a moment, or contact our team at placesfirm@gmail.com for immediate assistance.",
+            session_id=chat_request.session_id or nofeebbot.generate_session_id()
+        )
+
 # Original apartment endpoints
 @api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
