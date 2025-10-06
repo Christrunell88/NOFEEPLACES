@@ -593,6 +593,130 @@ NoFeePlaces.com Visitor Tracking System
             await self._log_email_attempt(self.admin_email, "Visitor Notification", "visitor_notification", False)
             return False
     
+    async def send_contact_email(self, to_email: str, subject: str, 
+                               sender_name: str, sender_email: str, 
+                               sender_phone: str, message: str, 
+                               apartment_details: Optional[Dict] = None) -> bool:
+        """Send contact form email from website visitors"""
+        try:
+            html_content = self._get_contact_email_template(
+                sender_name, sender_email, sender_phone, message, apartment_details
+            )
+            
+            text_content = self._get_contact_email_text(
+                sender_name, sender_email, sender_phone, message, apartment_details
+            )
+            
+            success = await self.send_email_async(
+                to_email=to_email,
+                subject=f"NoFeePlaces Contact: {subject}",
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            await self._log_email_attempt(to_email, subject, "contact_form", success)
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending contact email: {str(e)}")
+            await self._log_email_attempt(to_email, subject, "contact_form", False)
+            return False
+    
+    def _get_contact_email_template(self, sender_name: str, sender_email: str, 
+                                  sender_phone: str, message: str, 
+                                  apartment_details: Optional[Dict] = None) -> str:
+        """Generate HTML contact email template"""
+        apartment_section = ""
+        if apartment_details:
+            apartment_section = f"""
+                <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #007bff;">
+                    <h3 style="color: #007bff; margin: 0 0 10px 0;">Apartment Inquiry Details:</h3>
+                    <p style="margin: 5px 0;"><strong>Property:</strong> {apartment_details.get('title', 'N/A')}</p>
+                    {f'<p style="margin: 5px 0;"><strong>Neighborhood:</strong> {apartment_details.get("neighborhood", "N/A")}</p>' if apartment_details.get('neighborhood') else ''}
+                    {f'<p style="margin: 5px 0;"><strong>Price:</strong> ${apartment_details.get("price", "N/A")}/month</p>' if apartment_details.get('price') else ''}
+                    {f'<p style="margin: 5px 0;"><strong>Bedrooms:</strong> {apartment_details.get("bedrooms", "N/A")}</p>' if apartment_details.get('bedrooms') else ''}
+                </div>
+            """
+        
+        return f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Contact Form Submission - NoFeePlaces.com</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                <h1 style="margin: 0; font-size: 28px;">🏢 NoFeePlaces.com</h1>
+                <p style="margin: 10px 0 0 0; opacity: 0.9;">New Contact Form Submission</p>
+            </div>
+            
+            <div style="background-color: white; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h2 style="color: #333; margin-bottom: 20px;">Contact Information:</h2>
+                
+                <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="margin: 8px 0;"><strong>👤 Name:</strong> {sender_name}</p>
+                    <p style="margin: 8px 0;"><strong>📧 Email:</strong> <a href="mailto:{sender_email}" style="color: #007bff;">{sender_email}</a></p>
+                    {f'<p style="margin: 8px 0;"><strong>📞 Phone:</strong> <a href="tel:{sender_phone}" style="color: #007bff;">{sender_phone}</a></p>' if sender_phone else ''}
+                    <p style="margin: 8px 0;"><strong>⏰ Submitted:</strong> {datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}</p>
+                </div>
+                
+                {apartment_section}
+                
+                <h3 style="color: #333; margin-bottom: 15px;">💬 Message:</h3>
+                <div style="background-color: #fff; border: 1px solid #e9ecef; padding: 20px; border-radius: 8px; white-space: pre-wrap;">
+{message}
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; text-align: center;">
+                    <p style="color: #666; margin-bottom: 15px;">Ready to respond?</p>
+                    <a href="mailto:{sender_email}?subject=Re: NoFeePlaces Inquiry" 
+                       style="display: inline-block; background-color: #007bff; color: white; padding: 12px 25px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                        📧 Reply to {sender_name}
+                    </a>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
+                <p>This email was sent from NoFeePlaces.com contact form</p>
+                <p>© {datetime.now().year} NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform</p>
+            </div>
+        </body>
+        </html>
+        """
+    
+    def _get_contact_email_text(self, sender_name: str, sender_email: str, 
+                              sender_phone: str, message: str, 
+                              apartment_details: Optional[Dict] = None) -> str:
+        """Generate plain text contact email"""
+        apartment_section = ""
+        if apartment_details:
+            apartment_section = f"""
+APARTMENT INQUIRY DETAILS:
+Property: {apartment_details.get('title', 'N/A')}
+{f"Neighborhood: {apartment_details.get('neighborhood', 'N/A')}" if apartment_details.get('neighborhood') else ''}
+{f"Price: ${apartment_details.get('price', 'N/A')}/month" if apartment_details.get('price') else ''}
+{f"Bedrooms: {apartment_details.get('bedrooms', 'N/A')}" if apartment_details.get('bedrooms') else ''}
+
+"""
+        
+        return f"""
+NoFeePlaces.com - New Contact Form Submission
+
+CONTACT INFORMATION:
+Name: {sender_name}
+Email: {sender_email}
+{f"Phone: {sender_phone}" if sender_phone else ''}
+Submitted: {datetime.now(timezone.utc).strftime('%B %d, %Y at %I:%M %p UTC')}
+
+{apartment_section}MESSAGE:
+{message}
+
+---
+Reply directly to this email to respond to {sender_name}
+© {datetime.now().year} NoFeePlaces.com - NYC's Premier No-Fee Apartment Platform
+        """
+
     async def _log_email_attempt(self, recipient: str, subject: str, 
                                 email_type: str, success: bool) -> None:
         """Log email sending attempts for tracking"""
