@@ -14,26 +14,74 @@ import {
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
-// Hero Component with Woman in Apartment
+// Hero Component with Elegant Apartment Carousel
 export const Hero = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [
+    {
+      url: 'https://images.unsplash.com/photo-1749878064741-75d7ef992d36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fHx8MTc1OTc4NDA5MHww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      alt: 'Elegant woman in modern apartment kitchen',
+      style: 'Kitchen & Lifestyle'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      alt: 'Sophisticated living room with natural light',
+      style: 'Living Room'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      alt: 'Elegant bedroom with modern design',
+      style: 'Bedroom'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1675279200694-8529c73b1fd0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      alt: 'Contemporary kitchen and dining area',
+      style: 'Kitchen & Dining'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1665249934445-1de680641f50?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw1fHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      alt: 'Modern living space with floor-to-ceiling windows',
+      style: 'Modern Living'
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000); // 5 seconds per image for elegant pacing
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   const scrollToListings = () => {
     trackHeroAction('scroll', 'Browse Apartments');
     window.scrollTo({ top: 1200, behavior: 'smooth' });
   };
 
+  const goToImage = (index) => {
+    setCurrentImageIndex(index);
+    trackHeroAction('carousel_navigation', `Image ${index + 1} - ${heroImages[index].style}`);
+  };
+
   return (
     <section className="relative h-96 overflow-hidden">
-      {/* Background Image - Elegant Apartment with Natural Light */}
-      <div 
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwYXBhcnRtZW50JTIwbmF0dXJhbCUyMGxpZ2h0fGVufDB8fHx8MTc1OTc4NjM1Nnww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      />
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0">
+        {heroImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              backgroundImage: `url(${image.url})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          />
+        ))}
+      </div>
       
-      {/* Light Overlay - Reduced opacity to preserve the elegant, bright aesthetic */}
+      {/* Light Overlay - Preserves elegant, bright aesthetic */}
       <div className="absolute inset-0 bg-black bg-opacity-25"></div>
       
       {/* Content */}
@@ -52,6 +100,35 @@ export const Hero = () => {
             Explore Premium Listings
           </button>
         </div>
+      </div>
+      
+      {/* Elegant Carousel Indicators */}
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        {heroImages.map((image, index) => (
+          <button
+            key={index}
+            onClick={() => goToImage(index)}
+            className={`group relative transition-all duration-300 ${
+              index === currentImageIndex ? 'scale-110' : 'hover:scale-105'
+            }`}
+            aria-label={`View ${image.style} apartment`}
+          >
+            <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentImageIndex 
+                ? 'bg-white shadow-lg' 
+                : 'bg-white bg-opacity-60 hover:bg-opacity-80'
+            }`} />
+            {/* Elegant tooltip on hover */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black bg-opacity-75 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              {image.style}
+            </div>
+          </button>
+        ))}
+      </div>
+      
+      {/* Apartment Style Label */}
+      <div className="absolute bottom-6 right-6 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm font-light">
+        {heroImages[currentImageIndex].style}
       </div>
     </section>
   );
