@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Fix blog functionality that was broken - Backend blog API endpoints returning 'Not Found' or KeyError on 'total' and frontend BlogListPage component showing React rendering error 'Element type is invalid: expected a string but got: undefined'."
+user_problem_statement: "Implement social login integration (Facebook and Apple Sign-In) alongside existing Google OAuth system for NoFeePlaces.com rental platform"
 
 frontend:
 frontend:
