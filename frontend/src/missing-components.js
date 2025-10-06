@@ -98,6 +98,7 @@ export const Hero = () => {
 export const FeaturedApartments = () => {
   const [featuredApartments, setFeaturedApartments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedApartment, setSelectedApartment] = useState(null);
 
   useEffect(() => {
     const fetchFeaturedApartments = async () => {
