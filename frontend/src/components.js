@@ -61,7 +61,8 @@ export {
   CompleteGuideNoFeeApartments,
   BlogList,
   BlogPost,
-  EmailContactModal
+  EmailContactModal,
+  ApartmentDetailsModal
 };
 
 // Toast notification component
