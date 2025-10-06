@@ -757,21 +757,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="flex space-x-2">
-            <button
-              onClick={() => setShowContactModal(true)}
-              className="flex-1 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors font-medium"
-            >
-              📧 Contact
-            </button>
-            <button
-              onClick={() => setShowDetailsModal(true)}
-              className="flex-1 bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition-colors font-medium"
-            >
-              🏠 View Details
-            </button>
-          </div>
+          {/* Clean card bottom - no buttons needed */}
         </div>
       </div>
 
