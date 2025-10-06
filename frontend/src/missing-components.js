@@ -118,10 +118,7 @@ export const Hero = () => {
                 ? 'bg-white shadow-lg' 
                 : 'bg-white bg-opacity-60 hover:bg-opacity-80'
             }`} />
-            {/* Elegant tooltip on hover */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black bg-opacity-75 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-              {image.style}
-            </div>
+            {/* Clean indicator - no tooltip */}
           </button>
         ))}
       </div>
