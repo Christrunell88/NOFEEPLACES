@@ -878,7 +878,60 @@ async def scrape_rentals_endpoint(location: str = "NYC", limit: int = 50):
         logger.error(f"Scraping error: {str(e)}")
         return {"status": "error", "message": str(e), "fallback_used": True}
 
-@api_router.post("/import-scraped-rentals")
+@api_router.post("/tenant/list-apartment")
+async def tenant_list_apartment(request: Request):
+    """Handle tenant apartment listing submissions"""
+    try:
+        data = await request.json()
+        
+        # Add submission timestamp and generate ID
+        listing_data = {
+            "id": str(uuid.uuid4()),
+            "status": "pending_review",
+            "submitted_at": datetime.now(timezone.utc).isoformat(),
+            "reviewed": False,
+            "approved": False,
+            **data
+        }
+        
+        # Store in tenant_listings collection
+        result = await db.tenant_listings.insert_one(listing_data)
+        
+        if result.inserted_id:
+            # Send notification email to admin
+            try:
+                await send_email(
+                    to_email="placesfirm@gmail.com",
+                    subject=f"New Tenant Listing: {data.get('listing_type', 'Unknown')} in {data.get('neighborhood', 'Unknown')}",
+                    message=f"""
+                    New tenant listing submitted!
+                    
+                    Type: {data.get('listing_type', 'Unknown')}
+                    Title: {data.get('title', 'No title')}
+                    Location: {data.get('neighborhood', 'Unknown')}, {data.get('borough', 'Unknown')}
+                    Price: ${data.get('rent_price', 'Unknown')}/month
+                    Contact: {data.get('contact_name', 'Unknown')} ({data.get('contact_email', 'Unknown')})
+                    
+                    View full details in the admin panel.
+                    
+                    NoFeePlaces LLC
+                    """
+                )
+                logger.info(f"Notification email sent for tenant listing {listing_data['id']}")
+            except Exception as e:
+                logger.error(f"Failed to send tenant listing notification: {str(e)}")
+            
+            return {
+                "success": True, 
+                "message": "Tenant listing submitted successfully",
+                "listing_id": listing_data['id']
+            }
+        else:
+            return {"success": False, "message": "Failed to submit listing"}
+            
+    except Exception as e:
+        logger.error(f"Tenant listing submission error: {str(e)}")
+        return {"success": False, "message": str(e)}
 async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
     """Import scraped rental data into the main apartments database"""
     try:
