@@ -372,7 +372,7 @@ export const Header = () => {
               <>
                 <button
                   onClick={() => setShowAuthModal(true)}
-                  className="hidden md:block text-gray-300 hover:text-blue-400 transition-colors font-medium"
+                  className="hidden md:block text-gray-300 hover:text-teal-400 transition-colors font-medium"
                 >
                   Sign In
                 </button>
