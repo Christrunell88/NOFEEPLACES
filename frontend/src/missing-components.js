@@ -163,9 +163,6 @@ export const FeaturedApartments = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-3 right-3 flex gap-2">
-                  <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                    ✓ VERIFIED
-                  </span>
                   <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
                     NO FEE
                   </span>
