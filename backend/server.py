@@ -389,6 +389,221 @@ async def blog_summary():
         ]
     }
 
+# JWT Utilities
+import jwt as pyjwt
+from datetime import timedelta
+
+JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-here')
+JWT_ALGORITHM = 'HS256'
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+def create_access_token(data: dict) -> str:
+    """Create JWT access token"""
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    encoded_jwt = pyjwt.encode(to_encode, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return encoded_jwt
+
+async def get_or_create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
+    """Get existing user or create new user from social auth data"""
+    provider = user_data['provider']
+    provider_id = user_data.get(f'{provider}_id')
+    email = user_data.get('email')
+    
+    # Try to find existing user by provider ID
+    user_filter = {f"{provider}_id": provider_id}
+    user = await db.users.find_one(user_filter)
+    
+    if user:
+        # Update user information and last login
+        update_data = {
+            "last_login": datetime.now(timezone.utc).isoformat()
+        }
+        if email and user.get('email') != email:
+            update_data['email'] = email
+        if user_data.get('name') and user.get('name') != user_data['name']:
+            update_data['name'] = user_data['name']
+        if user_data.get('picture') and user.get('profile_picture') != user_data['picture']:
+            update_data['profile_picture'] = user_data['picture']
+        
+        await db.users.update_one({"id": user["id"]}, {"$set": update_data})
+        user.update(update_data)
+        return user
+    
+    # Try to find user by email to link accounts
+    if email:
+        user = await db.users.find_one({"email": email})
+        if user:
+            # Link the social account to existing user
+            link_data = {
+                f"{provider}_id": provider_id,
+                "last_login": datetime.now(timezone.utc).isoformat()
+            }
+            if user_data.get('picture') and not user.get('profile_picture'):
+                link_data['profile_picture'] = user_data['picture']
+            
+            await db.users.update_one({"id": user["id"]}, {"$set": link_data})
+            user.update(link_data)
+            return user
+    
+    # Create new user
+    user_create_data = {
+        'id': str(uuid.uuid4()),
+        'email': email or f"{provider_id}@{provider}.local",
+        'name': user_data.get('name', f'{provider.title()} User'),
+        'profile_picture': user_data.get('picture'),
+        'created_at': datetime.now(timezone.utc).isoformat(),
+        'last_login': datetime.now(timezone.utc).isoformat(),
+        f'{provider}_id': provider_id
+    }
+    
+    await db.users.insert_one(user_create_data)
+    return user_create_data
+
+# Social Authentication Endpoints
+@api_router.post("/auth/facebook", response_model=SocialAuthResponse)
+async def facebook_auth(auth_request: FacebookAuthRequest):
+    """Authenticate user with Facebook access token"""
+    try:
+        # Validate Facebook token and get user info
+        user_data = await facebook_auth_service.validate_access_token(auth_request.access_token)
+        
+        # Get or create user
+        user = await get_or_create_user(user_data)
+        
+        # Create access token
+        access_token = create_access_token(
+            data={"sub": user['id'], "email": user['email']}
+        )
+        
+        return SocialAuthResponse(
+            access_token=access_token,
+            user={
+                "id": user['id'],
+                "email": user['email'],
+                "name": user['name'],
+                "profile_picture": user.get('profile_picture'),
+                "facebook_id": user.get('facebook_id')
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Facebook authentication error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Authentication failed"
+        )
+
+@api_router.post("/auth/apple", response_model=SocialAuthResponse)
+async def apple_auth(auth_request: AppleAuthRequest):
+    """Authenticate user with Apple identity token"""
+    try:
+        # Validate Apple identity token and get user info
+        user_data = await apple_auth_service.validate_identity_token(auth_request.identity_token)
+        
+        # If user data is provided from frontend (first-time sign-in), use it
+        if auth_request.user_data and auth_request.user_data.get('name'):
+            name_data = auth_request.user_data['name']
+            full_name = f"{name_data.get('firstName', '')} {name_data.get('lastName', '')}".strip()
+            if full_name:
+                user_data['name'] = full_name
+        
+        # Get or create user
+        user = await get_or_create_user(user_data)
+        
+        # Create access token
+        access_token = create_access_token(
+            data={"sub": user['id'], "email": user['email']}
+        )
+        
+        return SocialAuthResponse(
+            access_token=access_token,
+            user={
+                "id": user['id'],
+                "email": user['email'],
+                "name": user['name'],
+                "profile_picture": user.get('profile_picture'),
+                "apple_id": user.get('apple_id')
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Apple authentication error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Authentication failed"
+        )
+
+@api_router.get("/auth/me")
+async def get_current_user(request: Request):
+    """Get current authenticated user information"""
+    try:
+        auth_header = request.headers.get("authorization")
+        if not auth_header or not auth_header.startswith("Bearer "):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Missing or invalid authorization header"
+            )
+        
+        token = auth_header.split(" ")[1]
+        
+        # Decode JWT token
+        payload = pyjwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        user_id = payload.get("sub")
+        
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token"
+            )
+        
+        # Get user from database
+        user = await db.users.find_one({"id": user_id})
+        
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found"
+            )
+        
+        # Remove sensitive fields
+        if '_id' in user:
+            del user['_id']
+        
+        return {
+            "id": user['id'],
+            "email": user['email'],
+            "name": user['name'],
+            "profile_picture": user.get('profile_picture'),
+            "facebook_id": user.get('facebook_id'),
+            "apple_id": user.get('apple_id'),
+            "google_id": user.get('google_id'),
+            "created_at": user.get('created_at'),
+            "last_login": user.get('last_login')
+        }
+        
+    except pyjwt.ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token has expired"
+        )
+    except pyjwt.JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token"
+        )
+    except Exception as e:
+        logger.error(f"Error getting current user: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
+        )
+
 # Original apartment endpoints
 @api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
