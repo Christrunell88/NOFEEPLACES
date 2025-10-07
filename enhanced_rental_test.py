@@ -174,7 +174,7 @@ class EnhancedRentalDataTester:
             
             # Test image quality and count
             images = rental.get('images', [])
-            quality_images = len(images) >= 4 and all('unsplash.com' in img and '1200x800' in img for img in images)
+            quality_images = len(images) >= 4 and all('unsplash.com' in img and 'w=1200&h=800' in img for img in images)
             self.log_test_result(
                 f"{rental_id} high-quality images",
                 quality_images,
