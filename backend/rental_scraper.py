@@ -91,16 +91,74 @@ class RealEstateDataGenerator:
             
         return random.sample(selected_images, min(count, len(selected_images)))
     
-    def _generate_realistic_amenities(self) -> List[str]:
-        """Generate realistic apartment amenities"""
-        all_amenities = [
-            'In-unit Laundry', 'Dishwasher', 'Air Conditioning', 'Hardwood Floors',
-            'Gym', 'Rooftop Deck', 'Doorman', 'Elevator', 'Pet-Friendly', 'Parking',
-            'Concierge', 'Swimming Pool', 'Balcony', 'Walk-in Closet', 'Storage',
-            'High Ceilings', 'Updated Kitchen', 'Marble Bathroom', 'City Views',
-            'Terrace', 'Garden', 'Bike Storage', 'Package Room', 'Fitness Center'
+    def _generate_realistic_amenities(self, neighborhood: str, price: float, bedrooms: int) -> List[str]:
+        """Generate realistic amenities based on neighborhood, price point, and apartment size"""
+        
+        # Core amenities by price tier
+        basic_amenities = [
+            'Heat Included', 'Hardwood Floors', 'Large Windows', 'Close to Subway',
+            'Laundromat in Building', 'Live-in Super'
         ]
-        return random.sample(all_amenities, random.randint(4, 8))
+        
+        mid_tier_amenities = [
+            'In-unit Laundry', 'Dishwasher', 'Air Conditioning', 'Elevator', 
+            'Package Room', 'Bike Storage', 'Updated Kitchen', 'Renovated Bathroom'
+        ]
+        
+        luxury_amenities = [
+            'Doorman', 'Concierge', 'Gym', 'Rooftop Deck', 'Swimming Pool', 
+            'Terrace', 'City Views', 'Walk-in Closet', 'Marble Bathroom',
+            'Chef\'s Kitchen', 'Floor-to-ceiling Windows', 'Private Balcony'
+        ]
+        
+        premium_amenities = [
+            'Full-service Doorman', 'Valet Service', 'Private Gym', 'Spa',
+            'Wine Cellar', 'Library', 'Business Center', 'Children\'s Playroom',
+            'Screening Room', 'Landscaped Gardens', 'Parking Garage'
+        ]
+        
+        # Neighborhood-specific amenities
+        neighborhood_amenities = {
+            'DUMBO': ['Waterfront Views', 'Brooklyn Bridge Views', 'Park Access'],
+            'Williamsburg': ['East River Views', 'Trendy Neighborhood', 'Artisanal Coffee Shop nearby'],
+            'Manhattan': ['Central Park Views', 'Museum District', 'Theater District Access'],
+            'Astoria': ['Queens Museum nearby', 'Diverse Dining', 'Easy Manhattan Access'],
+            'Crown Heights': ['Prospect Park nearby', 'Franklin Avenue Corridor', 'Cultural District'],
+            'Bed-Stuy': ['Historic Architecture', 'Local Art Scene', 'Community Gardens']
+        }
+        
+        # Build amenities list based on price and neighborhood
+        selected_amenities = []
+        
+        # Add basic amenities (always included)
+        selected_amenities.extend(random.sample(basic_amenities, random.randint(2, 4)))
+        
+        # Add amenities based on price tier
+        if price >= 8000:  # Ultra luxury
+            selected_amenities.extend(random.sample(luxury_amenities, random.randint(4, 6)))
+            selected_amenities.extend(random.sample(premium_amenities, random.randint(2, 4)))
+        elif price >= 5000:  # Luxury
+            selected_amenities.extend(random.sample(mid_tier_amenities, random.randint(3, 5)))
+            selected_amenities.extend(random.sample(luxury_amenities, random.randint(2, 4)))
+        elif price >= 3000:  # Mid-tier
+            selected_amenities.extend(random.sample(mid_tier_amenities, random.randint(2, 4)))
+            selected_amenities.extend(random.sample(luxury_amenities, random.randint(1, 2)))
+        else:  # Budget
+            selected_amenities.extend(random.sample(mid_tier_amenities, random.randint(1, 2)))
+        
+        # Add neighborhood-specific amenities
+        if neighborhood in neighborhood_amenities:
+            selected_amenities.extend(random.sample(neighborhood_amenities[neighborhood], 1))
+        
+        # Add bedroom-specific amenities
+        if bedrooms >= 2:
+            selected_amenities.append('Multiple Closets')
+        if bedrooms >= 3:
+            selected_amenities.append('Master Suite')
+            
+        # Remove duplicates and limit count
+        unique_amenities = list(set(selected_amenities))
+        return unique_amenities[:random.randint(6, 12)]
     
     def _generate_neighborhoods_with_pricing(self, location: str) -> tuple:
         """Generate realistic neighborhoods with appropriate pricing based on location"""
