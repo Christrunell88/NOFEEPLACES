@@ -31,30 +31,69 @@ const SEOAffordableSection = () => {
             </div>
           </div>
 
-          {/* Affordable Neighborhoods */}
-          <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
+          {/* Affordable Neighborhoods - Live Links */}
+          <div className="bg-white rounded-xl p-6 shadow-lg mb-12">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              Affordable NYC Neighborhoods with No-Fee Apartments
+              Affordable NYC Neighborhoods
             </h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
+            <div className="grid md:grid-cols-3 gap-4">
+              <button 
+                onClick={() => {
+                  // Scroll to listings and filter by Manhattan apartments starting at $2,300
+                  window.scrollTo({ top: 1400, behavior: 'smooth' });
+                  // Trigger search for Manhattan apartments
+                  setTimeout(() => {
+                    const searchEvent = new CustomEvent('neighborhoodSearch', { 
+                      detail: { borough: 'Manhattan', minPrice: 2300 } 
+                    });
+                    window.dispatchEvent(searchEvent);
+                  }, 1000);
+                }}
+                className="text-center p-4 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer"
+              >
                 <div className="text-3xl mb-2">🏙️</div>
-                <h4 className="font-semibold text-gray-800 mb-2">Manhattan</h4>
-                <p className="text-sm text-gray-600">Upper West Side, Hell's Kitchen, Financial District</p>
-                <p className="text-teal-600 font-semibold">From $2,300/month</p>
-              </div>
-              <div className="text-center">
+                <h4 className="font-semibold text-gray-800 mb-1">Manhattan</h4>
+                <p className="text-teal-600 font-bold text-lg group-hover:text-teal-700">From $2,300/month</p>
+                <p className="text-xs text-gray-500 group-hover:text-teal-600">Click to view apartments</p>
+              </button>
+              
+              <button 
+                onClick={() => {
+                  // Scroll to listings and filter by Brooklyn apartments starting at $1,900
+                  window.scrollTo({ top: 1400, behavior: 'smooth' });
+                  setTimeout(() => {
+                    const searchEvent = new CustomEvent('neighborhoodSearch', { 
+                      detail: { borough: 'Brooklyn', minPrice: 1900 } 
+                    });
+                    window.dispatchEvent(searchEvent);
+                  }, 1000);
+                }}
+                className="text-center p-4 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer"
+              >
                 <div className="text-3xl mb-2">🌉</div>
-                <h4 className="font-semibold text-gray-800 mb-2">Brooklyn</h4>
-                <p className="text-sm text-gray-600">Williamsburg, Bedford-Stuyvesant, Crown Heights</p>
-                <p className="text-teal-600 font-semibold">From $1,900/month</p>
-              </div>
-              <div className="text-center">
+                <h4 className="font-semibold text-gray-800 mb-1">Brooklyn</h4>
+                <p className="text-teal-600 font-bold text-lg group-hover:text-teal-700">From $1,900/month</p>
+                <p className="text-xs text-gray-500 group-hover:text-teal-600">Click to view apartments</p>
+              </button>
+              
+              <button 
+                onClick={() => {
+                  // Scroll to listings and filter by Queens apartments starting at $2,100
+                  window.scrollTo({ top: 1400, behavior: 'smooth' });
+                  setTimeout(() => {
+                    const searchEvent = new CustomEvent('neighborhoodSearch', { 
+                      detail: { borough: 'Queens', minPrice: 2100 } 
+                    });
+                    window.dispatchEvent(searchEvent);
+                  }, 1000);
+                }}
+                className="text-center p-4 rounded-lg hover:bg-gray-50 transition-colors group cursor-pointer"
+              >
                 <div className="text-3xl mb-2">🏘️</div>
-                <h4 className="font-semibold text-gray-800 mb-2">Queens</h4>
-                <p className="text-sm text-gray-600">Long Island City, Astoria, Sunnyside</p>
-                <p className="text-teal-600 font-semibold">From $2,100/month</p>
-              </div>
+                <h4 className="font-semibold text-gray-800 mb-1">Queens</h4>
+                <p className="text-teal-600 font-bold text-lg group-hover:text-teal-700">From $2,100/month</p>
+                <p className="text-xs text-gray-500 group-hover:text-teal-600">Click to view apartments</p>
+              </button>
             </div>
           </div>
 
