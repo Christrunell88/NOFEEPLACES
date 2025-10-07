@@ -1042,6 +1042,48 @@ async def track_visitor(request: Request):
         logger.error(f"Error tracking visitor: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to track visitor")
 
+# Enhanced Analytics Endpoints
+@api_router.post("/analytics/visit")
+async def track_visitor_visit(request: Request, visit_data: dict):
+    """Enhanced visitor tracking with detailed analytics"""
+    try:
+        from analytics_service import analytics_service
+        
+        # Add IP address and other request data
+        visit_data['ip'] = request.client.host
+        visit_data['headers'] = dict(request.headers)
+        
+        success = await analytics_service.track_visitor(visit_data)
+        
+        if success:
+            return {"message": "Visit tracked successfully"}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to track visit")
+            
+    except Exception as e:
+        logger.error(f"Error tracking visit: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to track visit: {str(e)}")
+
+@api_router.get("/analytics/stats")
+async def get_analytics_stats():
+    """Get comprehensive analytics statistics"""
+    try:
+        from analytics_service import analytics_service
+        
+        stats = await analytics_service.get_analytics_stats()
+        return stats
+        
+    except Exception as e:
+        logger.error(f"Error getting analytics stats: {str(e)}")
+        return {
+            "todayVisitors": 0,
+            "totalVisitors": 0,
+            "currentOnline": 0,
+            "topPages": [],
+            "recentVisitors": [],
+            "error": f"Failed to get stats: {str(e)}"
+        }
+
 @api_router.post("/search", response_model=ApartmentListResponse)
 async def search_apartments(search_request: SearchRequest):
     """Enhanced search with AI-friendly results"""
