@@ -427,7 +427,7 @@ async def blog_summary():
 import jwt as pyjwt
 from datetime import timedelta
 
-JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-here')
+JWT_SECRET = os.environ.get('JWT_SECRET', 'nofeeplaces-development-key-replace-in-production')
 JWT_ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
