@@ -1,12 +1,62 @@
 /**
- * Analytics Dashboard Component for NoFeePlaces.com
- * Provides quick access to Google Analytics and basic tracking information
+ * Advanced Analytics Dashboard for NoFeePlaces.com
+ * Real-time visitor tracking and comprehensive analytics
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const AnalyticsDashboard = () => {
+  const [stats, setStats] = useState({
+    todayVisitors: 0,
+    todayUniqueVisitors: 0,
+    totalVisitors: 0,
+    currentOnline: 0,
+    topPages: [],
+    recentVisitors: [],
+    weeklyTrend: [],
+    trafficSources: [],
+    browserStats: [],
+    loading: true,
+    last_updated: null
+  });
+
+  const [autoRefresh, setAutoRefresh] = useState(true);
+  
   const gaTrackingId = 'G-XMDGXKJJ8M';
+
+  useEffect(() => {
+    fetchStats();
+    
+    let interval;
+    if (autoRefresh) {
+      interval = setInterval(fetchStats, 30000); // Auto-refresh every 30 seconds
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [autoRefresh]);
+
+  const fetchStats = async () => {
+    try {
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${API_URL}/api/analytics/stats`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setStats(prev => ({...prev, ...data, loading: false}));
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Error fetching analytics:', error);
+      setStats(prev => ({
+        ...prev, 
+        loading: false,
+        error: `Failed to load analytics: ${error.message}`
+      }));
+    }
+  };
   
   return (
     <div className="container mx-auto px-4 py-8">
