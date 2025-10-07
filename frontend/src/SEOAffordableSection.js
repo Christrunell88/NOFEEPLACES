@@ -15,54 +15,19 @@ const SEOAffordableSection = () => {
             </p>
           </div>
 
-          {/* Problem & Solution Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* Problem Side */}
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="text-red-500 text-4xl mb-4">😤</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">The NYC Apartment Problem</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start">
-                  <span className="text-red-500 mr-2">•</span>
-                  <span>Broker fees cost $3,000-$8,000+ per rental</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-red-500 mr-2">•</span>
-                  <span>Limited affordable options in desirable neighborhoods</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-red-500 mr-2">•</span>
-                  <span>Fake listings and bait-and-switch tactics</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-red-500 mr-2">•</span>
-                  <span>Time-consuming apartment hunting process</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Solution Side */}
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="text-teal-500 text-4xl mb-4">✨</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">The NoFeePlaces Solution</h3>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-start">
-                  <span className="text-teal-500 mr-2">✓</span>
-                  <span>240+ verified no-fee apartments across NYC</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-teal-500 mr-2">✓</span>
-                  <span>Save $3,000-$8,000 on broker fees</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-teal-500 mr-2">✓</span>
-                  <span>Direct contact with property owners</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-teal-500 mr-2">✓</span>
-                  <span>AI-powered search and instant notifications</span>
-                </li>
-              </ul>
+          {/* Minimal Problem & Solution */}
+          <div className="bg-white rounded-xl p-6 shadow-lg mb-12">
+            <div className="grid md:grid-cols-2 gap-8 text-center">
+              <div>
+                <div className="text-red-500 text-3xl mb-2">😤</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">Broker fees cost $3,000-$8,000+</h3>
+                <p className="text-gray-600">Most NYC rentals charge hefty broker fees</p>
+              </div>
+              <div>
+                <div className="text-teal-500 text-3xl mb-2">✨</div>
+                <h3 className="text-xl font-bold text-gray-800 mb-2">We eliminate all broker fees</h3>
+                <p className="text-gray-600">240+ verified no-fee apartments</p>
+              </div>
             </div>
           </div>
 
