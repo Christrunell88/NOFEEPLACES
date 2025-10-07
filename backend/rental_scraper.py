@@ -511,14 +511,14 @@ class RealEstateDataGenerator:
             logger.error(f"Error in enhanced rental data generation: {str(e)}")
             return self._generate_fallback_data(location, limit)
     
-    def scrape_rental_data(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-        """Synchronous wrapper for rental scraping"""
+    def generate_rental_data(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
+        """Synchronous wrapper for enhanced rental data generation"""
         try:
             # Run the async function in a new event loop
-            return asyncio.run(self.scrape_rental_data_async(location, limit))
+            return asyncio.run(self.generate_rental_data_async(location, limit))
         except Exception as e:
-            logger.error(f"Error in rental scraping: {str(e)}")
-            # Fallback to basic mock data if scraping fails
+            logger.error(f"Error in enhanced rental data generation: {str(e)}")
+            # Fallback to basic mock data if generation fails
             return self._generate_fallback_data(location, limit)
     
     def _generate_fallback_data(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
