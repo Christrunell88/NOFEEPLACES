@@ -97,36 +97,15 @@ const SEOAffordableSection = () => {
             </div>
           </div>
 
-          {/* SEO Content - Affordable Apartment Search Tips */}
-          <div className="bg-white rounded-xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
-              Why NYC Apartment Hunting is So Expensive (And How to Fix It)
-            </h3>
-            <div className="prose prose-lg text-gray-600">
-              <p className="mb-4">
-                If you can't find an affordable apartment in NYC, it's not your fault. The traditional rental market is designed to extract maximum fees from renters through broker commissions, application fees, and inflated prices.
-              </p>
-              <p className="mb-4">
-                <strong>The average NYC renter pays $4,500 in broker fees alone</strong> - money that could go toward your security deposit, furniture, or savings. NoFeePlaces.com eliminates these unnecessary costs by connecting renters directly with property owners who pay the fees themselves.
-              </p>
-              <p className="mb-4">
-                Our platform features real, verified apartments in every NYC borough with transparent pricing and no hidden costs. Whether you're looking for a studio in Manhattan, a one-bedroom in Brooklyn, or a spacious two-bedroom in Queens, we help you find affordable options without the broker fee burden.
-              </p>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-12">
+          {/* Simple CTA */}
+          <div className="text-center">
             <button 
               onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
-              className="bg-teal-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-teal-600 transition-colors shadow-xl inline-flex items-center"
+              className="bg-teal-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-teal-600 transition-colors shadow-lg inline-flex items-center"
             >
               <span className="mr-2">🔍</span>
-              Browse 240+ No-Fee Apartments Now
+              Browse All No-Fee Apartments
             </button>
-            <p className="text-sm text-gray-500 mt-3">
-              Save $3,000+ on your next NYC apartment rental
-            </p>
           </div>
         </div>
       </div>
