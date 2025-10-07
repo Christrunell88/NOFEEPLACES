@@ -717,7 +717,7 @@ export const AIChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
 
-  const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.preview.emergentagent.com';
+  const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
 
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
