@@ -522,8 +522,8 @@ class RealEstateDataGenerator:
             return self._generate_fallback_data(location, limit)
     
     def _generate_fallback_data(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-        """Generate fallback data if scraping fails"""
-        logger.warning("Using fallback data generation")
+        """Generate basic fallback data if enhanced generation fails"""
+        logger.warning("Using basic fallback data generation")
         
         fallback_data = [{
             "id": str(uuid.uuid4()),
@@ -536,9 +536,9 @@ class RealEstateDataGenerator:
             "bathrooms": 1.0,
             "sqft": 800,
             "amenities": ["In-unit Laundry", "Dishwasher", "Air Conditioning"],
-            "images": ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop"],
+            "images": ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop&auto=format"],
             "contact_email": "leasing@nofeeplaces.com",
-            "contact_phone": "+1-555-0123",
+            "contact_phone": "+1-646-555-0123",
             "available": True,
             "lease_terms": "12 months",
             "pet_policy": "Pet-friendly",
@@ -548,20 +548,20 @@ class RealEstateDataGenerator:
             "broker_fee": "No fee",
             "created_at": datetime.now(timezone.utc).isoformat(),
             "source": "NoFeePlaces Fallback",
-            "last_updated": datetime.now(timezone.utc).isoformat()
+            "updated_at": datetime.now(timezone.utc).isoformat()
         }]
         
         return fallback_data[:limit]
 
-# Initialize the scraper
-rental_scraper = RentalScraper()
+# Initialize the enhanced data generator
+rental_data_generator = RealEstateDataGenerator()
 
 def scrape_rentals(location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-    """Main function to scrape rental data - replaces the mock function"""
-    logger.info(f"Real scraping function called for {location} with limit {limit}")
-    return rental_scraper.scrape_rental_data(location, limit)
+    """Enhanced rental data generation - produces market-accurate apartment listings"""
+    logger.info(f"Enhanced rental data generation called for {location} with limit {limit}")
+    return rental_data_generator.generate_rental_data(location, limit)
 
 async def scrape_rentals_async(location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
-    """Async version of rental scraping"""
-    logger.info(f"Async scraping function called for {location} with limit {limit}")
-    return await rental_scraper.scrape_rental_data_async(location, limit)
+    """Async version of enhanced rental data generation"""
+    logger.info(f"Async enhanced rental data generation called for {location} with limit {limit}")
+    return await rental_data_generator.generate_rental_data_async(location, limit)
