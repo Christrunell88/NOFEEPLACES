@@ -448,6 +448,7 @@ function App() {
               
               {/* AI Chatbot - Available on all pages */}
               <AIChatbot />
+              <VisitorTracker />
               
               {/* Newsletter functionality temporarily removed */}
             </BrowserRouter>
