@@ -1075,7 +1075,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.preview.emergentagent.com';
+      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
       
       // Prepare apartment details for email
       const apartmentDetails = apartment ? {
