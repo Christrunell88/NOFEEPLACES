@@ -160,96 +160,196 @@ class RealEstateDataGenerator:
         unique_amenities = list(set(selected_amenities))
         return unique_amenities[:random.randint(6, 12)]
     
-    def _generate_neighborhoods_with_pricing(self, location: str) -> tuple:
-        """Generate realistic neighborhoods with appropriate pricing based on location"""
-        neighborhood_data = {
-            # Brooklyn - Budget Friendly
-            'East New York': {
-                'neighborhoods': ['East New York', 'Cypress Hills', 'City Line'],
-                'price_range': (1400, 1800)
+    def _get_market_data_by_location(self, location: str) -> Dict[str, Any]:
+        """Get comprehensive market data including pricing, demographics, and characteristics"""
+        
+        market_data = {
+            # Manhattan Neighborhoods
+            'Tribeca': {
+                'neighborhoods': ['Tribeca', 'Financial District', 'Battery Park City'],
+                'price_ranges': {'studio': (4500, 7000), '1br': (6000, 12000), '2br': (9000, 18000), '3br': (15000, 30000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10007', '10013', '10280'],
+                'avg_commute': 15,
+                'prestige_level': 'ultra_luxury'
             },
-            'Brownsville': {
-                'neighborhoods': ['Brownsville', 'Ocean Hill'],
-                'price_range': (1450, 1750)
+            'SoHo': {
+                'neighborhoods': ['SoHo', 'Nolita', 'Little Italy'],
+                'price_ranges': {'studio': (4000, 6500), '1br': (5500, 10000), '2br': (8000, 16000), '3br': (12000, 25000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10012', '10013'],
+                'avg_commute': 20,
+                'prestige_level': 'luxury'
             },
-            'Canarsie': {
-                'neighborhoods': ['Canarsie', 'Flatlands', 'Mill Basin'],
-                'price_range': (1500, 1900)
+            'Chelsea': {
+                'neighborhoods': ['Chelsea', 'Flatiron District', 'Gramercy'],
+                'price_ranges': {'studio': (3500, 5500), '1br': (4500, 8000), '2br': (6500, 12000), '3br': (10000, 18000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10001', '10011', '10014'],
+                'avg_commute': 25,
+                'prestige_level': 'luxury'
             },
-            'East Flatbush': {
-                'neighborhoods': ['East Flatbush', 'Farragut', 'Rugby'],
-                'price_range': (1550, 1950)
+            'Hell\'s Kitchen': {
+                'neighborhoods': ['Hell\'s Kitchen', 'Theater District', 'Clinton'],
+                'price_ranges': {'studio': (3200, 4800), '1br': (4200, 7000), '2br': (6000, 11000), '3br': (9000, 15000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10019', '10036'],
+                'avg_commute': 20,
+                'prestige_level': 'mid_luxury'
+            },
+            'Upper West Side': {
+                'neighborhoods': ['Upper West Side', 'Lincoln Square', 'Columbus Circle'],
+                'price_ranges': {'studio': (2800, 4500), '1br': (3800, 6500), '2br': (5500, 10000), '3br': (8000, 14000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10023', '10024', '10025'],
+                'avg_commute': 30,
+                'prestige_level': 'mid_luxury'
+            },
+            'Upper East Side': {
+                'neighborhoods': ['Upper East Side', 'Yorkville', 'Carnegie Hill'],
+                'price_ranges': {'studio': (2800, 4500), '1br': (3800, 6500), '2br': (5500, 10000), '3br': (8000, 14000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10028', '10075', '10128'],
+                'avg_commute': 35,
+                'prestige_level': 'mid_luxury'
+            },
+            'East Village': {
+                'neighborhoods': ['East Village', 'Alphabet City', 'NoHo'],
+                'price_ranges': {'studio': (2800, 4200), '1br': (3500, 6000), '2br': (5000, 9000), '3br': (7500, 13000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10003', '10009'],
+                'avg_commute': 25,
+                'prestige_level': 'trendy'
+            },
+            'Washington Heights': {
+                'neighborhoods': ['Washington Heights', 'Inwood', 'Fort George'],
+                'price_ranges': {'studio': (1800, 2800), '1br': (2200, 3500), '2br': (3000, 5000), '3br': (4000, 7000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10032', '10033', '10040'],
+                'avg_commute': 45,
+                'prestige_level': 'affordable'
+            },
+            
+            # Brooklyn Neighborhoods  
+            'DUMBO': {
+                'neighborhoods': ['DUMBO', 'Brooklyn Heights', 'Vinegar Hill'],
+                'price_ranges': {'studio': (3200, 5000), '1br': (4200, 7500), '2br': (6000, 12000), '3br': (9000, 16000)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11201', '11251'],
+                'avg_commute': 25,
+                'prestige_level': 'luxury'
+            },
+            'Williamsburg': {
+                'neighborhoods': ['Williamsburg', 'East Williamsburg', 'South Williamsburg'],
+                'price_ranges': {'studio': (2800, 4500), '1br': (3500, 6500), '2br': (5000, 10000), '3br': (7500, 14000)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11211', '11249'],
+                'avg_commute': 30,
+                'prestige_level': 'trendy'
+            },
+            'Park Slope': {
+                'neighborhoods': ['Park Slope', 'Prospect Heights', 'Windsor Terrace'],
+                'price_ranges': {'studio': (2600, 4000), '1br': (3200, 5500), '2br': (4500, 8500), '3br': (6500, 12000)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11215', '11217'],
+                'avg_commute': 35,
+                'prestige_level': 'family_friendly'
+            },
+            'Fort Greene': {
+                'neighborhoods': ['Fort Greene', 'Downtown Brooklyn', 'Boerum Hill'],
+                'price_ranges': {'studio': (2400, 3800), '1br': (3000, 5000), '2br': (4200, 7500), '3br': (6000, 10000)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11201', '11217'],
+                'avg_commute': 25,
+                'prestige_level': 'up_and_coming'
             },
             'Crown Heights': {
-                'neighborhoods': ['Crown Heights', 'Prospect Heights', 'Lefferts Gardens'],
-                'price_range': (1600, 2000)
+                'neighborhoods': ['Crown Heights', 'Prospect Lefferts Gardens', 'Weeksville'],
+                'price_ranges': {'studio': (1800, 2800), '1br': (2200, 3500), '2br': (3000, 5000), '3br': (4200, 7000)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11213', '11225', '11238'],
+                'avg_commute': 40,
+                'prestige_level': 'affordable'
             },
-            'Bed-Stuy': {
+            'Bedford-Stuyvesant': {
                 'neighborhoods': ['Bedford-Stuyvesant', 'Stuyvesant Heights', 'Ocean Hill'],
-                'price_range': (1650, 2100)
+                'price_ranges': {'studio': (1900, 2900), '1br': (2300, 3600), '2br': (3200, 5200), '3br': (4500, 7500)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11216', '11221', '11233'],
+                'avg_commute': 35,
+                'prestige_level': 'up_and_coming'
             },
             'Bushwick': {
                 'neighborhoods': ['Bushwick', 'East Williamsburg', 'Ridgewood Border'],
-                'price_range': (1700, 2200)
+                'price_ranges': {'studio': (2000, 3200), '1br': (2500, 4000), '2br': (3500, 6000), '3br': (5000, 8500)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11221', '11237'],
+                'avg_commute': 40,
+                'prestige_level': 'trendy'
             },
             
-            # Bronx - Affordable
-            'University Heights': {
-                'neighborhoods': ['University Heights', 'Morris Heights', 'Tremont'],
-                'price_range': (1400, 1700)
+            # Queens Neighborhoods
+            'Long Island City': {
+                'neighborhoods': ['Long Island City', 'Hunters Point', 'Dutch Kills'],
+                'price_ranges': {'studio': (2600, 4200), '1br': (3200, 5800), '2br': (4500, 8500), '3br': (6500, 12000)},
+                'borough': 'Queens',
+                'zip_codes': ['11101', '11109'],
+                'avg_commute': 25,
+                'prestige_level': 'modern'
             },
-            'Morris Heights': {
-                'neighborhoods': ['Morris Heights', 'Highbridge', 'Mount Eden'],
-                'price_range': (1450, 1750)
+            'Astoria': {
+                'neighborhoods': ['Astoria', 'Ditmars', 'Steinway'],
+                'price_ranges': {'studio': (2000, 3200), '1br': (2500, 4200), '2br': (3500, 6500), '3br': (5000, 9000)},
+                'borough': 'Queens',
+                'zip_codes': ['11102', '11103', '11105'],
+                'avg_commute': 35,
+                'prestige_level': 'diverse'
             },
-            'Concourse': {
-                'neighborhoods': ['Concourse', 'Melrose', 'Mott Haven'],
-                'price_range': (1500, 1800)
-            },
-            'Fordham': {
-                'neighborhoods': ['Fordham', 'Belmont', 'Bathgate'],
-                'price_range': (1600, 1900)
-            },
-            
-            # Queens - Outer Areas
-            'Jamaica': {
-                'neighborhoods': ['Jamaica', 'South Jamaica', 'Hollis'],
-                'price_range': (1500, 1800)
-            },
-            'South Ozone Park': {
-                'neighborhoods': ['South Ozone Park', 'Howard Beach', 'Ozone Park'],
-                'price_range': (1450, 1750)
-            },
-            'Far Rockaway': {
-                'neighborhoods': ['Far Rockaway', 'Rockaway Beach', 'Arverne'],
-                'price_range': (1400, 1700)
-            },
-            'Ridgewood': {
-                'neighborhoods': ['Ridgewood', 'Middle Village', 'Glendale'],
-                'price_range': (1700, 2000)
+            'Sunnyside': {
+                'neighborhoods': ['Sunnyside', 'Woodside', 'Blissville'],
+                'price_ranges': {'studio': (1800, 2800), '1br': (2200, 3600), '2br': (3200, 5500), '3br': (4500, 7500)},
+                'borough': 'Queens',
+                'zip_codes': ['11104', '11377'],
+                'avg_commute': 40,
+                'prestige_level': 'family_friendly'
             },
             
-            # Default fallback
+            # Default fallback locations
             'Manhattan': {
-                'neighborhoods': ['Upper Manhattan', 'Washington Heights', 'Inwood'],
-                'price_range': (2200, 2800)
+                'neighborhoods': ['Upper Manhattan', 'Washington Heights', 'Inwood', 'Hamilton Heights'],
+                'price_ranges': {'studio': (2200, 3500), '1br': (2800, 4500), '2br': (4000, 7000), '3br': (6000, 10000)},
+                'borough': 'Manhattan',
+                'zip_codes': ['10032', '10033', '10040'],
+                'avg_commute': 40,
+                'prestige_level': 'varied'
             },
             'Brooklyn': {
-                'neighborhoods': ['Outer Brooklyn', 'Bay Ridge', 'Bensonhurst'],
-                'price_range': (1800, 2400)
+                'neighborhoods': ['Crown Heights', 'Bed-Stuy', 'Bushwick', 'East New York'],
+                'price_ranges': {'studio': (1800, 2800), '1br': (2200, 3600), '2br': (3200, 5200), '3br': (4500, 7500)},
+                'borough': 'Brooklyn',
+                'zip_codes': ['11213', '11216', '11221'],
+                'avg_commute': 40,
+                'prestige_level': 'mixed'
             },
             'Queens': {
-                'neighborhoods': ['Outer Queens', 'Flushing', 'Corona'],
-                'price_range': (1600, 2000)
+                'neighborhoods': ['Astoria', 'Sunnyside', 'Corona', 'Jackson Heights'],
+                'price_ranges': {'studio': (1800, 2800), '1br': (2200, 3600), '2br': (3200, 5200), '3br': (4500, 7500)},
+                'borough': 'Queens',
+                'zip_codes': ['11102', '11104', '11368'],
+                'avg_commute': 40,
+                'prestige_level': 'diverse'
             },
             'NYC': {
-                'neighborhoods': ['Brooklyn', 'Queens', 'Bronx'],
-                'price_range': (1500, 2200)
+                'neighborhoods': ['Crown Heights', 'Astoria', 'Washington Heights', 'Sunnyside'],
+                'price_ranges': {'studio': (1800, 3000), '1br': (2200, 4000), '2br': (3200, 6000), '3br': (4500, 8500)},
+                'borough': 'Mixed',
+                'zip_codes': ['11213', '11102', '10032'],
+                'avg_commute': 40,
+                'prestige_level': 'varied'
             }
         }
         
-        location_info = neighborhood_data.get(location, neighborhood_data['NYC'])
-        return location_info['neighborhoods'], location_info['price_range']
+        return market_data.get(location, market_data['NYC'])
     
     async def scrape_rental_data_async(self, location: str = "NYC", limit: int = 50) -> List[Dict[str, Any]]:
         """Async method to scrape rental data with location-specific pricing"""
