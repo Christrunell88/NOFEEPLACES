@@ -445,6 +445,10 @@ function App() {
                 {/* Tenant Listing Routes */}
                 <Route path="/tenant/list-apartment" element={<TenantListingPage />} />
                 <Route path="/tenant/browse" element={<TenantBrowsePage />} />
+                
+                {/* Analytics Dashboard */}
+                <Route path="/analytics" element={<AnalyticsDashboard />} />
+                <Route path="/admin" element={<AnalyticsDashboard />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
