@@ -8,7 +8,7 @@ import requests
 import json
 from datetime import datetime
 
-BASE_URL = "https://rentalnobroker.preview.emergentagent.com/api"
+BASE_URL = "https://affordable-apts.preview.emergentagent.com/api"
 
 class ComprehensiveBackendTester:
     def __init__(self):

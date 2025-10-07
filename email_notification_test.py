@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://rentalnobroker.preview.emergentagent.com/api"
+BASE_URL = "https://affordable-apts.preview.emergentagent.com/api"
 
 class EmailNotificationTester:
     def __init__(self):

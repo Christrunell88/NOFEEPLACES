@@ -42,7 +42,7 @@ export const trackPageView = (pagePath, pageTitle) => {
 // Track visitor arrival and send email notification
 export const trackVisitorArrival = async () => {
   try {
-    const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://rentalnobroker.preview.emergentagent.com';
+    const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.preview.emergentagent.com';
     
     const response = await fetch(`${API_URL}/api/visitor/track`, {
       method: 'POST',

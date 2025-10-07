@@ -25,7 +25,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://rentalnobroker.preview.emergentagent.com';
+      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.preview.emergentagent.com';
       
       // Prepare email data
       const emailData = {

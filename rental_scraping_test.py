@@ -13,7 +13,7 @@ from datetime import datetime
 from typing import Dict, List, Any
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://rentalnobroker.preview.emergentagent.com/api"
+BACKEND_URL = "https://affordable-apts.preview.emergentagent.com/api"
 
 class RentalScrapingTester:
     def __init__(self):
