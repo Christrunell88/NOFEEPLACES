@@ -115,6 +115,30 @@ const Home = () => {
     fetchSearchStats();
   }, [searchFilters, currentPage]);
 
+  // Listen for neighborhood search events from SEO section
+  useEffect(() => {
+    const handleNeighborhoodSearch = (event) => {
+      const { borough, minPrice } = event.detail;
+      
+      // Update search filters with borough and minimum price
+      setSearchFilters(prev => ({
+        ...prev,
+        search: borough, // Search for the borough name
+        minPrice: minPrice.toString(), // Set minimum price filter
+        maxPrice: '', // Clear max price to show all apartments above min price
+      }));
+      
+      // Reset to first page
+      setCurrentPage(1);
+    };
+
+    window.addEventListener('neighborhoodSearch', handleNeighborhoodSearch);
+    
+    return () => {
+      window.removeEventListener('neighborhoodSearch', handleNeighborhoodSearch);
+    };
+  }, []);
+
   // Track visitor arrival on initial load
   useEffect(() => {
     trackVisitorArrival();
