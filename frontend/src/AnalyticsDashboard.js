@@ -220,19 +220,6 @@ export const AnalyticsDashboard = () => {
         )}
       </div>
     </div>
-          
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-purple-500 text-white">
-                🎯
-              </div>
-              <div className="ml-4">
-                <p className="text-sm text-gray-600">Events Tracked</p>
-                <p className="text-lg font-semibold">15+ Types</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Analytics Access */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
