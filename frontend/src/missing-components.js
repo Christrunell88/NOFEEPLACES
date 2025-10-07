@@ -87,9 +87,6 @@ export const Hero = () => {
       {/* Content */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-2xl md:text-3xl font-light mb-4 text-white opacity-95">
-            Can't Find an Affordable Apartment in NYC?
-          </h1>
           <p className="text-lg md:text-xl mb-8 text-teal-100 font-light opacity-90">
             Discover 240+ no-fee apartments and save $3,000+ on broker fees
           </p>
