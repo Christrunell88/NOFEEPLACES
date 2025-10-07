@@ -20,13 +20,15 @@ logger = logging.getLogger(__name__)
 class EnhancedRentalDataTester:
     def __init__(self):
         # Get backend URL from environment
-        with open('/app/frontend/.env', 'r') as f:
-            for line in f:
-                if line.startswith('REACT_APP_BACKEND_URL='):
-                    self.base_url = line.split('=')[1].strip()
-                    break
-        else:
-            self.base_url = "http://localhost:8001"
+        self.base_url = "http://localhost:8001"
+        try:
+            with open('/app/frontend/.env', 'r') as f:
+                for line in f:
+                    if line.startswith('REACT_APP_BACKEND_URL='):
+                        self.base_url = line.split('=')[1].strip()
+                        break
+        except FileNotFoundError:
+            pass
         
         self.api_url = f"{self.base_url}/api"
         self.test_results = []
