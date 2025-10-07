@@ -41,21 +41,55 @@ class RealEstateDataGenerator:
             {"name": "Glenwood Management", "domains": ["glenwoodnyc.com"], "phone_prefix": "212"}
         ]
         
-    def _generate_mock_images(self, count: int = 5) -> List[str]:
-        """Generate realistic apartment image URLs"""
-        base_images = [
-            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&h=600&fit=crop',
-            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop'
+    def _generate_professional_images(self, neighborhood: str, bedrooms: int, count: int = 5) -> List[str]:
+        """Generate high-quality, professional apartment image URLs tailored to neighborhood and apartment type"""
+        
+        # Premium apartment images by category
+        luxury_images = [
+            'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&h=800&fit=crop&auto=format',  # Modern living room
+            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop&auto=format',  # Luxury kitchen
+            'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&h=800&fit=crop&auto=format',  # Bedroom
+            'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?w=1200&h=800&fit=crop&auto=format',  # Modern bathroom
+            'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop&auto=format',  # City view
+            'https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=1200&h=800&fit=crop&auto=format',  # High-end living
+            'https://images.unsplash.com/photo-1574180045827-681f8a1a9622?w=1200&h=800&fit=crop&auto=format'   # Modern interior
         ]
-        return random.sample(base_images, min(count, len(base_images)))
+        
+        moderate_images = [
+            'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&h=800&fit=crop&auto=format',  # Cozy living room
+            'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&h=800&fit=crop&auto=format',  # Kitchen
+            'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&h=800&fit=crop&auto=format',  # Bedroom
+            'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&h=800&fit=crop&auto=format',  # Living space
+            'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=800&fit=crop&auto=format',  # Bathroom
+            'https://images.unsplash.com/photo-1533779283484-8ad4940aa3a8?w=1200&h=800&fit=crop&auto=format',  # Dining area
+            'https://images.unsplash.com/photo-1631048831281-c1d4e94a5d9e?w=1200&h=800&fit=crop&auto=format'   # Urban apartment
+        ]
+        
+        budget_images = [
+            'https://images.unsplash.com/photo-1555636222-cae831e670b3?w=1200&h=800&fit=crop&auto=format',  # Simple living room
+            'https://images.unsplash.com/photo-1571508601297-8d5b95c62b2a?w=1200&h=800&fit=crop&auto=format',  # Basic kitchen
+            'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&h=800&fit=crop&auto=format',  # Simple bedroom
+            'https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=1200&h=800&fit=crop&auto=format',  # Basic apartment
+            'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1200&h=800&fit=crop&auto=format',  # Small space
+            'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=1200&h=800&fit=crop&auto=format'   # Affordable living
+        ]
+        
+        # Select image set based on neighborhood prestige
+        luxury_neighborhoods = ['Manhattan', 'DUMBO', 'Williamsburg', 'Brooklyn Heights', 'Park Slope', 
+                               'Tribeca', 'SoHo', 'Chelsea', 'Upper West Side', 'Upper East Side']
+        
+        if neighborhood in luxury_neighborhoods:
+            selected_images = luxury_images
+        elif neighborhood in ['Astoria', 'Long Island City', 'Fort Greene', 'Prospect Heights']:
+            selected_images = moderate_images  
+        else:
+            selected_images = budget_images
+            
+        # Add variety based on bedroom count
+        if bedrooms >= 2:
+            selected_images = selected_images + luxury_images[:2]  # Add premium options for larger apartments
+            
+        return random.sample(selected_images, min(count, len(selected_images)))
     
     def _generate_realistic_amenities(self) -> List[str]:
         """Generate realistic apartment amenities"""
