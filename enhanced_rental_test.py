@@ -147,7 +147,10 @@ class EnhancedRentalDataTester:
                 'contact_email', 'contact_phone', 'management_company'
             ]
             
-            missing_fields = [field for field in required_fields if field not in rental or not rental[field]]
+            missing_fields = [field for field in required_fields if field not in rental or (rental[field] is None or rental[field] == "")]
+            # Special handling for bedrooms which can be 0 for studios
+            if 'bedrooms' in missing_fields and rental.get('bedrooms') == 0:
+                missing_fields.remove('bedrooms')
             self.log_test_result(
                 f"{rental_id} required fields",
                 len(missing_fields) == 0,
