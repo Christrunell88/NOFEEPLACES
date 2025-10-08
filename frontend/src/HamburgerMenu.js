@@ -41,39 +41,26 @@ const HamburgerMenu = () => {
           <div className="fixed top-0 right-0 w-96 h-screen bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out border-l border-gray-200">
             {/* Menu Header */}
             <div className="flex justify-between items-center p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-              <div className="flex items-center space-x-3">
-                {/* Matching Menu Logo */}
-                <div className="relative">
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 rounded-xl flex items-center justify-center shadow-lg border border-emerald-400/20">
-                    <div className="relative">
-                      {/* City Building */}
-                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M10 2v2H8v2H6v16h12V6h-2V4h-2V2h-4zm2 2v2h2v2h2v12H8V8h2V6h2V4h2V2z"/>
-                        <rect x="9" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                        <rect x="11.5" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                        <rect x="14" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                        <rect x="9" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                        <rect x="11.5" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                        <rect x="14" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
-                      </svg>
-                      
-                      {/* "NO FEE" Badge */}
-                      <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center border border-white">
-                        <svg className="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
+              <div className="flex flex-col">
+                {/* Matching Elegant Wordmark for Menu */}
+                <div className="flex items-baseline space-x-0">
+                  <span className="text-xl font-extralight text-gray-800 tracking-wide" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+                    No
+                  </span>
+                  <span className="text-xl font-bold text-emerald-600 tracking-tight" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+                    Fee
+                  </span>
+                  <span className="text-sm font-light text-gray-600 tracking-[0.15em] ml-1.5 mt-0.5" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
+                    PLACES
+                  </span>
                 </div>
                 
-                <div>
-                  <div className="flex items-center">
-                    <span className="text-lg font-black text-gray-900 tracking-tight">No</span>
-                    <span className="text-lg font-black text-emerald-600 tracking-tight">Fee</span>
-                    <span className="text-lg font-light text-blue-600 tracking-wider ml-0.5">Places</span>
-                  </div>
-                  <div className="text-xs text-gray-500 font-medium">Premium Rentals • Zero Fees</div>
+                {/* Subtle Underline */}
+                <div className="w-full h-0.5 bg-gradient-to-r from-emerald-600/50 via-blue-500/30 to-transparent mt-0.5"></div>
+                
+                {/* Menu Tagline */}
+                <div className="text-xs text-gray-500 font-medium tracking-widest mt-1">
+                  NAVIGATION MENU
                 </div>
               </div>
               <button
