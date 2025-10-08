@@ -241,6 +241,23 @@ class SubscriptionResponse(BaseModel):
     success: bool
     message: str
 
+# Feedback Models
+class FeedbackRequest(BaseModel):
+    type: str  # bug, feature, improvement, compliment, other
+    title: str
+    description: str
+    email: Optional[str] = None
+    page: str
+    userAgent: str
+    priority: str = "medium"  # low, medium, high, urgent
+    timestamp: str
+    url: str
+
+class FeedbackResponse(BaseModel):
+    success: bool
+    message: str
+    feedback_id: str
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
