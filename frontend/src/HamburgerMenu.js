@@ -215,44 +215,68 @@ const HamburgerMenu = () => {
                 )}
               </div>
 
-              {/* Right Side - Admin Login */}
-              <div className="w-32 bg-gray-50 p-6 border-l border-gray-200 flex flex-col justify-center items-center">
-                <div className="text-center">
-                  <div className="mb-4">
-                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center mb-3">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              {/* Right Side - Professional Admin Panel */}
+              <div className="w-36 bg-gradient-to-b from-slate-50 to-slate-100 border-l border-gray-200 flex flex-col">
+                {/* Admin Header */}
+                <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-slate-100 to-slate-200">
+                  <div className="text-center">
+                    <div className="w-12 h-12 mx-auto bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl flex items-center justify-center mb-3 shadow-lg">
+                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                       </svg>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">Admin</h3>
-                    <p className="text-xs text-gray-600 mb-4">Management Portal</p>
+                    <h3 className="text-sm font-bold text-slate-800 mb-1">Admin Portal</h3>
+                    <p className="text-xs text-slate-600 font-medium">Management Suite</p>
                   </div>
+                </div>
+                
+                {/* Admin Actions */}
+                <div className="flex-1 p-4 space-y-3">
+                  <Link
+                    to="/analytics?admin=true"
+                    onClick={closeMenu}
+                    className="flex items-center justify-center w-full bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-blue-300 shadow-sm group"
+                  >
+                    <svg className="w-4 h-4 mr-2 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    Analytics
+                  </Link>
                   
-                  <div className="space-y-3">
-                    <Link
-                      to="/analytics?admin=true"
-                      onClick={closeMenu}
-                      className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors"
-                    >
-                      Analytics
-                    </Link>
-                    <Link
-                      to="/landlord/login"
-                      onClick={closeMenu}
-                      className="block w-full bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors"
-                    >
-                      Landlord
-                    </Link>
-                    <button
-                      onClick={() => {
-                        // Could add admin login modal here
-                        closeMenu();
-                        alert('Admin login functionality - to be implemented');
-                      }}
-                      className="block w-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors"
-                    >
-                      Admin Login
-                    </button>
+                  <Link
+                    to="/landlord/login"
+                    onClick={closeMenu}
+                    className="flex items-center justify-center w-full bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-emerald-300 shadow-sm group"
+                  >
+                    <svg className="w-4 h-4 mr-2 group-hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    Partners
+                  </Link>
+                  
+                  <button
+                    onClick={() => {
+                      // Could add admin login modal here
+                      closeMenu();
+                      alert('Admin authentication system - coming soon');
+                    }}
+                    className="flex items-center justify-center w-full bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-indigo-300 shadow-sm group"
+                  >
+                    <svg className="w-4 h-4 mr-2 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    System
+                  </button>
+                </div>
+                
+                {/* Admin Footer */}
+                <div className="p-3 bg-slate-200 border-t border-slate-300">
+                  <div className="text-center">
+                    <div className="text-xs text-slate-600 font-medium mb-1">Secure Access</div>
+                    <div className="flex items-center justify-center space-x-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-xs text-slate-500">Online</span>
+                    </div>
                   </div>
                 </div>
               </div>
