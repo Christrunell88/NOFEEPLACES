@@ -88,16 +88,19 @@ export const AboutUsPage = () => {
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="text-center bg-gradient-to-r from-teal-500 to-blue-600 rounded-2xl p-8 text-white">
+        {/* Professional CTA */}
+        <div className="text-center bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900 rounded-2xl p-8 text-white border border-slate-600 shadow-2xl">
           <h2 className="text-2xl font-bold mb-4">Ready to Save on Your Next Apartment?</h2>
-          <p className="mb-6 opacity-90">
+          <p className="mb-6 text-gray-200 font-medium">
             Join thousands of New Yorkers who've found their perfect home without paying broker fees.
           </p>
           <Link
             to="/"
-            className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center bg-white text-slate-800 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg hover:shadow-xl border border-gray-200"
           >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
             Start Your Search
           </Link>
         </div>
