@@ -451,6 +451,12 @@ function App() {
                 {/* Analytics Dashboard */}
                 <Route path="/analytics" element={<AnalyticsDashboard />} />
                 <Route path="/admin" element={<AnalyticsDashboard />} />
+                
+                {/* Static Pages */}
+                <Route path="/about" element={<AboutUsPage />} />
+                <Route path="/why-no-fee" element={<WhyNoFeePage />} />
+                <Route path="/contact" element={<ContactUsPage />} />
+                <Route path="/lets-talk" element={<LetsTalkPage />} />
               </Routes>
               
               {/* AI Chatbot - Available on all pages */}
