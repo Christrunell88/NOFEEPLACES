@@ -3,11 +3,9 @@ import ConversionOptimizedHero from './ConversionOptimizedHero';
 import ConversionCTASection from './ConversionCTASection';
 import { 
   FeaturedApartments,
-  Header,
-  Hero
+  NewsletterPage
 } from './components';
 import { 
-  NewsletterPage,
   Footer 
 } from './missing-components';
 
