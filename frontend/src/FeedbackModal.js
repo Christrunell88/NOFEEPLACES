@@ -29,6 +29,15 @@ const FeedbackModal = ({ isOpen, onClose }) => {
     try {
       const API_URL = process.env.REACT_APP_BACKEND_URL;
       
+      const submitData = {
+        ...feedbackData,
+        timestamp: new Date().toISOString(),
+        url: window.location.href
+      };
+      
+      console.log('Submitting feedback data:', submitData);
+      console.log('API URL:', `${API_URL}/api/feedback/submit`);
+      
       const response = await fetch(`${API_URL}/api/feedback/submit`, {
         method: 'POST',
         headers: {
