@@ -6,6 +6,9 @@
 import React, { useState, useEffect } from 'react';
 
 export const AnalyticsDashboard = () => {
+  // Check admin access
+  const isAdmin = window.location.search.includes('admin=true') || window.location.pathname === '/admin';
+  
   const [stats, setStats] = useState({
     todayVisitors: 0,
     todayUniqueVisitors: 0,
@@ -23,6 +26,27 @@ export const AnalyticsDashboard = () => {
   const [autoRefresh, setAutoRefresh] = useState(true);
   
   const gaTrackingId = 'G-XMDGXKJJ8M';
+
+  // Redirect non-admin users
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center max-w-md">
+          <div className="text-6xl mb-4">🔒</div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Access Restricted</h2>
+          <p className="text-gray-600 mb-6">
+            This analytics dashboard is restricted to authorized administrators only.
+          </p>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+          >
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     fetchStats();
