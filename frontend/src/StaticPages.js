@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PageWordMark } from './WordMark';
 
 // About Us Page
 export const AboutUsPage = () => {
