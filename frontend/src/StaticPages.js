@@ -9,9 +9,16 @@ export const AboutUsPage = () => {
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">About NoFeePlaces</h1>
+          <div className="mb-8">
+            <PageWordMark 
+              linkTo="/"
+              tagline="ABOUT OUR COMPANY"
+              hover={false}
+            />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Mission</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            We're on a mission to make apartment hunting in NYC transparent, affordable, and stress-free.
+            We're transforming apartment hunting in NYC to be transparent, affordable, and stress-free.
           </p>
         </div>
 
