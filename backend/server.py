@@ -691,6 +691,161 @@ async def send_contact_email(email_request: ContactEmailRequest):
             detail="Failed to send email. Please try again."
         )
 
+# Feedback Submission Endpoint
+@api_router.post("/feedback/submit", response_model=FeedbackResponse)
+async def submit_feedback(feedback_request: FeedbackRequest):
+    """Submit user feedback - store in database and send email notification"""
+    try:
+        # Generate unique feedback ID
+        feedback_id = str(uuid.uuid4())
+        
+        # Prepare feedback data for MongoDB
+        feedback_data = {
+            "id": feedback_id,
+            "type": feedback_request.type,
+            "title": feedback_request.title,
+            "description": feedback_request.description,
+            "email": feedback_request.email,
+            "page": feedback_request.page,
+            "userAgent": feedback_request.userAgent,
+            "priority": feedback_request.priority,
+            "timestamp": feedback_request.timestamp,
+            "url": feedback_request.url,
+            "status": "new",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        # Store in database
+        await db.feedback.insert_one(feedback_data)
+        logger.info(f"Feedback stored in database: {feedback_id}")
+        
+        # Send email notification to admin
+        try:
+            email_subject = f"🔔 NoFeePlaces Feedback: {feedback_request.type.upper()} - {feedback_request.title}"
+            
+            email_body = f"""
+            <h2>New Feedback Received</h2>
+            <p><strong>Type:</strong> {feedback_request.type.title()}</p>
+            <p><strong>Priority:</strong> {feedback_request.priority.upper()}</p>
+            <p><strong>Title:</strong> {feedback_request.title}</p>
+            
+            <h3>Description:</h3>
+            <p>{feedback_request.description}</p>
+            
+            <hr>
+            <h3>Technical Details:</h3>
+            <p><strong>Page:</strong> {feedback_request.page}</p>
+            <p><strong>Full URL:</strong> {feedback_request.url}</p>
+            <p><strong>User Agent:</strong> {feedback_request.userAgent}</p>
+            <p><strong>Timestamp:</strong> {feedback_request.timestamp}</p>
+            
+            {f'<p><strong>User Email:</strong> {feedback_request.email}</p>' if feedback_request.email else '<p><strong>User Email:</strong> Not provided</p>'}
+            
+            <hr>
+            <p><em>Feedback ID: {feedback_id}</em></p>
+            """
+            
+            # Send email using email service
+            success = await email_service.send_email(
+                to_email="placesfirm@gmail.com",
+                subject=email_subject,
+                html_content=email_body,
+                text_content=f"""
+                New Feedback Received
+                
+                Type: {feedback_request.type.title()}
+                Priority: {feedback_request.priority.upper()}
+                Title: {feedback_request.title}
+                
+                Description:
+                {feedback_request.description}
+                
+                Technical Details:
+                Page: {feedback_request.page}
+                Full URL: {feedback_request.url}
+                User Agent: {feedback_request.userAgent}
+                Timestamp: {feedback_request.timestamp}
+                User Email: {feedback_request.email or 'Not provided'}
+                
+                Feedback ID: {feedback_id}
+                """
+            )
+            
+            if success:
+                logger.info(f"Feedback email sent successfully: {feedback_id}")
+            else:
+                logger.warning(f"Failed to send feedback email: {feedback_id}")
+                
+        except Exception as email_error:
+            logger.error(f"Error sending feedback email: {email_error}")
+            # Don't fail the endpoint if email fails - feedback is still stored
+        
+        # Send confirmation email to user if email provided
+        if feedback_request.email:
+            try:
+                confirmation_subject = f"✅ Thank you for your feedback - NoFeePlaces.com"
+                confirmation_body = f"""
+                <h2>Thank you for your feedback!</h2>
+                <p>Hi there,</p>
+                
+                <p>We've received your <strong>{feedback_request.type}</strong> feedback and really appreciate you taking the time to help us improve NoFeePlaces.com.</p>
+                
+                <div style="background-color: #f5f5f5; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">
+                    <p><strong>Your feedback:</strong> {feedback_request.title}</p>
+                </div>
+                
+                <p>Our team will review this feedback and if needed, we may reach out to you at this email address for additional details.</p>
+                
+                <p>Thanks for helping us create the best no-fee apartment platform in NYC!</p>
+                
+                <p>Best regards,<br>
+                The NoFeePlaces Team<br>
+                <a href="https://nofeeplaces.com">NoFeePlaces.com</a></p>
+                
+                <hr>
+                <p style="font-size: 12px; color: #666;">
+                Reference ID: {feedback_id}<br>
+                If you have any questions, reply to this email or contact us at placesfirm@gmail.com
+                </p>
+                """
+                
+                await email_service.send_email(
+                    to_email=feedback_request.email,
+                    subject=confirmation_subject,
+                    html_content=confirmation_body,
+                    text_content=f"""
+                    Thank you for your feedback!
+                    
+                    We've received your {feedback_request.type} feedback: "{feedback_request.title}"
+                    
+                    Our team will review this and may reach out if we need additional details.
+                    
+                    Thanks for helping us improve NoFeePlaces.com!
+                    
+                    The NoFeePlaces Team
+                    NoFeePlaces.com
+                    
+                    Reference ID: {feedback_id}
+                    """
+                )
+                logger.info(f"Confirmation email sent to user: {feedback_request.email}")
+                
+            except Exception as confirmation_error:
+                logger.error(f"Error sending confirmation email: {confirmation_error}")
+        
+        return FeedbackResponse(
+            success=True,
+            message="Thank you for your feedback! We appreciate your input and will review it promptly.",
+            feedback_id=feedback_id
+        )
+        
+    except Exception as e:
+        logger.error(f"Error in submit_feedback endpoint: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to submit feedback. Please try again."
+        )
+
 # AI Chatbot Endpoint
 @api_router.post("/chat", response_model=ChatResponse)
 async def chat_with_ai(chat_request: ChatRequest):
