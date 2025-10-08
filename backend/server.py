@@ -746,7 +746,7 @@ async def submit_feedback(feedback_request: FeedbackRequest):
             """
             
             # Send email using email service
-            success = await email_service.send_email(
+            success = await email_service.send_email_async(
                 to_email="placesfirm@gmail.com",
                 subject=email_subject,
                 html_content=email_body,
