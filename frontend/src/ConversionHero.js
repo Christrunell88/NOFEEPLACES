@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from './auth';
 
-const ConversionHero = () => {
-  const [showAuthModal, setShowAuthModal] = useState(false);
+const ConversionHero = ({ setShowAuthModal }) => {
+  const { isAuthenticated, user } = useAuth();
+  const [showLocalModal, setShowLocalModal] = useState(false);
 
   return (
     <div className="relative bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 text-white py-20 overflow-hidden">
