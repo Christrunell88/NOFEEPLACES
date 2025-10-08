@@ -809,7 +809,7 @@ async def submit_feedback(feedback_request: FeedbackRequest):
                 </p>
                 """
                 
-                await email_service.send_email(
+                await email_service.send_email_async(
                     to_email=feedback_request.email,
                     subject=confirmation_subject,
                     html_content=confirmation_body,
