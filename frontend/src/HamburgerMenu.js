@@ -64,61 +64,105 @@ const HamburgerMenu = () => {
             </div>
 
             <div className="flex h-full">
-              {/* Left Side - Navigation Links */}
+              {/* Left Side - Professional Navigation Links */}
               <div className="flex-1 p-6 space-y-6">
-                <div className="space-y-4">
+                <div className="space-y-1">
+                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Company</div>
+                  
                   <Link
                     to="/about"
                     onClick={closeMenu}
-                    className="block text-lg font-medium text-gray-800 hover:text-blue-600 transition-colors py-2 border-b border-gray-100"
+                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
                   >
-                    About Us
+                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium">About Us</span>
                   </Link>
+                  
                   <Link
                     to="/why-no-fee"
                     onClick={closeMenu}
-                    className="block text-lg font-medium text-gray-800 hover:text-blue-600 transition-colors py-2 border-b border-gray-100"
+                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
                   >
-                    Why No Fee?
+                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                      </svg>
+                    </div>
+                    <span className="font-medium">Why No Fee?</span>
                   </Link>
+                  
                   <Link
                     to="/contact"
                     onClick={closeMenu}
-                    className="block text-lg font-medium text-gray-800 hover:text-blue-600 transition-colors py-2 border-b border-gray-100"
+                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
                   >
-                    Contact Us
+                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium">Contact Us</span>
                   </Link>
+                  
                   <Link
                     to="/lets-talk"
                     onClick={closeMenu}
-                    className="block text-lg font-medium text-gray-800 hover:text-blue-600 transition-colors py-2 border-b border-gray-100"
+                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
                   >
-                    Let's Talk
+                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium">Let's Talk</span>
                   </Link>
                 </div>
 
-                {/* Existing Navigation Links */}
-                <div className="pt-4 space-y-4 border-t border-gray-200">
+                {/* Services Section */}
+                <div className="pt-2 space-y-1">
+                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Services</div>
+                  
                   <Link
                     to="/blog"
                     onClick={closeMenu}
-                    className="block text-base text-gray-600 hover:text-blue-600 transition-colors py-1"
+                    className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all py-2.5 px-3 rounded-lg group"
                   >
-                    📖 Guides & Blog
+                    <div className="w-4 h-4 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    <span className="font-medium text-sm">Guides & Resources</span>
                   </Link>
+                  
                   <Link
                     to="/tenant/list-apartment"
                     onClick={closeMenu}
-                    className="block text-base text-gray-600 hover:text-blue-600 transition-colors py-1"
+                    className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all py-2.5 px-3 rounded-lg group"
                   >
-                    🏠 List Your Place
+                    <div className="w-4 h-4 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium text-sm">List Your Property</span>
                   </Link>
+                  
                   <Link
                     to="/newsletter"
                     onClick={closeMenu}
-                    className="block text-base text-gray-600 hover:text-blue-600 transition-colors py-1"
+                    className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all py-2.5 px-3 rounded-lg group"
                   >
-                    📧 Newsletter
+                    <div className="w-4 h-4 text-gray-500 group-hover:text-blue-600">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM9 7h6m0 10v-3H9v3z M20.121 12.121A3 3 0 0 0 18 9h-1.172A3 3 0 0 0 13 7.172V6a3 3 0 1 0-6 0v1.172A3 3 0 0 0 3.172 9H2a3 3 0 0 0 2.121 3.121z" />
+                      </svg>
+                    </div>
+                    <span className="font-medium text-sm">Market Updates</span>
                   </Link>
                 </div>
 
