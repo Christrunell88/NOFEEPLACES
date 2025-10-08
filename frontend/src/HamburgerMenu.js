@@ -233,10 +233,10 @@ const HamburgerMenu = () => {
                 
                 {/* Admin Actions */}
                 <div className="flex-1 p-4 space-y-3">
-                  {/* Analytics - Admin Only (hidden from regular users) */}
-                  {window.location.search.includes('admin=true') && (
+                  {/* Analytics - Admin Only (only show if authenticated as admin) */}
+                  {isAdminAuthenticated() && (
                     <Link
-                      to="/analytics?admin=true"
+                      to="/analytics"
                       onClick={closeMenu}
                       className="flex items-center justify-center w-full bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-blue-300 shadow-sm group"
                     >
@@ -258,19 +258,16 @@ const HamburgerMenu = () => {
                     Partners
                   </Link>
                   
-                  <button
-                    onClick={() => {
-                      // Admin access - redirect to admin URL
-                      closeMenu();
-                      window.location.href = '/?admin=true';
-                    }}
+                  <Link
+                    to="/analytics"
+                    onClick={closeMenu}
                     className="flex items-center justify-center w-full bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-indigo-300 shadow-sm group"
                   >
                     <svg className="w-4 h-4 mr-2 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    Admin Access
-                  </button>
+                    Admin Login
+                  </Link>
                 </div>
                 
                 {/* Admin Footer */}
