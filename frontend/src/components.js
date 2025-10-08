@@ -307,18 +307,60 @@ export const Header = () => {
     <header className="bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 text-white shadow-2xl sticky top-0 z-40 border-b border-slate-700">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Left Side: Professional Logo */}
-          <Link to="/" className="flex items-center space-x-4 group">
-            <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-            </div>
-            <div>
-              <div className="font-bold text-xl text-white group-hover:text-blue-300 transition-colors">
-                NoFee<span className="text-blue-400">Places</span>
+          {/* Left Side: Premium Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            {/* Advanced Logo Icon */}
+            <div className="relative">
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-700 rounded-2xl flex items-center justify-center shadow-2xl group-hover:shadow-emerald-500/25 transition-all duration-300 border border-emerald-400/20">
+                {/* Main Building Icon with No-Fee Symbol */}
+                <div className="relative">
+                  {/* City Building */}
+                  <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 2v2H8v2H6v16h12V6h-2V4h-2V2h-4zm2 2v2h2v2h2v12H8V8h2V6h2V4h2V2z"/>
+                    <rect x="9" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="11.5" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="14" y="7" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="9" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="11.5" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                    <rect x="14" y="10" width="1.5" height="1.5" fill="rgba(255,255,255,0.8)"/>
+                  </svg>
+                  
+                  {/* "NO FEE" Badge */}
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center border-2 border-white">
+                    <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                </div>
               </div>
-              <div className="text-xs text-gray-400 font-medium">Professional Real Estate Platform</div>
+              
+              {/* Glow Effect */}
+              <div className="absolute inset-0 w-12 h-12 bg-gradient-to-br from-emerald-400/20 to-cyan-600/20 rounded-2xl blur-lg group-hover:from-emerald-400/40 group-hover:to-cyan-600/40 transition-all duration-300"></div>
+            </div>
+            
+            {/* Enhanced Typography */}
+            <div className="flex flex-col">
+              <div className="flex items-center">
+                <span className="text-2xl font-black text-white tracking-tight group-hover:text-emerald-300 transition-colors duration-300">
+                  No
+                </span>
+                <span className="text-2xl font-black text-emerald-400 tracking-tight group-hover:text-emerald-300 transition-colors duration-300">
+                  Fee
+                </span>
+                <span className="text-2xl font-light text-blue-300 tracking-wider ml-1 group-hover:text-white transition-colors duration-300">
+                  Places
+                </span>
+                
+                {/* Premium Badge */}
+                <div className="ml-2 px-2 py-0.5 bg-gradient-to-r from-yellow-400/20 to-amber-500/20 rounded-full border border-yellow-400/30">
+                  <span className="text-xs font-bold text-yellow-300 tracking-wide">NYC</span>
+                </div>
+              </div>
+              
+              {/* Tagline */}
+              <div className="text-xs text-gray-400 font-medium tracking-wide mt-0.5 group-hover:text-gray-300 transition-colors duration-300">
+                Zero Broker Fees • Premium Rentals
+              </div>
             </div>
           </Link>
 
