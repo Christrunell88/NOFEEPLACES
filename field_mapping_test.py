@@ -16,7 +16,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 
 # Configuration
-BASE_URL = "https://affordable-apts.preview.emergentagent.com/api"
+BASE_URL = "https://nyfee-free.preview.emergentagent.com/api"
 
 class FieldMappingTester:
     def __init__(self):

@@ -9,7 +9,7 @@ import json
 from typing import Dict, Any
 
 # Configuration
-BASE_URL = "https://affordable-apts.preview.emergentagent.com/api"
+BASE_URL = "https://nyfee-free.preview.emergentagent.com/api"
 
 class WaterlineSquareVerifier:
     def __init__(self):

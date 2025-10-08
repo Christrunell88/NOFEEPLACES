@@ -6,7 +6,7 @@ Final comprehensive test for all neighborhood search requirements from review re
 import requests
 import json
 
-BASE_URL = "https://affordable-apts.preview.emergentagent.com/api"
+BASE_URL = "https://nyfee-free.preview.emergentagent.com/api"
 
 def test_specific_requirements():
     """Test all specific requirements from the review request"""
