@@ -1195,11 +1195,21 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
                     <span className="text-purple-600 mr-2">📧</span>
-                    <span className="font-medium">{apartment.contact_email}</span>
+                    <a 
+                      href={`mailto:${apartment.contact_email || 'placesfirm@gmail.com'}`}
+                      className="font-medium text-purple-700 hover:text-purple-900"
+                    >
+                      {apartment.contact_email || 'placesfirm@gmail.com'}
+                    </a>
                   </div>
                   <div className="flex items-center">
                     <span className="text-purple-600 mr-2">📱</span>
-                    <span className="font-medium">{apartment.contact_phone}</span>
+                    <a 
+                      href={`tel:${apartment.contact_phone || '+1-646-408-8048'}`}
+                      className="font-medium text-purple-700 hover:text-purple-900"
+                    >
+                      {apartment.contact_phone || '+1-646-408-8048'}
+                    </a>
                   </div>
                   <div className="flex items-center">
                     <span className="text-purple-600 mr-2">🏢</span>
