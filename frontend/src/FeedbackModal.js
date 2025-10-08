@@ -43,11 +43,7 @@ const FeedbackModal = ({ isOpen, onClose }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...feedbackData,
-          timestamp: new Date().toISOString(),
-          url: window.location.href
-        })
+        body: JSON.stringify(submitData)
       });
 
       if (response.ok) {
