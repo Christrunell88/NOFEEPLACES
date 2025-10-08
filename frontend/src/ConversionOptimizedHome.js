@@ -20,9 +20,6 @@ const ConversionOptimizedHome = () => {
       {/* Conversion CTA Sections */}
       <ConversionCTASection />
       
-      {/* SEO Content (kept for search rankings) */}
-      <SEOAffordableSection />
-      
       {/* Apartment Listings (social proof) */}
       <div className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-6">
@@ -34,7 +31,7 @@ const ConversionOptimizedHome = () => {
               Fresh listings added daily • All verified • Zero broker fees
             </p>
           </div>
-          <ApartmentGrid />
+          <FeaturedApartments />
         </div>
       </div>
       
