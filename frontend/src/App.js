@@ -422,7 +422,7 @@ function App() {
           <div className="App">
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<ConversionOptimizedHome />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/favorites" element={<FavoritesPageRoute />} />
