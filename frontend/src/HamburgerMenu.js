@@ -16,15 +16,15 @@ const HamburgerMenu = () => {
 
   return (
     <div className="relative">
-      {/* Hamburger Button */}
+      {/* Professional Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="flex flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none group"
+        className="flex flex-col justify-center items-center w-10 h-10 rounded-lg border border-gray-600 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-200 group bg-gray-800 hover:bg-gray-700"
         aria-label="Toggle navigation menu"
       >
-        <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''} group-hover:bg-teal-400`}></div>
-        <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''} group-hover:bg-teal-400`}></div>
-        <div className={`w-6 h-0.5 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''} group-hover:bg-teal-400`}></div>
+        <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''} group-hover:bg-blue-300`}></div>
+        <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : 'my-1'} group-hover:bg-blue-300`}></div>
+        <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''} group-hover:bg-blue-300`}></div>
       </button>
 
       {/* Menu Overlay */}
