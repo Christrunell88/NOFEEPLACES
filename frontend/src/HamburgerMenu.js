@@ -42,28 +42,13 @@ const HamburgerMenu = () => {
           <div className="fixed top-0 right-0 w-96 h-screen bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out border-l border-gray-200">
             {/* Menu Header */}
             <div className="flex justify-between items-center p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
-              <div className="flex flex-col">
-                {/* Matching Elegant Wordmark for Menu */}
-                <div className="flex items-baseline space-x-0">
-                  <span className="text-xl font-extralight text-gray-800 tracking-wide" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                    No
-                  </span>
-                  <span className="text-xl font-bold text-emerald-600 tracking-tight" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                    Fee
-                  </span>
-                  <span className="text-sm font-light text-gray-600 tracking-[0.15em] ml-1.5 mt-0.5" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                    PLACES
-                  </span>
-                </div>
-                
-                {/* Subtle Underline */}
-                <div className="w-full h-0.5 bg-gradient-to-r from-emerald-600/50 via-blue-500/30 to-transparent mt-0.5"></div>
-                
-                {/* Menu Tagline */}
-                <div className="text-xs text-gray-500 font-medium tracking-widest mt-1">
-                  NAVIGATION MENU
-                </div>
-              </div>
+              <WordMark 
+                size="small" 
+                theme="light" 
+                tagline="NAVIGATION MENU"
+                linkTo="/"
+                hover={false}
+              />
               <button
                 onClick={closeMenu}
                 className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-white rounded-xl transition-all shadow-sm border border-gray-200"
