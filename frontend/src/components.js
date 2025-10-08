@@ -309,30 +309,7 @@ export const Header = () => {
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Left Side: Elegant Wordmark */}
-          <Link to="/" className="group">
-            <div className="flex flex-col">
-              {/* Main Wordmark */}
-              <div className="flex items-baseline space-x-0">
-                <span className="text-3xl font-extralight text-white tracking-wide group-hover:text-blue-200 transition-colors duration-300" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                  No
-                </span>
-                <span className="text-3xl font-bold text-emerald-400 tracking-tight group-hover:text-emerald-300 transition-colors duration-300" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                  Fee
-                </span>
-                <span className="text-lg font-light text-gray-300 tracking-[0.2em] ml-2 mt-1 group-hover:text-white transition-colors duration-300" style={{fontFamily: 'system-ui, -apple-system, sans-serif'}}>
-                  PLACES
-                </span>
-              </div>
-              
-              {/* Subtle Underline */}
-              <div className="w-full h-0.5 bg-gradient-to-r from-emerald-400/60 via-blue-400/40 to-transparent mt-1 group-hover:from-emerald-400/80 group-hover:via-blue-400/60 transition-all duration-300"></div>
-              
-              {/* Refined Tagline */}
-              <div className="text-xs text-gray-400 font-medium tracking-widest mt-1 group-hover:text-gray-300 transition-colors duration-300">
-                NYC RENTAL PLATFORM
-              </div>
-            </div>
-          </Link>
+          <HeaderWordMark />
 
           {/* Center - Value Proposition */}
           <div className="flex-1 flex justify-center">
