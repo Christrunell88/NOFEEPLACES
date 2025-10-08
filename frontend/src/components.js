@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } 
 import axios from 'axios';
 import { useAuth } from './auth';
 import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationClick } from './analytics';
+import HamburgerMenu from './HamburgerMenu';
 
 // Import all missing components
 import {
