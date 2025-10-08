@@ -10,14 +10,6 @@ const ConversionHero = () => {
       <div className="absolute inset-0 bg-black/20"></div>
       
       <div className="relative max-w-6xl mx-auto px-6 text-center">
-        {/* Urgent Problem Statement */}
-        <div className="inline-flex items-center bg-red-500/20 border border-red-400/30 text-red-300 px-6 py-3 rounded-full mb-8 text-sm font-semibold">
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.864-.833-2.634 0L4.18 15.5c-.77.833.192 2.5 1.732 2.5z" />
-          </svg>
-          STOP PAYING $3,000+ BROKER FEES
-        </div>
-
         {/* Clear Value Proposition Headline */}
         <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
           <span className="block text-white">Find NYC Apartments</span>
