@@ -27,32 +27,26 @@ async def send_wordmark_images():
         "NoFeePlaces_WordMark_Transparent.png"
     ]
     
-    # Check if files exist in automation output directory
-    automation_dirs = [d for d in os.listdir('/root/.emergent/automation_output') if d.startswith('202')]
-    latest_dir = max(automation_dirs) if automation_dirs else None
-    
+    # Check if files exist in app directory
     attachments = []
     
-    if latest_dir:
-        base_path = f"/root/.emergent/automation_output/{latest_dir}"
-        
-        for filename in image_files:
-            file_path = os.path.join(base_path, filename)
-            if os.path.exists(file_path):
-                print(f"✅ Found {filename}")
+    for filename in image_files:
+        file_path = f"/app/{filename}"
+        if os.path.exists(file_path):
+            print(f"✅ Found {filename} ({os.path.getsize(file_path)} bytes)")
+            
+            # Read file and encode as base64
+            with open(file_path, 'rb') as f:
+                file_data = f.read()
+                file_b64 = base64.b64encode(file_data).decode()
                 
-                # Read file and encode as base64
-                with open(file_path, 'rb') as f:
-                    file_data = f.read()
-                    file_b64 = base64.b64encode(file_data).decode()
-                    
-                attachments.append({
-                    'filename': filename,
-                    'content': file_b64,
-                    'type': 'image/png'
-                })
-            else:
-                print(f"⚠️  {filename} not found, will create inline version")
+            attachments.append({
+                'filename': filename,
+                'content': file_b64,
+                'type': 'image/png'
+            })
+        else:
+            print(f"⚠️  {filename} not found at {file_path}")
     
     # Create comprehensive HTML email with image descriptions
     email_html = f"""
