@@ -297,15 +297,14 @@ export const LeadMagnet = ({ title, description, downloadUrl, source }) => {
   );
 };
 
-// Header Component (updated to include newsletter)
+// Header Component (updated with clean hamburger menu design)
 export const Header = () => {
-  const { isAuthenticated, user, logout } = useAuth();
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  const { isAuthenticated, user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
     <header className="bg-black text-white shadow-2xl sticky top-0 z-40">
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Left Side: Logo */}
           <Link to="/" className="flex items-center space-x-3">
@@ -320,70 +319,38 @@ export const Header = () => {
             </div>
           </Link>
 
-          {/* Center Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <Link 
-              to="/blog" 
-              className="text-gray-300 hover:text-teal-400 transition-colors font-medium"
-              onClick={() => trackNavigationClick('Blog', '/blog')}
-            >
-              Guides
-            </Link>
-            <Link 
-              to="/tenant/list-apartment" 
-              className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
-              onClick={() => trackNavigationClick('List Your Place', '/tenant/list-apartment')}
-            >
-              List Your Place
-            </Link>
+          {/* Center - Clean space */}
+          <div className="flex-1 flex justify-center">
+            <div className="hidden md:block text-center">
+              <div className="text-sm text-gray-300">Discover 300+ No-Fee Apartments</div>
+              <div className="text-xs text-gray-500">Save $3,000+ on Broker Fees</div>
+            </div>
           </div>
 
-          {/* Right Side: Authentication */}
+          {/* Right Side: Authentication & Hamburger Menu */}
           <div className="flex items-center space-x-4">
-            {isAuthenticated ? (
-              <div className="relative">
-                <button
-                  onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-2 text-gray-300 hover:text-white focus:outline-none rounded-lg px-3 py-2 transition-colors"
-                >
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                    {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
-                  </div>
-                  <span className="hidden md:block font-medium">{user?.full_name || 'User'}</span>
-                </button>
-
-                {/* User Dropdown Menu */}
-                {showUserMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-gray-900 rounded-lg shadow-2xl py-2 z-50 border border-gray-700">
-                    <Link to="/dashboard" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Dashboard</Link>
-                    <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Favorites</Link>
-                    <Link to="/tenant/list-apartment" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors">Post Listing</Link>
-                    <hr className="my-2 border-gray-700" />
-                    <button 
-                      onClick={logout}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-800 hover:text-white transition-colors"
-                    >
-                      Sign Out
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <>
-                <button
-                  onClick={() => setShowAuthModal(true)}
-                  className="hidden md:block text-gray-300 hover:text-teal-400 transition-colors font-medium"
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={() => setShowAuthModal(true)}
-                  className="px-6 py-2.5 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-md hover:shadow-lg"
-                >
-                  Try for Free
-                </button>
-              </>
+            {/* Auth Button for unauthenticated users */}
+            {!isAuthenticated && (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="hidden sm:block px-4 py-2 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 font-medium shadow-md hover:shadow-lg text-sm"
+              >
+                Try for Free
+              </button>
             )}
+            
+            {/* User Avatar for authenticated users */}
+            {isAuthenticated && (
+              <div className="flex items-center space-x-2 mr-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+                </div>
+                <span className="hidden sm:block text-sm font-medium text-gray-300">{user?.full_name || 'User'}</span>
+              </div>
+            )}
+
+            {/* Hamburger Menu */}
+            <HamburgerMenu />
           </div>
         </div>
       </nav>
