@@ -27,7 +27,7 @@ const FeedbackModal = ({ isOpen, onClose }) => {
     setSubmitStatus(null);
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
       
       const response = await fetch(`${API_URL}/api/feedback/submit`, {
         method: 'POST',
