@@ -236,7 +236,7 @@ const Home = () => {
         logout={logout}
         setShowAuthModal={setShowAuthModal}
       />
-      <ConversionHero />
+      <ConversionHero setShowAuthModal={setShowAuthModal} />
       <SEOAffordableSection />
       <FeaturedApartments />
       
