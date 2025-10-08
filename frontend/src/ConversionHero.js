@@ -108,27 +108,7 @@ const ConversionHero = ({ setShowAuthModal }) => {
         </div>
       </div>
 
-      {/* Simple Auth Modal */}
-      {showAuthModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl p-8 max-w-md w-full">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Get Apartment Alerts</h3>
-            <p className="text-gray-600 mb-6">Be the first to know about new no-fee apartments in your area.</p>
-            <button
-              onClick={() => setShowAuthModal(false)}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg font-semibold mb-3"
-            >
-              Sign Up for Alerts
-            </button>
-            <button
-              onClick={() => setShowAuthModal(false)}
-              className="w-full text-gray-500 text-sm"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Auth Modal handled by parent component */}
     </div>
   );
 };
