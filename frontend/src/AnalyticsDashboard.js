@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { AdminAuth, isAdminAuthenticated, adminLogout } from './AdminAuth';
 
 export const AnalyticsDashboard = () => {
   // Check admin access
