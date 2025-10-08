@@ -2,8 +2,9 @@ import React from 'react';
 import ConversionOptimizedHero from './ConversionOptimizedHero';
 import ConversionCTASection from './ConversionCTASection';
 import { 
-  ApartmentGrid,
-  SEOAffordableSection 
+  FeaturedApartments,
+  Header,
+  Hero
 } from './components';
 import { 
   NewsletterPage,
