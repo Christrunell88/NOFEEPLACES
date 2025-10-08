@@ -3,10 +3,12 @@ import ConversionOptimizedHero from './ConversionOptimizedHero';
 import ConversionCTASection from './ConversionCTASection';
 import { 
   ApartmentGrid,
-  NewsletterPage,
-  Footer,
   SEOAffordableSection 
 } from './components';
+import { 
+  NewsletterPage,
+  Footer 
+} from './missing-components';
 
 const ConversionOptimizedHome = () => {
   return (
