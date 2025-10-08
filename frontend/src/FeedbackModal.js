@@ -59,7 +59,9 @@ const FeedbackModal = ({ isOpen, onClose }) => {
           setSubmitStatus(null);
         }, 2000);
       } else {
-        throw new Error('Failed to submit feedback');
+        const errorText = await response.text();
+        console.error('Feedback submission failed:', response.status, errorText);
+        throw new Error(`Failed to submit feedback: ${response.status} ${errorText}`);
       }
     } catch (error) {
       console.error('Error submitting feedback:', error);
