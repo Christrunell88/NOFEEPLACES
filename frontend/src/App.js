@@ -456,6 +456,9 @@ function App() {
               <AIChatbot />
               <VisitorTracker />
               
+              {/* Floating Feedback Button - Available on all pages */}
+              <FloatingFeedbackButton />
+              
               {/* Newsletter functionality temporarily removed */}
             </BrowserRouter>
           </div>
