@@ -298,59 +298,64 @@ export const LeadMagnet = ({ title, description, downloadUrl, source }) => {
   );
 };
 
-// Header Component (updated with clean hamburger menu design)
+// Header Component (professional design with refined styling)
 export const Header = () => {
   const { isAuthenticated, user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   return (
-    <header className="bg-black text-white shadow-2xl sticky top-0 z-40">
+    <header className="bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 text-white shadow-2xl sticky top-0 z-40 border-b border-slate-700">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Left Side: Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🏢</span>
+          {/* Left Side: Professional Logo */}
+          <Link to="/" className="flex items-center space-x-4 group">
+            <div className="w-11 h-11 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
             </div>
             <div>
-              <div className="font-bold text-xl text-white">
+              <div className="font-bold text-xl text-white group-hover:text-blue-300 transition-colors">
                 NoFee<span className="text-blue-400">Places</span>
               </div>
-              <div className="text-xs text-gray-400">NYC No-Fee Rentals</div>
+              <div className="text-xs text-gray-400 font-medium">Professional Real Estate Platform</div>
             </div>
           </Link>
 
-          {/* Center - Clean space */}
+          {/* Center - Value Proposition */}
           <div className="flex-1 flex justify-center">
             <div className="hidden md:block text-center">
-              <div className="text-sm text-gray-300">Discover 300+ No-Fee Apartments</div>
-              <div className="text-xs text-gray-500">Save $3,000+ on Broker Fees</div>
+              <div className="text-sm font-semibold text-gray-200">400+ Verified No-Fee Apartments</div>
+              <div className="text-xs text-blue-300 font-medium">Save $2,000-$6,000+ on Broker Fees</div>
             </div>
           </div>
 
-          {/* Right Side: Authentication & Hamburger Menu */}
+          {/* Right Side: Professional Authentication & Menu */}
           <div className="flex items-center space-x-4">
-            {/* Auth Button for unauthenticated users */}
+            {/* Professional Auth Button */}
             {!isAuthenticated && (
               <button
                 onClick={() => setShowAuthModal(true)}
-                className="hidden sm:block px-4 py-2 bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white rounded-lg transition-all duration-200 font-medium shadow-md hover:shadow-lg text-sm"
+                className="hidden sm:block px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl text-sm border border-blue-500 hover:border-blue-400"
               >
-                Try for Free
+                Get Started
               </button>
             )}
             
-            {/* User Avatar for authenticated users */}
+            {/* Professional User Avatar */}
             {isAuthenticated && (
-              <div className="flex items-center space-x-2 mr-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+              <div className="flex items-center space-x-3 mr-2 bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
+                <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">
                   {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
-                <span className="hidden sm:block text-sm font-medium text-gray-300">{user?.full_name || 'User'}</span>
+                <div className="hidden sm:block">
+                  <div className="text-sm font-semibold text-white">{user?.full_name || 'User'}</div>
+                  <div className="text-xs text-gray-400">Member</div>
+                </div>
               </div>
             )}
 
-            {/* Hamburger Menu */}
+            {/* Professional Hamburger Menu */}
             <HamburgerMenu />
           </div>
         </div>
