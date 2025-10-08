@@ -282,11 +282,15 @@ const HamburgerMenu = () => {
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gray-100 border-t border-gray-200">
-              <div className="text-center text-xs text-gray-500">
-                <p>© 2025 NoFeePlaces.com</p>
-                <p className="mt-1">NYC's Premier No-Fee Apartment Platform</p>
+            {/* Professional Footer */}
+            <div className="absolute bottom-0 left-0 right-32 bg-gradient-to-r from-gray-100 to-gray-200 border-t border-gray-300 p-4">
+              <div className="text-center">
+                <div className="text-xs font-semibold text-gray-700 mb-1">© 2025 NoFeePlaces.com</div>
+                <div className="text-xs text-gray-500 font-medium">Professional Real Estate Platform</div>
+                <div className="mt-2 flex justify-center items-center space-x-2">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span className="text-xs text-gray-600">Trusted & Verified</span>
+                </div>
               </div>
             </div>
           </div>
