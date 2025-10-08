@@ -424,18 +424,14 @@ export const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">🏢</span>
-              </div>
-              <div>
-                <div className="font-bold text-lg">
-                  No Fee <span className="text-yellow-400">Places</span>
-                </div>
-              </div>
+            <div className="mb-4">
+              <FooterWordMark 
+                linkTo="/"
+                tagline="ZERO BROKER FEES • NYC RENTALS"
+              />
             </div>
             <p className="text-gray-400">
-              Find your perfect NYC apartment without broker fees.
+              Find your perfect NYC apartment without broker fees. Professional platform connecting renters with verified no-fee properties.
             </p>
           </div>
           
