@@ -31,7 +31,7 @@ class SafeProductionSync:
         
         print(f"   ✅ Found {len(apartments)} corrected apartments locally")
         
-        await client.close()
+        client.close()
         return apartments
     
     def test_production_api_methods(self):
