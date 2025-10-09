@@ -1,0 +1,18 @@
+{
+  "pipeline_execution": {
+    "timestamp": "2025-10-09T21:29:24.024794+00:00",
+    "new_apartments": 0,
+    "total_apartments": 23,
+    "average_quality_score": 91.23809523809524,
+    "sources_processed": [
+      "TF Cornerstone",
+      "Manhattan Skyline Management"
+    ],
+    "data_quality_metrics": {
+      "authenticity_verified": true,
+      "contact_standardized": true,
+      "images_validated": true,
+      "pricing_normalized": true
+    }
+  }
+}
