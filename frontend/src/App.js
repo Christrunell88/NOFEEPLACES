@@ -248,7 +248,7 @@ const Home = () => {
         apartmentCount={totalApartments}
       />
       
-      <main className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
+      <main id="main-content" className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
           <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
             {loading ? 'Searching No Fee Apartments NYC...' : 'No Fee Apartments NYC 2025 | Zero Broker Fee Rentals'}
