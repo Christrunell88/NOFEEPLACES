@@ -200,7 +200,7 @@ class DataQualityAuditor:
             'Lorem ipsum' in description,
             title.startswith('Generated '),
             'Test apartment' in title.lower(),
-            apt.get('created_at', '').startswith('2025-') and 'Verified' not in data_source
+            str(apt.get('created_at', '')).startswith('2025-') and 'Verified' not in data_source
         ]
         
         fictional_score = sum(fictional_indicators)
