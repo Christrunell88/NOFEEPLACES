@@ -449,6 +449,21 @@ class RealEstateDataPipeline:
         # Standardize amenities
         amenities = self.standardize_amenities(raw_data.get('amenities', []))
         
+        # Ensure numeric values are properly typed
+        bedrooms = raw_data.get('bedrooms', 0)
+        if isinstance(bedrooms, str):
+            try:
+                bedrooms = int(bedrooms)
+            except (ValueError, TypeError):
+                bedrooms = 0
+        
+        bathrooms = raw_data.get('bathrooms', 1.0)
+        if isinstance(bathrooms, str):
+            try:
+                bathrooms = float(bathrooms)
+            except (ValueError, TypeError):
+                bathrooms = 1.0
+        
         # Create standardized apartment data
         apartment = CleanedApartmentData(
             id=str(uuid.uuid4()),
