@@ -1055,6 +1055,7 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                 <button
                   onClick={handlePrevImage}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70"
+                  aria-label="Previous image in gallery"
                 >
                   ←
                 </button>
