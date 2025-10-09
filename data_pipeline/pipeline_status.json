@@ -1,7 +1,8 @@
 {
-  "status": "running",
-  "timestamp": "2025-10-09T21:54:28.128148",
+  "status": "completed",
+  "timestamp": "2025-10-09T21:54:29.590249",
   "details": {
-    "action": "pipeline_start"
+    "return_code": 0,
+    "output_lines": 1
   }
 }
