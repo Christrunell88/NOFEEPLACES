@@ -329,6 +329,7 @@ async def main():
         print("=" * 70)
         
         # Step 1: Clean up old generated data
+        await scraper.connect_database()
         cleaned_count = await scraper.cleanup_old_generated_data()
         
         # Step 2: Add new verified listings
