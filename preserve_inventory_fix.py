@@ -8,6 +8,7 @@ import asyncio
 import requests
 import json
 import random
+import os
 from datetime import datetime, timezone
 
 class InventoryPreservingFix:
