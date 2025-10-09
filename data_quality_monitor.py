@@ -48,7 +48,9 @@ class DataQualityMonitor:
         # Required fields check
         required_fields = ['title', 'price', 'bedrooms', 'bathrooms', 'neighborhood', 'borough']
         for field in required_fields:
-            if not apartment_data.get(field):
+            if field not in apartment_data or apartment_data.get(field) is None:
+                errors.append(f'Missing required field: {field}')
+            elif field == 'bedrooms' and apartment_data.get(field) == '':
                 errors.append(f'Missing required field: {field}')
         
         # Price validation
