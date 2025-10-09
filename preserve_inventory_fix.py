@@ -167,7 +167,7 @@ class InventoryPreservingFix:
         # Apply premium street multipliers
         multiplier = 1.0
         for street, mult in self.premium_streets.items():
-            if street.lower() in address.lower():
+            if address and street.lower() in address.lower():
                 multiplier = mult
                 break
         
