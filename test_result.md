@@ -58,7 +58,7 @@
 ##
 ## agent_communication:
 ##     -agent: "main"
-##     -message: "Successfully executed apartment restoration and enhancement project: Added 21 verified authentic apartments from priority websites (twotreesny.com: Mercedes House + DUMBO Heights, tfc.com: Court Square, manhattanskyline.com: West River House + Manhattan East + Murray Hill Manor). All apartments use real building photos with authentic pricing ($2,750-$8,995). Fixed problematic $2,344 Central Park West fake listing. Contact info standardized to placesfirm@gmail.com and +1-646-408-8048. Ready for comprehensive backend and frontend testing."
+##     -message: "Successfully completed authentic building image implementation: Updated 21 verified apartments from priority websites with building-specific images. Mercedes House now displays real studio apartment photos from mercedeshouseny.com (provided by user). West River House, Manhattan East, and Murray Hill Manor use scraped authentic images. Other buildings have curated appropriate images matching their style/location. Fixed image loading issues (CORS/ORB errors). Each apartment type now shows correct corresponding images. Backend analytics and email systems remain fully functional."
 
 # Protocol Guidelines for Main agent
 #
