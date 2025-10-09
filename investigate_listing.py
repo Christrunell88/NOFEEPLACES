@@ -6,16 +6,11 @@ import os
 from pymongo import MongoClient
 
 def investigate_central_park_west():
-    # Get MongoDB URL
+    # Get MongoDB URL and database name (matching server.py logic)
     mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
-    client = MongoClient(mongo_url)
+    db_name = os.environ.get('DB_NAME', 'nofeeplaces')
     
-    # Extract database name from URL or use default
-    if '/' in mongo_url and mongo_url.split('/')[-1]:
-        db_name = mongo_url.split('/')[-1]
-    else:
-        db_name = 'nofeeplaces_db'  # fallback to expected DB name
-        
+    client = MongoClient(mongo_url)
     db = client[db_name]
     print(f"Using database: {db_name}")
     
