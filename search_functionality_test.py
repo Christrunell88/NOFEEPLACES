@@ -10,7 +10,7 @@ import time
 from typing import Dict, Any, List
 
 # Configuration
-BASE_URL = "https://nyfee-free.preview.emergentagent.com/api"
+BASE_URL = "https://smartrental.preview.emergentagent.com/api"
 
 class SearchFunctionalityTester:
     def __init__(self):
