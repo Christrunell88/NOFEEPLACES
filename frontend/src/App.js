@@ -231,6 +231,20 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* Skip Navigation Links */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-lg z-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+      >
+        Skip to main content
+      </a>
+      <a 
+        href="#navigation-menu" 
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-32 bg-blue-600 text-white px-4 py-2 rounded-lg z-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+      >
+        Skip to navigation
+      </a>
+      
       <Header 
         isAuthenticated={isAuthenticated}
         user={user}
