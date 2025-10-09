@@ -503,7 +503,7 @@ class RealEstateDataPipeline:
             broker_fee='No fee',
             verification_status='Verified Authentic Listing',
             no_fee=True,
-            featured=raw_data.get('price', 0) > 5000,
+            featured=apartment.price > 5000,
             
             # Source verification
             source_verification={
