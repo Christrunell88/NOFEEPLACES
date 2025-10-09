@@ -16,7 +16,7 @@ export const AboutUsPage = () => {
               hover={false}
             />
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Mission</h1>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             We're transforming apartment hunting in NYC to be transparent, affordable, and stress-free.
           </p>
