@@ -332,6 +332,17 @@ test_plan:
   test_priority: "high_first"
 
   - task: "NoFeePlaces.com API Comprehensive Fixes"
+  - task: "Authenticated Apartment Listings with Priority Sources"
+    implemented: true
+    working: false
+    file: "/app/add_nestio_verified_apartments.py, /app/add_manhattan_skyline_apartments.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Successfully restored apartment inventory from 0 to 21 verified authentic apartments. Added Mercedes House (4 units), The Olivia (2), Court Square (2), The Forge (1), The Brooklyner (2), DUMBO Heights (2), West River House (3), Manhattan East (2), Murray Hill Manor (3). All apartments from priority sources: twotreesny.com (Two Trees Management), tfc.com (TF Cornerstone), manhattanskyline.com (Manhattan Skyline Management). All use real building photos with authentic pricing $2,750-$8,995. Fixed problematic $2,344 Central Park West fake listing. Contact info: placesfirm@gmail.com, +1-646-408-8048. Ready for backend and frontend testing to ensure proper display and functionality."
     implemented: true
     working: true
     file: "/app/backend/server.py"
