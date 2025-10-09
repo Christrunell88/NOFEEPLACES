@@ -171,7 +171,12 @@ class RealEstateDataPipeline:
         
         standardized = []
         for amenity in amenities:
-            amenity_lower = amenity.lower().strip()
+            # Skip None values and empty strings
+            if not amenity or not str(amenity).strip():
+                continue
+                
+            amenity_str = str(amenity).strip()
+            amenity_lower = amenity_str.lower()
             
             # Check for mapping
             mapped = None
@@ -182,8 +187,8 @@ class RealEstateDataPipeline:
             
             if mapped and mapped not in standardized:
                 standardized.append(mapped)
-            elif amenity.strip() not in standardized:
-                standardized.append(amenity.strip().title())
+            elif amenity_str and amenity_str.title() not in standardized:
+                standardized.append(amenity_str.title())
         
         return standardized
     
