@@ -1,18 +1,11 @@
 NOFEEPLACES.COM ACCESSIBILITY AUDIT
 ==================================================
 
-Heading Hierarchy:
-  - /app/frontend/src/StaticPages.js: Multiple H1 tags found (3)
-
 Missing Aria Labels:
   - /app/frontend/src/ConversionHero.js: Button without aria-label: <button
               onClick={() =>...
   - /app/frontend/src/HamburgerMenu.js: Button without aria-label: <button
-                onClick={closeMenu}
-      ...
-  - /app/frontend/src/HamburgerMenu.js: Button without aria-label: <button
                       onClick={() =>...
-  - /app/frontend/src/components.js: Button without aria-label: <button onClick={onClose} className="ml-4 text-whi...
   - /app/frontend/src/components.js: Button without aria-label: <button
           onClick={() =>...
   - /app/frontend/src/components.js: Button without aria-label: <button
