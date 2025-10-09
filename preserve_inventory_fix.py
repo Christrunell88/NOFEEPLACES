@@ -248,7 +248,7 @@ class InventoryPreservingFix:
             # Check for specific issues
             if price == 2344 and 'central park west' in title.lower():
                 pricing_issues.append(f"CRITICAL: {title} - ${price}")
-            elif 'manhattan' in borough.lower() and price < 3000:
+            elif borough and 'manhattan' in borough.lower() and price < 3000:
                 pricing_issues.append(f"Manhattan under $3k: {title} - ${price}")
             
             if any(term in data_source.lower() for term in ['generated', 'bulk', 'test', 'fake']):
