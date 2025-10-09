@@ -489,7 +489,7 @@ class RealEstateDataPipeline:
             lease_terms='12 months',
             pet_policy='Contact for pet policy',
             utilities_included=False,
-            parking_available='Parking' in ' '.join(amenities),
+            parking_available='Parking' in ' '.join(str(a) for a in amenities),
             
             # Authenticity tracking
             is_verified=True,
