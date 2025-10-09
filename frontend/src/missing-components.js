@@ -547,6 +547,7 @@ export const AuthModal = ({ onClose }) => {
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 text-2xl"
+            aria-label="Close authentication modal"
           >
             ×
           </button>
