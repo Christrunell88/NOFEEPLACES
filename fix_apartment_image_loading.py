@@ -108,6 +108,9 @@ class ImageLoadingFixer:
                     fixed_count += 1
                 else:
                     print(f"⚪ Skipped: {building} - {title} (already has working images)")
+            
+            except Exception as e:
+                print(f"❌ Error fixing {title}: {e}")
         
         return fixed_count, total_count
     
