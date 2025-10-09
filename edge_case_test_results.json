@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-10-09T21:39:42.018310",
+  "timestamp": "2025-10-09T21:41:09.843708",
   "total_tests": 12,
-  "passed_tests": 10,
-  "success_rate": 83.33333333333334,
+  "passed_tests": 11,
+  "success_rate": 91.66666666666666,
   "test_results": [
     {
       "test": "None Price Handling",
@@ -26,8 +26,8 @@
     },
     {
       "test": "Amenities with Nulls",
-      "passed": false,
-      "details": "Exception: 'NoneType' object has no attribute 'lower'"
+      "passed": true,
+      "details": "Filtered and returned ['Doorman']"
     },
     {
       "test": "Extreme High Price",
