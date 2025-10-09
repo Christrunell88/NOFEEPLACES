@@ -251,7 +251,7 @@ class InventoryPreservingFix:
             elif borough and 'manhattan' in borough.lower() and price < 3000:
                 pricing_issues.append(f"Manhattan under $3k: {title} - ${price}")
             
-            if any(term in data_source.lower() for term in ['generated', 'bulk', 'test', 'fake']):
+            if data_source and any(term in data_source.lower() for term in ['generated', 'bulk', 'test', 'fake']):
                 fictional_issues.append(f"Fictional: {title}")
             
             if not apt.get('is_verified') or apt.get('quality_score', 0) < 80:
