@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-10-09T21:49:44.167224+00:00",
+  "health_status": {
+    "deployment_status": "deployed",
+    "components_status": {
+      "pipeline_controller.py": true,
+      "scheduler.py": true
+    },
+    "database_status": {
+      "total_apartments": 23,
+      "verified_apartments": 23,
+      "verification_rate": "100.0%"
+    },
+    "last_execution": {
+      "status": "test_passed",
+      "timestamp": "2025-10-09T21:49:11.509225",
+      "details": {}
+    },
+    "system_metrics": {}
+  }
+}
