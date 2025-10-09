@@ -2,8 +2,7 @@ NOFEEPLACES.COM ACCESSIBILITY AUDIT
 ==================================================
 
 Heading Hierarchy:
-  - /app/frontend/src/components.js: Multiple H1 tags found (2)
-  - /app/frontend/src/StaticPages.js: Multiple H1 tags found (4)
+  - /app/frontend/src/StaticPages.js: Multiple H1 tags found (3)
 
 Missing Aria Labels:
   - /app/frontend/src/ConversionHero.js: Button without aria-label: <button
@@ -54,14 +53,11 @@ Missing Aria Labels:
             ...
 
 Semantic Html:
-  - /app/frontend/src/HamburgerMenu.js: Clickable div without role: <div 
-            className="fixed inset-0 bg-blac...
   - /app/frontend/src/components.js: Clickable div without role: <div 
           className="relative h-64 bg-gray-2...
 
 Focus Management:
   - /app/frontend/src/ConversionHero.js: Modal without focus management
-  - /app/frontend/src/FloatingFeedbackButton.js: Modal without focus management
 
 
 🎯 ACCESSIBILITY IMPROVEMENT PLAN
