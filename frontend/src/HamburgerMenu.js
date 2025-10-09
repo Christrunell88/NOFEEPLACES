@@ -297,7 +297,7 @@ const HamburgerMenu = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </nav>
         </>
       )}
     </div>
