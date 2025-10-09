@@ -478,7 +478,7 @@ export const LetsTalkPage = () => {
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Let's Talk!</h1>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Let's Talk!</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Whether you're a renter, landlord, or partner - we'd love to hear from you.
           </p>
