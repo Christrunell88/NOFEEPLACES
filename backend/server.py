@@ -2427,3 +2427,55 @@ async def startup_event():
 async def shutdown_event():
     client.close()
     logger.info("NoFeePlaces.com API shutting down...")
+
+# Data Pipeline Integration
+from pathlib import Path
+import json
+
+@app.get("/api/pipeline/status")
+async def get_pipeline_status():
+    """Get current data pipeline status"""
+    try:
+        status_file = Path('/app/data_pipeline/pipeline_status.json')
+        if status_file.exists():
+            with open(status_file, 'r') as f:
+                status = json.load(f)
+        else:
+            status = {'status': 'deployed', 'message': 'Pipeline ready'}
+        
+        return {
+            "success": True,
+            "data": status,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+@app.post("/api/pipeline/activate")
+async def activate_pipeline():
+    """Activate the data gathering pipeline"""
+    try:
+        import subprocess
+        import sys
+        
+        controller_path = Path('/app/data_pipeline/pipeline_controller.py')
+        
+        if controller_path.exists():
+            # Start pipeline in background
+            process = subprocess.Popen([
+                sys.executable, str(controller_path), 'start'
+            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            return {
+                "success": True,
+                "message": "Data pipeline activated successfully",
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+        else:
+            return {
+                "success": False, 
+                "error": "Pipeline controller not found"
+            }
+            
+    except Exception as e:
+        return {"success": False, "error": str(e)}

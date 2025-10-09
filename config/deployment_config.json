@@ -1,0 +1,30 @@
+{
+  "pipeline_version": "1.0.0",
+  "deployment_date": "2025-10-09T21:48:09.897816+00:00",
+  "components": [
+    "real_estate_data_pipeline.py",
+    "comprehensive_data_analysis.py",
+    "pipeline_edge_case_testing.py"
+  ],
+  "dependencies": [
+    "aiohttp",
+    "beautifulsoup4",
+    "motor",
+    "pymongo"
+  ],
+  "status": "deployed",
+  "directories": {
+    "pipeline": "/app/data_pipeline",
+    "logs": "/app/logs",
+    "config": "/app/config"
+  },
+  "endpoints": {
+    "status": "/api/pipeline/status",
+    "start": "/api/pipeline/start",
+    "test": "/api/pipeline/test"
+  },
+  "schedule": {
+    "daily_execution": "03:00",
+    "weekly_testing": "Sunday 02:00"
+  }
+}
