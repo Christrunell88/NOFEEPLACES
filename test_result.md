@@ -57,8 +57,8 @@
 ##   test_priority: "high_first"  # or "sequential" or "stuck_first"
 ##
 ## agent_communication:
-##     -agent: "main"  # or "testing" or "user"
-##     -message: "Communication message between agents"
+##     -agent: "main"
+##     -message: "Implemented comprehensive accessibility improvements: fixed heading hierarchy (multiple H1 tags), added ARIA labels to buttons, improved semantic HTML with proper roles, added keyboard navigation support, imported accessibility.css with screen reader enhancements. Reduced total accessibility issues from 24 to 18. Ready for testing accessibility enhancements."
 
 # Protocol Guidelines for Main agent
 #
