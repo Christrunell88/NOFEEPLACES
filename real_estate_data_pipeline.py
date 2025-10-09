@@ -197,7 +197,14 @@ class RealEstateDataPipeline:
         score = 0
         
         # Check each quality criterion
-        if apartment_data.get('price', 0) > 0:
+        price = apartment_data.get('price', 0)
+        # Ensure price is numeric for comparison
+        if isinstance(price, str):
+            price = self.normalize_price(price)
+        elif not isinstance(price, (int, float)):
+            price = 0
+        
+        if price > 0:
             score += self.quality_criteria['has_price']
         
         if apartment_data.get('images') and len(apartment_data['images']) > 0:
