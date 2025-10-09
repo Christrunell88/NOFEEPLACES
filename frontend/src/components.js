@@ -888,7 +888,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
             </div>
             
             <div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-2">{apartment.title}</h1>
+              <h2 className="text-3xl font-bold text-slate-800 mb-2">{apartment.title}</h2>
               <p className="text-slate-600 mb-2">
                 {getDisplayAddress(apartment, isAuthenticated)}
                 {!isAuthenticated && (
