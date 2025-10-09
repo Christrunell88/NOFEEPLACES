@@ -590,6 +590,15 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
         <div 
           className="relative h-64 bg-gray-200 overflow-hidden cursor-pointer group"
           onClick={() => setShowDetailsModal(true)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              setShowDetailsModal(true);
+            }
+          }}
+          aria-label={`View details for ${apartment.title}`}
         >
           {!imageError ? (
             <img
