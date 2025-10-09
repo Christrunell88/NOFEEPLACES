@@ -43,7 +43,11 @@ const HamburgerMenu = () => {
           ></div>
           
           {/* Professional Menu Panel */}
-          <div className="fixed top-0 right-0 w-96 h-screen bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out border-l border-gray-200">
+          <nav 
+            className="fixed top-0 right-0 w-96 h-screen bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out border-l border-gray-200"
+            role="navigation"
+            aria-label="Main navigation menu"
+          >
             {/* Menu Header */}
             <div className="flex justify-between items-center p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
               <WordMark 
