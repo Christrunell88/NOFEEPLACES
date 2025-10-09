@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 
 # Configuration
-BASE_URL = "https://smartrental.preview.emergentagent.com/api"
+BASE_URL = "https://nestio-restore.preview.emergentagent.com/api"
 
 class PrioritySortingTester:
     def __init__(self):
