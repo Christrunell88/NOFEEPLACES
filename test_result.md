@@ -326,7 +326,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Accessibility Enhancements Implementation"
+    - "Header WordMark NYC RENTAL PLATFORM Removal Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
