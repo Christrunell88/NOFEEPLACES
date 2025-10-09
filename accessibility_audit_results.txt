@@ -32,9 +32,6 @@ Missing Aria Labels:
   - /app/frontend/src/StaticPages.js: Button without aria-label: <button
               onClick={() =>...
   - /app/frontend/src/FeedbackModal.js: Button without aria-label: <button
-              onClick={onClose}
-          ...
-  - /app/frontend/src/FeedbackModal.js: Button without aria-label: <button
                 type="button"
             ...
 
