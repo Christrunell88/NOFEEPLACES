@@ -1,0 +1,1093 @@
+{
+  "pricing_issues": [
+    {
+      "id": "ffd583c1-1efa-4728-a0b9-25b2041ed473",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "current_price": 6890,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $6890 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "7ba47aaf-9ead-42e6-8241-e9356ee8a894",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "current_price": 9345,
+      "expected_range": [
+        15500,
+        32000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 3,
+      "severity": "medium",
+      "issue": "Price $9345 too low for Hell's Kitchen 3br"
+    },
+    {
+      "id": "7bd4bb62-cbdd-4b22-b848-1d37d13e15e5",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "current_price": 3295,
+      "expected_range": [
+        4500,
+        7500
+      ],
+      "neighborhood": "Financial District",
+      "bedrooms": 0,
+      "severity": "medium",
+      "issue": "Price $3295 too low for Financial District studio"
+    },
+    {
+      "id": "c0b34111-3ff3-43e2-a623-89f73df76105",
+      "title": "Spacious 1BR in Williamsburg - No Fee, Owner Paid",
+      "current_price": 3695,
+      "expected_range": [
+        4800,
+        8500
+      ],
+      "neighborhood": "Williamsburg",
+      "bedrooms": 1,
+      "severity": "medium",
+      "issue": "Price $3695 too low for Williamsburg 1br"
+    },
+    {
+      "id": "2cd3286c-c5d0-476e-9cb5-1d338d0d7848",
+      "title": "Luxury 1BR in Midtown East - No Broker Fee, OP Commission",
+      "current_price": 4595,
+      "expected_range": [
+        7000,
+        14000
+      ],
+      "neighborhood": "Midtown East",
+      "bedrooms": 1,
+      "severity": "medium",
+      "issue": "Price $4595 too low for Midtown East 1br"
+    },
+    {
+      "id": "749e3d38-812f-41dc-ad8e-18868fffadfc",
+      "title": "Modern 2BR in Park Slope - No Fee, Owner Paid Commission",
+      "current_price": 4850,
+      "expected_range": [
+        6500,
+        13000
+      ],
+      "neighborhood": "Park Slope",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $4850 too low for Park Slope 2br"
+    },
+    {
+      "id": "2dd5163a-4d4c-4331-9ff5-b8ddd8c46642",
+      "title": "Luxury 3BR in Upper East Side - No Broker Fee, OP Commission",
+      "current_price": 7495,
+      "expected_range": [
+        18000,
+        40000
+      ],
+      "neighborhood": "Upper East Side",
+      "bedrooms": 3,
+      "severity": "high",
+      "issue": "Price $7495 too low for Upper East Side 3br"
+    },
+    {
+      "id": "c7367b41-4dd0-4ab7-9962-8575c0b502d5",
+      "title": "Penthouse 3BR in DUMBO - Owner Commission Covered",
+      "current_price": 8295,
+      "expected_range": [
+        12000,
+        25000
+      ],
+      "neighborhood": "DUMBO",
+      "bedrooms": 3,
+      "severity": "medium",
+      "issue": "Price $8295 too low for DUMBO 3br"
+    },
+    {
+      "id": "8c93a9ca-9bba-4dd6-93d6-ad2e23c61382",
+      "title": "Elegant 2BR 1BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 5975,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $5975 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "eedde32d-146a-4747-918b-3fccf992639a",
+      "title": "Luxury 2BR 1BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 5998,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $5998 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "32f3d756-30d1-4314-ba3f-285c94ca4cd7",
+      "title": "Expansive 2BR 2BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 6850,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $6850 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "3dd81635-fbe7-494d-b34a-12e1b1c0755c",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "current_price": 6890,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $6890 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "0ec1c535-6163-433c-96db-1127b7f98acd",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "current_price": 9345,
+      "expected_range": [
+        15500,
+        32000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 3,
+      "severity": "medium",
+      "issue": "Price $9345 too low for Hell's Kitchen 3br"
+    },
+    {
+      "id": "ec3caf06-a39b-4d2c-a651-a0bc738066a8",
+      "title": "Elegant 2BR 1BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 5975,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $5975 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "b15dcfc5-9fbe-4829-9ae6-4ccc47672da2",
+      "title": "Luxury 2BR 1BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 5998,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $5998 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "233ff2ee-27b1-4967-bb88-f24dd22a8685",
+      "title": "Expansive 2BR 2BA at Mercedes House - Hell's Kitchen No Fee",
+      "current_price": 6850,
+      "expected_range": [
+        9000,
+        19000
+      ],
+      "neighborhood": "Hell's Kitchen",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $6850 too low for Hell's Kitchen 2br"
+    },
+    {
+      "id": "df1f0911-b168-4cdf-b009-0e0bd1da9060",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "current_price": 3295,
+      "expected_range": [
+        4500,
+        7500
+      ],
+      "neighborhood": "Financial District",
+      "bedrooms": 0,
+      "severity": "medium",
+      "issue": "Price $3295 too low for Financial District studio"
+    },
+    {
+      "id": "62a80b07-578a-4401-8596-f18275dc0bc9",
+      "title": "Spacious 1BR in Williamsburg - No Fee, Owner Paid",
+      "current_price": 3695,
+      "expected_range": [
+        4800,
+        8500
+      ],
+      "neighborhood": "Williamsburg",
+      "bedrooms": 1,
+      "severity": "medium",
+      "issue": "Price $3695 too low for Williamsburg 1br"
+    },
+    {
+      "id": "5218eac5-6145-466e-be0f-ceacc6ed5d30",
+      "title": "Luxury 1BR in Midtown East - No Broker Fee, OP Commission",
+      "current_price": 4595,
+      "expected_range": [
+        7000,
+        14000
+      ],
+      "neighborhood": "Midtown East",
+      "bedrooms": 1,
+      "severity": "medium",
+      "issue": "Price $4595 too low for Midtown East 1br"
+    },
+    {
+      "id": "f94b871b-4d73-4877-ba37-2dc2d902b613",
+      "title": "Modern 2BR in Park Slope - No Fee, Owner Paid Commission",
+      "current_price": 4850,
+      "expected_range": [
+        6500,
+        13000
+      ],
+      "neighborhood": "Park Slope",
+      "bedrooms": 2,
+      "severity": "medium",
+      "issue": "Price $4850 too low for Park Slope 2br"
+    },
+    {
+      "id": "95c52643-9fd6-41d0-b551-d51d1575c618",
+      "title": "Luxury 3BR in Upper East Side - No Broker Fee, OP Commission",
+      "current_price": 7495,
+      "expected_range": [
+        18000,
+        40000
+      ],
+      "neighborhood": "Upper East Side",
+      "bedrooms": 3,
+      "severity": "high",
+      "issue": "Price $7495 too low for Upper East Side 3br"
+    },
+    {
+      "id": "6e5b0947-991d-4190-a402-88a964510833",
+      "title": "Penthouse 3BR in DUMBO - Owner Commission Covered",
+      "current_price": 8295,
+      "expected_range": [
+        12000,
+        25000
+      ],
+      "neighborhood": "DUMBO",
+      "bedrooms": 3,
+      "severity": "medium",
+      "issue": "Price $8295 too low for DUMBO 3br"
+    }
+  ],
+  "fictional_listings": [
+    {
+      "id": "583b1ef7-6318-46f2-9135-1c2129d71070",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "3691f1d0-2b06-45d3-ac77-5204342692ec",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "f3dcc83c-6c16-4803-9a06-c1d646101438",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "85577753-67b4-4174-9bc2-b32209a87278",
+      "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6210ee3c-f016-45d0-898f-466a47c5a7db",
+      "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "10bcae28-2870-4739-9cdb-95d03d673b4e",
+      "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "e678d2b3-efc0-4b2f-9e79-959f753a6990",
+      "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "ffd583c1-1efa-4728-a0b9-25b2041ed473",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "a28fc84c-a8e2-4eb9-a2f8-ade2fc691277",
+      "title": "Spectacular 2BR/2BA with Hudson River Views - Gotham West",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "7ba47aaf-9ead-42e6-8241-e9356ee8a894",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "8b3df57d-5ebb-426f-ad4e-662ab6a5b529",
+      "title": "Studio at Waterline Square - Hudson River Views No Fee",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6d3bb6eb-6d83-4f4d-8373-0ca467dd6c22",
+      "title": "Spacious 1BR at Waterline Square - Modern Luxury Living",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "472c5819-d5d8-42fd-be58-5edf183765c0",
+      "title": "Premium 1BR with Den - Waterline Square Upper West Side",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "d09f06fc-7efc-40c3-bb7b-a4ff46d10c52",
+      "title": "Luxury 2BR/2BA at Waterline Square - River Views",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "1630f16e-ef90-4c18-8fc5-57c38d2e7f69",
+      "title": "Stunning 2BR Corner Unit - Waterline Square Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "44212de1-ff34-44ae-8b6e-702506ee3b9c",
+      "title": "Luxurious 2BR/2.5BA Duplex Style - Waterline Square Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "ee2578cb-1a33-4162-8c83-c5ffa85b1c8d",
+      "title": "Spectacular 3BR/2.5BA - Waterline Square Luxury Residence",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "78f94279-21cc-4bb5-82d1-396715399c4d",
+      "title": "Grand 4BR/3.5BA Family Residence - Waterline Square Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "de818d66-27e2-40fb-800d-f2ca0cd3dadd",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "925e447a-97ea-4173-91f6-6f869e96a0e4",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "96c91f44-d945-481f-b31f-986544050d23",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "8967262c-17ba-4734-99da-de7f49cb3925",
+      "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "c15133c3-421b-432f-8062-61a65eca643c",
+      "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "99c2525b-796b-42df-bed9-203db465b06a",
+      "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "5f498a7e-2e51-4a2f-bbcd-d358f7e24fa1",
+      "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "3dd81635-fbe7-494d-b34a-12e1b1c0755c",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6f944a48-eb58-4360-befd-4d09e66ca397",
+      "title": "Spectacular 2BR/2BA with Hudson River Views - Gotham West",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "0ec1c535-6163-433c-96db-1127b7f98acd",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "data_source": "",
+      "fictional_score": 2,
+      "indicators": [
+        2,
+        6
+      ],
+      "severity": "medium"
+    }
+  ],
+  "image_mismatches": [],
+  "address_issues": [
+    {
+      "id": "583b1ef7-6318-46f2-9135-1c2129d71070",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "3691f1d0-2b06-45d3-ac77-5204342692ec",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "f3dcc83c-6c16-4803-9a06-c1d646101438",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "85577753-67b4-4174-9bc2-b32209a87278",
+      "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6210ee3c-f016-45d0-898f-466a47c5a7db",
+      "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "10bcae28-2870-4739-9cdb-95d03d673b4e",
+      "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "e678d2b3-efc0-4b2f-9e79-959f753a6990",
+      "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "ffd583c1-1efa-4728-a0b9-25b2041ed473",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "a28fc84c-a8e2-4eb9-a2f8-ade2fc691277",
+      "title": "Spectacular 2BR/2BA with Hudson River Views - Gotham West",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "7ba47aaf-9ead-42e6-8241-e9356ee8a894",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "8b3df57d-5ebb-426f-ad4e-662ab6a5b529",
+      "title": "Studio at Waterline Square - Hudson River Views No Fee",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6d3bb6eb-6d83-4f4d-8373-0ca467dd6c22",
+      "title": "Spacious 1BR at Waterline Square - Modern Luxury Living",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "472c5819-d5d8-42fd-be58-5edf183765c0",
+      "title": "Premium 1BR with Den - Waterline Square Upper West Side",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "d09f06fc-7efc-40c3-bb7b-a4ff46d10c52",
+      "title": "Luxury 2BR/2BA at Waterline Square - River Views",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "1630f16e-ef90-4c18-8fc5-57c38d2e7f69",
+      "title": "Stunning 2BR Corner Unit - Waterline Square Premium",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "44212de1-ff34-44ae-8b6e-702506ee3b9c",
+      "title": "Luxurious 2BR/2.5BA Duplex Style - Waterline Square Premium",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "ee2578cb-1a33-4162-8c83-c5ffa85b1c8d",
+      "title": "Spectacular 3BR/2.5BA - Waterline Square Luxury Residence",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "78f94279-21cc-4bb5-82d1-396715399c4d",
+      "title": "Grand 4BR/3.5BA Family Residence - Waterline Square Premium",
+      "address": "",
+      "neighborhood": "Upper West Side",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "7bd4bb62-cbdd-4b22-b848-1d37d13e15e5",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "address": "125 Cedar Street, Financial District, Manhattan, NY 10006",
+      "neighborhood": "Financial District",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "893f2e17-019e-4b1e-bdec-93dfe50be1b4",
+      "title": "Luxury 2BR in Battery Park City - Owner Commission Paid",
+      "address": "200 Rector Place, Battery Park City, Manhattan, NY 10280",
+      "neighborhood": "Battery Park City",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "de818d66-27e2-40fb-800d-f2ca0cd3dadd",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "925e447a-97ea-4173-91f6-6f869e96a0e4",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "96c91f44-d945-481f-b31f-986544050d23",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "8967262c-17ba-4734-99da-de7f49cb3925",
+      "title": "Sophisticated 1BR at Gotham West - Hell's Kitchen No Fee Luxury",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "c15133c3-421b-432f-8062-61a65eca643c",
+      "title": "Elegant 1BR with Modern Finishes - Gotham West Hell's Kitchen",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "99c2525b-796b-42df-bed9-203db465b06a",
+      "title": "Spacious 1BR with River Views - Gotham West Manhattan Premium",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "5f498a7e-2e51-4a2f-bbcd-d358f7e24fa1",
+      "title": "High-Floor 1BR with Manhattan Skyline Views - Gotham West",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "3dd81635-fbe7-494d-b34a-12e1b1c0755c",
+      "title": "Luxury 2BR/2BA Corner Unit - Gotham West Hell's Kitchen",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "6f944a48-eb58-4360-befd-4d09e66ca397",
+      "title": "Spectacular 2BR/2BA with Hudson River Views - Gotham West",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "0ec1c535-6163-433c-96db-1127b7f98acd",
+      "title": "Presidential 3BR/2BA Penthouse Style - Gotham West Luxury",
+      "address": "",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "df1f0911-b168-4cdf-b009-0e0bd1da9060",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "address": "125 Cedar Street, Financial District, Manhattan, NY 10006",
+      "neighborhood": "Financial District",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    },
+    {
+      "id": "a069d64c-7845-49f6-bdab-eab5ef949737",
+      "title": "Luxury 2BR in Battery Park City - Owner Commission Paid",
+      "address": "200 Rector Place, Battery Park City, Manhattan, NY 10280",
+      "neighborhood": "Battery Park City",
+      "borough": "Manhattan",
+      "issues": [
+        "Manhattan apartment missing valid Manhattan ZIP code"
+      ],
+      "severity": "medium"
+    }
+  ],
+  "data_inconsistencies": [
+    {
+      "id": "583b1ef7-6318-46f2-9135-1c2129d71070",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "3691f1d0-2b06-45d3-ac77-5204342692ec",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "f3dcc83c-6c16-4803-9a06-c1d646101438",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "8b3df57d-5ebb-426f-ad4e-662ab6a5b529",
+      "title": "Studio at Waterline Square - Hudson River Views No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "7bd4bb62-cbdd-4b22-b848-1d37d13e15e5",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "69efdb80-a05b-4718-b99c-3b697b8161f5",
+      "title": "Luxury Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "0f09adf6-b80b-4503-86dc-c35184cbecda",
+      "title": "Alcove Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "09be4326-b492-4afa-9c34-18604c5adc35",
+      "title": "Contemporary Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "3b314918-6e5b-472f-aef2-c014ce8695f3",
+      "title": "Bright Alcove Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "de818d66-27e2-40fb-800d-f2ca0cd3dadd",
+      "title": "Luxury Alcove Studio at Gotham West - Hell's Kitchen Premium",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "925e447a-97ea-4173-91f6-6f869e96a0e4",
+      "title": "Bright Studio at Gotham West - No Fee Hell's Kitchen Living",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "96c91f44-d945-481f-b31f-986544050d23",
+      "title": "Premium Alcove Studio - Gotham West Luxury with Hudson Views",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "25712d7f-2290-45cb-bc1d-7e0abeb63d5a",
+      "title": "Luxury Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "5a3b8f9e-3558-46e5-8b9b-f06344969edc",
+      "title": "Alcove Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "832d77f0-2676-4944-a12a-00b9976ea0d0",
+      "title": "Contemporary Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "2abb8f1e-0205-4e2f-a08d-969357ee3745",
+      "title": "Bright Alcove Studio at Mercedes House - Hell's Kitchen No Fee",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    },
+    {
+      "id": "df1f0911-b168-4cdf-b009-0e0bd1da9060",
+      "title": "No Fee Studio in Financial District - Owner Paid Commission",
+      "issues": [
+        "Missing bedrooms"
+      ],
+      "severity": "low"
+    }
+  ]
+}
