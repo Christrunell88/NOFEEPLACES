@@ -148,8 +148,12 @@ class ImprovedRentalScraper:
         price_range = building_data['price_ranges'][apt_type]
         price = random.randint(price_range[0], price_range[1])
         
-        # Generate unit details
+        # Generate unit details  
         bedrooms = 0 if apt_type == 'studio' else int(apt_type[0])
+        
+        # Ensure bedrooms is properly set for studios
+        if 'studio' in apt_type.lower():
+            bedrooms = 0
         bathrooms = 1.0 if apt_type == 'studio' else random.choice([1.0, 1.5, 2.0])
         sqft = self.calculate_realistic_sqft(bedrooms)
         
