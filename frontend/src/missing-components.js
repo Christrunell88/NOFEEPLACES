@@ -499,6 +499,23 @@ export const AuthModal = ({ onClose }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { login, register } = useAuth();
+  
+  // Focus management for modal
+  useEffect(() => {
+    // Focus the first focusable element when modal opens
+    const firstFocusable = document.querySelector('[role="dialog"] button, [role="dialog"] input');
+    if (firstFocusable) {
+      firstFocusable.focus();
+    }
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
