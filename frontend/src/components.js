@@ -249,6 +249,7 @@ export const NewsletterExitPopup = () => {
         <button
           onClick={() => setShowPopup(false)}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+          aria-label="Close newsletter signup popup"
         >
           ×
         </button>
