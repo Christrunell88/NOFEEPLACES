@@ -49,6 +49,7 @@ const ConversionHero = ({ setShowAuthModal }) => {
             <button
               onClick={() => setShowAuthModal && setShowAuthModal(true)}
               className="group bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 px-10 py-5 rounded-2xl text-lg font-semibold transition-all duration-300 backdrop-blur-sm"
+              aria-label="Sign up to receive apartment alerts and save favorites"
             >
               <div className="flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
