@@ -124,7 +124,7 @@ export const WhyNoFeePage = () => {
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Why No Fee Apartments?</h1>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Why No Fee Apartments?</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Understanding the traditional broker system and how we're changing the game.
           </p>
