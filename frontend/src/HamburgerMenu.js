@@ -208,6 +208,7 @@ const HamburgerMenu = () => {
                         closeMenu();
                       }}
                       className="flex items-center space-x-3 w-full text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-2.5 px-3 rounded-lg group"
+                      aria-label="Sign out of your account"
                     >
                       <div className="w-4 h-4 text-gray-500 group-hover:text-red-600">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
