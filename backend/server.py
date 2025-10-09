@@ -2218,7 +2218,38 @@ async def admin_panel():
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
-# Admin endpoint to fix Central Park West issue
+# Admin endpoint to remove all generated/fake listings
+@api_router.post("/admin/remove-all-generated-listings")
+async def remove_all_generated_listings():
+    """
+    Remove all generated/fake apartment listings
+    Clears database to show only authentic apartments
+    """
+    try:
+        # Count current apartments
+        current_count = await db.apartments.count_documents({})
+        
+        # Remove all apartments (they are all generated/fake based on audit)
+        result = await db.apartments.delete_many({})
+        
+        logger.info(f"Removed {result.deleted_count} generated/fake apartments")
+        
+        return {
+            'status': 'success',
+            'message': f'Removed all {result.deleted_count} generated/fake apartments',
+            'deleted_count': result.deleted_count,
+            'remaining_count': await db.apartments.count_documents({})
+        }
+            
+    except Exception as e:
+        logger.error(f"Error removing generated listings: {e}")
+        return {
+            'status': 'error',
+            'message': f'Error removing listings: {str(e)}',
+            'deleted_count': 0
+        }
+
+# Admin endpoint to fix Central Park West issue  
 @api_router.post("/admin/fix-central-park-west")
 async def fix_central_park_west():
     """
