@@ -80,9 +80,9 @@ export const WordMark = ({
   const config = sizeConfigs[size];
   const themeConfig = themeConfigs[theme];
   const defaultTaglines = {
-    dark: 'NYC RENTAL PLATFORM',
-    light: 'NYC RENTAL PLATFORM', 
-    white: 'NYC RENTAL PLATFORM'
+    dark: '',
+    light: '', 
+    white: ''
   };
 
   const displayTagline = tagline || defaultTaglines[theme];
