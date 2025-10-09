@@ -88,6 +88,7 @@ const FeedbackModal = ({ isOpen, onClose }) => {
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 text-xl font-bold"
+              aria-label="Close feedback modal"
             >
               ×
             </button>
