@@ -146,9 +146,9 @@ class InventoryPreservingFix:
         # Get base price range
         base_range = None
         
-        if borough in self.pricing_guidelines:
+        if borough and borough in self.pricing_guidelines:
             for hood_name, ranges in self.pricing_guidelines[borough].items():
-                if hood_name.lower() in neighborhood.lower():
+                if neighborhood and hood_name.lower() in neighborhood.lower():
                     base_range = ranges.get(bed_type)
                     break
             
