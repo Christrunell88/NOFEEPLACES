@@ -137,11 +137,11 @@ export const WordMark = ({
 
 // Predefined variants for common use cases
 export const HeaderWordMark = (props) => (
-  <WordMark size="medium" theme="dark" tagline="NYC RENTAL PLATFORM" {...props} />
+  <WordMark size="medium" theme="dark" tagline="" {...props} />
 );
 
 export const FooterWordMark = (props) => (
-  <WordMark size="small" theme="dark" tagline="NYC RENTAL PLATFORM" {...props} />
+  <WordMark size="small" theme="dark" tagline="" {...props} />
 );
 
 export const HeroWordMark = (props) => (
