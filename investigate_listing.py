@@ -24,12 +24,17 @@ def investigate_central_park_west():
     
     if not apartments:
         print("No Central Park West apartments found. Searching for similar...")
-        apartments = list(db.apartments.find({
-            '$or': [
-                {'neighborhood': 'Upper West Side'},
-                {'title': {'$regex': 'Studio', '$options': 'i'}}
-            ]
-        }).sort('price', 1).limit(10))
+        
+        # First check total apartment count
+        total_count = db.apartments.count_documents({})
+        print(f"Total apartments in database: {total_count}")
+        
+        # Get some sample apartments
+        apartments = list(db.apartments.find({}).sort('price', 1).limit(10))
+        
+        if not apartments:
+            print("No apartments found at all!")
+            return
     
     print(f"Found {len(apartments)} apartments")
     
