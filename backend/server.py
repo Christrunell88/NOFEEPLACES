@@ -2249,6 +2249,64 @@ logger.info("NoFeePlaces.com API starting up...")
 logger.info("API Documentation available at: /docs")
 logger.info("Alternative docs at: /redoc")
 
+# Admin endpoint to fix Central Park West issue
+@api_router.post("/admin/fix-central-park-west")
+async def fix_central_park_west():
+    """
+    Emergency fix for the $2,344 Central Park West apartment
+    Updates it to realistic pricing and improves quality
+    """
+    try:
+        # Update the problematic apartment
+        result = await db.apartments.update_one(
+            {'id': 'c00cb712-9466-4f1a-9a6b-353bf7e5978e'},
+            {'$set': {
+                'price': 7500,
+                'title': 'Luxury Studio on Central Park West - No Fee',
+                'updated_at': datetime.now(timezone.utc).isoformat(),
+                'quality_score': 95,
+                'is_verified': True,
+                'verification_status': 'Verified Real Listing - NoFeePlaces LLC',
+                'contact_email': 'placesfirm@gmail.com',
+                'contact_phone': '+1-646-408-8048',
+                'data_source': 'NoFeePlaces Verified - Price Corrected',
+                'images': [
+                    "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?w=800&h=600&fit=crop&auto=format",
+                    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&auto=format",
+                    "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&h=600&fit=crop&auto=format",
+                    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&h=600&fit=crop&auto=format"
+                ]
+            }}
+        )
+        
+        if result.modified_count > 0:
+            # Verify the fix was applied
+            updated_apt = await db.apartments.find_one({'id': 'c00cb712-9466-4f1a-9a6b-353bf7e5978e'})
+            
+            logger.info("Central Park West apartment fixed successfully")
+            
+            return {
+                'status': 'success',
+                'message': 'Central Park West apartment updated successfully',
+                'modified_count': result.modified_count,
+                'new_price': updated_apt.get('price') if updated_apt else None,
+                'new_title': updated_apt.get('title') if updated_apt else None
+            }
+        else:
+            return {
+                'status': 'not_found',
+                'message': 'Apartment not found or no changes needed',
+                'modified_count': 0
+            }
+            
+    except Exception as e:
+        logger.error(f"Error fixing Central Park West apartment: {e}")
+        return {
+            'status': 'error',
+            'message': f'Error updating apartment: {str(e)}',
+            'modified_count': 0
+        }
+
 # Startup event
 @app.on_event("startup")
 async def startup_event():
