@@ -852,6 +852,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
                 <button
                   onClick={() => setCurrentImageIndex(prev => prev === 0 ? apartment.images.length - 1 : prev - 1)}
                   className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-75"
+                  aria-label="Previous apartment image"
                 >
                   ‹
                 </button>
