@@ -2218,6 +2218,60 @@ async def admin_panel():
 async def health_check():
     return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}
 
+# Admin endpoint to remove apartments with fake images
+@api_router.post("/admin/remove-fake-image-apartments")
+async def remove_fake_image_apartments():
+    """
+    Remove apartments with fake/stock images from production
+    Keep only apartments with real photos from verified sources
+    """
+    try:
+        # Fake image indicators
+        fake_indicators = ['unsplash.com', 'pexels.com', 'example.com', 'placeholder', 'stock']
+        
+        # Count apartments with fake images
+        fake_image_query = {
+            'images': {
+                '$elemMatch': {
+                    '$regex': '|'.join(fake_indicators),
+                    '$options': 'i'
+                }
+            }
+        }
+        
+        fake_count = await db.apartments.count_documents(fake_image_query)
+        
+        # Remove apartments with fake images
+        result = await db.apartments.delete_many(fake_image_query)
+        
+        # Also remove specific problematic ones like "Studio in Sunnyside"
+        sunnyside_result = await db.apartments.delete_many({
+            'title': {'$regex': 'Studio.*Sunnyside', '$options': 'i'},
+            'price': 1800
+        })
+        
+        total_removed = result.deleted_count + sunnyside_result.deleted_count
+        remaining_count = await db.apartments.count_documents({})
+        
+        logger.info(f"Removed {total_removed} apartments with fake images")
+        
+        return {
+            'status': 'success',
+            'message': f'Removed {total_removed} apartments with fake/stock images',
+            'fake_image_removed': result.deleted_count,
+            'sunnyside_removed': sunnyside_result.deleted_count,
+            'total_removed': total_removed,
+            'remaining_count': remaining_count
+        }
+            
+    except Exception as e:
+        logger.error(f"Error removing fake image apartments: {e}")
+        return {
+            'status': 'error',
+            'message': f'Error removing apartments: {str(e)}',
+            'removed_count': 0
+        }
+
 # Admin endpoint to remove all generated/fake listings
 @api_router.post("/admin/remove-all-generated-listings")
 async def remove_all_generated_listings():
