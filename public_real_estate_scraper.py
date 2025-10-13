@@ -442,12 +442,16 @@ class PublicRealEstateScraper:
         return all_listings
     
     def save_to_json(self, filename: str = "listings.json") -> bool:
-        """Save scraped listings to JSON file"""
+        """Save scraped listings to JSON file - REAL DATA ONLY"""
         try:
+            if len(self.all_listings) == 0:
+                logger.warning(f"\n⚠️  No listings to save - {filename} not created")
+                return False
+            
             with open(filename, 'w', encoding='utf-8') as f:
                 json.dump(self.all_listings, f, indent=2, ensure_ascii=False)
             
-            logger.info(f"\n💾 Saved {len(self.all_listings)} listings to {filename}")
+            logger.info(f"\n💾 Saved {len(self.all_listings)} REAL listings to {filename}")
             return True
             
         except Exception as e:
