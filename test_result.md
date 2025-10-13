@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Fix contact information rendering on individual apartment detail pages. The contact email (placesfirm@gmail.com) and phone number (+1-646-408-8048) should be visible directly on the apartment detail page."
+user_problem_statement: "Build personal admin login system for placesfirm@gmail.com with full dashboard to manage listings, users, feedback, analytics, and newsletter subscribers. Admin should have exclusive access via /admin login page."
 
 frontend:
   - task: "Contact Information Display on Apartment Detail Page"
