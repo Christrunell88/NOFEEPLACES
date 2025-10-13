@@ -13,6 +13,24 @@ const AdminDashboard = () => {
   const [feedback, setFeedback] = useState([]);
   const [newsletter, setNewsletter] = useState([]);
   const [editingApartment, setEditingApartment] = useState(null);
+  
+  // New listing form state
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [uploadingImages, setUploadingImages] = useState(false);
+  const [creatingListing, setCreatingListing] = useState(false);
+  const [newListing, setNewListing] = useState({
+    title: '',
+    address: '',
+    neighborhood: '',
+    borough: '',
+    price: '',
+    bedrooms: '',
+    bathrooms: '',
+    sqft: '',
+    description: '',
+    available: true
+  });
+  
   const navigate = useNavigate();
 
   // Check admin authentication
