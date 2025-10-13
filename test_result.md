@@ -102,7 +102,23 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement social login integration (Facebook and Apple Sign-In) alongside existing Google OAuth system for NoFeePlaces.com rental platform"
+user_problem_statement: "Fix contact information rendering on individual apartment detail pages. The contact email (placesfirm@gmail.com) and phone number (+1-646-408-8048) should be visible directly on the apartment detail page."
+
+frontend:
+  - task: "Contact Information Display on Apartment Detail Page"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported that contact information (email and phone) is not rendering on individual apartment detail pages, even though data exists in backend and frontend code has display logic."
+        - working: true
+          agent: "main"
+          comment: "CONTACT INFORMATION RENDERING FIX COMPLETED: Identified root cause - the ApartmentDetails component (used for individual apartment pages) was missing the Contact Information section, while the ApartmentDetailsModal (popup) had it. Added comprehensive Contact Information section to ApartmentDetails component with: ✅ Email display with mailto link (placesfirm@gmail.com), ✅ Phone display with tel link (+1-646-408-8048), ✅ Company name (NoFeePlaces LLC), ✅ Professional purple-themed design matching site style, ✅ Icons and labels for each contact method, ✅ 'Send Message About This Apartment' button still available. Visual testing confirms all contact details are now prominently displayed on apartment detail pages. The section appears in a purple box with clear labels and clickable links for email and phone."
 
 frontend:
 frontend:
