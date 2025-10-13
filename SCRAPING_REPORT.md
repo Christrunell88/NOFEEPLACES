@@ -2,6 +2,7 @@
 
 ## 📅 Date: October 13, 2025
 ## 🎯 Objective: Scrape rental listings from Zumper, Apartments.com, and Trulia
+## ⚠️ **REAL DATA ONLY - NO MOCK/SAMPLE DATA**
 
 ---
 
