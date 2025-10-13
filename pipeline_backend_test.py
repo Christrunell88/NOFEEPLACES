@@ -16,7 +16,7 @@ import time
 class DataPipelineTestSuite:
     def __init__(self):
         # Get backend URL from environment
-        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://nestio-restore.preview.emergentagent.com')
+        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://datarectify.preview.emergentagent.com')
         self.api_base = f"{self.backend_url}/api"
         
         # Pipeline paths

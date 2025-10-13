@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://nestio-restore.preview.emergentagent.com/api"
+BASE_URL = "https://datarectify.preview.emergentagent.com/api"
 
 class FeedbackAPITester:
     def __init__(self):
@@ -73,7 +73,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                     "priority": "high",
                     "timestamp": datetime.now().isoformat(),
-                    "url": "https://nestio-restore.preview.emergentagent.com/"
+                    "url": "https://datarectify.preview.emergentagent.com/"
                 }
             },
             {
@@ -87,7 +87,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                     "priority": "medium",
                     "timestamp": datetime.now().isoformat(),
-                    "url": "https://nestio-restore.preview.emergentagent.com/"
+                    "url": "https://datarectify.preview.emergentagent.com/"
                 }
             },
             {
@@ -101,7 +101,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1",
                     "priority": "medium",
                     "timestamp": datetime.now().isoformat(),
-                    "url": "https://nestio-restore.preview.emergentagent.com/"
+                    "url": "https://datarectify.preview.emergentagent.com/"
                 }
             },
             {
@@ -115,7 +115,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0",
                     "priority": "low",
                     "timestamp": datetime.now().isoformat(),
-                    "url": "https://nestio-restore.preview.emergentagent.com/apartment/123"
+                    "url": "https://datarectify.preview.emergentagent.com/apartment/123"
                 }
             },
             {
@@ -129,7 +129,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                     "priority": "medium",
                     "timestamp": datetime.now().isoformat(),
-                    "url": "https://nestio-restore.preview.emergentagent.com/faq"
+                    "url": "https://datarectify.preview.emergentagent.com/faq"
                 }
             }
         ]
@@ -312,7 +312,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
                     "priority": "high",
                     "timestamp": "2024-01-15T14:30:25.123Z",
-                    "url": "https://nestio-restore.preview.emergentagent.com/?search=manhattan&min_price=2000&max_price=4000"
+                    "url": "https://datarectify.preview.emergentagent.com/?search=manhattan&min_price=2000&max_price=4000"
                 }
             },
             {
@@ -326,7 +326,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1",
                     "priority": "medium",
                     "timestamp": "2024-01-15T16:45:12.456Z",
-                    "url": "https://nestio-restore.preview.emergentagent.com/apartment/apt-123-chelsea-1br"
+                    "url": "https://datarectify.preview.emergentagent.com/apartment/apt-123-chelsea-1br"
                 }
             },
             {
@@ -340,7 +340,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0",
                     "priority": "low",
                     "timestamp": "2024-01-15T18:20:33.789Z",
-                    "url": "https://nestio-restore.preview.emergentagent.com/blog/hells-kitchen-no-fee-apartments-guide"
+                    "url": "https://datarectify.preview.emergentagent.com/blog/hells-kitchen-no-fee-apartments-guide"
                 }
             },
             {
@@ -354,7 +354,7 @@ class FeedbackAPITester:
                     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
                     "priority": "high",
                     "timestamp": "2024-01-15T20:15:44.012Z",
-                    "url": "https://nestio-restore.preview.emergentagent.com/contact?apartment_id=apt-456-williamsburg-2br"
+                    "url": "https://datarectify.preview.emergentagent.com/contact?apartment_id=apt-456-williamsburg-2br"
                 }
             }
         ]
@@ -405,7 +405,7 @@ class FeedbackAPITester:
             "userAgent": "Mozilla/5.0 (Test) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "priority": "urgent",
             "timestamp": datetime.now().isoformat(),
-            "url": "https://nestio-restore.preview.emergentagent.com/email-test"
+            "url": "https://datarectify.preview.emergentagent.com/email-test"
         }
         
         try:

@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://nestio-restore.preview.emergentagent.com/api"
+BASE_URL = "https://datarectify.preview.emergentagent.com/api"
 
 class HeaderWordMarkVerificationTester:
     def __init__(self):
@@ -288,8 +288,8 @@ class HeaderWordMarkVerificationTester:
         try:
             # Test CORS and basic API accessibility
             headers = {
-                "Origin": "https://nestio-restore.preview.emergentagent.com",
-                "Referer": "https://nestio-restore.preview.emergentagent.com/"
+                "Origin": "https://datarectify.preview.emergentagent.com",
+                "Referer": "https://datarectify.preview.emergentagent.com/"
             }
             
             response = self.make_request("GET", "/apartments", {"limit": 1}, headers=headers)

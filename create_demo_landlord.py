@@ -202,7 +202,7 @@ async def create_demo_landlord():
     print(f"🏠 Demo apartments: {len(demo_apartments)}")
     print(f"📞 Demo inquiries: {len(demo_contacts)}")
     print(f"\n🎯 Dashboard URL:")
-    print(f"   https://nestio-restore.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
+    print(f"   https://datarectify.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
     
     client.close()
 
