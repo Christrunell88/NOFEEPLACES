@@ -2885,3 +2885,101 @@ async def get_all_newsletter_subscribers_admin(
         logger.error(f"Admin get newsletter error: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch newsletter subscribers")
 
+
+
+@app.post("/api/admin/upload-images")
+async def upload_images_admin(
+    files: List[UploadFile] = File(...),
+    admin: dict = Depends(verify_admin_token)
+):
+    """Upload multiple images for apartment listing (admin only)"""
+    try:
+        uploaded_urls = []
+        
+        # Create uploads directory if it doesn't exist
+        uploads_dir = Path('/app/backend/uploads')
+        uploads_dir.mkdir(exist_ok=True)
+        
+        for file in files:
+            # Generate unique filename
+            file_extension = file.filename.split('.')[-1]
+            unique_filename = f"{uuid.uuid4()}.{file_extension}"
+            file_path = uploads_dir / unique_filename
+            
+            # Save file
+            async with aiofiles.open(file_path, 'wb') as f:
+                content = await file.read()
+                await f.write(content)
+            
+            # Generate URL (relative path that will be served by static files)
+            file_url = f"/uploads/{unique_filename}"
+            uploaded_urls.append(file_url)
+        
+        logger.info(f"Admin uploaded {len(uploaded_urls)} images")
+        
+        return {
+            "success": True,
+            "message": f"Uploaded {len(uploaded_urls)} images successfully",
+            "image_urls": uploaded_urls
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin image upload error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to upload images")
+
+@app.post("/api/admin/create-listing")
+async def create_listing_admin(
+    listing_data: dict,
+    admin: dict = Depends(verify_admin_token)
+):
+    """Create new apartment listing (admin only)"""
+    try:
+        # Generate unique ID for the listing
+        listing_id = str(uuid.uuid4())
+        
+        # Prepare apartment document
+        apartment = {
+            "id": listing_id,
+            "title": listing_data.get('title'),
+            "address": listing_data.get('address'),
+            "neighborhood": listing_data.get('neighborhood'),
+            "borough": listing_data.get('borough'),
+            "price": float(listing_data.get('price', 0)),
+            "bedrooms": int(listing_data.get('bedrooms', 0)),
+            "bathrooms": float(listing_data.get('bathrooms', 1)),
+            "sqft": int(listing_data.get('sqft', 0)) if listing_data.get('sqft') else None,
+            "description": listing_data.get('description', ''),
+            "amenities": listing_data.get('amenities', []),
+            "images": listing_data.get('images', []),
+            "contact_email": "placesfirm@gmail.com",
+            "contact_phone": "+1-646-408-8048",
+            "available": listing_data.get('available', True),
+            "featured": listing_data.get('featured', False),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "data_source": "Admin Manual Entry",
+            "is_verified": True,
+            "is_real": True,
+            "lease_terms": listing_data.get('lease_terms', '12 months'),
+            "pet_policy": listing_data.get('pet_policy', 'Ask landlord'),
+            "utilities": listing_data.get('utilities', 'Not specified'),
+            "deposit": listing_data.get('deposit', '1 month rent'),
+            "move_in_date": listing_data.get('move_in_date', 'Flexible')
+        }
+        
+        # Insert into database
+        await db.apartments.insert_one(apartment)
+        
+        logger.info(f"Admin created new listing: {listing_id} - {apartment['title']}")
+        
+        return {
+            "success": True,
+            "message": "Listing created successfully",
+            "listing_id": listing_id,
+            "apartment": apartment
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin create listing error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create listing: {str(e)}")
+
