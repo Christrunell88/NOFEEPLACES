@@ -289,8 +289,12 @@ class PublicRealEstateScraper:
             
             logger.info(f"✅ Extracted {len(listings)} listings from Apartments.com")
             
+        except TimeoutException:
+            logger.error("⏱ Apartments.com scraping timed out (30s limit)")
         except Exception as e:
             logger.error(f"❌ Error scraping Apartments.com: {e}")
+        finally:
+            signal.alarm(0)  # Ensure alarm is cancelled
         
         return listings
     
