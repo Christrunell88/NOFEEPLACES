@@ -15,8 +15,8 @@ import {
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
-// Hero Component with Elegant Apartment Carousel
-export const Hero = () => {
+// Hero Component with Elegant Apartment Carousel and Condensed CTAs
+export const Hero = ({ setShowAuthModal }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     {
@@ -30,7 +30,7 @@ export const Hero = () => {
       style: 'Living Room'
     },
     {
-      url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
+      url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHx8sdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
       alt: 'Elegant bedroom with modern design',
       style: 'Bedroom'
     },
@@ -64,7 +64,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative h-96 overflow-hidden">
+    <section className="relative h-[500px] overflow-hidden">
       {/* Background Image Carousel */}
       <div className="absolute inset-0">
         {heroImages.map((image, index) => (
@@ -82,21 +82,47 @@ export const Hero = () => {
         ))}
       </div>
       
-      {/* Light Overlay - Preserves elegant, bright aesthetic */}
-      <div className="absolute inset-0 bg-black bg-opacity-25"></div>
+      {/* Elegant overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/20 to-black/30"></div>
       
-      {/* Content */}
+      {/* Content with Condensed CTAs */}
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="text-center text-white px-4 max-w-4xl">
-          <p className="text-lg md:text-xl mb-8 text-teal-100 font-light opacity-90">
-            Discover 240+ no-fee apartments and save $3,000+ on broker fees
+          {/* Main Headline */}
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+            <span className="block">Find NYC Apartments</span>
+            <span className="block text-emerald-400">With Zero Fees</span>
+          </h1>
+          
+          {/* Condensed Value Prop */}
+          <p className="text-lg md:text-xl mb-8 text-white font-light opacity-90 max-w-2xl mx-auto">
+            240+ verified no-fee apartments • Save $3,000+ on broker fees
           </p>
-          <button 
-            onClick={scrollToListings}
-            className="bg-teal-500 text-white px-12 py-4 rounded-lg text-lg font-medium hover:bg-teal-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
-          >
-            Explore Premium Listings
-          </button>
+          
+          {/* Condensed CTAs - Just 2 buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <button 
+              onClick={scrollToListings}
+              className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              Browse Apartments
+            </button>
+            
+            {setShowAuthModal && (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="bg-white/20 hover:bg-white/30 text-white border border-white/50 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 backdrop-blur-sm flex items-center"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM4.343 12.343l9.9 9.9M8.5 8.5l9.9 9.9" />
+                </svg>
+                Get Alerts
+              </button>
+            )}
+          </div>
         </div>
       </div>
       
@@ -116,7 +142,6 @@ export const Hero = () => {
                 ? 'bg-white shadow-lg' 
                 : 'bg-white bg-opacity-60 hover:bg-opacity-80'
             }`} />
-            {/* Clean indicator - no tooltip */}
           </button>
         ))}
       </div>
