@@ -2488,6 +2488,256 @@ async def activate_pipeline():
 
 
 # ============================================================================
+# USER AUTHENTICATION ROUTES
+# ============================================================================
+
+# User authentication models
+class UserRegisterRequest(BaseModel):
+    email: str
+    password: str
+    full_name: str
+
+class UserLoginRequest(BaseModel):
+    email: str
+    password: str
+
+class GoogleAuthRequest(BaseModel):
+    token: str
+
+@app.post("/api/auth/register")
+async def register_user(request: UserRegisterRequest):
+    """Register a new user"""
+    try:
+        # Check if user exists
+        existing_user = await db.users.find_one({"email": request.email})
+        if existing_user:
+            raise HTTPException(status_code=400, detail="Email already registered")
+        
+        # Hash password
+        import bcrypt
+        hashed_password = bcrypt.hashpw(request.password.encode('utf-8'), bcrypt.gensalt())
+        
+        # Create user
+        user_id = str(uuid.uuid4())
+        user = {
+            "id": user_id,
+            "email": request.email,
+            "password": hashed_password.decode('utf-8'),
+            "full_name": request.full_name,
+            "provider": "email",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_login": datetime.now(timezone.utc).isoformat(),
+            "is_active": True
+        }
+        
+        await db.users.insert_one(user)
+        
+        # Generate JWT token
+        import jwt
+        token_data = {
+            "user_id": user_id,
+            "email": request.email,
+            "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
+        }
+        
+        access_token = jwt.encode(
+            token_data,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithm="HS256"
+        )
+        
+        logger.info(f"New user registered: {request.email}")
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "id": user_id,
+                "email": request.email,
+                "full_name": request.full_name
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Registration error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Registration failed")
+
+@app.post("/api/auth/login")
+async def login_user(request: UserLoginRequest):
+    """Login user"""
+    try:
+        # Find user
+        user = await db.users.find_one({"email": request.email})
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        # Verify password
+        import bcrypt
+        if not bcrypt.checkpw(request.password.encode('utf-8'), user['password'].encode('utf-8')):
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        
+        # Update last login
+        await db.users.update_one(
+            {"id": user['id']},
+            {"$set": {"last_login": datetime.now(timezone.utc).isoformat()}}
+        )
+        
+        # Generate JWT token
+        import jwt
+        token_data = {
+            "user_id": user['id'],
+            "email": user['email'],
+            "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
+        }
+        
+        access_token = jwt.encode(
+            token_data,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithm="HS256"
+        )
+        
+        logger.info(f"User logged in: {request.email}")
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "id": user['id'],
+                "email": user['email'],
+                "full_name": user.get('full_name')
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Login failed")
+
+# Helper to verify JWT token
+async def get_current_user(request: Request):
+    """Get current user from JWT token"""
+    try:
+        import jwt
+        
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            raise HTTPException(status_code=401, detail="Missing authentication token")
+        
+        token = auth_header.split(' ')[1]
+        
+        payload = jwt.decode(
+            token,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithms=["HS256"]
+        )
+        
+        user_id = payload.get('user_id')
+        user = await db.users.find_one({"id": user_id})
+        
+        if not user:
+            raise HTTPException(status_code=401, detail="User not found")
+        
+        return {
+            "id": user['id'],
+            "email": user['email'],
+            "full_name": user.get('full_name'),
+            "provider": user.get('provider')
+        }
+        
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    except Exception as e:
+        logger.error(f"Token verification error: {str(e)}")
+        raise HTTPException(status_code=401, detail="Authentication failed")
+
+@app.get("/api/auth/me")
+async def get_me(request: Request):
+    """Get current user info"""
+    user = await get_current_user(request)
+    return user
+
+@app.post("/api/auth/google")
+async def google_auth(request: GoogleAuthRequest):
+    """Authenticate with Google"""
+    try:
+        from google.oauth2 import id_token
+        from google.auth.transport import requests
+        
+        # Verify Google token
+        google_client_id = os.environ.get('GOOGLE_CLIENT_ID')
+        if not google_client_id:
+            raise HTTPException(status_code=500, detail="Google auth not configured")
+        
+        idinfo = id_token.verify_oauth2_token(
+            request.token,
+            requests.Request(),
+            google_client_id
+        )
+        
+        email = idinfo['email']
+        name = idinfo.get('name', email.split('@')[0])
+        
+        # Find or create user
+        user = await db.users.find_one({"email": email})
+        
+        if not user:
+            # Create new user
+            user_id = str(uuid.uuid4())
+            user = {
+                "id": user_id,
+                "email": email,
+                "full_name": name,
+                "provider": "google",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "last_login": datetime.now(timezone.utc).isoformat(),
+                "is_active": True
+            }
+            await db.users.insert_one(user)
+            logger.info(f"New Google user created: {email}")
+        else:
+            # Update last login
+            await db.users.update_one(
+                {"id": user['id']},
+                {"$set": {"last_login": datetime.now(timezone.utc).isoformat()}}
+            )
+            logger.info(f"Google user logged in: {email}")
+        
+        # Generate JWT token
+        import jwt
+        token_data = {
+            "user_id": user['id'],
+            "email": user['email'],
+            "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
+        }
+        
+        access_token = jwt.encode(
+            token_data,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithm="HS256"
+        )
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "id": user['id'],
+                "email": user['email'],
+                "full_name": user.get('full_name')
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Google auth error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Google authentication failed: {str(e)}")
+
+# ============================================================================
 # ADMIN ROUTES - Protected endpoints for admin dashboard
 # ============================================================================
 
