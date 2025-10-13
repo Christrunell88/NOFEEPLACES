@@ -150,15 +150,13 @@ class ListingOrganizer:
             return 0
     
     async def clear_existing_scraped_data(self):
-        """Clear existing scraped data to avoid duplicates"""
-        logger.info("\n🧹 Clearing existing scraped data...")
+        """Clear ALL existing data to start fresh with organized structure"""
+        logger.info("\n🧹 Clearing ALL existing apartment data for fresh organization...")
         
-        # Remove existing Mercedes House and Trulia listings
-        result = await self.db.apartments.delete_many({
-            'source': {'$in': ['Trulia', 'Mercedes House NYC']}
-        })
+        # Remove ALL existing apartments
+        result = await self.db.apartments.delete_many({})
         
-        logger.info(f"   Removed {result.deleted_count} existing scraped listings")
+        logger.info(f"   Removed {result.deleted_count} existing apartments")
     
     async def organize_and_insert(self):
         """Main function to organize and insert data"""
