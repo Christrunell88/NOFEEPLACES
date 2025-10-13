@@ -61,7 +61,7 @@ async def verify_database():
                 by_size[size] = []
             by_size[size].append(apt)
         
-        for size, units in sorted(by_size.items()):
+        for size, units in sorted(by_size.items(), key=lambda x: str(x[0]) if x[0] else 'ZZZ'):
             total_images = sum(len(u.get('images', [])) for u in units)
             prices = list(set([u.get('price') for u in units if u.get('price')]))
             price_str = ', '.join(prices) if prices else 'N/A'
