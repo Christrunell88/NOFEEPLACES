@@ -483,29 +483,31 @@ class PublicRealEstateScraper:
 
 
 def main():
-    """Main execution function"""
-    logger.info("🚀 Starting Public Real Estate Scraper")
+    """Main execution function - REAL DATA ONLY"""
+    logger.info("🚀 Starting Public Real Estate Scraper (REAL DATA ONLY)")
     
     scraper = PublicRealEstateScraper()
     
     # Scrape all sites
     listings = scraper.scrape_all_sites()
     
-    # Save to JSON
+    # Save to JSON (only if we have real data)
     scraper.save_to_json("listings.json")
     
     # Print summary
     scraper.print_summary()
     
-    # Print sample listings
+    # Print sample listings (only real data)
     if listings:
-        logger.info("📋 Sample Listings:\n")
+        logger.info("📋 REAL Listings Extracted:\n")
         for i, listing in enumerate(listings[:5], 1):
             logger.info(f"{i}. {listing['title']}")
             logger.info(f"   Address: {listing['address']}")
             logger.info(f"   Price: {listing['price']}")
             logger.info(f"   URL: {listing['url']}")
             logger.info(f"   Source: {listing['source']}\n")
+    else:
+        logger.warning("⚠️  No real listings were extracted from any site")
     
     logger.info("✅ Scraping complete!")
     
