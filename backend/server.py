@@ -2387,6 +2387,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount uploads directory as static files
+uploads_path = Path('/app/backend/uploads')
+uploads_path.mkdir(exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(uploads_path)), name="uploads")
+logger.info(f"Serving static files from: {uploads_path}")
+
 # Configure logging
 logger.info("NoFeePlaces.com API starting up...")
 logger.info("API Documentation available at: /docs")
