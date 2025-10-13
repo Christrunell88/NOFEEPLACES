@@ -350,17 +350,20 @@ class PublicRealEstateScraper:
                     # Extract address
                     address = title  # Trulia often uses address as title
                     
-                    # Only add if we have minimum required data
+                    # Only add if we have minimum required data and not duplicate
                     if title and listing_url:
-                        listing = {
-                            'title': title,
-                            'address': address or 'New York, NY',
-                            'price': price or 'Contact for Price',
-                            'url': listing_url,
-                            'source': 'Trulia'
-                        }
-                        listings.append(listing)
-                        logger.info(f"  ✓ {title} - {price or 'N/A'}")
+                        # Check for duplicates
+                        is_duplicate = any(l['url'] == listing_url for l in listings)
+                        if not is_duplicate:
+                            listing = {
+                                'title': title,
+                                'address': address or 'New York, NY',
+                                'price': price or 'Contact for Price',
+                                'url': listing_url,
+                                'source': 'Trulia'
+                            }
+                            listings.append(listing)
+                            logger.info(f"  ✓ {title} - {price or 'N/A'}")
                 
                 except Exception as e:
                     logger.debug(f"Error parsing Trulia card: {e}")
