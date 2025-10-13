@@ -2479,3 +2479,409 @@ async def activate_pipeline():
             
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+
+# ============================================================================
+# ADMIN ROUTES - Protected endpoints for admin dashboard
+# ============================================================================
+
+# Admin Models
+class AdminLoginRequest(BaseModel):
+    email: str
+    password: str
+
+class AdminLoginResponse(BaseModel):
+    success: bool
+    message: str
+    token: Optional[str] = None
+    admin_email: Optional[str] = None
+
+# Admin authentication helper
+def verify_admin_credentials(email: str, password: str) -> bool:
+    """Verify admin credentials against environment variables"""
+    admin_email = os.environ.get('ADMIN_EMAIL')
+    admin_password = os.environ.get('ADMIN_PASSWORD')
+    return email == admin_email and password == admin_password
+
+@app.post("/api/admin/login", response_model=AdminLoginResponse)
+async def admin_login(request: AdminLoginRequest):
+    """Admin login endpoint"""
+    try:
+        if verify_admin_credentials(request.email, request.password):
+            # Generate admin token (simple JWT with admin flag)
+            import jwt
+            
+            token_data = {
+                "email": request.email,
+                "is_admin": True,
+                "exp": datetime.now(timezone.utc).timestamp() + 86400  # 24 hours
+            }
+            
+            token = jwt.encode(
+                token_data, 
+                os.environ.get('JWT_SECRET', 'default_secret'),
+                algorithm="HS256"
+            )
+            
+            logger.info(f"Admin login successful: {request.email}")
+            
+            return AdminLoginResponse(
+                success=True,
+                message="Admin login successful",
+                token=token,
+                admin_email=request.email
+            )
+        else:
+            logger.warning(f"Failed admin login attempt: {request.email}")
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid admin credentials"
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Admin login error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Admin login failed")
+
+# Admin token verification dependency
+async def verify_admin_token(request: Request):
+    """Dependency to verify admin JWT token"""
+    try:
+        import jwt
+        
+        auth_header = request.headers.get('Authorization')
+        if not auth_header or not auth_header.startswith('Bearer '):
+            raise HTTPException(status_code=401, detail="Missing admin token")
+        
+        token = auth_header.split(' ')[1]
+        
+        payload = jwt.decode(
+            token,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithms=["HS256"]
+        )
+        
+        if not payload.get('is_admin'):
+            raise HTTPException(status_code=403, detail="Not authorized as admin")
+        
+        return payload
+        
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Admin token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
+    except Exception as e:
+        logger.error(f"Admin token verification error: {str(e)}")
+        raise HTTPException(status_code=401, detail="Admin authentication failed")
+
+@app.get("/api/admin/apartments")
+async def get_all_apartments_admin(
+    admin: dict = Depends(verify_admin_token),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=200)
+):
+    """Get all apartments with full details for admin"""
+    try:
+        skip = (page - 1) * limit
+        
+        # Get all apartments with full details
+        apartments_cursor = db.apartments.find({})
+        apartments = await apartments_cursor.skip(skip).limit(limit).to_list(length=limit)
+        
+        # Get total count
+        total_count = await db.apartments.count_documents({})
+        
+        # Format apartments
+        formatted_apartments = []
+        for apt in apartments:
+            apt_dict = {
+                "id": apt.get('id'),
+                "title": apt.get('title'),
+                "address": apt.get('address'),
+                "neighborhood": apt.get('neighborhood'),
+                "borough": apt.get('borough'),
+                "price": apt.get('price'),
+                "bedrooms": apt.get('bedrooms'),
+                "bathrooms": apt.get('bathrooms'),
+                "sqft": apt.get('sqft'),
+                "description": apt.get('description'),
+                "amenities": apt.get('amenities', []),
+                "images": apt.get('images', []),
+                "contact_email": apt.get('contact_email'),
+                "contact_phone": apt.get('contact_phone'),
+                "available": apt.get('available', True),
+                "featured": apt.get('featured', False),
+                "created_at": apt.get('created_at'),
+                "updated_at": apt.get('updated_at'),
+                "data_source": apt.get('data_source'),
+                "is_verified": apt.get('is_verified', False),
+                "is_real": apt.get('is_real', False)
+            }
+            formatted_apartments.append(apt_dict)
+        
+        logger.info(f"Admin retrieved {len(formatted_apartments)} apartments (page {page})")
+        
+        return {
+            "apartments": formatted_apartments,
+            "total": total_count,
+            "page": page,
+            "limit": limit,
+            "total_pages": (total_count + limit - 1) // limit
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin get apartments error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch apartments")
+
+@app.put("/api/admin/apartments/{apartment_id}")
+async def update_apartment_admin(
+    apartment_id: str,
+    apartment_data: dict,
+    admin: dict = Depends(verify_admin_token)
+):
+    """Update apartment details (admin only)"""
+    try:
+        # Add updated timestamp
+        apartment_data['updated_at'] = datetime.now(timezone.utc).isoformat()
+        
+        result = await db.apartments.update_one(
+            {"id": apartment_id},
+            {"$set": apartment_data}
+        )
+        
+        if result.modified_count == 0:
+            raise HTTPException(status_code=404, detail="Apartment not found")
+        
+        logger.info(f"Admin updated apartment: {apartment_id}")
+        
+        return {
+            "success": True,
+            "message": "Apartment updated successfully",
+            "apartment_id": apartment_id
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Admin update apartment error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update apartment")
+
+@app.delete("/api/admin/apartments/{apartment_id}")
+async def delete_apartment_admin(
+    apartment_id: str,
+    admin: dict = Depends(verify_admin_token)
+):
+    """Delete apartment (admin only)"""
+    try:
+        result = await db.apartments.delete_one({"id": apartment_id})
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Apartment not found")
+        
+        logger.info(f"Admin deleted apartment: {apartment_id}")
+        
+        return {
+            "success": True,
+            "message": "Apartment deleted successfully",
+            "apartment_id": apartment_id
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Admin delete apartment error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to delete apartment")
+
+@app.get("/api/admin/users")
+async def get_all_users_admin(
+    admin: dict = Depends(verify_admin_token),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=200)
+):
+    """Get all registered users (admin only)"""
+    try:
+        skip = (page - 1) * limit
+        
+        # Get all users
+        users_cursor = db.users.find({})
+        users = await users_cursor.skip(skip).limit(limit).to_list(length=limit)
+        
+        # Get total count
+        total_count = await db.users.count_documents({})
+        
+        # Format users (exclude sensitive data)
+        formatted_users = []
+        for user in users:
+            user_dict = {
+                "id": user.get('id'),
+                "email": user.get('email'),
+                "full_name": user.get('full_name'),
+                "provider": user.get('provider'),
+                "created_at": user.get('created_at'),
+                "last_login": user.get('last_login'),
+                "is_active": user.get('is_active', True)
+            }
+            formatted_users.append(user_dict)
+        
+        logger.info(f"Admin retrieved {len(formatted_users)} users (page {page})")
+        
+        return {
+            "users": formatted_users,
+            "total": total_count,
+            "page": page,
+            "limit": limit,
+            "total_pages": (total_count + limit - 1) // limit
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin get users error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch users")
+
+@app.get("/api/admin/analytics")
+async def get_admin_analytics(admin: dict = Depends(verify_admin_token)):
+    """Get dashboard analytics (admin only)"""
+    try:
+        # Get counts
+        total_apartments = await db.apartments.count_documents({})
+        available_apartments = await db.apartments.count_documents({"available": True})
+        total_users = await db.users.count_documents({})
+        total_visitors = await db.visitor_tracking.count_documents({})
+        total_feedback = await db.feedback.count_documents({})
+        total_newsletter = await db.newsletter_subscribers.count_documents({})
+        
+        # Get recent activity
+        recent_users = await db.users.find({}).sort("created_at", -1).limit(5).to_list(length=5)
+        recent_feedback = await db.feedback.find({}).sort("timestamp", -1).limit(5).to_list(length=5)
+        
+        # Get price statistics
+        apartments = await db.apartments.find({"available": True}).to_list(length=None)
+        prices = [apt.get('price', 0) for apt in apartments if apt.get('price')]
+        
+        avg_price = sum(prices) / len(prices) if prices else 0
+        min_price = min(prices) if prices else 0
+        max_price = max(prices) if prices else 0
+        
+        logger.info("Admin retrieved analytics dashboard")
+        
+        return {
+            "stats": {
+                "total_apartments": total_apartments,
+                "available_apartments": available_apartments,
+                "total_users": total_users,
+                "total_visitors": total_visitors,
+                "total_feedback": total_feedback,
+                "total_newsletter_subscribers": total_newsletter
+            },
+            "price_stats": {
+                "average_price": round(avg_price, 2),
+                "min_price": min_price,
+                "max_price": max_price
+            },
+            "recent_activity": {
+                "recent_users": [
+                    {
+                        "email": u.get('email'),
+                        "created_at": u.get('created_at'),
+                        "provider": u.get('provider')
+                    } for u in recent_users
+                ],
+                "recent_feedback": [
+                    {
+                        "type": f.get('type'),
+                        "title": f.get('title'),
+                        "timestamp": f.get('timestamp'),
+                        "email": f.get('email')
+                    } for f in recent_feedback
+                ]
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin analytics error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch analytics")
+
+@app.get("/api/admin/feedback")
+async def get_all_feedback_admin(
+    admin: dict = Depends(verify_admin_token),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=200)
+):
+    """Get all feedback submissions (admin only)"""
+    try:
+        skip = (page - 1) * limit
+        
+        feedback_cursor = db.feedback.find({}).sort("timestamp", -1)
+        feedback_list = await feedback_cursor.skip(skip).limit(limit).to_list(length=limit)
+        
+        total_count = await db.feedback.count_documents({})
+        
+        formatted_feedback = []
+        for fb in feedback_list:
+            fb_dict = {
+                "id": fb.get('id'),
+                "type": fb.get('type'),
+                "title": fb.get('title'),
+                "description": fb.get('description'),
+                "email": fb.get('email'),
+                "priority": fb.get('priority'),
+                "timestamp": fb.get('timestamp'),
+                "page": fb.get('page'),
+                "url": fb.get('url')
+            }
+            formatted_feedback.append(fb_dict)
+        
+        logger.info(f"Admin retrieved {len(formatted_feedback)} feedback submissions")
+        
+        return {
+            "feedback": formatted_feedback,
+            "total": total_count,
+            "page": page,
+            "limit": limit,
+            "total_pages": (total_count + limit - 1) // limit
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin get feedback error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch feedback")
+
+@app.get("/api/admin/newsletter")
+async def get_all_newsletter_subscribers_admin(
+    admin: dict = Depends(verify_admin_token),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=200)
+):
+    """Get all newsletter subscribers (admin only)"""
+    try:
+        skip = (page - 1) * limit
+        
+        subscribers_cursor = db.newsletter_subscribers.find({}).sort("subscribed_at", -1)
+        subscribers = await subscribers_cursor.skip(skip).limit(limit).to_list(length=limit)
+        
+        total_count = await db.newsletter_subscribers.count_documents({})
+        
+        formatted_subscribers = []
+        for sub in subscribers:
+            sub_dict = {
+                "id": sub.get('id'),
+                "email": sub.get('email'),
+                "name": sub.get('name'),
+                "subscribed_at": sub.get('subscribed_at'),
+                "source": sub.get('source'),
+                "is_active": sub.get('is_active', True)
+            }
+            formatted_subscribers.append(sub_dict)
+        
+        logger.info(f"Admin retrieved {len(formatted_subscribers)} newsletter subscribers")
+        
+        return {
+            "subscribers": formatted_subscribers,
+            "total": total_count,
+            "page": page,
+            "limit": limit,
+            "total_pages": (total_count + limit - 1) // limit
+        }
+        
+    except Exception as e:
+        logger.error(f"Admin get newsletter error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch newsletter subscribers")
+
