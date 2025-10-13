@@ -134,6 +134,99 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleImageUpload = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
+
+    setUploadingImages(true);
+    try {
+      const formData = new FormData();
+      files.forEach(file => {
+        formData.append('files', file);
+      });
+
+      const response = await axios.post(
+        `${API}/api/admin/upload-images`,
+        formData,
+        {
+          ...getAuthHeaders(),
+          headers: {
+            ...getAuthHeaders().headers,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      if (response.data.success) {
+        setUploadedImages([...uploadedImages, ...response.data.image_urls]);
+        alert(`${response.data.image_urls.length} images uploaded successfully!`);
+      }
+    } catch (error) {
+      console.error('Image upload error:', error);
+      alert('Failed to upload images. Please try again.');
+    } finally {
+      setUploadingImages(false);
+    }
+  };
+
+  const handleRemoveImage = (indexToRemove) => {
+    setUploadedImages(uploadedImages.filter((_, index) => index !== indexToRemove));
+  };
+
+  const handleCreateListing = async (e) => {
+    e.preventDefault();
+    
+    if (uploadedImages.length === 0) {
+      alert('Please upload at least one image');
+      return;
+    }
+
+    setCreatingListing(true);
+    try {
+      const listingData = {
+        ...newListing,
+        images: uploadedImages,
+        price: parseFloat(newListing.price),
+        bedrooms: parseInt(newListing.bedrooms),
+        bathrooms: parseFloat(newListing.bathrooms),
+        sqft: newListing.sqft ? parseInt(newListing.sqft) : null
+      };
+
+      const response = await axios.post(
+        `${API}/api/admin/create-listing`,
+        listingData,
+        getAuthHeaders()
+      );
+
+      if (response.data.success) {
+        alert('Listing created successfully!');
+        // Reset form
+        setNewListing({
+          title: '',
+          address: '',
+          neighborhood: '',
+          borough: '',
+          price: '',
+          bedrooms: '',
+          bathrooms: '',
+          sqft: '',
+          description: '',
+          available: true
+        });
+        setUploadedImages([]);
+        // Reload apartments
+        loadApartments();
+        // Switch to apartments tab
+        setActiveTab('apartments');
+      }
+    } catch (error) {
+      console.error('Create listing error:', error);
+      alert('Failed to create listing. Please try again.');
+    } finally {
+      setCreatingListing(false);
+    }
+  };
+
   useEffect(() => {
     if (activeTab === 'apartments' && apartments.length === 0) {
       loadApartments();
