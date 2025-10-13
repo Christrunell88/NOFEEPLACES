@@ -145,14 +145,14 @@ const AdminDashboard = () => {
         formData.append('files', file);
       });
 
+      const token = localStorage.getItem('admin_token');
       const response = await axios.post(
         `${API}/api/admin/upload-images`,
         formData,
         {
-          ...getAuthHeaders(),
           headers: {
-            ...getAuthHeaders().headers,
-            'Content-Type': 'multipart/form-data'
+            'Authorization': `Bearer ${token}`
+            // Don't set Content-Type - let axios set it with boundary
           }
         }
       );
@@ -163,7 +163,7 @@ const AdminDashboard = () => {
       }
     } catch (error) {
       console.error('Image upload error:', error);
-      alert('Failed to upload images. Please try again.');
+      alert(`Failed to upload images: ${error.response?.data?.detail || error.message}`);
     } finally {
       setUploadingImages(false);
     }
