@@ -284,7 +284,7 @@ const AdminDashboard = () => {
       <div className="bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex space-x-1 overflow-x-auto">
-            {['overview', 'apartments', 'users', 'feedback', 'newsletter'].map((tab) => (
+            {['overview', 'apartments', 'add-listing', 'users', 'feedback', 'newsletter'].map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
