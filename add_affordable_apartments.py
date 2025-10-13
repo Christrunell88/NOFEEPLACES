@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timezone
 
 # Backend URL
-BACKEND_URL = "https://datarectify.preview.emergentagent.com"
+BACKEND_URL = "https://nofee-finder.preview.emergentagent.com"
 
 async def add_affordable_apartments():
     """Add affordable apartments across NYC neighborhoods"""

@@ -7,7 +7,7 @@ import requests
 import json
 from datetime import datetime
 
-PRODUCTION_API = "https://datarectify.preview.emergentagent.com/api"
+PRODUCTION_API = "https://nofee-finder.preview.emergentagent.com/api"
 
 # Fixes to apply
 FIXES = []

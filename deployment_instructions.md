@@ -33,7 +33,7 @@ sudo systemctl restart backend
 ### Step 3: Apply the Fix
 Once deployed, call the admin endpoint:
 ```bash
-curl -X POST "https://datarectify.preview.emergentagent.com/api/admin/fix-central-park-west"
+curl -X POST "https://nofee-finder.preview.emergentagent.com/api/admin/fix-central-park-west"
 ```
 
 ### Step 4: Verify
