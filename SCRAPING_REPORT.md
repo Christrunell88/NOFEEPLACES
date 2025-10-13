@@ -129,6 +129,7 @@ Success Rate: ~1.7%
 ✅ Skips login-gated content
 ✅ Timeout protection (10s per request, 30s per site)
 ✅ Error handling and graceful failures
+✅ **REAL DATA ONLY - No fallback sample data**
 
 ### **Data Extraction**:
 ✅ Title extraction
@@ -137,6 +138,7 @@ Success Rate: ~1.7%
 ✅ URL construction
 ✅ Duplicate detection
 ✅ JSON export (`listings.json`)
+✅ **Only saves files when real data is extracted**
 
 ---
 
