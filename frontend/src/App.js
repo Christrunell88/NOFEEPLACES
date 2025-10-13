@@ -37,6 +37,8 @@ import FloatingFeedbackButton from './FloatingFeedbackButton';
 import { AboutUsPage, WhyNoFeePage, ContactUsPage, LetsTalkPage } from './StaticPages';
 import ConversionOptimizedHome from './ConversionOptimizedHome';
 import ConversionHero from './ConversionHero';
+import AdminLogin from './AdminLogin';
+import AdminDashboard from './AdminDashboard';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
