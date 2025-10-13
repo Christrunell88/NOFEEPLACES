@@ -514,6 +514,271 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {/* Add Listing Tab */}
+        {activeTab === 'add-listing' && (
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Add New Apartment Listing</h2>
+
+            <form onSubmit={handleCreateListing} className="space-y-6">
+              {/* Image Upload Section */}
+              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">📸 Upload Images</h3>
+                
+                <div className="mb-4">
+                  <label className="block w-full">
+                    <div className="border-2 border-dashed border-purple-300 rounded-lg p-8 text-center hover:border-purple-500 transition cursor-pointer">
+                      <div className="text-purple-600 mb-2">
+                        <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                      </div>
+                      <p className="text-gray-600 font-medium mb-1">Click to upload images</p>
+                      <p className="text-gray-400 text-sm">or drag and drop</p>
+                      <p className="text-gray-400 text-xs mt-2">PNG, JPG, WEBP up to 10MB each</p>
+                    </div>
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploadingImages}
+                      className="hidden"
+                    />
+                  </label>
+                  {uploadingImages && (
+                    <p className="text-purple-600 text-sm mt-2 text-center">Uploading images...</p>
+                  )}
+                </div>
+
+                {/* Image Preview Grid */}
+                {uploadedImages.length > 0 && (
+                  <div>
+                    <p className="text-sm text-gray-600 mb-3">Uploaded Images ({uploadedImages.length})</p>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {uploadedImages.map((imageUrl, index) => (
+                        <div key={index} className="relative group">
+                          <img
+                            src={`${API}${imageUrl}`}
+                            alt={`Upload ${index + 1}`}
+                            className="w-full h-32 object-cover rounded-lg border border-gray-200"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveImage(index)}
+                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Listing Details Form */}
+              <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-800 mb-4">📝 Listing Details</h3>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Title */}
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Listing Title *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newListing.title}
+                      onChange={(e) => setNewListing({...newListing, title: e.target.value})}
+                      placeholder="e.g., Studio at Mercedes House"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Address */}
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Full Address *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newListing.address}
+                      onChange={(e) => setNewListing({...newListing, address: e.target.value})}
+                      placeholder="e.g., 550 W 54th St, New York, NY 10019"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Neighborhood */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Neighborhood *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={newListing.neighborhood}
+                      onChange={(e) => setNewListing({...newListing, neighborhood: e.target.value})}
+                      placeholder="e.g., Hell's Kitchen"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Borough */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Borough *
+                    </label>
+                    <select
+                      required
+                      value={newListing.borough}
+                      onChange={(e) => setNewListing({...newListing, borough: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    >
+                      <option value="">Select Borough</option>
+                      <option value="Manhattan">Manhattan</option>
+                      <option value="Brooklyn">Brooklyn</option>
+                      <option value="Queens">Queens</option>
+                      <option value="Bronx">Bronx</option>
+                      <option value="Staten Island">Staten Island</option>
+                    </select>
+                  </div>
+
+                  {/* Price */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Monthly Rent ($) *
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      value={newListing.price}
+                      onChange={(e) => setNewListing({...newListing, price: e.target.value})}
+                      placeholder="e.g., 2500"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Bedrooms */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Bedrooms *
+                    </label>
+                    <select
+                      required
+                      value={newListing.bedrooms}
+                      onChange={(e) => setNewListing({...newListing, bedrooms: e.target.value})}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    >
+                      <option value="">Select</option>
+                      <option value="0">Studio</option>
+                      <option value="1">1 Bedroom</option>
+                      <option value="2">2 Bedrooms</option>
+                      <option value="3">3 Bedrooms</option>
+                      <option value="4">4+ Bedrooms</option>
+                    </select>
+                  </div>
+
+                  {/* Bathrooms */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Bathrooms *
+                    </label>
+                    <input
+                      type="number"
+                      step="0.5"
+                      required
+                      value={newListing.bathrooms}
+                      onChange={(e) => setNewListing({...newListing, bathrooms: e.target.value})}
+                      placeholder="e.g., 1 or 1.5"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Square Feet */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Square Feet (optional)
+                    </label>
+                    <input
+                      type="number"
+                      value={newListing.sqft}
+                      onChange={(e) => setNewListing({...newListing, sqft: e.target.value})}
+                      placeholder="e.g., 650"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Description */}
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={newListing.description}
+                      onChange={(e) => setNewListing({...newListing, description: e.target.value})}
+                      placeholder="Describe the apartment, amenities, location highlights..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-gray-900 bg-white"
+                    />
+                  </div>
+
+                  {/* Available */}
+                  <div className="md:col-span-2">
+                    <label className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={newListing.available}
+                        onChange={(e) => setNewListing({...newListing, available: e.target.checked})}
+                        className="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                      />
+                      <span className="ml-2 text-sm font-medium text-gray-700">
+                        Mark as Available for Rent
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <div className="mt-6 flex gap-4">
+                  <button
+                    type="submit"
+                    disabled={creatingListing || uploadedImages.length === 0}
+                    className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {creatingListing ? 'Creating Listing...' : '✨ Create Listing'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('Are you sure? All unsaved changes will be lost.')) {
+                        setNewListing({
+                          title: '',
+                          address: '',
+                          neighborhood: '',
+                          borough: '',
+                          price: '',
+                          bedrooms: '',
+                          bathrooms: '',
+                          sqft: '',
+                          description: '',
+                          available: true
+                        });
+                        setUploadedImages([]);
+                      }
+                    }}
+                    className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        )}
+
         {/* Users Tab */}
         {activeTab === 'users' && (
           <div>
