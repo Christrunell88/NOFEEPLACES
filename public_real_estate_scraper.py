@@ -87,7 +87,7 @@ class PublicRealEstateScraper:
             time.sleep(self.delay_between_requests + random.uniform(0, 1))
             
             logger.info(f"Fetching: {url}")
-            response = self.session.get(url, timeout=15)
+            response = self.session.get(url, timeout=10)
             
             # Check for login walls or blocks
             if response.status_code == 403:
