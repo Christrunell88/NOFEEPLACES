@@ -44,20 +44,31 @@ class MercedesHousePlaywrightScraper:
             title = await title_elem.inner_text() if title_elem else "Mercedes House Unit"
             title = title.strip()
             
-            # Extract all images (wait for them to load)
+            # Extract all images (both img tags and background images)
             images = []
-            img_elements = await page.query_selector_all('img[src]')
             
+            # Method 1: Get img tags
+            img_elements = await page.query_selector_all('img[src]')
             for img in img_elements:
                 src = await img.get_attribute('src')
                 if src and all(x not in src.lower() for x in ['logo', 'icon', 'svg', 'arrow', 'marker', 'ajax-loader']):
-                    # Make absolute URL
                     if not src.startswith('http'):
                         src = urljoin(self.base_url, src)
-                    # Only include real apartment images
                     if any(x in src.lower() for x in ['upload', 'content', 'image', 'photo', 'wp-content', 'jpg', 'jpeg', 'png']):
                         if src not in images:
                             images.append(src)
+            
+            # Method 2: Get background images from CSS (MAIN SOURCE for Mercedes House)
+            elements_with_bg = await page.query_selector_all('[style*="background-image"]')
+            for elem in elements_with_bg:
+                style = await elem.get_attribute('style')
+                if style and 'url' in style:
+                    # Extract URL from background-image: url('...')
+                    url_match = re.search(r'url\([\'"]?([^\'")]+)[\'"]?\)', style)
+                    if url_match:
+                        bg_url = url_match.group(1)
+                        if bg_url not in images:
+                            images.append(bg_url)
             
             # Extract specifications from page text
             page_content = await page.content()
