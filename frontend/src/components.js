@@ -960,17 +960,47 @@ export const ApartmentDetails = ({ apartmentId }) => {
             </div>
           )}
 
-          {/* Contact Section */}
+          {/* Contact Information */}
           <div className="bg-purple-50 rounded-xl p-6">
-            <h3 className="text-xl font-semibold text-slate-800 mb-4">Interested in this apartment?</h3>
-            <p className="text-gray-600 mb-4">
-              Contact us to schedule a viewing or get more information about this no fee apartment.
-            </p>
+            <h3 className="text-xl font-semibold text-purple-800 mb-4">📞 Contact Information</h3>
+            <div className="space-y-3 mb-4">
+              <div className="flex items-center">
+                <span className="text-purple-600 mr-3 text-lg">📧</span>
+                <div>
+                  <div className="text-sm text-gray-600">Email</div>
+                  <a 
+                    href={`mailto:${apartment.contact_email || 'placesfirm@gmail.com'}`}
+                    className="font-medium text-purple-700 hover:text-purple-900"
+                  >
+                    {apartment.contact_email || 'placesfirm@gmail.com'}
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <span className="text-purple-600 mr-3 text-lg">📱</span>
+                <div>
+                  <div className="text-sm text-gray-600">Phone</div>
+                  <a 
+                    href={`tel:${apartment.contact_phone || '+1-646-408-8048'}`}
+                    className="font-medium text-purple-700 hover:text-purple-900"
+                  >
+                    {apartment.contact_phone || '+1-646-408-8048'}
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <span className="text-purple-600 mr-3 text-lg">🏢</span>
+                <div>
+                  <div className="text-sm text-gray-600">Company</div>
+                  <span className="font-medium text-gray-800">NoFeePlaces LLC</span>
+                </div>
+              </div>
+            </div>
             <button
               onClick={() => setShowContactModal(true)}
               className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition-colors font-semibold"
             >
-              📧 Contact About This Apartment
+              📧 Send Message About This Apartment
             </button>
           </div>
 
