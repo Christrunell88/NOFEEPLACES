@@ -385,12 +385,8 @@ class PublicRealEstateScraper:
             except Exception as e:
                 logger.error(f"❌ Error scraping Trulia page {search_url}: {e}")
                 continue
-            
-            logger.info(f"✅ Extracted {len(listings)} listings from Trulia")
-            
-        except Exception as e:
-            logger.error(f"❌ Error scraping Trulia: {e}")
         
+        logger.info(f"✅ Extracted total of {len(listings)} unique listings from Trulia")
         return listings
     
     def create_sample_data(self) -> List[Dict[str, Any]]:
