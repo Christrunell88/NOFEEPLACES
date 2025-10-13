@@ -321,67 +321,67 @@ class PublicRealEstateScraper:
                 if not soup:
                     logger.warning(f"⚠ Could not fetch Trulia page: {search_url}")
                     continue
-            
-            # Trulia structure: Look for listing cards
-            listing_cards = soup.find_all(['li', 'div'], attrs={'data-testid': re.compile(r'(property|home|listing)', re.I)})
-            
-            if not listing_cards:
-                # Fallback: look for common card classes
-                listing_cards = soup.find_all(['div', 'article'], class_=re.compile(r'(card|property|listing)', re.I))
-            
-            logger.info(f"Found {len(listing_cards)} potential listing elements")
-            
-            for card in listing_cards[:50]:  # Increase limit to get more listings
-                try:
-                    # Extract title/address
-                    title_elem = card.find(['div', 'a'], attrs={'data-testid': re.compile(r'(property-address|home-address)', re.I)})
-                    if not title_elem:
-                        title_elem = card.find(['h2', 'h3', 'a'], class_=re.compile(r'(address|title)', re.I))
-                    
-                    title = title_elem.get_text(strip=True) if title_elem else None
-                    
-                    # Extract link
-                    link_elem = card.find('a', href=re.compile(r'/c/', re.I))
-                    if not link_elem:
-                        link_elem = card.find('a', href=True)
-                    
-                    listing_url = urljoin(base_url, link_elem['href']) if link_elem and link_elem.get('href') else None
-                    
-                    # Extract price
-                    price_elem = card.find(['div', 'span'], attrs={'data-testid': re.compile(r'price', re.I)})
-                    if not price_elem:
-                        price_elem = card.find(['div', 'span'], class_=re.compile(r'price|rent', re.I))
-                    
-                    price_text = price_elem.get_text(strip=True) if price_elem else None
-                    price = self.extract_price(price_text)
-                    
-                    # Extract address
-                    address = title  # Trulia often uses address as title
-                    
-                    # Only add if we have minimum required data and not duplicate
-                    if title and listing_url:
-                        # Check for duplicates
-                        is_duplicate = any(l['url'] == listing_url for l in listings)
-                        if not is_duplicate:
-                            listing = {
-                                'title': title,
-                                'address': address or 'New York, NY',
-                                'price': price or 'Contact for Price',
-                                'url': listing_url,
-                                'source': 'Trulia'
-                            }
-                            listings.append(listing)
-                            logger.info(f"  ✓ {title[:70]} - {price or 'N/A'}")
                 
-                except Exception as e:
-                    logger.debug(f"Error parsing Trulia card: {e}")
-                    continue
-            
-            # If we got listings from this URL, we can stop trying others
-            if listings:
-                logger.info(f"✅ Found {len(listings)} unique listings from this page")
-                break
+                # Trulia structure: Look for listing cards
+                listing_cards = soup.find_all(['li', 'div'], attrs={'data-testid': re.compile(r'(property|home|listing)', re.I)})
                 
+                if not listing_cards:
+                    # Fallback: look for common card classes
+                    listing_cards = soup.find_all(['div', 'article'], class_=re.compile(r'(card|property|listing)', re.I))
+                
+                logger.info(f"Found {len(listing_cards)} potential listing elements")
+                
+                for card in listing_cards[:50]:  # Increase limit to get more listings
+                    try:
+                        # Extract title/address
+                        title_elem = card.find(['div', 'a'], attrs={'data-testid': re.compile(r'(property-address|home-address)', re.I)})
+                        if not title_elem:
+                            title_elem = card.find(['h2', 'h3', 'a'], class_=re.compile(r'(address|title)', re.I))
+                        
+                        title = title_elem.get_text(strip=True) if title_elem else None
+                        
+                        # Extract link
+                        link_elem = card.find('a', href=re.compile(r'/c/', re.I))
+                        if not link_elem:
+                            link_elem = card.find('a', href=True)
+                        
+                        listing_url = urljoin(base_url, link_elem['href']) if link_elem and link_elem.get('href') else None
+                        
+                        # Extract price
+                        price_elem = card.find(['div', 'span'], attrs={'data-testid': re.compile(r'price', re.I)})
+                        if not price_elem:
+                            price_elem = card.find(['div', 'span'], class_=re.compile(r'price|rent', re.I))
+                        
+                        price_text = price_elem.get_text(strip=True) if price_elem else None
+                        price = self.extract_price(price_text)
+                        
+                        # Extract address
+                        address = title  # Trulia often uses address as title
+                        
+                        # Only add if we have minimum required data and not duplicate
+                        if title and listing_url:
+                            # Check for duplicates
+                            is_duplicate = any(l['url'] == listing_url for l in listings)
+                            if not is_duplicate:
+                                listing = {
+                                    'title': title,
+                                    'address': address or 'New York, NY',
+                                    'price': price or 'Contact for Price',
+                                    'url': listing_url,
+                                    'source': 'Trulia'
+                                }
+                                listings.append(listing)
+                                logger.info(f"  ✓ {title[:70]} - {price or 'N/A'}")
+                    
+                    except Exception as e:
+                        logger.debug(f"Error parsing Trulia card: {e}")
+                        continue
+                
+                # If we got listings from this URL, we can stop trying others
+                if listings:
+                    logger.info(f"✅ Found {len(listings)} unique listings from this page")
+                    break
+                    
             except Exception as e:
                 logger.error(f"❌ Error scraping Trulia page {search_url}: {e}")
                 continue
