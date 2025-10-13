@@ -40,7 +40,7 @@ async def fix_mercedes_house_pricing():
     """Update Mercedes House apartments with correct pricing"""
     
     client = AsyncIOMotorClient(MONGO_URL)
-    db = client[db_name]
+    db = client[DB_NAME]
     
     print("\n" + "="*70)
     print("💰 FIXING MERCEDES HOUSE PRICING")
