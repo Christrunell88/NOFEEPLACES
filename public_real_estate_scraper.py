@@ -459,21 +459,26 @@ class PublicRealEstateScraper:
             return False
     
     def print_summary(self):
-        """Print scraping summary"""
+        """Print scraping summary - REAL DATA ONLY"""
         logger.info("\n" + "="*60)
         logger.info("📊 SCRAPING SUMMARY")
         logger.info("="*60)
         
-        # Count by source
-        sources = {}
-        for listing in self.all_listings:
-            source = listing.get('source', 'Unknown')
-            sources[source] = sources.get(source, 0) + 1
+        if len(self.all_listings) == 0:
+            logger.info("  ⚠️  No real listings extracted")
+            logger.info("  All sites blocked or returned no data")
+        else:
+            # Count by source
+            sources = {}
+            for listing in self.all_listings:
+                source = listing.get('source', 'Unknown')
+                sources[source] = sources.get(source, 0) + 1
+            
+            for source, count in sources.items():
+                logger.info(f"  • {source}: {count} REAL listings")
+            
+            logger.info(f"\n  📦 Total REAL listings: {len(self.all_listings)}")
         
-        for source, count in sources.items():
-            logger.info(f"  • {source}: {count} listings")
-        
-        logger.info(f"\n  📦 Total listings: {len(self.all_listings)}")
         logger.info("="*60 + "\n")
 
 
