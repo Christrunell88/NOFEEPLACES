@@ -331,7 +331,7 @@ class PublicRealEstateScraper:
             
             logger.info(f"Found {len(listing_cards)} potential listing elements")
             
-            for card in listing_cards[:15]:  # Limit to first 15
+            for card in listing_cards[:50]:  # Increase limit to get more listings
                 try:
                     # Extract title/address
                     title_elem = card.find(['div', 'a'], attrs={'data-testid': re.compile(r'(property-address|home-address)', re.I)})
@@ -371,11 +371,20 @@ class PublicRealEstateScraper:
                                 'source': 'Trulia'
                             }
                             listings.append(listing)
-                            logger.info(f"  ✓ {title} - {price or 'N/A'}")
+                            logger.info(f"  ✓ {title[:70]} - {price or 'N/A'}")
                 
                 except Exception as e:
                     logger.debug(f"Error parsing Trulia card: {e}")
                     continue
+            
+            # If we got listings from this URL, we can stop trying others
+            if listings:
+                logger.info(f"✅ Found {len(listings)} unique listings from this page")
+                break
+                
+            except Exception as e:
+                logger.error(f"❌ Error scraping Trulia page {search_url}: {e}")
+                continue
             
             logger.info(f"✅ Extracted {len(listings)} listings from Trulia")
             
