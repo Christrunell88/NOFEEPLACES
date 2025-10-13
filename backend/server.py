@@ -2972,11 +2972,13 @@ async def create_listing_admin(
         
         logger.info(f"Admin created new listing: {listing_id} - {apartment['title']}")
         
+        # Remove MongoDB's _id from response (not JSON serializable)
+        apartment.pop('_id', None)
+        
         return {
             "success": True,
             "message": "Listing created successfully",
-            "listing_id": listing_id,
-            "apartment": apartment
+            "listing_id": listing_id
         }
         
     except Exception as e:
