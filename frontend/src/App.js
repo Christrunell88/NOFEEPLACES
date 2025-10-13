@@ -477,7 +477,10 @@ function App() {
                 
                 {/* Analytics Dashboard */}
                 <Route path="/analytics" element={<AnalyticsDashboard />} />
-                <Route path="/admin" element={<AnalyticsDashboard />} />
+                
+                {/* Admin Panel */}
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 
                 {/* Static Pages */}
                 <Route path="/about" element={<AboutUsPage />} />
