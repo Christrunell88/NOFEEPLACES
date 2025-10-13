@@ -306,13 +306,21 @@ class PublicRealEstateScraper:
         
         listings = []
         base_url = "https://www.trulia.com"
-        search_url = f"{base_url}/for_rent/{location}"
         
-        try:
-            soup = self.fetch_page(search_url)
-            if not soup:
-                logger.warning("⚠ Could not fetch Trulia page")
-                return listings
+        # Try multiple search URLs for better coverage
+        search_urls = [
+            f"{base_url}/for_rent/{location}",
+            f"{base_url}/for_rent/Manhattan,New_York,NY",
+            f"{base_url}/for_rent/Brooklyn,New_York,NY"
+        ]
+        
+        for search_url in search_urls:
+            try:
+                logger.info(f"Trying: {search_url}")
+                soup = self.fetch_page(search_url)
+                if not soup:
+                    logger.warning(f"⚠ Could not fetch Trulia page: {search_url}")
+                    continue
             
             # Trulia structure: Look for listing cards
             listing_cards = soup.find_all(['li', 'div'], attrs={'data-testid': re.compile(r'(property|home|listing)', re.I)})
