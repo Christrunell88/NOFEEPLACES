@@ -1,0 +1,82 @@
+[
+  {
+    "title": "1 Bedroom",
+    "address": "550 W 54th St, New York, NY 10019",
+    "neighborhood": "Hell's Kitchen",
+    "borough": "Manhattan",
+    "price": "$3200",
+    "bedrooms": 1,
+    "bathrooms": null,
+    "sqft": null,
+    "images": [
+      "https://www.mercedeshouseny.com/images/ajax-loader.gif"
+    ],
+    "url": "https://www.mercedeshouseny.com/one-bed",
+    "source": "Mercedes House NYC",
+    "building_name": "Mercedes House"
+  },
+  {
+    "title": "1 Bedroom Home Office",
+    "address": "550 W 54th St, New York, NY 10019",
+    "neighborhood": "Hell's Kitchen",
+    "borough": "Manhattan",
+    "price": "$3200",
+    "bedrooms": 1,
+    "bathrooms": null,
+    "sqft": null,
+    "images": [
+      "https://www.mercedeshouseny.com/images/ajax-loader.gif"
+    ],
+    "url": "https://www.mercedeshouseny.com/one-bed-home-office",
+    "source": "Mercedes House NYC",
+    "building_name": "Mercedes House"
+  },
+  {
+    "title": "Studio",
+    "address": "550 W 54th St, New York, NY 10019",
+    "neighborhood": "Hell's Kitchen",
+    "borough": "Manhattan",
+    "price": "$3200",
+    "bedrooms": 0,
+    "bathrooms": null,
+    "sqft": null,
+    "images": [
+      "https://www.mercedeshouseny.com/images/ajax-loader.gif"
+    ],
+    "url": "https://www.mercedeshouseny.com/studio",
+    "source": "Mercedes House NYC",
+    "building_name": "Mercedes House"
+  },
+  {
+    "title": "Terrace Unit",
+    "address": "550 W 54th St, New York, NY 10019",
+    "neighborhood": "Hell's Kitchen",
+    "borough": "Manhattan",
+    "price": "$3200",
+    "bedrooms": null,
+    "bathrooms": null,
+    "sqft": null,
+    "images": [
+      "https://www.mercedeshouseny.com/images/ajax-loader.gif"
+    ],
+    "url": "https://www.mercedeshouseny.com/terrace",
+    "source": "Mercedes House NYC",
+    "building_name": "Mercedes House"
+  },
+  {
+    "title": "Two Bedroom",
+    "address": "550 W 54th St, New York, NY 10019",
+    "neighborhood": "Hell's Kitchen",
+    "borough": "Manhattan",
+    "price": "$3200",
+    "bedrooms": null,
+    "bathrooms": null,
+    "sqft": null,
+    "images": [
+      "https://www.mercedeshouseny.com/images/ajax-loader.gif"
+    ],
+    "url": "https://www.mercedeshouseny.com/two-bed",
+    "source": "Mercedes House NYC",
+    "building_name": "Mercedes House"
+  }
+]
