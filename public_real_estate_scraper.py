@@ -12,6 +12,7 @@ import json
 import time
 import random
 import logging
+import signal
 from urllib.parse import urljoin, urlparse, parse_qs
 from urllib.robotparser import RobotFileParser
 import re
@@ -23,6 +24,16 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+
+class TimeoutException(Exception):
+    """Custom timeout exception"""
+    pass
+
+
+def timeout_handler(signum, frame):
+    """Handle timeout signals"""
+    raise TimeoutException("Operation timed out")
 
 
 class PublicRealEstateScraper:
