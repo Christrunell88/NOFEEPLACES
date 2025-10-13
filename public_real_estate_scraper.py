@@ -231,7 +231,15 @@ class PublicRealEstateScraper:
         search_url = f"{base_url}/{location}/"
         
         try:
+            # Set timeout alarm
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(30)  # 30 second timeout
+            
             soup = self.fetch_page(search_url)
+            
+            # Cancel alarm
+            signal.alarm(0)
+            
             if not soup:
                 logger.warning("⚠ Could not fetch Apartments.com page")
                 return listings
