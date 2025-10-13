@@ -81,156 +81,138 @@ class MercedesHouseScraper:
         return None
     
     def scrape_availabilities(self) -> List[Dict[str, Any]]:
-        """Scrape the availabilities section"""
+        """Scrape the availabilities and floorplans pages"""
         logger.info("\n" + "="*60)
         logger.info("🏢 SCRAPING MERCEDES HOUSE")
         logger.info("="*60)
         
-        # Try the main availabilities page
-        url = f"{self.base_url}/#availabilities"
-        soup = self.fetch_page(self.base_url)
+        all_listings = []
         
-        if not soup:
-            logger.error("Could not fetch Mercedes House homepage")
-            return []
+        # Scrape both pages
+        pages_to_scrape = [
+            f"{self.base_url}/availabilities",
+            f"{self.base_url}/floorplans",
+            f"{self.base_url}/residences"
+        ]
         
-        # Look for apartment/unit listings
-        # Common patterns for luxury apartment websites
-        listings_found = []
-        
-        # Strategy 1: Look for availability/apartment cards
-        apartment_cards = soup.find_all(['div', 'article'], class_=re.compile(r'(apartment|unit|availability|listing|floorplan)', re.I))
-        logger.info(f"Found {len(apartment_cards)} potential apartment cards")
-        
-        # Strategy 2: Look for table rows with apartment data
-        availability_tables = soup.find_all('table')
-        logger.info(f"Found {len(availability_tables)} tables")
-        
-        # Strategy 3: Look for script tags with JSON data (many sites embed data this way)
-        scripts = soup.find_all('script', type='application/json')
-        logger.info(f"Found {len(scripts)} JSON scripts")
-        
-        for script in scripts:
-            try:
-                data = json.loads(script.string)
-                logger.info(f"Found JSON data: {list(data.keys())[:5] if isinstance(data, dict) else 'array'}")
-            except:
-                pass
-        
-        # Strategy 4: Look for iframe (many availability widgets use iframes)
-        iframes = soup.find_all('iframe')
-        logger.info(f"Found {len(iframes)} iframes")
-        
-        for iframe in iframes:
-            src = iframe.get('src', '')
-            if 'apartment' in src.lower() or 'availability' in src.lower() or 'floorplan' in src.lower():
-                logger.info(f"  Potential availability iframe: {src}")
-        
-        # Try to extract from cards
-        for card in apartment_cards[:20]:  # Limit to first 20
-            try:
-                # Extract basic info
-                title_elem = card.find(['h2', 'h3', 'h4', 'a'], class_=re.compile(r'(title|name|unit)', re.I))
-                title = title_elem.get_text(strip=True) if title_elem else None
-                
-                # Extract link
-                link_elem = card.find('a', href=True)
-                listing_url = urljoin(self.base_url, link_elem['href']) if link_elem else None
-                
-                # Extract price
-                price_elem = card.find(['span', 'div', 'p'], class_=re.compile(r'price|rent', re.I))
-                price_text = price_elem.get_text(strip=True) if price_elem else None
-                price = self.extract_price(price_text)
-                
-                # Extract bedrooms
-                bed_elem = card.find(['span', 'div'], string=re.compile(r'bed|br', re.I))
-                bedrooms = self.extract_number(bed_elem.get_text() if bed_elem else None)
-                
-                # Extract bathrooms
-                bath_elem = card.find(['span', 'div'], string=re.compile(r'bath|ba', re.I))
-                bathrooms = self.extract_number(bath_elem.get_text() if bath_elem else None)
-                
-                # Extract sqft
-                sqft_elem = card.find(['span', 'div'], string=re.compile(r'sq\.?\s?ft|sqft', re.I))
-                sqft = self.extract_number(sqft_elem.get_text() if sqft_elem else None)
-                
-                # Extract images
-                images = []
-                img_tags = card.find_all('img', src=True)
-                for img in img_tags:
-                    img_url = img['src']
-                    if not img_url.startswith('http'):
-                        img_url = urljoin(self.base_url, img_url)
-                    # Filter out small icons/logos
-                    if 'logo' not in img_url.lower() and 'icon' not in img_url.lower():
-                        images.append(img_url)
-                
-                if title or price:
+        for page_url in pages_to_scrape:
+            logger.info(f"\nScraping: {page_url}")
+            soup = self.fetch_page(page_url)
+            
+            if not soup:
+                logger.warning(f"  Could not fetch {page_url}")
+                continue
+            
+            # Extract all images from the page (for apartments)
+            all_images = soup.find_all('img', src=True)
+            apartment_images = []
+            for img in all_images:
+                img_url = img['src']
+                if not img_url.startswith('http'):
+                    img_url = urljoin(self.base_url, img_url)
+                # Filter out small icons/logos and keep apartment photos
+                if all(x not in img_url.lower() for x in ['logo', 'icon', 'svg', 'arrow']):
+                    # Check if image is large enough (apartment photos)
+                    if 'upload' in img_url or 'content' in img_url or 'image' in img_url:
+                        apartment_images.append(img_url)
+            
+            logger.info(f"  Found {len(apartment_images)} potential apartment images")
+            
+            # Look for apartment/floorplan cards
+            cards = soup.find_all(['div', 'article', 'section'], class_=re.compile(r'(floor|plan|unit|apartment|mosaic|tile)', re.I))
+            logger.info(f"  Found {len(cards)} potential listing cards")
+            
+            for card in cards[:30]:
+                try:
+                    # Extract title/unit type
+                    title_elem = card.find(['h1', 'h2', 'h3', 'h4', 'a'], class_=re.compile(r'(title|heading|name)', re.I))
+                    if not title_elem:
+                        title_elem = card.find(['h1', 'h2', 'h3', 'h4'])
+                    title = title_elem.get_text(strip=True) if title_elem else None
+                    
+                    # Skip if no meaningful title
+                    if not title or len(title) < 3:
+                        continue
+                    
+                    # Extract link
+                    link_elem = card.find('a', href=True)
+                    listing_url = urljoin(self.base_url, link_elem['href']) if link_elem else page_url
+                    
+                    # Extract price
+                    price_elem = card.find(['span', 'div', 'p'], string=re.compile(r'\$[\d,]+', re.I))
+                    if not price_elem:
+                        price_elem = card.find(['span', 'div', 'p'], class_=re.compile(r'price|rent', re.I))
+                    price = self.extract_price(price_elem.get_text() if price_elem else None)
+                    
+                    # Extract bedrooms from title or separate element
+                    bedrooms = None
+                    if title:
+                        if 'studio' in title.lower():
+                            bedrooms = 0
+                        else:
+                            bed_match = re.search(r'(\d+)\s*bed', title, re.I)
+                            if bed_match:
+                                bedrooms = int(bed_match.group(1))
+                    
+                    # Extract bathrooms
+                    bath_elem = card.find(['span', 'div'], string=re.compile(r'\d+\.?\d*\s*bath', re.I))
+                    bathrooms = None
+                    if bath_elem:
+                        bath_match = re.search(r'([\d\.]+)', bath_elem.get_text())
+                        if bath_match:
+                            bathrooms = float(bath_match.group(1))
+                    
+                    # Extract sqft
+                    sqft_elem = card.find(['span', 'div'], string=re.compile(r'\d+\s*sq', re.I))
+                    sqft = None
+                    if sqft_elem:
+                        sqft_match = re.search(r'(\d[\d,]*)', sqft_elem.get_text())
+                        if sqft_match:
+                            sqft = int(sqft_match.group(1).replace(',', ''))
+                    
+                    # Extract images from this card
+                    card_images = []
+                    img_tags = card.find_all('img', src=True)
+                    for img in img_tags:
+                        img_url = img['src']
+                        if not img_url.startswith('http'):
+                            img_url = urljoin(self.base_url, img_url)
+                        if all(x not in img_url.lower() for x in ['logo', 'icon', 'svg']):
+                            card_images.append(img_url)
+                    
+                    # If card has no images, use some from the general pool
+                    if not card_images and apartment_images:
+                        card_images = apartment_images[:5]
+                    
+                    # Create listing
                     listing = {
-                        'title': title or 'Mercedes House Apartment',
+                        'title': title,
                         'address': '550 W 54th St, New York, NY 10019',
+                        'neighborhood': "Hell's Kitchen",
+                        'borough': 'Manhattan',
                         'price': price or 'Contact for Price',
                         'bedrooms': bedrooms,
                         'bathrooms': bathrooms,
                         'sqft': sqft,
-                        'images': images,
-                        'url': listing_url or self.base_url,
-                        'source': 'Mercedes House NYC'
+                        'images': card_images,
+                        'url': listing_url,
+                        'source': 'Mercedes House NYC',
+                        'building_name': 'Mercedes House'
                     }
-                    listings_found.append(listing)
-                    logger.info(f"  ✓ {listing['title']} - {listing['price']}")
-            
-            except Exception as e:
-                logger.debug(f"Error parsing card: {e}")
-                continue
-        
-        # Try to extract from tables
-        if len(listings_found) == 0:
-            logger.info("\nTrying table extraction...")
-            for table in availability_tables:
-                rows = table.find_all('tr')[1:]  # Skip header
-                logger.info(f"  Processing table with {len(rows)} rows")
-                
-                for row in rows[:10]:  # Limit to first 10
-                    try:
-                        cells = row.find_all(['td', 'th'])
-                        if len(cells) < 3:
-                            continue
-                        
-                        # Try to extract data from cells
-                        row_data = [cell.get_text(strip=True) for cell in cells]
-                        
-                        # Look for price in any cell
-                        price = None
-                        for cell_text in row_data:
-                            price = self.extract_price(cell_text)
-                            if price:
-                                break
-                        
-                        if price:
-                            listing = {
-                                'title': f"Mercedes House Unit - {row_data[0]}" if row_data else "Mercedes House Apartment",
-                                'address': '550 W 54th St, New York, NY 10019',
-                                'price': price,
-                                'bedrooms': None,
-                                'bathrooms': None,
-                                'sqft': None,
-                                'images': [],
-                                'url': self.base_url,
-                                'source': 'Mercedes House NYC',
-                                'raw_data': ' | '.join(row_data[:5])  # Include raw data for reference
-                            }
-                            listings_found.append(listing)
-                            logger.info(f"  ✓ Found listing: {price}")
                     
-                    except Exception as e:
-                        logger.debug(f"Error parsing table row: {e}")
-                        continue
+                    # Only add if we have title and it's not a duplicate
+                    if title and not any(l['title'] == title for l in all_listings):
+                        all_listings.append(listing)
+                        logger.info(f"    ✓ {title} - {price or 'N/A'} - {len(card_images)} images")
+                
+                except Exception as e:
+                    logger.debug(f"  Error parsing card: {e}")
+                    continue
         
-        logger.info(f"\n✅ Extracted {len(listings_found)} listings from Mercedes House")
+        logger.info(f"\n✅ Extracted {len(all_listings)} unique listings from Mercedes House")
         
-        self.listings = listings_found
-        return listings_found
+        self.listings = all_listings
+        return all_listings
     
     def check_for_api_endpoints(self):
         """Check for potential API endpoints or data feeds"""
