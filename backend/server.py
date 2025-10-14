@@ -105,6 +105,8 @@ class Apartment(BaseModel):
     gym: Optional[bool] = False
     rooftop: Optional[bool] = False
     address: Optional[str] = None
+    unit_number: Optional[str] = None
+    floor: Optional[int] = None
     is_verified: Optional[bool] = True
     is_real: Optional[bool] = True
     verification_date: Optional[str] = None
