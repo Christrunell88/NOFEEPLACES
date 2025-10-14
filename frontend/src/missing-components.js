@@ -1315,3 +1315,568 @@ export const EmailContactModal = ({ apartment, onClose }) => {
     </div>
   );
 };
+
+// Show Your Place Modal Component
+export const ShowYourPlaceModal = ({ onClose }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    address: '',
+    neighborhood: '',
+    borough: '',
+    price: '',
+    bedrooms: '',
+    bathrooms: '',
+    sqft: '',
+    description: '',
+    amenities: '',
+    contact_email: '',
+    contact_phone: '',
+    lease_terms: '',
+    move_in_date: '',
+    pet_policy: '',
+    utilities: ''
+  });
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length + images.length > 10) {
+      setStatus({ type: 'error', message: 'Maximum 10 images allowed' });
+      return;
+    }
+
+    files.forEach(file => {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        setStatus({ type: 'error', message: 'Each image must be under 5MB' });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImages(prev => [...prev, {
+          file,
+          preview: e.target.result,
+          name: file.name
+        }]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeImage = (index) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+      
+      // Create FormData for file upload
+      const submitData = new FormData();
+      
+      // Add form fields
+      Object.keys(formData).forEach(key => {
+        if (formData[key]) {
+          submitData.append(key, formData[key]);
+        }
+      });
+
+      // Add images
+      images.forEach((image, index) => {
+        submitData.append(`images`, image.file);
+      });
+
+      const response = await axios.post(`${API_URL}/api/landlord/submit-listing`, submitData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      setStatus({ 
+        type: 'success', 
+        message: 'Your listing has been submitted successfully! We\'ll review it and get back to you within 24 hours.' 
+      });
+
+      // Reset form after successful submission
+      setTimeout(() => {
+        onClose();
+      }, 3000);
+
+    } catch (error) {
+      console.error('Error submitting listing:', error);
+      setStatus({ 
+        type: 'error', 
+        message: error.response?.data?.detail || 'Failed to submit listing. Please try again.' 
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const nextStep = () => {
+    if (currentStep < 3) setCurrentStep(currentStep + 1);
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) setCurrentStep(currentStep - 1);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-800">Show Your Place</h2>
+            <p className="text-gray-600 mt-1">List your no-fee apartment and reach thousands of renters</p>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+            aria-label="Close listing form"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Progress Steps */}
+        <div className="px-6 py-4 bg-gray-50">
+          <div className="flex items-center justify-center space-x-4">
+            {[1, 2, 3].map((step) => (
+              <div key={step} className="flex items-center">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                  currentStep >= step 
+                    ? 'bg-amber-500 text-white' 
+                    : 'bg-gray-300 text-gray-600'
+                }`}>
+                  {step}
+                </div>
+                <span className={`ml-2 text-sm ${
+                  currentStep >= step ? 'text-amber-600 font-medium' : 'text-gray-500'
+                }`}>
+                  {step === 1 ? 'Basic Info' : step === 2 ? 'Details & Photos' : 'Contact & Submit'}
+                </span>
+                {step < 3 && <div className="w-8 h-0.5 bg-gray-300 mx-4"></div>}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          {status.message && (
+            <div className={`mb-6 p-4 rounded-lg text-sm ${
+              status.type === 'success' 
+                ? 'bg-green-50 border border-green-200 text-green-700' 
+                : 'bg-red-50 border border-red-200 text-red-700'
+            }`}>
+              {status.message}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            {/* Step 1: Basic Information */}
+            {currentStep === 1 && (
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">Basic Information</h3>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Listing Title *
+                    </label>
+                    <input
+                      type="text"
+                      name="title"
+                      required
+                      value={formData.title}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="e.g., Beautiful 2BR in Manhattan"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Monthly Rent *
+                    </label>
+                    <input
+                      type="number"
+                      name="price"
+                      required
+                      value={formData.price}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="3500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Address *
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    required
+                    value={formData.address}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    placeholder="123 Main Street, New York, NY 10001"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Neighborhood *
+                    </label>
+                    <input
+                      type="text"
+                      name="neighborhood"
+                      required
+                      value={formData.neighborhood}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="e.g., Upper East Side"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Borough *
+                    </label>
+                    <select
+                      name="borough"
+                      required
+                      value={formData.borough}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    >
+                      <option value="">Select Borough</option>
+                      <option value="Manhattan">Manhattan</option>
+                      <option value="Brooklyn">Brooklyn</option>
+                      <option value="Queens">Queens</option>
+                      <option value="Bronx">Bronx</option>
+                      <option value="Staten Island">Staten Island</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Bedrooms *
+                    </label>
+                    <select
+                      name="bedrooms"
+                      required
+                      value={formData.bedrooms}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    >
+                      <option value="">Select</option>
+                      <option value="0">Studio</option>
+                      <option value="1">1 Bedroom</option>
+                      <option value="2">2 Bedrooms</option>
+                      <option value="3">3 Bedrooms</option>
+                      <option value="4">4+ Bedrooms</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Bathrooms *
+                    </label>
+                    <select
+                      name="bathrooms"
+                      required
+                      value={formData.bathrooms}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    >
+                      <option value="">Select</option>
+                      <option value="1">1 Bathroom</option>
+                      <option value="1.5">1.5 Bathrooms</option>
+                      <option value="2">2 Bathrooms</option>
+                      <option value="2.5">2.5 Bathrooms</option>
+                      <option value="3">3+ Bathrooms</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Square Feet
+                    </label>
+                    <input
+                      type="number"
+                      name="sqft"
+                      value={formData.sqft}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="800"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 2: Details & Photos */}
+            {currentStep === 2 && (
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">Details & Photos</h3>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Description *
+                  </label>
+                  <textarea
+                    name="description"
+                    required
+                    rows="4"
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    placeholder="Describe your apartment, its features, and what makes it special..."
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Amenities
+                  </label>
+                  <textarea
+                    name="amenities"
+                    rows="3"
+                    value={formData.amenities}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    placeholder="List amenities separated by commas (e.g., Dishwasher, Laundry in unit, Gym, Doorman)"
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Move-in Date
+                    </label>
+                    <input
+                      type="date"
+                      name="move_in_date"
+                      value={formData.move_in_date}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Lease Terms
+                    </label>
+                    <select
+                      name="lease_terms"
+                      value={formData.lease_terms}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    >
+                      <option value="">Select</option>
+                      <option value="12 months">12 months</option>
+                      <option value="24 months">24 months</option>
+                      <option value="Flexible">Flexible</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Pet Policy
+                    </label>
+                    <select
+                      name="pet_policy"
+                      value={formData.pet_policy}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    >
+                      <option value="">Select</option>
+                      <option value="Pets allowed">Pets allowed</option>
+                      <option value="No pets">No pets</option>
+                      <option value="Cats only">Cats only</option>
+                      <option value="Dogs only">Dogs only</option>
+                      <option value="Case by case">Case by case</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Utilities
+                    </label>
+                    <input
+                      type="text"
+                      name="utilities"
+                      value={formData.utilities}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="e.g., Heat & hot water included"
+                    />
+                  </div>
+                </div>
+
+                {/* Photo Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Photos (Up to 10 images, 5MB each)
+                  </label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <input
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      id="image-upload"
+                    />
+                    <label htmlFor="image-upload" className="cursor-pointer">
+                      <div className="text-4xl text-gray-400 mb-2">📷</div>
+                      <p className="text-gray-600">Click to upload photos</p>
+                      <p className="text-sm text-gray-500 mt-1">JPG, PNG, or GIF up to 5MB each</p>
+                    </label>
+                  </div>
+
+                  {/* Image Previews */}
+                  {images.length > 0 && (
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                      {images.map((image, index) => (
+                        <div key={index} className="relative">
+                          <img
+                            src={image.preview}
+                            alt={`Preview ${index + 1}`}
+                            className="w-full h-24 object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeImage(index)}
+                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Contact & Submit */}
+            {currentStep === 3 && (
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-gray-800 mb-4">Contact Information</h3>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Contact Email *
+                    </label>
+                    <input
+                      type="email"
+                      name="contact_email"
+                      required
+                      value={formData.contact_email}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Contact Phone *
+                    </label>
+                    <input
+                      type="tel"
+                      name="contact_phone"
+                      required
+                      value={formData.contact_phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-amber-800 mb-2">📋 Listing Review Process</h4>
+                  <ul className="text-sm text-amber-700 space-y-1">
+                    <li>• Your listing will be reviewed within 24 hours</li>
+                    <li>• We'll verify the no-fee status and property details</li>
+                    <li>• Once approved, your listing will go live on our platform</li>
+                    <li>• You'll receive inquiries directly via email and phone</li>
+                  </ul>
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-800 mb-2">💰 No Fee Guarantee</h4>
+                  <p className="text-sm text-blue-700">
+                    By submitting this listing, you confirm that this is a genuine no-fee apartment where 
+                    tenants will not be charged any broker fees or finder's fees.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between items-center mt-8 pt-6 border-t border-gray-200">
+              <div>
+                {currentStep > 1 && (
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    className="px-6 py-3 text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                  >
+                    ← Previous
+                  </button>
+                )}
+              </div>
+
+              <div>
+                {currentStep < 3 ? (
+                  <button
+                    type="button"
+                    onClick={nextStep}
+                    className="px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-semibold"
+                  >
+                    Next Step →
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? 'Submitting...' : '🚀 Submit Listing'}
+                  </button>
+                )}
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
