@@ -1460,13 +1460,13 @@ export const ShowYourPlaceModal = ({ onClose }) => {
               <div key={step} className="flex items-center">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                   currentStep >= step 
-                    ? 'bg-amber-500 text-white' 
+                    ? 'bg-emerald-500 text-white' 
                     : 'bg-gray-300 text-gray-600'
                 }`}>
                   {step}
                 </div>
                 <span className={`ml-2 text-sm ${
-                  currentStep >= step ? 'text-amber-600 font-medium' : 'text-gray-500'
+                  currentStep >= step ? 'text-emerald-600 font-medium' : 'text-gray-500'
                 }`}>
                   {step === 1 ? 'Basic Info' : step === 2 ? 'Details & Photos' : 'Contact & Submit'}
                 </span>
@@ -1505,7 +1505,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.title}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="e.g., Beautiful 2BR in Manhattan"
                     />
                   </div>
@@ -1520,7 +1520,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.price}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="3500"
                     />
                   </div>
@@ -1536,7 +1536,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                     required
                     value={formData.address}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     placeholder="123 Main Street, New York, NY 10001"
                   />
                 </div>
@@ -1552,7 +1552,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.neighborhood}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="e.g., Upper East Side"
                     />
                   </div>
@@ -1566,7 +1566,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.borough}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select Borough</option>
                       <option value="Manhattan">Manhattan</option>
@@ -1588,7 +1588,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.bedrooms}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select</option>
                       <option value="0">Studio</option>
@@ -1608,7 +1608,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.bathrooms}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select</option>
                       <option value="1">1 Bathroom</option>
@@ -1628,7 +1628,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       name="sqft"
                       value={formData.sqft}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="800"
                     />
                   </div>
@@ -1651,7 +1651,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                     rows="4"
                     value={formData.description}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     placeholder="Describe your apartment, its features, and what makes it special..."
                   />
                 </div>
@@ -1665,7 +1665,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                     rows="3"
                     value={formData.amenities}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     placeholder="List amenities separated by commas (e.g., Dishwasher, Laundry in unit, Gym, Doorman)"
                   />
                 </div>
@@ -1680,7 +1680,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       name="move_in_date"
                       value={formData.move_in_date}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     />
                   </div>
 
@@ -1692,7 +1692,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       name="lease_terms"
                       value={formData.lease_terms}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select</option>
                       <option value="12 months">12 months</option>
@@ -1711,7 +1711,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       name="pet_policy"
                       value={formData.pet_policy}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                     >
                       <option value="">Select</option>
                       <option value="Pets allowed">Pets allowed</option>
@@ -1731,7 +1731,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       name="utilities"
                       value={formData.utilities}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="e.g., Heat & hot water included"
                     />
                   </div>
@@ -1799,7 +1799,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.contact_email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -1814,7 +1814,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                       required
                       value={formData.contact_phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       placeholder="(555) 123-4567"
                     />
                   </div>
@@ -1822,7 +1822,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
 
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                   <h4 className="font-semibold text-amber-800 mb-2">📋 Listing Review Process</h4>
-                  <ul className="text-sm text-amber-700 space-y-1">
+                  <ul className="text-sm text-emerald-700 space-y-1">
                     <li>• Your listing will be reviewed within 24 hours</li>
                     <li>• We'll verify the no-fee status and property details</li>
                     <li>• Once approved, your listing will go live on our platform</li>
@@ -1859,7 +1859,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                   <button
                     type="button"
                     onClick={nextStep}
-                    className="px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-semibold"
+                    className="px-8 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors font-semibold"
                   >
                     Next Step →
                   </button>
@@ -1867,7 +1867,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-8 py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-8 py-3 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? 'Submitting...' : '🚀 Submit Listing'}
                   </button>
