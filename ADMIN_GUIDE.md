@@ -2,7 +2,7 @@
 
 ## 🔐 Admin Access
 
-**Login URL:** https://nofee-finder.preview.emergentagent.com/admin
+**Login URL:** https://fee-free-homes.preview.emergentagent.com/admin
 
 **Admin Credentials:**
 - Email: `placesfirm@gmail.com`

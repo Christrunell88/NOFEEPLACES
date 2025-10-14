@@ -18,7 +18,7 @@ class SafeProductionSync:
         self.local_db_name = os.environ.get('DB_NAME', 'nofeeplaces')
         
         # Production API
-        self.production_api_url = "https://nofee-finder.preview.emergentagent.com/api"
+        self.production_api_url = "https://fee-free-homes.preview.emergentagent.com/api"
         
     async def get_local_corrected_apartments(self):
         """Get our corrected apartment data"""
@@ -167,7 +167,7 @@ import requests
 import json
 from datetime import datetime
 
-PRODUCTION_API = "https://nofee-finder.preview.emergentagent.com/api"
+PRODUCTION_API = "https://fee-free-homes.preview.emergentagent.com/api"
 
 # Fixes to apply
 FIXES = {json.dumps(fixes, indent=4, default=str)}
