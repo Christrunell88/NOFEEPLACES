@@ -327,7 +327,7 @@ export const Header = () => {
           <div className="flex-1 flex justify-center">
             <button
               onClick={handleShowYourPlace}
-              className="group relative px-8 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white rounded-full transition-all duration-300 font-bold shadow-2xl hover:shadow-amber-500/50 text-sm border-2 border-amber-400 hover:border-amber-300 transform hover:scale-105"
+              className="group relative px-8 py-3 bg-white hover:bg-gradient-to-r hover:from-emerald-400 hover:to-teal-500 text-gray-900 hover:text-white rounded-full transition-all duration-300 font-bold shadow-2xl hover:shadow-emerald-500/50 text-sm border-2 border-emerald-400 hover:border-emerald-300 transform hover:scale-105"
             >
               <div className="flex items-center space-x-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -336,7 +336,7 @@ export const Header = () => {
                 </svg>
                 <span>Show Your Place</span>
               </div>
-              <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 rounded-full bg-emerald-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
             </button>
           </div>
 
