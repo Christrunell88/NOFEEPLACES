@@ -170,6 +170,8 @@ const Home = () => {
       
       params.append('page', currentPage);
       params.append('limit', 50); // Reduced to prevent server errors
+      params.append('sort_by', sortBy);  // Add sorting parameters
+      params.append('sort_order', sortOrder);
 
       const response = await axios.get(`${API}/apartments?${params}`);
       setApartments(response.data.apartments);
