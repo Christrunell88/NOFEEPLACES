@@ -1606,6 +1606,166 @@ async def get_uploaded_image(filename: str):
         logger.error(f"Error serving image {filename}: {str(e)}")
         raise HTTPException(status_code=404, detail="Image not found")
 
+@api_router.post("/landlord/submit-listing")
+async def submit_landlord_listing(
+    title: str = Form(...),
+    address: str = Form(...),
+    neighborhood: str = Form(...),
+    borough: str = Form(...),
+    price: int = Form(...),
+    bedrooms: str = Form(...),
+    bathrooms: str = Form(...),
+    sqft: Optional[str] = Form(None),
+    description: str = Form(...),
+    amenities: Optional[str] = Form(None),
+    contact_email: str = Form(...),
+    contact_phone: str = Form(...),
+    lease_terms: Optional[str] = Form(None),
+    move_in_date: Optional[str] = Form(None),
+    pet_policy: Optional[str] = Form(None),
+    utilities: Optional[str] = Form(None),
+    images: List[UploadFile] = File(default=[])
+):
+    """Handle landlord apartment listing submissions with image uploads"""
+    try:
+        # Process uploaded images
+        image_urls = []
+        for image in images:
+            if image.filename:  # Check if file was actually uploaded
+                # Validate file type
+                if not image.content_type.startswith('image/'):
+                    continue  # Skip non-image files
+                
+                # Validate file size (5MB limit per image)
+                MAX_SIZE = 5 * 1024 * 1024  # 5MB
+                
+                # Create unique filename
+                file_extension = image.filename.split('.')[-1] if '.' in image.filename else 'jpg'
+                unique_filename = f"{uuid.uuid4()}.{file_extension}"
+                file_path = f"/app/backend/uploads/{unique_filename}"
+                
+                # Save file
+                file_size = 0
+                async with aiofiles.open(file_path, 'wb') as f:
+                    while True:
+                        chunk = await image.read(1024)
+                        if not chunk:
+                            break
+                        file_size += len(chunk)
+                        if file_size > MAX_SIZE:
+                            # Delete partial file and skip
+                            os.remove(file_path) if os.path.exists(file_path) else None
+                            break
+                        await f.write(chunk)
+                
+                if file_size <= MAX_SIZE:
+                    image_url = f"/api/uploads/{unique_filename}"
+                    image_urls.append(image_url)
+        
+        # Process amenities (convert comma-separated string to list)
+        amenities_list = []
+        if amenities:
+            amenities_list = [a.strip() for a in amenities.split(',') if a.strip()]
+        
+        # Create listing data
+        listing_data = {
+            "id": str(uuid.uuid4()),
+            "title": title,
+            "address": address,
+            "neighborhood": neighborhood,
+            "borough": borough,
+            "price": price,
+            "bedrooms": int(bedrooms) if bedrooms.isdigit() else 0,
+            "bathrooms": float(bathrooms) if bathrooms.replace('.', '').isdigit() else 1,
+            "sqft": int(sqft) if sqft and sqft.isdigit() else None,
+            "description": description,
+            "amenities": amenities_list,
+            "contact_email": contact_email,
+            "contact_phone": contact_phone,
+            "lease_terms": lease_terms,
+            "move_in_date": move_in_date,
+            "pet_policy": pet_policy,
+            "utilities": utilities,
+            "images": image_urls,
+            "status": "pending_review",
+            "submitted_at": datetime.now(timezone.utc).isoformat(),
+            "reviewed": False,
+            "approved": False,
+            "available": True,
+            "featured": False,
+            "priority": 1,
+            "data_source": "Show Your Place Form",
+            "verification_status": "Pending Review"
+        }
+        
+        # Store in landlord_submissions collection
+        result = await db.landlord_submissions.insert_one(listing_data)
+        
+        if result.inserted_id:
+            # Send notification email to admin
+            try:
+                await email_service.send_email_async(
+                    to_email="placesfirm@gmail.com",
+                    subject=f"New Landlord Listing: {title} in {neighborhood}",
+                    html_content=f"""
+                    <h3>New landlord listing submitted via "Show Your Place"!</h3>
+                    
+                    <p><strong>Title:</strong> {title}</p>
+                    <p><strong>Address:</strong> {address}</p>
+                    <p><strong>Location:</strong> {neighborhood}, {borough}</p>
+                    <p><strong>Price:</strong> ${price:,}/month</p>
+                    <p><strong>Bedrooms:</strong> {bedrooms}</p>
+                    <p><strong>Bathrooms:</strong> {bathrooms}</p>
+                    <p><strong>Contact:</strong> {contact_email} | {contact_phone}</p>
+                    <p><strong>Images:</strong> {len(image_urls)} uploaded</p>
+                    
+                    <p><strong>Description:</strong></p>
+                    <p>{description}</p>
+                    
+                    {f"<p><strong>Amenities:</strong> {', '.join(amenities_list)}</p>" if amenities_list else ""}
+                    
+                    <p>Review and approve this listing in the admin panel.</p>
+                    
+                    <p>NoFeePlaces LLC</p>
+                    """,
+                    text_content=f"""
+                    New landlord listing submitted via "Show Your Place"!
+                    
+                    Title: {title}
+                    Address: {address}
+                    Location: {neighborhood}, {borough}
+                    Price: ${price:,}/month
+                    Bedrooms: {bedrooms}
+                    Bathrooms: {bathrooms}
+                    Contact: {contact_email} | {contact_phone}
+                    Images: {len(image_urls)} uploaded
+                    
+                    Description: {description}
+                    
+                    {"Amenities: " + ", ".join(amenities_list) if amenities_list else ""}
+                    
+                    Review and approve this listing in the admin panel.
+                    
+                    NoFeePlaces LLC
+                    """
+                )
+                logger.info(f"Notification email sent for landlord listing {listing_data['id']}")
+            except Exception as e:
+                logger.error(f"Failed to send landlord listing notification: {str(e)}")
+            
+            return {
+                "success": True, 
+                "message": "Your listing has been submitted successfully! We'll review it and get back to you within 24 hours.",
+                "listing_id": listing_data['id'],
+                "images_uploaded": len(image_urls)
+            }
+        else:
+            return {"success": False, "message": "Failed to submit listing"}
+            
+    except Exception as e:
+        logger.error(f"Landlord listing submission error: {str(e)}")
+        return {"success": False, "message": f"Submission failed: {str(e)}"}
+
 @api_router.get("/tenant/listings/approved")
 async def get_approved_tenant_listings():
     """Get approved tenant listings for public browsing"""
