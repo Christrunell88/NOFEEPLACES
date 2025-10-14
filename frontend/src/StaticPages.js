@@ -482,6 +482,13 @@ export const ContactUsPage = () => {
 export const LetsTalkPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+      {/* Page Header with Logo */}
+      <div className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <PageWordMark />
+        </div>
+      </div>
+
       <div className="max-w-4xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="text-center mb-12">
