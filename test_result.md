@@ -183,6 +183,31 @@ frontend:
           comment: "HERO IMAGE CAROUSEL FUNCTIONALITY VERIFIED: Comprehensive testing confirms the hero image carousel is working perfectly with all 3 woman-in-apartment images displaying correctly, 5-second auto-advance functional, and carousel indicators operational. All expected Unsplash images found and verified as woman-in-apartment lifestyle shots with proper quality and aspect ratio."
 
 backend:
+  - task: "Database Consolidation with Proper Labeling"
+    implemented: true
+    working: true
+    file: "/app/consolidate_all_apartments.py, /app/backend/.env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "DATABASE CONSOLIDATION COMPLETED: Successfully consolidated all apartments from both databases into 'nofeeplaces_database' with proper labeling. Created consolidate_all_apartments.py script that: ✅ Merged apartments from 'nofeeplaces' and 'nofeeplaces_database' databases, ✅ Added 'source_database' field to track origin of each apartment, ✅ Removed duplicates based on (address, price) key, ✅ Ensured all apartments have required fields (id, broker_fee, available, is_verified, is_real, etc.), ✅ Sorted all apartments by price in ascending order. RESULTS: 12 total unique apartments now in 'nofeeplaces_database', all apartments properly labeled with source_database='nofeeplaces_database', price range $2,163 - $17,100, all apartments have images (2 images each). Database consolidation verified with comprehensive statistics showing: 1 Studio, 5 1BR, 5 2BR, 1 3BR apartments distributed across price ranges with proper labels."
+
+  - task: "Backend API Price Sorting with Toggle"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "BACKEND API PRICE SORTING IMPLEMENTATION COMPLETED: Successfully updated /api/apartments endpoint to support flexible sorting with toggle functionality. CHANGES MADE: ✅ Added 'sort_by' query parameter (options: price, bedrooms, created_at) with default='price', ✅ Added 'sort_order' query parameter (options: asc, desc) with default='asc', ✅ Updated MongoDB aggregation pipeline to dynamically sort based on user selection, ✅ Maintained secondary sort criteria (priority_score, image_count, featured_score) for consistent ordering, ✅ Sort direction calculated dynamically (1 for ascending, -1 for descending). API FUNCTIONALITY: Default behavior sorts by price ascending (cheapest first), users can toggle to descending (most expensive first), users can also sort by bedrooms or newest first. Backend restarted successfully and running on port 8001."
+
+backend:
   - task: "Comprehensive Backend Functionality Verification After GitHub Pull"
     implemented: true
     working: true
