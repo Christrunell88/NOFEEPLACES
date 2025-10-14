@@ -105,6 +105,18 @@
 user_problem_statement: "Consolidate all apartments into 'nofeeplaces_database' with proper labeling and implement price sorting functionality with toggle between low-to-high and high-to-low order."
 
 frontend:
+  - task: "Frontend Price Sorting UI with Toggle"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "FRONTEND PRICE SORTING UI IMPLEMENTATION COMPLETED: Successfully added sorting controls UI to apartment listings page. CHANGES MADE: ✅ Added sortBy and sortOrder state variables to Home component, ✅ Created sorting controls section with dark slate background above apartment listings, ✅ Added 'Sort by' dropdown with options (Price, Bedrooms, Newest First), ✅ Added 'Order' toggle button that switches between 'Low to High' and 'High to Low', ✅ Button displays rotating arrow icon to indicate sort direction, ✅ Updated fetchApartments to include sort_by and sort_order parameters in API call, ✅ Added dependencies to useEffect for automatic re-fetching when sort changes, ✅ Page resets to 1 when sort options change. UI FEATURES: Sorting controls styled with mint green accent color matching site theme, responsive design works on mobile and desktop, visual feedback with arrow rotation on order toggle. VISUAL TESTING COMPLETED: Verified sorting controls display correctly above apartment listings, confirmed toggle button switches between ascending/descending order, verified apartments re-sort when order is changed (tested low-to-high showing $2,163 first, high-to-low showing $17,100 first), confirmed UI is intuitive and user-friendly."
+
   - task: "Admin Login and Dashboard System"
     implemented: true
     working: true
