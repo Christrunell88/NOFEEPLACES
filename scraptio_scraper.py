@@ -26,16 +26,18 @@ def scrape_with_scraptio(url: str) -> str:
     print(f"🔍 Scraping: {url}")
     
     headers = {
-        'x-api-key': SCRAPTIO_API_KEY,
         'Content-Type': 'application/json'
     }
     
     try:
-        # Scraptio API endpoint (adjust based on their actual API structure)
+        # Scraptio API endpoint with API key in payload
         response = requests.post(
             f"{SCRAPTIO_BASE_URL}/scrape",
             headers=headers,
-            json={'url': url},
+            json={
+                'api_key': SCRAPTIO_API_KEY,
+                'url': url
+            },
             timeout=30
         )
         
