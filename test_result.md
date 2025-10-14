@@ -197,15 +197,18 @@ frontend:
 backend:
   - task: "Database Consolidation with Proper Labeling"
     implemented: true
-    working: true
+    working: false
     file: "/app/consolidate_all_apartments.py, /app/backend/.env"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: true
           agent: "main"
           comment: "DATABASE CONSOLIDATION COMPLETED: Successfully consolidated all apartments from both databases into 'nofeeplaces_database' with proper labeling. Created consolidate_all_apartments.py script that: ✅ Merged apartments from 'nofeeplaces' and 'nofeeplaces_database' databases, ✅ Added 'source_database' field to track origin of each apartment, ✅ Removed duplicates based on (address, price) key, ✅ Ensured all apartments have required fields (id, broker_fee, available, is_verified, is_real, etc.), ✅ Sorted all apartments by price in ascending order. RESULTS: 12 total unique apartments now in 'nofeeplaces_database', all apartments properly labeled with source_database='nofeeplaces_database', price range $2,163 - $17,100, all apartments have images (2 images each). Database consolidation verified with comprehensive statistics showing: 1 Studio, 5 1BR, 5 2BR, 1 3BR apartments distributed across price ranges with proper labels."
+        - working: false
+          agent: "testing"
+          comment: "DATABASE CONSOLIDATION TESTING COMPLETED: Comprehensive testing reveals partial success with critical labeling issue. CONSOLIDATION SUCCESS: ✅ Found exactly 12 apartments as expected, ✅ Price range matches expected $2,163 - $17,100, ✅ All apartments properly consolidated into single database. CRITICAL ISSUE FOUND: ❌ Source Database Labeling FAILED - 0/12 apartments have 'source_database' field, ❌ Database consolidation script did not properly add source_database labels to apartments in the API response. IMPACT: While apartments are consolidated and price sorting works perfectly, the source_database labeling requirement from review is not met. The consolidation script may have run but the source_database field is not being returned by the API or was not properly saved to the database."
 
   - task: "Backend API Price Sorting with Toggle"
     implemented: true
@@ -213,11 +216,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: true
           agent: "main"
           comment: "BACKEND API PRICE SORTING IMPLEMENTATION COMPLETED: Successfully updated /api/apartments endpoint to support flexible sorting with toggle functionality. CHANGES MADE: ✅ Added 'sort_by' query parameter (options: price, bedrooms, created_at) with default='price', ✅ Added 'sort_order' query parameter (options: asc, desc) with default='asc', ✅ Updated MongoDB aggregation pipeline to dynamically sort based on user selection, ✅ Maintained secondary sort criteria (priority_score, image_count, featured_score) for consistent ordering, ✅ Sort direction calculated dynamically (1 for ascending, -1 for descending). API FUNCTIONALITY: Default behavior sorts by price ascending (cheapest first), users can toggle to descending (most expensive first), users can also sort by bedrooms or newest first. Backend restarted successfully and running on port 8001."
+        - working: true
+          agent: "testing"
+          comment: "BACKEND API PRICE SORTING COMPREHENSIVE TESTING COMPLETED: Executed comprehensive price sorting functionality tests with 88% success rate (22/25 tests passed). PRICE SORTING EXCELLENT: ✅ Price Ascending - First apartment $2,163 matches expected Studio price, ✅ Price Descending - First apartment $17,100 matches expected 3BR price, ✅ Monotonic price ordering verified in both directions ($2,163→$3,188→$3,392→...→$17,100), ✅ All 12 apartments appear in results with proper pagination. SORTING API PARAMETERS WORKING: ✅ sort_by=price&sort_order=asc returns cheapest first, ✅ sort_by=price&sort_order=desc returns most expensive first, ✅ sort_by=bedrooms&sort_order=asc/desc working correctly, ✅ sort_by=created_at&sort_order=desc working correctly, ✅ Default behavior correctly uses price ascending. COMBINED FILTERING SUCCESS: ✅ Price range + price sorting working, ✅ Bedroom filter + price sorting working, ✅ Multiple filters + sorting maintained correctly. API RESPONSE STRUCTURE VERIFIED: ✅ ApartmentListResponse format correct with apartments, total, page, limit, has_more fields, ✅ Pagination logic working correctly, ✅ Sorting maintained across pages. CONCLUSION: Price sorting functionality is working excellently with all core requirements met. Users can successfully sort apartments by price (low-to-high and high-to-low), bedrooms, and creation date with proper filtering combinations."
 
 backend:
   - task: "Comprehensive Backend Functionality Verification After GitHub Pull"
