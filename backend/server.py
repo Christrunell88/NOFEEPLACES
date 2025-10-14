@@ -1000,16 +1000,35 @@ async def get_apartments(
         }
     })
     
-    # Sort: Price (lowest to highest) first, then priority, then image count, then featured
-    pipeline.append({
-        "$sort": {
-            "price": 1,  # 1 = ascending (lowest to highest price)
-            "priority_score": -1,
-            "image_count": -1,
-            "featured_score": -1,
-            "created_at": -1
-        }
+    # Determine sort direction (1 = ascending, -1 = descending)
+    sort_direction = 1 if sort_order.lower() == "asc" else -1
+    
+    # Build sort criteria based on user selection
+    sort_criteria = {}
+    
+    # Primary sort field (user-selected)
+    if sort_by == "price":
+        sort_criteria["price"] = sort_direction
+    elif sort_by == "bedrooms":
+        sort_criteria["bedrooms"] = sort_direction
+    elif sort_by == "created_at":
+        sort_criteria["created_at"] = sort_direction
+    else:
+        # Default to price ascending
+        sort_criteria["price"] = 1
+    
+    # Secondary sort criteria (always applied for consistent ordering)
+    sort_criteria.update({
+        "priority_score": -1,
+        "image_count": -1,
+        "featured_score": -1
     })
+    
+    # If not sorting by created_at, add it as final tiebreaker
+    if sort_by != "created_at":
+        sort_criteria["created_at"] = -1
+    
+    pipeline.append({"$sort": sort_criteria})
     
     # Get total count
     count_pipeline = pipeline.copy()
