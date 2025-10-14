@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 """
-Price Sorting Test for NoFeePlaces.com Backend API
-Tests the apartment listings API after implementing price sorting from lowest to highest
+Price Sorting Functionality Test Suite
+Tests the new price sorting functionality implemented in the backend API
+Focus areas from review request:
+1. Database Consolidation Verification
+2. Sorting API Parameters  
+3. Price Order Verification
+4. Combined Filtering with Sorting
+5. API Response Structure
 """
 
 import requests
 import json
 import time
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
-# Configuration
+# Configuration - Use production URL from frontend/.env
 BASE_URL = "https://aptfinderapp.preview.emergentagent.com/api"
 
 class PriceSortingTester:
@@ -35,19 +41,20 @@ class PriceSortingTester:
             self.results["failed"] += 1
             self.results["errors"].append(f"{test_name}: {message}")
     
-    def make_request(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> requests.Response:
+    def make_request(self, method: str, endpoint: str, params: Dict = None) -> requests.Response:
         """Make HTTP request with error handling"""
         url = f"{self.base_url}{endpoint}"
-        default_headers = {"Content-Type": "application/json"}
-        
-        if headers:
-            default_headers.update(headers)
         
         try:
             if method.upper() == "GET":
-                response = requests.get(url, headers=default_headers, params=data)
-            elif method.upper() == "POST":
-                response = requests.post(url, json=data, headers=default_headers)
+                response = requests.get(url, params=params, timeout=30)
+            else:
+                raise ValueError(f"Unsupported method: {method}")
+            
+            return response
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            raise
             else:
                 raise ValueError(f"Unsupported method: {method}")
             
