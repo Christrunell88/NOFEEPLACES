@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Build personal admin login system for placesfirm@gmail.com with full dashboard to manage listings, users, feedback, analytics, and newsletter subscribers. Admin should have exclusive access via /admin login page."
+user_problem_statement: "Consolidate all apartments into 'nofeeplaces_database' with proper labeling and implement price sorting functionality with toggle between low-to-high and high-to-low order."
 
 frontend:
   - task: "Admin Login and Dashboard System"
