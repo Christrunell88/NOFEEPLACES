@@ -1,0 +1,82 @@
+{
+  "studio": {
+    "url": "https://www.mercedeshouseny.com/studio",
+    "all_images": [],
+    "apartment_images": [],
+    "prices": [
+      3200,
+      3700,
+      4000,
+      4500,
+      5000,
+      5500,
+      6000,
+      7000,
+      8000
+    ]
+  },
+  "one-bedroom": {
+    "url": "https://www.mercedeshouseny.com/one-bed",
+    "all_images": [],
+    "apartment_images": [],
+    "prices": [
+      3200,
+      3700,
+      4000,
+      4500,
+      5000,
+      5500,
+      6000,
+      7000,
+      8000
+    ]
+  },
+  "one-bed-office": {
+    "url": "https://www.mercedeshouseny.com/one-bed-home-office",
+    "all_images": [],
+    "apartment_images": [],
+    "prices": [
+      3200,
+      3700,
+      4000,
+      4500,
+      5000,
+      5500,
+      6000,
+      7000,
+      8000
+    ]
+  },
+  "two-bedroom": {
+    "url": "https://www.mercedeshouseny.com/two-bed",
+    "all_images": [],
+    "apartment_images": [],
+    "prices": [
+      3200,
+      3700,
+      4000,
+      4500,
+      5000,
+      5500,
+      6000,
+      7000,
+      8000
+    ]
+  },
+  "terrace": {
+    "url": "https://www.mercedeshouseny.com/terrace",
+    "all_images": [],
+    "apartment_images": [],
+    "prices": [
+      3200,
+      3700,
+      4000,
+      4500,
+      5000,
+      5500,
+      6000,
+      7000,
+      8000
+    ]
+  }
+}
