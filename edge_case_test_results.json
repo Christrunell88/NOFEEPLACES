@@ -1,0 +1,68 @@
+{
+  "timestamp": "2025-10-09T21:54:08.331914",
+  "total_tests": 12,
+  "passed_tests": 12,
+  "success_rate": 100.0,
+  "test_results": [
+    {
+      "test": "None Price Handling",
+      "passed": true,
+      "details": "Returned 0"
+    },
+    {
+      "test": "Empty String Price",
+      "passed": true,
+      "details": "Returned 0"
+    },
+    {
+      "test": "Special Character Address",
+      "passed": true,
+      "details": "Handled special characters"
+    },
+    {
+      "test": "Empty Amenities List",
+      "passed": true,
+      "details": "Returned []"
+    },
+    {
+      "test": "Amenities with Nulls",
+      "passed": true,
+      "details": "Filtered and returned ['Doorman']"
+    },
+    {
+      "test": "Extreme High Price",
+      "passed": true,
+      "details": "Returned 999999999"
+    },
+    {
+      "test": "Very Long Amenity",
+      "passed": true,
+      "details": "Handled 1000 char string"
+    },
+    {
+      "test": "Empty Apartment Quality",
+      "passed": true,
+      "details": "Score: 0"
+    },
+    {
+      "test": "Complete Apartment Quality",
+      "passed": true,
+      "details": "Score: 100/100"
+    },
+    {
+      "test": "Full Data Cleaning Integration",
+      "passed": true,
+      "details": "Passed 7/7 cleaning checks"
+    },
+    {
+      "test": "Concurrent Address Processing",
+      "passed": true,
+      "details": "Processed 4 addresses successfully"
+    },
+    {
+      "test": "Large Dataset Processing",
+      "passed": true,
+      "details": "Successfully processed 100 apartments"
+    }
+  ]
+}
