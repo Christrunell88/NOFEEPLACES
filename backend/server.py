@@ -115,6 +115,7 @@ class Apartment(BaseModel):
     listing_type: Optional[str] = "Direct"
     broker_fee: Optional[str] = "No fee"
     verification_status: Optional[str] = "Verified by NoFeePlaces"
+    source_database: Optional[str] = None  # Track which database this apartment came from
     
     class Config:
         json_encoders = {
