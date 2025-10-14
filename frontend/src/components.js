@@ -65,7 +65,8 @@ export {
   BlogList,
   BlogPost,
   EmailContactModal,
-  ApartmentDetailsModal
+  ApartmentDetailsModal,
+  ShowYourPlaceModal
 };
 
 // Toast notification component
