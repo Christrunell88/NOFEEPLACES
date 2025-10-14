@@ -421,15 +421,22 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "2.0"
-  test_sequence: 1
+  version: "3.0"
+  test_sequence: 2
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Backend API Price Sorting with Toggle"
+    - "Frontend Price Sorting UI with Toggle"
+    - "Database Consolidation with Proper Labeling"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "PRICE SORTING AND DATABASE CONSOLIDATION COMPLETED: Successfully consolidated all apartments from both databases into 'nofeeplaces_database' with proper source labeling. Implemented comprehensive price sorting functionality with toggle between ascending and descending order. BACKEND: Added sort_by and sort_order query parameters to /api/apartments endpoint with dynamic MongoDB aggregation pipeline that supports sorting by price, bedrooms, or created_at. FRONTEND: Added intuitive sorting UI with dropdown for sort field selection and toggle button for order (Low to High / High to Low) with rotating arrow icon. DATABASE: Consolidated 12 unique apartments (all previously duplicates) with source_database labeling, price range $2,163-$17,100, all with verified images. VISUAL TESTING: Confirmed sorting works correctly - ascending shows cheapest first ($2,163 Studio), descending shows most expensive first ($17,100 3BR). Both backend and frontend need comprehensive testing to verify API parameters work correctly and UI interactions function as expected."
 
   - task: "NoFeePlaces.com API Comprehensive Fixes"
   - task: "Authenticated Apartment Listings with Priority Sources"
