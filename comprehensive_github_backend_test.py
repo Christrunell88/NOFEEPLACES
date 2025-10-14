@@ -267,11 +267,14 @@ class NoFeePlacesGitHubVerificationTester:
             response = self.make_request("POST", "/admin/login", login_data)
             if response.status_code == 200:
                 data = response.json()
-                if "access_token" in data:
+                if "token" in data:
+                    self.admin_token = data["token"]
+                    self.log_result("Admin Login", True, f"Successfully logged in as {ADMIN_EMAIL}")
+                elif "access_token" in data:
                     self.admin_token = data["access_token"]
                     self.log_result("Admin Login", True, f"Successfully logged in as {ADMIN_EMAIL}")
                 else:
-                    self.log_result("Admin Login", False, "No access token in response")
+                    self.log_result("Admin Login", False, f"No access token in response: {data}")
             else:
                 self.log_result("Admin Login", False, f"Login failed: {response.status_code}")
         except Exception as e:
