@@ -26,7 +26,8 @@ import {
   CompleteGuideNoFeeApartments,
   BlogList,
   BlogPost,
-  EmailContactModal
+  EmailContactModal,
+  ShowYourPlaceModal
 } from './missing-components';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
