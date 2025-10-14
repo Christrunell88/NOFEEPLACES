@@ -1,0 +1,120 @@
+{
+  "studio": {
+    "url": "https://www.mercedeshouseny.com/studio",
+    "image_count": 7,
+    "images": [
+      "https://assets-img.nestiostatic.com/unit_photos/originals/cef8a589431d18b54c1fc739b155ec84.jpg?fit=max&h=1000&w=1000&s=615477e2f314e14e32369cde35c6e0e7",
+      "https://assets-img.nestiostatic.com/unit_photos/originals/3c06e0399a32160f9c01eb6a1384ff8b.jpg?fit=max&h=1000&w=1000&s=bfb40cb380617b5fb576abe2481a42c4",
+      "https://assets-img.nestiostatic.com/building_medias/full/d815912f262f199c58c492c707377956.jpg?fit=max&h=1000&w=1000&s=c83b1f06a3ca8556074490247468ff13",
+      "https://www.mercedeshouseny.com/images/residences_studio_static_1-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_studio_static_2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_studio_static_3-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_studio_static_4-v2.jpg"
+    ]
+  },
+  "1-bedroom": {
+    "url": "https://www.mercedeshouseny.com/one-bed",
+    "image_count": 7,
+    "images": [
+      "https://assets-img.nestiostatic.com/unit_photos/originals/5f67b3468b922c70660a406caf05c922.jpg?fit=max&h=1000&w=1000&s=16db885e4dbaab1a33dd8147d89d90e2",
+      "https://assets-img.nestiostatic.com/unit_photos/originals/06706f93a325b475f38edb0dd61e4b22.jpg?fit=max&h=1000&w=1000&s=32d24a6329f1e306a0f6b595d6cc869c",
+      "https://assets-img.nestiostatic.com/unit_photos/originals/e84be83dda3051a74138b59f79fc06b3.jpg?fit=max&h=1000&w=1000&s=281842b04a26ac8b722a791aef2e609a",
+      "https://www.mercedeshouseny.com/images/residences_one_bed_static_1-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_one_bed_static_2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_one_bed_static_3-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_one_bed_static_4-v2.jpg"
+    ]
+  },
+  "2-bedroom": {
+    "url": "https://www.mercedeshouseny.com/two-bed",
+    "image_count": 7,
+    "images": [
+      "https://assets-img.nestiostatic.com/unit_photos/originals/e5fc68a7da80b54a0fe9636efdcb9343.jpg?fit=max&h=1000&w=1000&s=e3554ee8ce7c83e7c12e69f235522c40",
+      "https://assets-img.nestiostatic.com/unit_photos/originals/a358722b71603da071386aaf174d552e.jpg?fit=max&h=1000&w=1000&s=5ca5b0be789078f35d73e89ba1a24370",
+      "https://assets-img.nestiostatic.com/unit_photos/originals/ed37751cc0e6569361b286aaba35e821.jpg?fit=max&h=1000&w=1000&s=60655073ff19920465b7a9cd5dcf87ac",
+      "https://www.mercedeshouseny.com/images/residences_two_bed_static_1-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_two_bed_static_2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_two_bed_static_3-v2.jpg",
+      "https://www.mercedeshouseny.com/images/residences_two_bed_static_4-v2.jpg"
+    ]
+  },
+  "amenities": {
+    "url": "https://www.mercedeshouseny.com/amenities",
+    "image_count": 35,
+    "images": [
+      "https://www.mercedeshouseny.com/images/day-spa.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_spin_studio_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_basketball_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-Fitness.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_boxing_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/mercdes_club_pool.jpg",
+      "https://www.mercedeshouseny.com/images/new_yoga_studio_1.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-Yoga.jpg",
+      "https://www.mercedeshouseny.com/images/full_services_mens.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_outdoor_pool_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/elite_personal_trainer.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_wine_bar_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_rentable_lounge_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_outdoor_movie_tile.jpg",
+      "https://www.mercedeshouseny.com/images/social-resident-lounges-and-workspace.jpg",
+      "https://www.mercedeshouseny.com/images/recreation-outdoor-pool-sundeck.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_basketball_tile-2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_billiards_tile-2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-072221-Grills-1.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-Bocce-rinks.jpg",
+      "https://www.mercedeshouseny.com/images/new_yoga_studio_2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_jacuzzi_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_massage_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_sauna_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_concierge_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_parking_garage_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_pet_concierge_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_gourmet_market_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_bike_parking_tile.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_package_services_tile.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-Pong.jpg",
+      "https://www.mercedeshouseny.com/images/MH-Amenities-Bocce.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_juice_bar_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenitiespage_lounge_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_day_spa_tile-v2.jpg"
+    ]
+  },
+  "building": {
+    "url": "https://www.mercedeshouseny.com/building",
+    "image_count": 19,
+    "images": [
+      "https://www.mercedeshouseny.com/images/designing-mercedes-house.jpg",
+      "https://www.mercedeshouseny.com/images/building_feature_slide_energy-v2.jpg",
+      "https://www.mercedeshouseny.com/images/building_feature_slide_luxury-v2.jpg",
+      "https://www.mercedeshouseny.com/images/community_lifestyle_tile.jpg",
+      "https://www.mercedeshouseny.com/images/building_health_fitness_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_outdoor_pool_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/building_recreation_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_billiards_tile-v2.jpg",
+      "https://www.mercedeshouseny.com/images/amenities_gourmet_market_tile.jpg",
+      "https://www.mercedeshouseny.com/images/building_slideshow_6.jpg",
+      "https://www.mercedeshouseny.com/images/building_slideshow_2-v2.jpg",
+      "https://www.mercedeshouseny.com/images/building_slideshow_4-v2.jpg",
+      "https://www.mercedeshouseny.com/images/building_slideshow_3-v2.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_restaurants_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_nightlife_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_park_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_cultural_institutions_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_shopping_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_transportation_tile.jpg"
+    ]
+  },
+  "neighborhood": {
+    "url": "https://www.mercedeshouseny.com/neighborhood",
+    "image_count": 7,
+    "images": [
+      "https://www.mercedeshouseny.com/images/neighborhood_map_dark-v2.png",
+      "https://www.mercedeshouseny.com/images/neighborhood_restaurants_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_nightlife_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_park_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_cultural_institutions_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_shopping_tile.jpg",
+      "https://www.mercedeshouseny.com/images/neighborhood_transportation_tile.jpg"
+    ]
+  }
+}
