@@ -304,6 +304,15 @@ export const LeadMagnet = ({ title, description, downloadUrl, source }) => {
 export const Header = () => {
   const { isAuthenticated, user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showPlaceModal, setShowPlaceModal] = useState(false);
+
+  const handleShowYourPlace = () => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+    } else {
+      setShowPlaceModal(true);
+    }
+  };
 
   return (
     <header className="bg-gradient-to-r from-slate-900 via-gray-900 to-slate-900 text-white shadow-2xl sticky top-0 z-40 border-b border-slate-700">
@@ -312,12 +321,21 @@ export const Header = () => {
           {/* Left Side: Elegant Wordmark */}
           <HeaderWordMark />
 
-          {/* Center - Value Proposition */}
+          {/* Center - Show Your Place Button */}
           <div className="flex-1 flex justify-center">
-            <div className="hidden md:block text-center">
-              <div className="text-sm font-semibold text-gray-200">400+ Verified No-Fee Apartments</div>
-              <div className="text-xs text-blue-300 font-medium">Save $2,000-$6,000+ on Broker Fees</div>
-            </div>
+            <button
+              onClick={handleShowYourPlace}
+              className="group relative px-8 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white rounded-full transition-all duration-300 font-bold shadow-2xl hover:shadow-amber-500/50 text-sm border-2 border-amber-400 hover:border-amber-300 transform hover:scale-105"
+            >
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Show Your Place</span>
+              </div>
+              <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            </button>
           </div>
 
           {/* Right Side: Professional Authentication & Menu */}
@@ -353,6 +371,9 @@ export const Header = () => {
 
       {/* Auth Modal */}
       {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
+      
+      {/* Show Your Place Modal */}
+      {showPlaceModal && <ShowYourPlaceModal onClose={() => setShowPlaceModal(false)} />}
     </header>
   );
 };
