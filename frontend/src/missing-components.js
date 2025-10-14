@@ -239,7 +239,12 @@ export const FeaturedApartments = () => {
                     <h3 className="font-semibold text-lg text-slate-800 line-clamp-1">
                       {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms}BR`} in {apartment.neighborhood || 'NYC'}
                     </h3>
-                    <p className="text-slate-600 text-sm">{apartment.location}</p>
+                    <p className="text-slate-600 text-sm">
+                      {isAuthenticated 
+                        ? (apartment.location || apartment.address || `${apartment.neighborhood}, ${apartment.borough}`)
+                        : (apartment.neighborhood && apartment.borough ? `${apartment.neighborhood}, ${apartment.borough}` : apartment.neighborhood || apartment.borough || 'NYC')
+                      }
+                    </p>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-slate-800">
