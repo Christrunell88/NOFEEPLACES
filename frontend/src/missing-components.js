@@ -1879,3 +1879,4 @@ export const ShowYourPlaceModal = ({ onClose }) => {
       </div>
     </div>
   );
+};
