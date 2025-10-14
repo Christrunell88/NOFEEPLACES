@@ -950,9 +950,11 @@ async def get_apartments(
     bathrooms: Optional[float] = None,
     neighborhood: Optional[str] = None,
     borough: Optional[str] = None,
-    search: Optional[str] = None
+    search: Optional[str] = None,
+    sort_by: Optional[str] = Query("price", description="Field to sort by: price, bedrooms, created_at"),
+    sort_order: Optional[str] = Query("asc", description="Sort order: asc (ascending) or desc (descending)")
 ):
-    """Get apartments with enhanced filtering and AI-friendly responses"""
+    """Get apartments with enhanced filtering, sorting options, and AI-friendly responses"""
     skip = (page - 1) * limit
     
     # Build aggregation pipeline for sophisticated sorting
