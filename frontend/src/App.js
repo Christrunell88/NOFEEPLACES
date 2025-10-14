@@ -78,6 +78,8 @@ const Home = () => {
     neighborhood: '',
     borough: ''
   });
+  const [sortBy, setSortBy] = useState('price');  // New: sorting field
+  const [sortOrder, setSortOrder] = useState('asc');  // New: sorting order
   const [viewMode, setViewMode] = useState('list');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalApartments, setTotalApartments] = useState(0);
