@@ -270,6 +270,46 @@ const Home = () => {
       />
       
       <main id="main-content" className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
+        {/* Sorting Controls */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 p-4 bg-slate-800 rounded-lg border border-slate-700">
+          <div className="flex items-center space-x-3 mb-3 md:mb-0">
+            <span className="text-slate-300 font-medium text-sm md:text-base">Sort by:</span>
+            <select 
+              value={sortBy}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                setCurrentPage(1); // Reset to first page on sort change
+              }}
+              className="px-3 py-2 bg-slate-700 text-white rounded-lg border border-slate-600 focus:outline-none focus:ring-2 focus:ring-mint-500 text-sm md:text-base"
+            >
+              <option value="price">Price</option>
+              <option value="bedrooms">Bedrooms</option>
+              <option value="created_at">Newest First</option>
+            </select>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <span className="text-slate-300 text-sm md:text-base">Order:</span>
+            <button 
+              onClick={() => {
+                setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                setCurrentPage(1); // Reset to first page on order change
+              }}
+              className="flex items-center space-x-2 px-4 py-2 bg-mint-600 hover:bg-mint-500 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
+            >
+              <span>{sortOrder === 'asc' ? 'Low to High' : 'High to Low'}</span>
+              <svg 
+                className={`w-4 h-4 transition-transform ${sortOrder === 'desc' ? 'rotate-180' : ''}`}
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
           <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
             {loading ? 'Searching No Fee Apartments NYC...' : 'No Fee Apartments NYC 2025 | Zero Broker Fee Rentals'}
