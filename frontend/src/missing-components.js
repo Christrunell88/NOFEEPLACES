@@ -1879,4 +1879,563 @@ export const ShowYourPlaceModal = ({ onClose }) => {
       </div>
     </div>
   );
+
+
+// Show Your Place Modal Component
+export const ShowYourPlaceModal = ({ onClose }) => {
+  const { user } = useAuth();
+  const [step, setStep] = useState(1);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [error, setError] = useState('');
+
+  const [formData, setFormData] = useState({
+    title: '',
+    address: '',
+    neighborhood: '',
+    borough: 'Manhattan',
+    price: '',
+    bedrooms: '',
+    bathrooms: '',
+    sqft: '',
+    description: '',
+    amenities: [],
+    contact_email: user?.email || '',
+    contact_phone: '',
+    lease_terms: '1 year',
+    move_in_date: '',
+    pet_policy: 'Ask',
+    utilities: 'Tenant pays all'
+  });
+
+  const [images, setImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
+
+  const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'];
+  const amenitiesList = [
+    'Doorman', 'Elevator', 'Gym', 'Pool', 'Roof Deck', 
+    'Laundry in Building', 'Laundry in Unit', 'Dishwasher', 
+    'Central AC', 'Hardwood Floors', 'Balcony', 'Parking'
+  ];
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAmenityToggle = (amenity) => {
+    setFormData(prev => ({
+      ...prev,
+      amenities: prev.amenities.includes(amenity)
+        ? prev.amenities.filter(a => a !== amenity)
+        : [...prev.amenities, amenity]
+    }));
+  };
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const remainingSlots = 10 - images.length;
+    const filesToAdd = files.slice(0, remainingSlots);
+
+    // Validate file sizes (5MB max)
+    const validFiles = filesToAdd.filter(file => {
+      if (file.size > 5 * 1024 * 1024) {
+        alert(`${file.name} is too large. Max size is 5MB.`);
+        return false;
+      }
+      return true;
+    });
+
+    setImages(prev => [...prev, ...validFiles]);
+
+    // Create previews
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviews(prev => [...prev, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const removeImage = (index) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+    setImagePreviews(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async () => {
+    setSubmitting(true);
+    setError('');
+
+    try {
+      const formDataToSend = new FormData();
+      
+      // Add all form fields
+      Object.keys(formData).forEach(key => {
+        if (key === 'amenities') {
+          formDataToSend.append(key, formData[key].join(', '));
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      // Add images
+      images.forEach((image, index) => {
+        formDataToSend.append('images', image);
+      });
+
+      const response = await axios.post(
+        `${API}/landlord/submit-listing`,
+        formDataToSend,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      if (response.data.success) {
+        setSubmitSuccess(true);
+        setTimeout(() => {
+          onClose();
+        }, 3000);
+      } else {
+        setError(response.data.message || 'Submission failed');
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to submit listing');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const nextStep = () => {
+    if (step === 1 && (!formData.title || !formData.address || !formData.price)) {
+      setError('Please fill in all required fields');
+      return;
+    }
+    if (step === 2 && !formData.description) {
+      setError('Please describe what you love about your space');
+      return;
+    }
+    setError('');
+    setStep(prev => prev + 1);
+  };
+
+  const prevStep = () => setStep(prev => prev - 1);
+
+  if (submitSuccess) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Success!</h3>
+          <p className="text-gray-600">Your listing has been submitted. We'll review it and get back to you within 24 hours.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-4xl w-full my-8">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 p-6 rounded-t-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-white">Show Your Place</h2>
+              <p className="text-amber-100 text-sm">Share your no-fee apartment with renters</p>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-white hover:text-amber-200 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Progress Steps */}
+          <div className="flex items-center justify-center mt-6 space-x-4">
+            {[1, 2, 3].map(num => (
+              <div key={num} className="flex items-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                  step >= num ? 'bg-white text-amber-600' : 'bg-amber-700 text-white'
+                }`}>
+                  {num}
+                </div>
+                {num < 3 && (
+                  <div className={`w-16 h-1 ${step > num ? 'bg-white' : 'bg-amber-700'}`}></div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Form Content */}
+        <div className="p-8">
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+              {error}
+            </div>
+          )}
+
+          {/* Step 1: Basic Info */}
+          {step === 1 && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Basic Information</h3>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Listing Title *
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Spacious 2BR in Hell's Kitchen"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Address *
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    placeholder="Street address"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Neighborhood *
+                  </label>
+                  <input
+                    type="text"
+                    name="neighborhood"
+                    value={formData.neighborhood}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Hell's Kitchen"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Borough *
+                  </label>
+                  <select
+                    name="borough"
+                    value={formData.borough}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  >
+                    {boroughs.map(b => (
+                      <option key={b} value={b}>{b}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Price/Month *
+                  </label>
+                  <input
+                    type="number"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    placeholder="3500"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Bedrooms *
+                  </label>
+                  <input
+                    type="number"
+                    name="bedrooms"
+                    value={formData.bedrooms}
+                    onChange={handleInputChange}
+                    placeholder="2"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Bathrooms *
+                  </label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    name="bathrooms"
+                    value={formData.bathrooms}
+                    onChange={handleInputChange}
+                    placeholder="1"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Square Feet
+                </label>
+                <input
+                  type="number"
+                  name="sqft"
+                  value={formData.sqft}
+                  onChange={handleInputChange}
+                  placeholder="750"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Description & Photos */}
+          {step === 2 && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Tell Us About Your Space</h3>
+              
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  What do you love most about your apartment? *
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={6}
+                  placeholder="Describe what makes your apartment special - the natural light, the neighborhood, the renovated kitchen, proximity to subway, etc."
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Upload Photos (up to 10 images, 5MB each)
+                </label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-amber-500 transition-colors">
+                  <input
+                    type="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="hidden"
+                    id="image-upload"
+                    disabled={images.length >= 10}
+                  />
+                  <label htmlFor="image-upload" className="cursor-pointer">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-12 h-12 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p className="text-gray-600">Click to upload images</p>
+                      <p className="text-sm text-gray-400 mt-1">{images.length}/10 images uploaded</p>
+                    </div>
+                  </label>
+                </div>
+
+                {/* Image Previews */}
+                {imagePreviews.length > 0 && (
+                  <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mt-4">
+                    {imagePreviews.map((preview, index) => (
+                      <div key={index} className="relative group">
+                        <img
+                          src={preview}
+                          alt={`Preview ${index + 1}`}
+                          className="w-full h-24 object-cover rounded-lg"
+                        />
+                        <button
+                          onClick={() => removeImage(index)}
+                          className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Amenities
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {amenitiesList.map(amenity => (
+                    <button
+                      key={amenity}
+                      type="button"
+                      onClick={() => handleAmenityToggle(amenity)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        formData.amenities.includes(amenity)
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      }`}
+                    >
+                      {amenity}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Contact & Details */}
+          {step === 3 && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information & Details</h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    name="contact_email"
+                    value={formData.contact_email}
+                    onChange={handleInputChange}
+                    placeholder="your@email.com"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Phone *
+                  </label>
+                  <input
+                    type="tel"
+                    name="contact_phone"
+                    value={formData.contact_phone}
+                    onChange={handleInputChange}
+                    placeholder="(555) 123-4567"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Lease Terms
+                  </label>
+                  <select
+                    name="lease_terms"
+                    value={formData.lease_terms}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  >
+                    <option value="1 year">1 Year</option>
+                    <option value="2 years">2 Years</option>
+                    <option value="Month-to-month">Month-to-month</option>
+                    <option value="Flexible">Flexible</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Available From
+                  </label>
+                  <input
+                    type="date"
+                    name="move_in_date"
+                    value={formData.move_in_date}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Pet Policy
+                  </label>
+                  <select
+                    name="pet_policy"
+                    value={formData.pet_policy}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  >
+                    <option value="Dogs and Cats Allowed">Dogs and Cats Allowed</option>
+                    <option value="Cats Only">Cats Only</option>
+                    <option value="Small Dogs Only">Small Dogs Only</option>
+                    <option value="No Pets">No Pets</option>
+                    <option value="Ask">Ask</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Utilities
+                  </label>
+                  <select
+                    name="utilities"
+                    value={formData.utilities}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  >
+                    <option value="Tenant pays all">Tenant pays all</option>
+                    <option value="Heat & hot water included">Heat & hot water included</option>
+                    <option value="All included">All utilities included</option>
+                    <option value="Varies">Varies</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Navigation Buttons */}
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+            {step > 1 && (
+              <button
+                onClick={prevStep}
+                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-semibold"
+              >
+                Back
+              </button>
+            )}
+            
+            <div className="flex-1"></div>
+
+            {step < 3 ? (
+              <button
+                onClick={nextStep}
+                className="px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-lg transition-all font-semibold shadow-lg"
+              >
+                Next Step
+              </button>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg transition-all font-semibold shadow-lg disabled:opacity-50"
+              >
+                {submitting ? 'Submitting...' : 'Submit Listing'}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 };
