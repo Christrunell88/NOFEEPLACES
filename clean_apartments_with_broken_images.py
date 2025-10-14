@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 
 # Database connection
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017/')
-DB_NAME = 'nofeeplaces'
+DB_NAME = os.environ.get('DB_NAME', 'nofeeplaces_database')
 
 client = MongoClient(MONGO_URL)
 db = client[DB_NAME]
