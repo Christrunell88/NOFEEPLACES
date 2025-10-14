@@ -124,7 +124,7 @@ const Home = () => {
   useEffect(() => {
     fetchApartments();
     fetchSearchStats();
-  }, [searchFilters, currentPage]);
+  }, [searchFilters, currentPage, sortBy, sortOrder]);  // Added sortBy and sortOrder dependencies
 
   // Listen for neighborhood search events from SEO section
   useEffect(() => {
