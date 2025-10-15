@@ -1,0 +1,1822 @@
+[
+  {
+    "url": "https://www.mns.com/details/239388/rental/gowanus/brooklyn",
+    "price": 3567.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239388_728733.jpg",
+    "text": "Gowanus 500  Degraw ST, 223 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,567 Gowanus 500  Degraw ST, 210 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,608 Greenpoint 65  Dupont "
+  },
+  {
+    "url": "https://www.mns.com/details/239846/rental/gowanus/brooklyn",
+    "price": 3608.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743826_728812_728785_728758_239388_728731.jpg",
+    "text": "Gowanus 500  Degraw ST, 210 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,608"
+  },
+  {
+    "url": "https://www.mns.com/details/239845/rental/greenpoint/brooklyn",
+    "price": 6698.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743761_239745_740728.jpg",
+    "text": "Greenpoint 65  Dupont ST, 708 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $6,698"
+  },
+  {
+    "url": "https://www.mns.com/details/239329/rental/greenpoint/brooklyn",
+    "price": 6493.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239329_743792.jpg",
+    "text": "Greenpoint 65  Dupont ST, 208 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,493"
+  },
+  {
+    "url": "https://www.mns.com/details/239844/rental/greenpoint/brooklyn",
+    "price": 6533.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239844_743738.jpg",
+    "text": "Greenpoint 65  Dupont ST, 612 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,533"
+  },
+  {
+    "url": "https://www.mns.com/details/239843/rental/greenpoint/brooklyn",
+    "price": 4316.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743693_743668_743643_239743_740723.jpg",
+    "text": "Greenpoint 65  Dupont ST, 804 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,316"
+  },
+  {
+    "url": "https://www.mns.com/details/239842/rental/greenpoint/brooklyn",
+    "price": 4382.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743667_743642_239743_740722.jpg",
+    "text": "Greenpoint 65  Dupont ST, 709 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,382"
+  },
+  {
+    "url": "https://www.mns.com/details/239841/rental/greenpoint/brooklyn",
+    "price": 3809.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743645_239743_740725.jpg",
+    "text": "Greenpoint 65  Dupont ST, 526 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,809"
+  },
+  {
+    "url": "https://www.mns.com/details/239840/rental/greenpoint/brooklyn",
+    "price": 3280.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743596_743568_239740_740299.jpg",
+    "text": "Greenpoint 65  Dupont ST, 706 Studio | 1 bath Floorplan video 3d 3d view Contact $3,280"
+  },
+  {
+    "url": "https://www.mns.com/details/239839/rental/greenpoint/brooklyn",
+    "price": 3280.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743567_239740_740298.jpg",
+    "text": "Greenpoint 65  Dupont ST, 702 Studio | 1 bath Floorplan video 3d 3d view Contact $3,280"
+  },
+  {
+    "url": "https://www.mns.com/details/239008/rental/greenpoint/brooklyn",
+    "price": 3227.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239008_743539.jpg",
+    "text": "Greenpoint 65  Dupont ST, 303 Studio | 1 bath Floorplan video 3d 3d view Contact $3,227"
+  },
+  {
+    "url": "https://www.mns.com/details/239835/rental/brooklyn+heights/brooklyn",
+    "price": 3858.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Brooklyn Heights",
+    "location": "Brooklyn Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/743414_639740_235413_637082.jpg",
+    "text": "Brooklyn Heights 200  Montague ST, 8E Studio | 1 bath Floorplan video 3d 3d view Contact $3,858"
+  },
+  {
+    "url": "https://www.mns.com/details/230169/rental/williamsburg/brooklyn",
+    "price": 8115.0,
+    "bedrooms": 3,
+    "bathrooms": 2.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/230169_734921.jpg",
+    "text": "Williamsburg 360  Wythe AVE, 501 3 Bedroom | 2 bath Floorplan Contact $8,115"
+  },
+  {
+    "url": "https://www.mns.com/details/239128/rental/windsor+terrace/brooklyn",
+    "price": 5311.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/722607_719533_717938_237222_717907.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 1119 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,311"
+  },
+  {
+    "url": "https://www.mns.com/details/239802/rental/windsor+terrace/brooklyn",
+    "price": 3000.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239802_742159.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 418 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,000"
+  },
+  {
+    "url": "https://www.mns.com/details/237278/rental/windsor+terrace/brooklyn",
+    "price": 5422.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237278_702716.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 1107 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,422"
+  },
+  {
+    "url": "https://www.mns.com/details/239592/rental/windsor+terrace/brooklyn",
+    "price": 3083.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239592_735503.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 618 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,083"
+  },
+  {
+    "url": "https://www.mns.com/details/238980/rental/windsor+terrace/brooklyn",
+    "price": 4708.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/717938_237222_717907.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 708 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,708"
+  },
+  {
+    "url": "https://www.mns.com/details/239801/rental/windsor+terrace/brooklyn",
+    "price": 3644.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742110_690154_688585_687496_685916_236983_685875.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 506 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,644"
+  },
+  {
+    "url": "https://www.mns.com/details/239619/rental/windsor+terrace/brooklyn",
+    "price": 4708.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239619_736389.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 311 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,708"
+  },
+  {
+    "url": "https://www.mns.com/details/239621/rental/windsor+terrace/brooklyn",
+    "price": 4750.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239621_736469.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 505 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,750"
+  },
+  {
+    "url": "https://www.mns.com/details/236921/rental/windsor+terrace/brooklyn",
+    "price": 4750.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/236921_721449.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 709 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,750"
+  },
+  {
+    "url": "https://www.mns.com/details/239620/rental/windsor+terrace/brooklyn",
+    "price": 4750.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/736417_239619_736390.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 411 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,750"
+  },
+  {
+    "url": "https://www.mns.com/details/239622/rental/windsor+terrace/brooklyn",
+    "price": 4875.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/736500_736418_239619_736391.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 711 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,875"
+  },
+  {
+    "url": "https://www.mns.com/details/239355/rental/bedford-stuyvesant/brooklyn",
+    "price": 3138.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239355_742919.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 523 1 Bedroom | 1 bath video 3d 3d view Contact $3,138"
+  },
+  {
+    "url": "https://www.mns.com/details/239218/rental/bedford-stuyvesant/brooklyn",
+    "price": 3124.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/724613_724596_721702_239094_721664.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 423 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,124"
+  },
+  {
+    "url": "https://www.mns.com/details/238724/rental/bedford-stuyvesant/brooklyn",
+    "price": 2547.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/707860_705718_704850_704829_238551_701911.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 201 Studio | 1 bath video 3d 3d view Contact $2,547"
+  },
+  {
+    "url": "https://www.mns.com/details/238786/rental/bedford-stuyvesant/brooklyn",
+    "price": 2543.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238786_736216.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, C01 Studio | 1 bath Floorplan video 3d 3d view Contact $2,543"
+  },
+  {
+    "url": "https://www.mns.com/details/238894/rental/bedford-stuyvesant/brooklyn",
+    "price": 2551.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/714638_714617_714596_713006_710314_707894_707874_705733_704865_704844_238551_703465.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 501 Studio | 1 bath video 3d 3d view Contact $2,551"
+  },
+  {
+    "url": "https://www.mns.com/details/238801/rental/bedford-stuyvesant/brooklyn",
+    "price": 2563.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238801_732009.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 329 Studio | 1 bath video 3d 3d view Contact $2,563"
+  },
+  {
+    "url": "https://www.mns.com/details/239396/rental/bedford-stuyvesant/brooklyn",
+    "price": 5329.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239396_729098.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 332 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,329"
+  },
+  {
+    "url": "https://www.mns.com/details/239408/rental/bedford-stuyvesant/brooklyn",
+    "price": 4440.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/729531_729513_239094_721663.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 518 2 Bedroom | 2 bath video 3d 3d view Contact $4,440"
+  },
+  {
+    "url": "https://www.mns.com/details/224759/rental/williamsburg/brooklyn",
+    "price": 4500.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/224759_559224.jpg",
+    "text": "Williamsburg 101 N 5 ST, 4B 1 Bedroom | 1 bath | 672 sq ft Contact $4,500"
+  },
+  {
+    "url": "https://www.mns.com/details/239809/rental/prospect+heights/brooklyn",
+    "price": 3996.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742315_742296_739919_739753_239109_739634.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 15J 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,996"
+  },
+  {
+    "url": "https://www.mns.com/details/239808/rental/prospect+heights/brooklyn",
+    "price": 3996.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742294_739917_739751_239109_739632.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 14I 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,996"
+  },
+  {
+    "url": "https://www.mns.com/details/239107/rental/prospect+heights/brooklyn",
+    "price": 5018.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239107_722320.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 10L 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $5,018"
+  },
+  {
+    "url": "https://www.mns.com/details/239373/rental/prospect+heights/brooklyn",
+    "price": 4089.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/728373_239111_722310.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 9K 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,089"
+  },
+  {
+    "url": "https://www.mns.com/details/239807/rental/prospect+heights/brooklyn",
+    "price": 4947.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742285_739830_739785_734079_734053_734026_728521_728246_239108_722318.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 8L 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,947"
+  },
+  {
+    "url": "https://www.mns.com/details/239806/rental/prospect+heights/brooklyn",
+    "price": 4858.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742251_739751_239109_739632.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 8C 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,858"
+  },
+  {
+    "url": "https://www.mns.com/details/239381/rental/prospect+heights/brooklyn",
+    "price": 4742.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/728522_728247_239108_722319.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 6M 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,742"
+  },
+  {
+    "url": "https://www.mns.com/details/239805/rental/prospect+heights/brooklyn",
+    "price": 4004.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742245_739955_239536_734031.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 6E 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,004"
+  },
+  {
+    "url": "https://www.mns.com/details/239112/rental/prospect+heights/brooklyn",
+    "price": 4809.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239112_727052.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 6D 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,809"
+  },
+  {
+    "url": "https://www.mns.com/details/239804/rental/prospect+heights/brooklyn",
+    "price": 3978.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742207_728405_721993_721978_721963_721948_239107_721929.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 4K 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,978"
+  },
+  {
+    "url": "https://www.mns.com/details/239376/rental/prospect+heights/brooklyn",
+    "price": 3964.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/728404_721992_721977_721962_721947_239107_721928.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 3H 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,964"
+  },
+  {
+    "url": "https://www.mns.com/details/239375/rental/prospect+heights/brooklyn",
+    "price": 3942.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/728383_728357_721991_721976_721961_721946_239107_721927.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 2A 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,942"
+  },
+  {
+    "url": "https://www.mns.com/details/239803/rental/prospect+heights/brooklyn",
+    "price": 3191.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742187_733966_728526_728426_721877_239103_721864.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 13F Studio | 1 bath Floorplan video 3d 3d view Contact $3,191"
+  },
+  {
+    "url": "https://www.mns.com/details/239813/rental/crown+heights/brooklyn",
+    "price": 3125.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239813_742448.jpg",
+    "text": "Crown Heights 1101   President ST, 924 Studio | 1 bath | 464 sq ft Floorplan video 3d 3d view Contact $3,125"
+  },
+  {
+    "url": "https://www.mns.com/details/239812/rental/crown+heights/brooklyn",
+    "price": 4496.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742425_694006_600720_600658_600204_600191_599838_234085_599809.jpg",
+    "text": "Crown Heights 1101   President ST, 1403 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,496"
+  },
+  {
+    "url": "https://www.mns.com/details/239811/rental/prospect+heights/brooklyn",
+    "price": 5747.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742402_740033_239553_734467.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 15N 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,747"
+  },
+  {
+    "url": "https://www.mns.com/details/239810/rental/prospect+heights/brooklyn",
+    "price": 5413.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/742370_239553_734462.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 13J 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,413"
+  },
+  {
+    "url": "https://www.mns.com/details/239371/rental/prospect+heights/brooklyn",
+    "price": 5622.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239371_742349.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 9G 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,622"
+  },
+  {
+    "url": "https://www.mns.com/details/239383/rental/prospect+heights/brooklyn",
+    "price": 5551.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239383_742327.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 7I 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,551"
+  },
+  {
+    "url": "https://www.mns.com/details/233001/rental/bedford-stuyvesant/brooklyn",
+    "price": 2750.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/233001_742052.jpg",
+    "text": "Bedford-Stuyvesant 1328  Fulton ST, 706 1 Bedroom | 1 bath Floorplan Contact $2,750"
+  },
+  {
+    "url": "https://www.mns.com/details/234652/rental/clinton+hill/brooklyn",
+    "price": 3500.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234652_729550.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 9C 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,500"
+  },
+  {
+    "url": "https://www.mns.com/details/234654/rental/clinton+hill/brooklyn",
+    "price": 4993.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234654_715773.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 9D 2 Bedroom | 2 bath Floorplan Contact $4,993"
+  },
+  {
+    "url": "https://www.mns.com/details/226508/rental/bedford-stuyvesant/brooklyn",
+    "price": 3733.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment/pics/AD-226508_20170811125656pm12.jpg",
+    "text": "Bedford-Stuyvesant 27  Albany AVE, 308 2 Bedroom | 2 bath Floorplan video Contact $3,733"
+  },
+  {
+    "url": "https://www.mns.com/details/235493/rental/bensonhurst/brooklyn",
+    "price": 2500.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bensonhurst",
+    "location": "Bensonhurst, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/235493_732748.jpg",
+    "text": "Bensonhurst 7402  Bay Parkway , E04 1 Bedroom | 1 bath Contact $2,500"
+  },
+  {
+    "url": "https://www.mns.com/details/163417/rental/bedford-stuyvesant/brooklyn",
+    "price": 2239.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/163417_741468.jpg",
+    "text": "Bedford-Stuyvesant 1560  Fulton ST, 503 1 Bedroom | 1 bath | 664 sq ft Floorplan video 3d 3d view Contact $2,239"
+  },
+  {
+    "url": "https://www.mns.com/details/239060/rental/crown+heights/brooklyn",
+    "price": 2982.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/720508_720423_720401_238747_714095.jpg",
+    "text": "Crown Heights 54  Crown ST, 1105 Studio | 1 bath | 450 sq ft Floorplan video 3d 3d view Contact $2,982"
+  },
+  {
+    "url": "https://www.mns.com/details/237562/rental/crown+heights/brooklyn",
+    "price": 4517.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237562_741970.jpg",
+    "text": "Crown Heights 54  Crown ST, 939 2 Bedroom | 2 bath | 894 sq ft Floorplan video 3d 3d view Contact $4,517"
+  },
+  {
+    "url": "https://www.mns.com/details/239061/rental/crown+heights/brooklyn",
+    "price": 3189.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/720514_718417_237554_708566.jpg",
+    "text": "Crown Heights 54  Crown ST, 703 1 Bedroom | 1 bath | 621 sq ft Floorplan video Contact $3,189"
+  },
+  {
+    "url": "https://www.mns.com/details/239679/rental/crown+heights/brooklyn",
+    "price": 3176.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738160_720514_718417_237554_708566.jpg",
+    "text": "Crown Heights 54  Crown ST, 603 1 Bedroom | 1 bath | 532 sq ft Floorplan video 3d 3d view Contact $3,176"
+  },
+  {
+    "url": "https://www.mns.com/details/234403/rental/clinton+hill/brooklyn",
+    "price": 2976.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234403_678389.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 7T Studio | 1 bath Floorplan video 3d 3d view Contact $2,976"
+  },
+  {
+    "url": "https://www.mns.com/details/234514/rental/clinton+hill/brooklyn",
+    "price": 3496.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234514_670228.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 5Q 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,496"
+  },
+  {
+    "url": "https://www.mns.com/details/234395/rental/clinton+hill/brooklyn",
+    "price": 5212.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/606457_234295_604094.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 2B 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,212"
+  },
+  {
+    "url": "https://www.mns.com/details/238917/rental/windsor+terrace/brooklyn",
+    "price": 6875.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/715262_236639_710147.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, PH106 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,875"
+  },
+  {
+    "url": "https://www.mns.com/details/232050/rental/williamsburg/brooklyn",
+    "price": 4450.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/232050_741931.jpg",
+    "text": "Williamsburg 360  Wythe AVE, 410 Studio | 1 bath Floorplan Contact $4,450"
+  },
+  {
+    "url": "https://www.mns.com/details/239015/rental/crown+heights/brooklyn",
+    "price": 3957.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239015_729240.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 2K 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,957"
+  },
+  {
+    "url": "https://www.mns.com/details/239459/rental/crown+heights/brooklyn",
+    "price": 3013.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/731611_239019_725215.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 3G Studio | 1 bath Floorplan video 3d 3d view Contact $3,013"
+  },
+  {
+    "url": "https://www.mns.com/details/239629/rental/crown+heights/brooklyn",
+    "price": 6720.0,
+    "bedrooms": 5,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239629_736711.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 13E 2.5 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,720"
+  },
+  {
+    "url": "https://www.mns.com/details/239795/rental/crown+heights/brooklyn",
+    "price": 5582.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741906_739412_239582_735222.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 14J 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,582"
+  },
+  {
+    "url": "https://www.mns.com/details/239794/rental/crown+heights/brooklyn",
+    "price": 4596.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741888_239472_731905.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 10I 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,596"
+  },
+  {
+    "url": "https://www.mns.com/details/239793/rental/crown+heights/brooklyn",
+    "price": 4569.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741870_741628_739396_739375_239626_736631.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 8B 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,569"
+  },
+  {
+    "url": "https://www.mns.com/details/239792/rental/crown+heights/brooklyn",
+    "price": 4524.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239792_741844.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 701 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,524"
+  },
+  {
+    "url": "https://www.mns.com/details/239791/rental/crown+heights/brooklyn",
+    "price": 4600.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741807_741786_239626_736630.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 6A 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,600"
+  },
+  {
+    "url": "https://www.mns.com/details/239790/rental/crown+heights/brooklyn",
+    "price": 4547.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741785_239626_736629.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 3L 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,547"
+  },
+  {
+    "url": "https://www.mns.com/details/239782/rental/crown+heights/brooklyn",
+    "price": 3956.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741617_731737_731716_731695_731674_731653_239100_729142.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 15H 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,956"
+  },
+  {
+    "url": "https://www.mns.com/details/239781/rental/crown+heights/brooklyn",
+    "price": 3898.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741598_731759_731738_731717_731696_731675_731654_239100_729143.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 15J 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,898"
+  },
+  {
+    "url": "https://www.mns.com/details/239780/rental/crown+heights/brooklyn",
+    "price": 3769.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239780_741558.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 13A 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,769"
+  },
+  {
+    "url": "https://www.mns.com/details/239624/rental/crown+heights/brooklyn",
+    "price": 3769.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239624_736569.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 8M 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,769"
+  },
+  {
+    "url": "https://www.mns.com/details/239623/rental/crown+heights/brooklyn",
+    "price": 3796.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/736542_731676_731655_239100_729144.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 4N 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,796"
+  },
+  {
+    "url": "https://www.mns.com/details/239779/rental/crown+heights/brooklyn",
+    "price": 2973.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741533_741513_741493_738964_731591_239020_729138.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 11F Studio | 1 bath Floorplan video 3d 3d view Contact $2,973"
+  },
+  {
+    "url": "https://www.mns.com/details/239778/rental/crown+heights/brooklyn",
+    "price": 2933.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741516_741496_738967_731594_239020_729328.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 9F Studio | 1 bath Floorplan video 3d 3d view Contact $2,933"
+  },
+  {
+    "url": "https://www.mns.com/details/239777/rental/crown+heights/brooklyn",
+    "price": 2907.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741494_738965_731592_239020_729139.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 7F Studio | 1 bath Floorplan video 3d 3d view Contact $2,907"
+  },
+  {
+    "url": "https://www.mns.com/details/234897/rental/flatbush/brooklyn",
+    "price": 4821.0,
+    "bedrooms": 3,
+    "bathrooms": 2.0,
+    "neighborhood": "Flatbush",
+    "location": "Flatbush, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/620975_234806_620643.jpg",
+    "text": "Flatbush 800  Flatbush AVE, 822 3 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,821"
+  },
+  {
+    "url": "https://www.mns.com/details/231023/rental/bedford-stuyvesant/brooklyn",
+    "price": 2182.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/535574_1560FultonSt9072.jpg",
+    "text": "Bedford-Stuyvesant 1560  Fulton ST, 907 1 Bedroom | 1 bath | 664 sq ft Floorplan video 3d 3d view Contact $2,182"
+  },
+  {
+    "url": "https://www.mns.com/details/239510/rental/wingate/brooklyn",
+    "price": 2850.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Wingate",
+    "location": "Wingate, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239510_733190.jpg",
+    "text": "Wingate 401  Rutland RD, 4B 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $2,850"
+  },
+  {
+    "url": "https://www.mns.com/details/194840/rental/williamsburg/brooklyn",
+    "price": 5042.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/194840_727911.jpg",
+    "text": "Williamsburg 456  Grand ST, 2A 2 Bedroom | 2 bath Floorplan Contact $5,042"
+  },
+  {
+    "url": "https://www.mns.com/details/239783/rental/crown+heights/brooklyn",
+    "price": 4458.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/741623_739391_739370_239626_736626.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 3B 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,458"
+  },
+  {
+    "url": "https://www.mns.com/details/239534/rental/prospect+heights/brooklyn",
+    "price": 3013.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Prospect Heights",
+    "location": "Prospect Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/733965_728525_728425_721876_239103_721863.jpg",
+    "text": "Prospect Heights 880  Atlantic AVE, 2B Studio | 1 bath Floorplan video 3d 3d view Contact $3,013"
+  },
+  {
+    "url": "https://www.mns.com/details/234113/rental/brooklyn+heights/brooklyn",
+    "price": 4926.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Brooklyn Heights",
+    "location": "Brooklyn Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234113_600334.jpg",
+    "text": "Brooklyn Heights 200  Montague ST, 4D 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,926"
+  },
+  {
+    "url": "https://www.mns.com/details/238134/rental/gowanus/brooklyn",
+    "price": 5738.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238134_737841.jpg",
+    "text": "Gowanus 500  Degraw ST, 1211 2 Bedroom | 2 bath video 3d 3d view Contact $5,738"
+  },
+  {
+    "url": "https://www.mns.com/details/238139/rental/gowanus/brooklyn",
+    "price": 5708.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238139_723079.jpg",
+    "text": "Gowanus 500  Degraw ST, 1303 2 Bedroom | 2 bath video 3d 3d view Contact $5,708"
+  },
+  {
+    "url": "https://www.mns.com/details/239656/rental/gowanus/brooklyn",
+    "price": 3500.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737350_734669_734650_713748_711304_238782_710964.jpg",
+    "text": "Gowanus 500  Degraw ST, 502 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,500"
+  },
+  {
+    "url": "https://www.mns.com/details/239657/rental/gowanus/brooklyn",
+    "price": 3579.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737374_737350_734669_734650_713748_711304_238782_710964.jpg",
+    "text": "Gowanus 500  Degraw ST, 324 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,579"
+  },
+  {
+    "url": "https://www.mns.com/details/237612/rental/gowanus/brooklyn",
+    "price": 3424.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237612_737263.jpg",
+    "text": "Gowanus 500  Degraw ST, 302 Studio | 1 bath video 3d 3d view Contact $3,424"
+  },
+  {
+    "url": "https://www.mns.com/details/239658/rental/gowanus/brooklyn",
+    "price": 3629.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737399_737374_737350_734669_734650_713748_711304_238782_710964.jpg",
+    "text": "Gowanus 500  Degraw ST, 808 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,629"
+  },
+  {
+    "url": "https://www.mns.com/details/237643/rental/gowanus/brooklyn",
+    "price": 5876.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237643_717145.jpg",
+    "text": "Gowanus 500  Degraw ST, 304 2 Bedroom | 2 bath | 456 sq ft video 3d 3d view Contact $5,876"
+  },
+  {
+    "url": "https://www.mns.com/details/237960/rental/gowanus/brooklyn",
+    "price": 5563.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237960_739607.jpg",
+    "text": "Gowanus 500  Degraw ST, 523 2 Bedroom | 2 bath | 1049 sq ft Floorplan video 3d 3d view Contact $5,563"
+  },
+  {
+    "url": "https://www.mns.com/details/238112/rental/gowanus/brooklyn",
+    "price": 5275.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238112_734827.jpg",
+    "text": "Gowanus 500  Degraw ST, 902 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,275"
+  },
+  {
+    "url": "https://www.mns.com/details/239659/rental/gowanus/brooklyn",
+    "price": 3688.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737422_737399_737374_737350_734669_734650_713748_711304_238782_710964.jpg",
+    "text": "Gowanus 500  Degraw ST, 1613 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,688"
+  },
+  {
+    "url": "https://www.mns.com/details/239660/rental/gowanus/brooklyn",
+    "price": 3708.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737476_737422_737399_737374_737350_734669_734650_713748_711304_238782_710964.jpg",
+    "text": "Gowanus 500  Degraw ST, 2109 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,708"
+  },
+  {
+    "url": "https://www.mns.com/details/239654/rental/gowanus/brooklyn",
+    "price": 3379.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737297_728785_728758_239388_728731.jpg",
+    "text": "Gowanus 500  Degraw ST, 219 1 Bedroom | 1 bath video 3d 3d view Contact $3,379"
+  },
+  {
+    "url": "https://www.mns.com/details/239661/rental/gowanus/brooklyn",
+    "price": 3792.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737526_737478_737424_737401_737376_737352_734671_734652_713750_711306_238782_710966.jpg",
+    "text": "Gowanus 500  Degraw ST, 1105 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,792"
+  },
+  {
+    "url": "https://www.mns.com/details/239662/rental/gowanus/brooklyn",
+    "price": 3938.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737549_737526_737478_737424_737401_737376_737352_734671_734652_713750_711306_238782_710966.jpg",
+    "text": "Gowanus 500  Degraw ST, 1604 1 Bedroom | 1 bath | 651 sq ft video 3d 3d view Contact $3,938"
+  },
+  {
+    "url": "https://www.mns.com/details/239655/rental/gowanus/brooklyn",
+    "price": 3450.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/737324_737297_728785_728758_239388_728731.jpg",
+    "text": "Gowanus 500  Degraw ST, 518 1 Bedroom | 1 bath video 3d 3d view Contact $3,450"
+  },
+  {
+    "url": "https://www.mns.com/details/237608/rental/gowanus/brooklyn",
+    "price": 3339.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237608_713729.jpg",
+    "text": "Gowanus 500  Degraw ST, 216 Studio | 1 bath Floorplan video 3d 3d view Contact $3,339"
+  },
+  {
+    "url": "https://www.mns.com/details/239716/rental/gowanus/brooklyn",
+    "price": 3392.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Gowanus",
+    "location": "Gowanus, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/739576_737375_737351_734670_734651_713749_711305_238782_710965.jpg",
+    "text": "Gowanus 500  Degraw ST, 313 1 Bedroom | 1 bath | 651 sq ft Floorplan video 3d 3d view Contact $3,392"
+  },
+  {
+    "url": "https://www.mns.com/details/188419/rental/brooklyn+heights/brooklyn",
+    "price": 4682.0,
+    "bedrooms": 1,
+    "bathrooms": 1.5,
+    "neighborhood": "Brooklyn Heights",
+    "location": "Brooklyn Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/188419_657982.jpg",
+    "text": "Brooklyn Heights 63  Schermerhorn ST, 1C 1 Bedroom | 1.5 bath Floorplan video Contact $4,682"
+  },
+  {
+    "url": "https://www.mns.com/details/220063/rental/brooklyn+heights/brooklyn",
+    "price": 3069.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Brooklyn Heights",
+    "location": "Brooklyn Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/220063_621784.jpg",
+    "text": "Brooklyn Heights 63  Schermerhorn ST, 12C Studio | 1 bath Floorplan 3d 3d view Contact $3,069"
+  },
+  {
+    "url": "https://www.mns.com/details/236755/rental/brooklyn+heights/brooklyn",
+    "price": 3282.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Brooklyn Heights",
+    "location": "Brooklyn Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/673777_234927_621748.jpg",
+    "text": "Brooklyn Heights 63  Schermerhorn ST, 6B 1 Bedroom | 1 bath Contact $3,282"
+  },
+  {
+    "url": "https://www.mns.com/details/239317/rental/greenpoint/brooklyn",
+    "price": 4659.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/726779_715071_709657_238646_704917.jpg",
+    "text": "Greenpoint 75  Dupont ST, 410 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,659"
+  },
+  {
+    "url": "https://www.mns.com/details/226735/rental/williamsburg/brooklyn",
+    "price": 3808.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/226735_672419.jpg",
+    "text": "Williamsburg 387  Manhattan AVE, 4D 1 Bedroom | 1 bath Floorplan video Contact $3,808"
+  },
+  {
+    "url": "https://www.mns.com/details/234132/rental/crown+heights/brooklyn",
+    "price": 2995.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234132_741017.jpg",
+    "text": "Crown Heights 1101   President ST, 619 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $2,995"
+  },
+  {
+    "url": "https://www.mns.com/details/238829/rental/crown+heights/brooklyn",
+    "price": 2950.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238829_741012.jpg",
+    "text": "Crown Heights 1101   President ST, 1117 Studio | 1 bath Floorplan video 3d 3d view Contact $2,950"
+  },
+  {
+    "url": "https://www.mns.com/details/234438/rental/crown+heights/brooklyn",
+    "price": 3354.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234438_741045.jpg",
+    "text": "Crown Heights 1101   President ST, PH11 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,354"
+  },
+  {
+    "url": "https://www.mns.com/details/234367/rental/crown+heights/brooklyn",
+    "price": 3000.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234367_741033.jpg",
+    "text": "Crown Heights 1101   President ST, 923 Studio | 1 bath | 464 sq ft Floorplan video 3d 3d view Contact $3,000"
+  },
+  {
+    "url": "https://www.mns.com/details/234391/rental/crown+heights/brooklyn",
+    "price": 2750.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234391_741020.jpg",
+    "text": "Crown Heights 1101   President ST, 722 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $2,750"
+  },
+  {
+    "url": "https://www.mns.com/details/239746/rental/williamsburg/brooklyn",
+    "price": 7500.0,
+    "bedrooms": 326,
+    "bathrooms": 2.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239746_740512.jpg",
+    "text": "Williamsburg 326  Bedford AVE, A2S 3 Bedroom | 2 bath Contact $7,500"
+  },
+  {
+    "url": "https://www.mns.com/details/239745/rental/greenpoint/brooklyn",
+    "price": 6044.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239745_740728.jpg",
+    "text": "Greenpoint 65  Dupont ST, 631 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $6,044"
+  },
+  {
+    "url": "https://www.mns.com/details/239744/rental/greenpoint/brooklyn",
+    "price": 4600.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/740429_239743_740403.jpg",
+    "text": "Greenpoint 65  Dupont ST, 732 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,600"
+  },
+  {
+    "url": "https://www.mns.com/details/239743/rental/greenpoint/brooklyn",
+    "price": 3851.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239743_740725.jpg",
+    "text": "Greenpoint 65  Dupont ST, 525 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,851"
+  },
+  {
+    "url": "https://www.mns.com/details/239742/rental/greenpoint/brooklyn",
+    "price": 3996.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239742_740376.jpg",
+    "text": "Greenpoint 65  Dupont ST, 404 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,996"
+  },
+  {
+    "url": "https://www.mns.com/details/239741/rental/greenpoint/brooklyn",
+    "price": 3924.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239741_740717.jpg",
+    "text": "Greenpoint 65  Dupont ST, 240 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,924"
+  },
+  {
+    "url": "https://www.mns.com/details/239739/rental/greenpoint/brooklyn",
+    "price": 3213.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239739_740243.jpg",
+    "text": "Greenpoint 65  Dupont ST, 201 Studio | 1 bath Floorplan video 3d 3d view Contact $3,213"
+  },
+  {
+    "url": "https://www.mns.com/details/239740/rental/greenpoint/brooklyn",
+    "price": 3169.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239740_740298.jpg",
+    "text": "Greenpoint 65  Dupont ST, 722 Studio | 1 bath Floorplan video 3d 3d view Contact $3,169"
+  },
+  {
+    "url": "https://www.mns.com/details/234657/rental/clinton+hill/brooklyn",
+    "price": 4134.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234657_619527.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 9G 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,134"
+  },
+  {
+    "url": "https://www.mns.com/details/234660/rental/clinton+hill/brooklyn",
+    "price": 3914.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234660_671326.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 9J 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,914"
+  },
+  {
+    "url": "https://www.mns.com/details/234662/rental/clinton+hill/brooklyn",
+    "price": 5930.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/234662_733206.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 9M 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,930"
+  },
+  {
+    "url": "https://www.mns.com/details/239738/rental/crown+heights/brooklyn",
+    "price": 2596.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/740192_740119_729942_729920_720399_238747_714093.jpg",
+    "text": "Crown Heights 54  Crown ST, 427 Studio | 1 bath | 402 sq ft Floorplan video 3d 3d view Contact $2,596"
+  },
+  {
+    "url": "https://www.mns.com/details/239737/rental/crown+heights/brooklyn",
+    "price": 3052.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/740150_738204_720558_720518_718421_237554_708570.jpg",
+    "text": "Crown Heights 54  Crown ST, 225 1 Bedroom | 1 bath | 554 sq ft Floorplan video 3d 3d view Contact $3,052"
+  },
+  {
+    "url": "https://www.mns.com/details/239418/rental/crown+heights/brooklyn",
+    "price": 3018.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/729918_720397_238747_714091.jpg",
+    "text": "Crown Heights 54  Crown ST, 610 Studio | 1 bath | 450 sq ft Floorplan video 3d 3d view Contact $3,018"
+  },
+  {
+    "url": "https://www.mns.com/details/239736/rental/crown+heights/brooklyn",
+    "price": 3112.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/740119_729942_729920_720399_238747_714093.jpg",
+    "text": "Crown Heights 54  Crown ST, 1213 Studio | 1 bath | 402 sq ft Floorplan video Contact $3,112"
+  },
+  {
+    "url": "https://www.mns.com/details/239343/rental/crown+heights/brooklyn",
+    "price": 3367.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239343_729194.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 6E 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,367"
+  },
+  {
+    "url": "https://www.mns.com/details/239101/rental/crown+heights/brooklyn",
+    "price": 3440.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/721813_721792_721772_239098_721752.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 3Q 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,440"
+  },
+  {
+    "url": "https://www.mns.com/details/239100/rental/crown+heights/brooklyn",
+    "price": 3354.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239100_729146.jpg",
+    "text": "Crown Heights 1042  Atlantic AVE, 5I 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,354"
+  },
+  {
+    "url": "https://www.mns.com/details/239684/rental/crown+heights/brooklyn",
+    "price": 4098.0,
+    "bedrooms": 5,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239684_738511.jpg",
+    "text": "Crown Heights 1035   Pacific ST, 301 1.5 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,098"
+  },
+  {
+    "url": "https://www.mns.com/details/238787/rental/bedford-stuyvesant/brooklyn",
+    "price": 2572.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238787_732004.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 137 Studio | 1 bath Floorplan video 3d 3d view Contact $2,572"
+  },
+  {
+    "url": "https://www.mns.com/details/239354/rental/bedford-stuyvesant/brooklyn",
+    "price": 3652.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239354_727957.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 7PHB Studio | 1 bath Floorplan video 3d 3d view Contact $3,652"
+  },
+  {
+    "url": "https://www.mns.com/details/239689/rental/williamsburg/brooklyn",
+    "price": 3546.0,
+    "bedrooms": 326,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738895_710173_238713_707623.jpg",
+    "text": "Williamsburg 326  Bedford AVE, C6N 1 Bedroom | 1 bath Contact $3,546"
+  },
+  {
+    "url": "https://www.mns.com/details/237334/rental/greenpoint/brooklyn",
+    "price": 6327.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237334_696219.jpg",
+    "text": "Greenpoint 75  Dupont ST, 506 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $6,327"
+  },
+  {
+    "url": "https://www.mns.com/details/237337/rental/greenpoint/brooklyn",
+    "price": 5980.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237337_692501.jpg",
+    "text": "Greenpoint 75  Dupont ST, 205 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,980"
+  },
+  {
+    "url": "https://www.mns.com/details/238908/rental/greenpoint/brooklyn",
+    "price": 3958.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/715010_238762_710653.jpg",
+    "text": "Greenpoint 75  Dupont ST, 106 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,958"
+  },
+  {
+    "url": "https://www.mns.com/details/238499/rental/greenpoint/brooklyn",
+    "price": 6313.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/699231_237337_692500.jpg",
+    "text": "Greenpoint 75  Dupont ST, 109 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,313"
+  },
+  {
+    "url": "https://www.mns.com/details/237229/rental/greenpoint/brooklyn",
+    "price": 3859.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237229_704927.jpg",
+    "text": "Greenpoint 75  Dupont ST, 510 Studio | 1 bath Floorplan video 3d 3d view Contact $3,859"
+  },
+  {
+    "url": "https://www.mns.com/details/238636/rental/greenpoint/brooklyn",
+    "price": 6543.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238636_704517.jpg",
+    "text": "Greenpoint 75  Dupont ST, 709 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,543"
+  },
+  {
+    "url": "https://www.mns.com/details/238763/rental/greenpoint/brooklyn",
+    "price": 7817.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/238763_738805.jpg",
+    "text": "Greenpoint 75  Dupont ST, 515 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $7,817"
+  },
+  {
+    "url": "https://www.mns.com/details/239315/rental/greenpoint/brooklyn",
+    "price": 4449.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/726726_715010_238762_710653.jpg",
+    "text": "Greenpoint 75  Dupont ST, 121 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,449"
+  },
+  {
+    "url": "https://www.mns.com/details/239316/rental/greenpoint/brooklyn",
+    "price": 4343.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/726754_238909_715046.jpg",
+    "text": "Greenpoint 75  Dupont ST, 206 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $4,343"
+  },
+  {
+    "url": "https://www.mns.com/details/239318/rental/greenpoint/brooklyn",
+    "price": 6185.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/726805_237337_692500.jpg",
+    "text": "Greenpoint 75  Dupont ST, 405 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $6,185"
+  },
+  {
+    "url": "https://www.mns.com/details/239638/rental/greenpoint/brooklyn",
+    "price": 3829.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/736914_732598_732573_239494_732548.jpg",
+    "text": "Greenpoint 65  Dupont ST, 515 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,829"
+  },
+  {
+    "url": "https://www.mns.com/details/239513/rental/greenpoint/brooklyn",
+    "price": 5679.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/733246_732611_239329_727165.jpg",
+    "text": "Greenpoint 65  Dupont ST, 535 2 Bedroom | 1 bath video 3d 3d view Contact $5,679"
+  },
+  {
+    "url": "https://www.mns.com/details/239468/rental/greenpoint/brooklyn",
+    "price": 3855.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Greenpoint",
+    "location": "Greenpoint, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/731792_727111_726984_239013_719051.jpg",
+    "text": "Greenpoint 65  Dupont ST, 232 1 Bedroom | 1 bath video 3d 3d view Contact $3,855"
+  },
+  {
+    "url": "https://www.mns.com/details/239407/rental/bedford-stuyvesant/brooklyn",
+    "price": 3116.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/729513_239094_721663.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 7PHD 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,116"
+  },
+  {
+    "url": "https://www.mns.com/details/239168/rental/park+slope/brooklyn",
+    "price": 3125.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Park Slope",
+    "location": "Park Slope, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239168_727380.jpg",
+    "text": "Park Slope 286  5 AVE, 1D Studio | 1 bath Floorplan 3d 3d view Contact $3,125"
+  },
+  {
+    "url": "https://www.mns.com/details/239681/rental/crown+heights/brooklyn",
+    "price": 4757.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738250_720685_237527_720640.jpg",
+    "text": "Crown Heights 54  Crown ST, 622 2 Bedroom | 2 bath | 926 sq ft Floorplan video 3d 3d view Contact $4,757"
+  },
+  {
+    "url": "https://www.mns.com/details/239680/rental/crown+heights/brooklyn",
+    "price": 3561.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738204_720558_720518_718421_237554_708570.jpg",
+    "text": "Crown Heights 54  Crown ST, 1011 1 Bedroom | 1 bath | 642 sq ft Floorplan video 3d 3d view Contact $3,561"
+  },
+  {
+    "url": "https://www.mns.com/details/239678/rental/crown+heights/brooklyn",
+    "price": 3129.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738132_729942_729920_720399_238747_714093.jpg",
+    "text": "Crown Heights 54  Crown ST, 1413 Studio | 1 bath | 402 sq ft Floorplan video 3d 3d view Contact $3,129"
+  },
+  {
+    "url": "https://www.mns.com/details/239677/rental/crown+heights/brooklyn",
+    "price": 3027.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/738119_729918_720397_238747_714091.jpg",
+    "text": "Crown Heights 54  Crown ST, 710 Studio | 1 bath | 390 sq ft Floorplan video 3d 3d view Contact $3,027"
+  },
+  {
+    "url": "https://www.mns.com/details/237224/rental/windsor+terrace/brooklyn",
+    "price": 5700.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/237224_697496.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 1102 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $5,700"
+  },
+  {
+    "url": "https://www.mns.com/details/236393/rental/windsor+terrace/brooklyn",
+    "price": 3356.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Windsor Terrace",
+    "location": "Windsor Terrace, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/236393_736360.jpg",
+    "text": "Windsor Terrace 11  Ocean PKWY, 333 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,356"
+  },
+  {
+    "url": "https://www.mns.com/details/239403/rental/bedford-stuyvesant/brooklyn",
+    "price": 2551.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/729421_727915_714842_714625_714604_714583_712993_710301_707881_707861_705719_704851_704830_238551_701912.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 7PHC Studio | 1 bath Floorplan video 3d 3d view Contact $2,551"
+  },
+  {
+    "url": "https://www.mns.com/details/239093/rental/bedford-stuyvesant/brooklyn",
+    "price": 2551.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/721622_714582_712992_710300_707880_707860_705718_704850_704829_238551_701911.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 437 Studio | 1 bath Floorplan video 3d 3d view Contact $2,551"
+  },
+  {
+    "url": "https://www.mns.com/details/238800/rental/bedford-stuyvesant/brooklyn",
+    "price": 2551.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/711090_711070_710324_710303_707883_707863_705721_704853_704832_238551_701914.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 302 Studio | 1 bath video 3d 3d view Contact $2,551"
+  },
+  {
+    "url": "https://www.mns.com/details/238903/rental/bedford-stuyvesant/brooklyn",
+    "price": 2572.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/714842_714625_714604_714583_712993_710301_707881_707861_705719_704851_704830_238551_701912.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 128 Studio | 1 bath Floorplan video 3d 3d view Contact $2,572"
+  },
+  {
+    "url": "https://www.mns.com/details/239000/rental/bedford-stuyvesant/brooklyn",
+    "price": 2594.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bedford-Stuyvesant",
+    "location": "Bedford-Stuyvesant, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/718548_718527_715893_714846_714629_714608_714587_712997_710305_707885_707865_705723_704855_704834_238551_701916.jpg",
+    "text": "Bedford-Stuyvesant 788  Willoughby Avenue, 537 Studio | 1 bath Floorplan video 3d 3d view Contact $2,594"
+  },
+  {
+    "url": "https://www.mns.com/details/239434/rental/williamsburg/brooklyn",
+    "price": 4999.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239434_736236.jpg",
+    "text": "Williamsburg 159  Boerum ST, 19A 2 Bedroom | 2 bath Floorplan video 3d 3d view Contact $4,999"
+  },
+  {
+    "url": "https://www.mns.com/details/234529/rental/clinton+hill/brooklyn",
+    "price": 3210.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Clinton Hill",
+    "location": "Clinton Hill, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/610232_234515_609670.jpg",
+    "text": "Clinton Hill 540   Waverly AVE, 7N Studio | 1 bath Floorplan video 3d 3d view Contact $3,210"
+  },
+  {
+    "url": "https://www.mns.com/details/239522/rental/crown+heights/brooklyn",
+    "price": 3497.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239522_733566.jpg",
+    "text": "Crown Heights 1101   President ST, 1012 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,497"
+  },
+  {
+    "url": "https://www.mns.com/details/233782/rental/flatbush/brooklyn",
+    "price": 3350.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Flatbush",
+    "location": "Flatbush, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/233782_594178.jpg",
+    "text": "Flatbush 800  Flatbush AVE, 1222 2 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,350"
+  },
+  {
+    "url": "https://www.mns.com/details/233924/rental/flatbush/brooklyn",
+    "price": 3466.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Flatbush",
+    "location": "Flatbush, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/233924_595909.jpg",
+    "text": "Flatbush 800  Flatbush AVE, 614 1 Bedroom | 1 bath Floorplan video 3d 3d view Contact $3,466"
+  },
+  {
+    "url": "https://www.mns.com/details/239591/rental/flatbush/brooklyn",
+    "price": 2761.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Flatbush",
+    "location": "Flatbush, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/735472_581377_578374_232855_575961.jpg",
+    "text": "Flatbush 800  Flatbush AVE, 819 Studio | 1 bath Floorplan video 3d 3d view Contact $2,761"
+  },
+  {
+    "url": "https://www.mns.com/details/238978/rental/flatbush/brooklyn",
+    "price": 2761.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Flatbush",
+    "location": "Flatbush, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/717896_717877_714928_670937_232855_575956.jpg",
+    "text": "Flatbush 800  Flatbush AVE, PH1321 Studio | 1 bath video 3d 3d view Contact $2,761"
+  },
+  {
+    "url": "https://www.mns.com/details/239533/rental/kensington/brooklyn",
+    "price": 2684.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Kensington",
+    "location": "Kensington, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/733913_237048_687066.jpg",
+    "text": "Kensington 229  Parkville AVE, 4E 2 Bedroom | 1 bath Contact $2,684"
+  },
+  {
+    "url": "https://www.mns.com/details/239481/rental/crown+heights/brooklyn",
+    "price": 4792.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/732134_720724_720679_237527_720634.jpg",
+    "text": "Crown Heights 54  Crown ST, 209 2 Bedroom | 2 bath | 926 sq ft Floorplan video 3d 3d view Contact $4,792"
+  },
+  {
+    "url": "https://www.mns.com/details/239429/rental/bushwick/brooklyn",
+    "price": 2814.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Bushwick",
+    "location": "Bushwick, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239429_730457.jpg",
+    "text": "Bushwick 412  Evergreen AVE, 2D 2 Bedroom | 1 bath Floorplan video Contact $2,814"
+  },
+  {
+    "url": "https://www.mns.com/details/239428/rental/bushwick/brooklyn",
+    "price": 2106.0,
+    "bedrooms": 0,
+    "bathrooms": 1.0,
+    "neighborhood": "Bushwick",
+    "location": "Bushwick, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/239428_730437.jpg",
+    "text": "Bushwick 93  Linden ST, F1 Studio | 1 bath Floorplan video 3d 3d view Contact $2,106"
+  },
+  {
+    "url": "https://www.mns.com/details/228782/rental/williamsburg/brooklyn",
+    "price": 3950.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/523105_387_Manhattan_Ave_#2A_LowRes-8.jpg",
+    "text": "Williamsburg 387  Manhattan AVE, 3D 1 Bedroom | 1 bath Floorplan video Contact $3,950"
+  },
+  {
+    "url": "https://www.mns.com/details/226928/rental/williamsburg/brooklyn",
+    "price": 4275.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Williamsburg",
+    "location": "Williamsburg, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/226928_720202.jpg",
+    "text": "Williamsburg 387  Manhattan AVE, 2B 1 Bedroom | 1 bath Floorplan video Contact $4,275"
+  },
+  {
+    "url": "https://www.mns.com/details/239065/rental/crown+heights/brooklyn",
+    "price": 5353.0,
+    "bedrooms": 2,
+    "bathrooms": 2.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/720724_720679_237527_720634.jpg",
+    "text": "Crown Heights 54  Crown ST, 624 2 Bedroom | 2 bath | 926 sq ft Floorplan video Contact $5,353"
+  },
+  {
+    "url": "https://www.mns.com/details/238996/rental/crown+heights/brooklyn",
+    "price": 4016.0,
+    "bedrooms": 1,
+    "bathrooms": 1.0,
+    "neighborhood": "Crown Heights",
+    "location": "Crown Heights, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/718417_237554_708566.jpg",
+    "text": "Crown Heights 54  Crown ST, 1118 1 Bedroom | 1 bath | 621 sq ft Floorplan video 3d 3d view Contact $4,016"
+  },
+  {
+    "url": "https://www.mns.com/details/235542/rental/downtown+brooklyn/brooklyn",
+    "price": 5250.0,
+    "bedrooms": 2,
+    "bathrooms": 1.0,
+    "neighborhood": "Downtown Brooklyn",
+    "location": "Downtown Brooklyn, Brooklyn",
+    "image": "https://0162b102542f274bfdd5-c6625fcfeb0e3fee75b91dd8334f2ddb.ssl.cf1.rackcdn.com/images/apartment_wm/235542_640811.jpg",
+    "text": "Downtown Brooklyn 365  Bridge ST, 2H 2 Bedroom | 1 bath | 1135 sq ft Contact $5,250"
+  }
+]
