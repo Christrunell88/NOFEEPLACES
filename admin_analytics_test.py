@@ -371,11 +371,13 @@ class AdminAnalyticsAPITester:
                 visitor_fields = []
                 zero_visitor_fields = []
                 
-                for key, value in data.items():
-                    if any(term in key.lower() for term in ["visitor", "visit", "traffic", "view"]):
-                        visitor_fields.append((key, value))
-                        if isinstance(value, (int, float)) and value == 0:
-                            zero_visitor_fields.append(key)
+                if "stats" in data and isinstance(data["stats"], dict):
+                    stats = data["stats"]
+                    for key, value in stats.items():
+                        if any(term in key.lower() for term in ["visitor", "visit", "traffic", "view"]):
+                            visitor_fields.append((key, value))
+                            if isinstance(value, (int, float)) and value == 0:
+                                zero_visitor_fields.append(key)
                 
                 if visitor_fields:
                     self.log_result("Analytics Visitor Fields", True, f"Found visitor fields: {visitor_fields}")
