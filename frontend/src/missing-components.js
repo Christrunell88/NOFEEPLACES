@@ -271,18 +271,6 @@ export const FeaturedApartments = () => {
             </div>
           ))}
         </div>
-        
-        <div className="text-center">
-          <button 
-            onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
-            className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-          >
-            <span>View All {featuredApartments.length}+ Apartments</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-        </div>
       </div>
       
       {/* Apartment Details Modal */}
