@@ -745,37 +745,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             </div>
           </div>
 
-          {/* Contact Information */}
-          <div className="mb-4 p-3 bg-teal-50 border border-teal-200 rounded-lg">
-            <h4 className="text-sm font-semibold text-teal-800 mb-2">📞 Contact Information</h4>
-            <div className="space-y-1">
-              {apartment.contact_email && (
-                <div className="flex items-center text-sm">
-                  <span className="text-teal-600 mr-2">📧</span>
-                  <a 
-                    href={`mailto:${apartment.contact_email}`}
-                    className="text-teal-700 hover:text-teal-900 font-medium"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {apartment.contact_email}
-                  </a>
-                </div>
-              )}
-              {apartment.contact_phone && (
-                <div className="flex items-center text-sm">
-                  <span className="text-teal-600 mr-2">📱</span>
-                  <a 
-                    href={`tel:${apartment.contact_phone}`}
-                    className="text-teal-700 hover:text-teal-900 font-medium"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {apartment.contact_phone}
-                  </a>
-                </div>
-              )}
-            </div>
-          </div>
-
           {/* Amenities */}
           {apartment.amenities?.length > 0 && (
             <div className="mb-4">
