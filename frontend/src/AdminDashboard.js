@@ -781,6 +781,12 @@ const AdminDashboard = () => {
         )}
 
         {/* Users Tab */}
+        {/* Visitors Tab */}
+        {activeTab === 'visitors' && (
+          <VisitorAnalytics />
+        )}
+
+        {/* Users Tab */}
         {activeTab === 'users' && (
           <div>
             <div className="flex items-center justify-between mb-6">
