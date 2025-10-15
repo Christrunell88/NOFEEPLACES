@@ -110,14 +110,17 @@ class AdminAnalyticsAPITester:
                 data = response.json()
                 self.log_result("Analytics Overview", True, f"Analytics data retrieved: {list(data.keys())}")
                 
-                # Check for expected analytics fields
-                expected_fields = ["total_apartments", "total_users", "visitors", "feedback", "newsletter"]
+                # Check for expected analytics fields in the stats section
+                expected_fields = ["total_apartments", "total_users", "total_visitors", "total_feedback", "total_newsletter_subscribers"]
                 found_fields = []
-                for field in expected_fields:
-                    if field in data or any(field in str(k).lower() for k in data.keys()):
-                        found_fields.append(field)
                 
-                if found_fields:
+                if "stats" in data and isinstance(data["stats"], dict):
+                    stats = data["stats"]
+                    for field in expected_fields:
+                        if field in stats:
+                            found_fields.append(field)
+                
+                if len(found_fields) >= 4:  # Most expected fields found
                     self.log_result("Analytics Data Structure", True, f"Found fields: {found_fields}")
                 else:
                     self.log_result("Analytics Data Structure", False, f"Expected fields not found. Available: {list(data.keys())}")
