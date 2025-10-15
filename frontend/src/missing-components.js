@@ -266,37 +266,6 @@ export const FeaturedApartments = () => {
                   )}
                 </div>
                 
-                {/* Contact Information */}
-                <div className="mt-3 p-2 bg-teal-50 border border-teal-200 rounded">
-                  <h5 className="text-xs font-semibold text-teal-800 mb-1">Contact Info</h5>
-                  <div className="space-y-1">
-                    {apartment.contact_email && (
-                      <div className="flex items-center text-xs">
-                        <span className="text-teal-600 mr-1">📧</span>
-                        <a 
-                          href={`mailto:${apartment.contact_email}`}
-                          className="text-teal-700 hover:text-teal-900"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {apartment.contact_email}
-                        </a>
-                      </div>
-                    )}
-                    {apartment.contact_phone && (
-                      <div className="flex items-center text-xs">
-                        <span className="text-teal-600 mr-1">📱</span>
-                        <a 
-                          href={`tel:${apartment.contact_phone}`}
-                          className="text-teal-700 hover:text-teal-900"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {apartment.contact_phone}
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                
                 {/* Clean card bottom - click image to view details */}
               </div>
             </div>
