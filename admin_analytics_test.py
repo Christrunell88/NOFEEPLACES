@@ -124,12 +124,13 @@ class AdminAnalyticsAPITester:
                 
                 # Check visitor count specifically
                 visitor_count = 0
-                for key, value in data.items():
-                    if "visitor" in key.lower() or "visit" in key.lower():
-                        visitor_count = value
-                        break
+                if "stats" in data and isinstance(data["stats"], dict):
+                    visitor_count = data["stats"].get("total_visitors", 0)
                 
-                self.log_result("Visitor Count Check", True, f"Visitor count in analytics: {visitor_count}")
+                if visitor_count > 0:
+                    self.log_result("Visitor Count Check", True, f"Visitor count in analytics: {visitor_count}")
+                else:
+                    self.log_result("Visitor Count Check", False, f"Visitor count is {visitor_count}")
                 
             elif response.status_code == 404:
                 # Try alternative endpoints
