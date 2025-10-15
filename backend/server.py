@@ -2183,6 +2183,80 @@ async def admin_dashboard():
         logger.error(f"Error fetching admin dashboard: {str(e)}")
         return {"success": False, "message": str(e)}
 
+
+@api_router.get("/admin/visitor-analytics")
+async def get_visitor_analytics(
+    filter: str = "all",
+    sortBy: str = "timestamp",
+    sortOrder: str = "desc"
+):
+    """Get detailed visitor analytics with filtering and sorting"""
+    try:
+        from datetime import datetime, timedelta
+        
+        # Build query based on filter
+        query = {}
+        if filter == "today":
+            today = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+            query["timestamp"] = {"$gte": today}
+        elif filter == "week":
+            week_ago = datetime.utcnow() - timedelta(days=7)
+            query["timestamp"] = {"$gte": week_ago}
+        elif filter == "month":
+            month_ago = datetime.utcnow() - timedelta(days=30)
+            query["timestamp"] = {"$gte": month_ago}
+        
+        # Get visitor analytics data
+        visitors = await db.visitor_analytics.find(query).to_list(length=1000)
+        
+        # Also get session data for IP addresses
+        sessions = await db.visitor_sessions.find({}).to_list(length=1000)
+        session_map = {s.get('session_id'): s for s in sessions}
+        
+        # Merge data
+        visitor_list = []
+        for v in visitors:
+            # Get session data
+            session = session_map.get(v.get('session_id'))
+            
+            visitor_entry = {
+                "session_id": v.get("session_id"),
+                "timestamp": v.get("timestamp"),
+                "page": v.get("page", "/"),
+                "referrer": v.get("referrer", ""),
+                "referrer_domain": v.get("referrer_domain", ""),
+                "user_agent": v.get("user_agent", ""),
+                "browser_info": v.get("browser_info", {}),
+                "is_unique": v.get("is_unique", False),
+                "ip_address": session.get("ip_address") if session else "Unknown",
+                "ip_hash": v.get("ip_hash", "")
+            }
+            
+            # Clean up _id
+            if '_id' in visitor_entry:
+                del visitor_entry['_id']
+            
+            visitor_list.append(visitor_entry)
+        
+        # Sort data
+        sort_direction = -1 if sortOrder == "desc" else 1
+        if sortBy == "timestamp":
+            visitor_list.sort(key=lambda x: x.get("timestamp", datetime.min), reverse=(sort_direction == -1))
+        elif sortBy == "page":
+            visitor_list.sort(key=lambda x: x.get("page", ""), reverse=(sort_direction == -1))
+        elif sortBy == "ip":
+            visitor_list.sort(key=lambda x: x.get("ip_address", ""), reverse=(sort_direction == -1))
+        
+        return {
+            "success": True,
+            "visitors": visitor_list,
+            "total": len(visitor_list)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching visitor analytics: {str(e)}")
+        return {"success": False, "message": str(e), "visitors": []}
+
 @api_router.post("/import-scraped-rentals")
 async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
     """Import scraped rental data into the main apartments database"""
