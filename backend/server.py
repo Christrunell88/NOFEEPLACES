@@ -3185,7 +3185,7 @@ async def get_admin_analytics(admin: dict = Depends(verify_admin_token)):
         total_apartments = await db.apartments.count_documents({})
         available_apartments = await db.apartments.count_documents({"available": True})
         total_users = await db.users.count_documents({})
-        total_visitors = await db.visitor_tracking.count_documents({})
+        total_visitors = await db.visitor_sessions.count_documents({})
         total_feedback = await db.feedback.count_documents({})
         total_newsletter = await db.newsletter_subscribers.count_documents({})
         
