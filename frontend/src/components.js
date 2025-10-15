@@ -1163,33 +1163,6 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
 
             {/* Right Column - Additional Info */}
             <div>
-              {/* Lease Information */}
-              <div className="bg-blue-50 p-4 rounded-lg mb-6">
-                <h3 className="text-lg font-semibold mb-3 text-blue-800">📋 Lease Information</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Lease Terms:</span>
-                    <span className="font-medium">{apartment.lease_terms || '12 months'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Pet Policy:</span>
-                    <span className="font-medium">{apartment.pet_policy || 'Ask landlord'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Utilities:</span>
-                    <span className="font-medium">{apartment.utilities || 'Not specified'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Security Deposit:</span>
-                    <span className="font-medium">{apartment.deposit || '1-2 months rent'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Move-in Date:</span>
-                    <span className="font-medium">{apartment.move_in_date || 'Flexible'}</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Contact Information */}
               <div className="bg-purple-50 p-4 rounded-lg mb-6">
                 <h3 className="text-lg font-semibold mb-3 text-purple-800">📞 Contact Information</h3>
