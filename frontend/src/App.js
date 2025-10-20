@@ -534,12 +534,9 @@ function App() {
                 <Route path="/lets-talk" element={<LetsTalkPage />} />
               </Routes>
               
-              {/* Lead Generation Chatbot - Available on all pages */}
+              {/* Consolidated Chatbot with Lead Gen + Feedback */}
               <LeadGenChatbot />
               <VisitorTracker />
-              
-              {/* Floating Feedback Button - Available on all pages */}
-              <FloatingFeedbackButton />
               
               {/* Newsletter functionality temporarily removed */}
             </BrowserRouter>
