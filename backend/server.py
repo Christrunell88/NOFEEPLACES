@@ -2257,6 +2257,55 @@ async def get_visitor_analytics(
         logger.error(f"Error fetching visitor analytics: {str(e)}")
         return {"success": False, "message": str(e), "visitors": []}
 
+
+@api_router.get("/admin/leads")
+async def get_leads(
+    filter: str = "all",
+    sortBy: str = "created_at",
+    sortOrder: str = "desc",
+    type: str = "all"
+):
+    """Get all leads captured from chatbot"""
+    try:
+        from datetime import datetime, timedelta
+        
+        # Build query
+        query = {}
+        
+        # Filter by type
+        if type and type != "all":
+            query["type"] = type
+        
+        # Filter by time
+        if filter == "today":
+            today = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+            query["created_at"] = {"$gte": today}
+        elif filter == "week":
+            week_ago = datetime.utcnow() - timedelta(days=7)
+            query["created_at"] = {"$gte": week_ago}
+        elif filter == "month":
+            month_ago = datetime.utcnow() - timedelta(days=30)
+            query["created_at"] = {"$gte": month_ago}
+        
+        # Get leads
+        sort_direction = -1 if sortOrder == "desc" else 1
+        leads = await db.leads.find(query).sort(sortBy, sort_direction).to_list(length=1000)
+        
+        # Clean up for JSON
+        for lead in leads:
+            if '_id' in lead:
+                del lead['_id']
+        
+        return {
+            "success": True,
+            "leads": leads,
+            "total": len(leads)
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching leads: {str(e)}")
+        return {"success": False, "message": str(e), "leads": []}
+
 @api_router.post("/import-scraped-rentals")
 async def import_scraped_rentals_endpoint(location: str = "NYC", limit: int = 25):
     """Import scraped rental data into the main apartments database"""
