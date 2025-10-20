@@ -17,13 +17,13 @@ const FloatingFeedbackButton = () => {
       {/* Floating Feedback Button */}
       <button
         onClick={handleButtonClick}
-        className="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75 transition-all duration-300 z-40 flex items-center justify-center group"
+        className="fixed bottom-24 right-6 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75 transition-all duration-300 z-40 flex items-center justify-center group"
         style={{ 
-          // Ensure it doesn't conflict with emergent elements by using specific positioning
-          marginBottom: '20px', // Extra space from bottom
-          marginRight: '20px',   // Extra space from right
-          minWidth: '48px',      // Minimum touch target size
-          minHeight: '48px'      // Minimum touch target size
+          // Position above chatbot button
+          marginBottom: '20px',
+          marginRight: '20px',
+          minWidth: '48px',
+          minHeight: '48px'
         }}
         title="Send Feedback"
         aria-label="Open feedback form to report bugs or suggest improvements"
