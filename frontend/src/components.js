@@ -388,7 +388,7 @@ export const Header = () => {
       </nav>
 
       {/* Auth Modal */}
-      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
+      {showAuthModal && <AuthModal onClose={handleAuthModalClose} />}
       
       {/* Show Your Place Modal */}
       {showPlaceModal && <ShowYourPlaceModal onClose={() => setShowPlaceModal(false)} />}
