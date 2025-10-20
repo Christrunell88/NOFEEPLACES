@@ -934,7 +934,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
               )}
               {apartment.bathrooms && (
                 <div className="text-center p-3 bg-gray-50 rounded-lg">
-                  <div className="text-2xl font-bold text-slate-800">{apartment.bathrooms}</div>
+                  <div className="text-2xl font-bold text-slate-800">{parseInt(apartment.bathrooms)}</div>
                   <div className="text-sm text-gray-600">Bathrooms</div>
                 </div>
               )}
