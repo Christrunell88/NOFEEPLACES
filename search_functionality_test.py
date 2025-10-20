@@ -10,7 +10,7 @@ import time
 from typing import Dict, Any, List
 
 # Configuration
-BASE_URL = "https://aptfinderapp.preview.emergentagent.com/api"
+BASE_URL = "https://aptlistpro.preview.emergentagent.com/api"
 
 class SearchFunctionalityTester:
     def __init__(self):

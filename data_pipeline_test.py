@@ -22,7 +22,7 @@ from comprehensive_data_analysis import ComprehensiveDataAnalyzer
 
 class DataPipelineTestSuite:
     def __init__(self):
-        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://aptfinderapp.preview.emergentagent.com')
+        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://aptlistpro.preview.emergentagent.com')
         self.api_url = f"{self.backend_url}/api"
         self.mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
         self.db_name = os.environ.get('DB_NAME', 'nofeeplaces_database')
