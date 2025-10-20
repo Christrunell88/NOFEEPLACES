@@ -230,15 +230,43 @@ const HamburgerMenu = () => {
                   
                   {/* Admin Login - Single entry */}
                   <Link
-                    to="/analytics"
+                    to="/admin"
                     onClick={closeMenu}
-                    className="flex items-center justify-center w-full bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-indigo-300 shadow-sm group"
+                    className="flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white text-xs font-semibold py-3 px-3 rounded-lg transition-all shadow-md hover:shadow-lg group"
                   >
-                    <svg className="w-4 h-4 mr-2 group-hover:text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                     Admin Login
                   </Link>
+                  
+                  {/* Admin Credentials */}
+                  <div className="mt-2 p-2 bg-indigo-50 rounded-lg border border-indigo-200">
+                    <div className="text-xs text-indigo-900 font-semibold mb-2 text-center">Admin Access</div>
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-indigo-700 font-medium">Email:</span>
+                      </div>
+                      <input
+                        type="text"
+                        value="placesfirm@gmail.com"
+                        readOnly
+                        className="w-full text-xs px-2 py-1 bg-white border border-indigo-300 rounded text-indigo-900 font-mono"
+                        onClick={(e) => e.target.select()}
+                      />
+                      <div className="flex items-center justify-between text-xs mt-2">
+                        <span className="text-indigo-700 font-medium">Password:</span>
+                      </div>
+                      <input
+                        type="text"
+                        value="Checkers080/?"
+                        readOnly
+                        className="w-full text-xs px-2 py-1 bg-white border border-indigo-300 rounded text-indigo-900 font-mono"
+                        onClick={(e) => e.target.select()}
+                      />
+                      <div className="text-xs text-indigo-600 mt-1 text-center">Click to select & copy</div>
+                    </div>
+                  </div>
                 </div>
                 
                 {/* Admin Footer */}
