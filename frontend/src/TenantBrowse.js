@@ -311,7 +311,7 @@ export const TenantBrowsePage = () => {
 
                   <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
                     <span>{listing.bedrooms === '0' ? 'Studio' : `${listing.bedrooms} bed`}</span>
-                    <span>{listing.bathrooms} bath</span>
+                    <span>{parseInt(listing.bathrooms)} bath</span>
                     {listing.sqft && <span>{listing.sqft} sqft</span>}
                   </div>
 
