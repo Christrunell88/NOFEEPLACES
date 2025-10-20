@@ -527,6 +527,11 @@ function App() {
                 <Route path="/admin" element={<AdminLogin />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 
+                {/* Price Category Pages */}
+                <Route path="/apartments/budget" element={<CategoryPage />} />
+                <Route path="/apartments/smart" element={<CategoryPage />} />
+                <Route path="/apartments/luxury" element={<CategoryPage />} />
+                
                 {/* Static Pages */}
                 <Route path="/about" element={<AboutUsPage />} />
                 <Route path="/why-no-fee" element={<WhyNoFeePage />} />
