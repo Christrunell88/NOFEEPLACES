@@ -534,8 +534,8 @@ function App() {
                 <Route path="/lets-talk" element={<LetsTalkPage />} />
               </Routes>
               
-              {/* AI Chatbot - Available on all pages */}
-              <AIChatbot />
+              {/* Lead Generation Chatbot - Available on all pages */}
+              <LeadGenChatbot />
               <VisitorTracker />
               
               {/* Floating Feedback Button - Available on all pages */}
