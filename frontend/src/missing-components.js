@@ -259,7 +259,7 @@ export const FeaturedApartments = () => {
                     <span>{apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms} bed`}</span>
                   )}
                   {apartment.bathrooms && (
-                    <span>{apartment.bathrooms} bath</span>
+                    <span>{parseInt(apartment.bathrooms)} bath</span>
                   )}
                   {apartment.sqft && (
                     <span>{apartment.sqft} sqft</span>
