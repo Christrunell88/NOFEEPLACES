@@ -6,6 +6,7 @@ import { WordMark } from './WordMark';
 
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
 
   const toggleMenu = () => {
