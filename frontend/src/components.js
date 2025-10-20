@@ -307,13 +307,28 @@ export const Header = () => {
   const { isAuthenticated, user } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showPlaceModal, setShowPlaceModal] = useState(false);
+  const [pendingListingAction, setPendingListingAction] = useState(false);
+
+  // Handle opening listing modal after authentication
+  React.useEffect(() => {
+    if (isAuthenticated && pendingListingAction) {
+      setShowPlaceModal(true);
+      setPendingListingAction(false);
+    }
+  }, [isAuthenticated, pendingListingAction]);
 
   const handleShowYourPlace = () => {
     if (!isAuthenticated) {
+      setPendingListingAction(true);
       setShowAuthModal(true);
     } else {
       setShowPlaceModal(true);
     }
+  };
+
+  const handleAuthModalClose = () => {
+    setShowAuthModal(false);
+    // Don't reset pendingListingAction here - let useEffect handle it
   };
 
   return (
