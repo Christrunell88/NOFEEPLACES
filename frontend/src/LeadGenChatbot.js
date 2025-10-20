@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import FeedbackModal from './FeedbackModal';
 
 const API = process.env.REACT_APP_BACKEND_URL || '';
 
@@ -8,11 +9,12 @@ export const LeadGenChatbot = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');
   const [sessionId, setSessionId] = useState('');
-  const [chatStage, setChatStage] = useState('greeting'); // greeting, identify, capture_name, capture_email, complete
-  const [userType, setUserType] = useState(''); // renter or property_manager
+  const [chatStage, setChatStage] = useState('greeting'); // greeting, identify, capture_name, capture_email, complete, feedback
+  const [userType, setUserType] = useState(''); // renter, property_manager, or feedback
   const [leadData, setLeadData] = useState({ name: '', email: '', type: '' });
   const [isTyping, setIsTyping] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   useEffect(() => {
     // Generate session ID
@@ -20,7 +22,7 @@ export const LeadGenChatbot = () => {
     
     // Show initial greeting after 3 seconds
     setTimeout(() => {
-      addBotMessage("👋 Hi! I'm here to help you find your perfect no-fee apartment or list your property. Are you looking to rent an apartment or do you manage properties?");
+      addBotMessage("👋 Hi! I'm here to help. What would you like to do?");
     }, 3000);
   }, []);
 
@@ -37,17 +39,25 @@ export const LeadGenChatbot = () => {
     setHasInteracted(true);
 
     if (chatStage === 'greeting') {
-      setUserType(value);
-      setChatStage('capture_name');
-      
-      if (value === 'renter') {
+      if (value === 'feedback') {
+        // Open feedback modal
+        setShowFeedbackModal(true);
         setTimeout(() => {
-          addBotMessage("Great! I'd love to help you find the perfect apartment. What's your name?");
+          addBotMessage("Opening feedback form... Feel free to share your thoughts, report bugs, or suggest improvements!");
         }, 500);
-      } else if (value === 'property_manager') {
-        setTimeout(() => {
-          addBotMessage("Excellent! We'd love to help you list your properties on NoFeePlaces. What's your name?");
-        }, 500);
+      } else {
+        setUserType(value);
+        setChatStage('capture_name');
+        
+        if (value === 'renter') {
+          setTimeout(() => {
+            addBotMessage("Great! I'd love to help you find the perfect apartment. What's your name?");
+          }, 500);
+        } else if (value === 'property_manager') {
+          setTimeout(() => {
+            addBotMessage("Excellent! We'd love to help you list your properties on NoFeePlaces. What's your name?");
+          }, 500);
+        }
       }
     }
   };
@@ -231,6 +241,12 @@ export const LeadGenChatbot = () => {
                 >
                   I manage properties 🏢
                 </button>
+                <button
+                  onClick={() => handleQuickReply("Send feedback 💬", 'feedback')}
+                  className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl px-4 py-3 font-medium transition-all"
+                >
+                  Send feedback 💬
+                </button>
               </div>
             )}
 
@@ -273,6 +289,12 @@ export const LeadGenChatbot = () => {
           </div>
         </div>
       )}
+      
+      {/* Feedback Modal */}
+      <FeedbackModal 
+        isOpen={showFeedbackModal} 
+        onClose={() => setShowFeedbackModal(false)} 
+      />
     </>
   );
 };
