@@ -940,6 +940,52 @@ async def subscribe_to_newsletter(subscription: NewsletterSubscription):
         )
 
 # Original apartment endpoints
+@api_router.get("/apartments/category/{category}")
+async def get_apartments_by_category(
+    category: str,
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=500)
+):
+    """Get apartments by price category (budget, smart, luxury)"""
+    try:
+        # Validate category
+        if category not in ['budget', 'smart', 'luxury']:
+            raise HTTPException(status_code=400, detail="Invalid category")
+        
+        # Build query
+        query = {"price_category": category, "available": True}
+        
+        # Get apartments
+        skip = (page - 1) * limit
+        apartments = await db.apartments.find(query).sort("price", 1).skip(skip).limit(limit).to_list(length=limit)
+        total = await db.apartments.count_documents(query)
+        
+        # Calculate stats
+        all_category_apts = await db.apartments.find(query).to_list(length=None)
+        avg_price = sum(apt['price'] for apt in all_category_apts) / len(all_category_apts) if all_category_apts else 0
+        
+        # Clean apartments for response
+        for apt in apartments:
+            if '_id' in apt:
+                del apt['_id']
+        
+        return {
+            "apartments": apartments,
+            "total": total,
+            "page": page,
+            "limit": limit,
+            "has_more": (skip + len(apartments)) < total,
+            "stats": {
+                "total": total,
+                "avgPrice": int(avg_price)
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error fetching category apartments: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch apartments")
+
+
 @api_router.get("/apartments", response_model=ApartmentListResponse)
 async def get_apartments(
     page: int = Query(1, ge=1),
