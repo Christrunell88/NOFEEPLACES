@@ -261,7 +261,8 @@ const Home = () => {
       />
       <Hero setShowAuthModal={setShowAuthModal} />
       <SEOAffordableSection />
-      <FeaturedApartments />
+      
+      {/* Featured Apartments Section Removed - Units moved to category pages */}
       
       {/* Newsletter Section Removed - SEO preserved */}
       
