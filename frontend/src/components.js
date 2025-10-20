@@ -748,7 +748,7 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
               )}
               {apartment.bathrooms && (
                 <span className="flex items-center">
-                  <span className="font-medium">{apartment.bathrooms}</span>
+                  <span className="font-medium">{parseInt(apartment.bathrooms)}</span>
                   <span className="ml-1">bath</span>
                 </span>
               )}
