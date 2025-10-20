@@ -2380,6 +2380,174 @@ async def chat_endpoint(request: Request):
         logger.error(f"Chat endpoint error: {str(e)}")
         return {"error": "Failed to process request"}
 
+
+@api_router.post("/leads/capture")
+async def capture_lead(request: Request):
+    """Capture lead from chatbot with full automation"""
+    try:
+        data = await request.json()
+        
+        lead_data = {
+            "id": str(uuid.uuid4()),
+            "name": data.get("name", ""),
+            "email": data.get("email", ""),
+            "type": data.get("type", ""),  # renter or property_manager
+            "session_id": data.get("session_id", ""),
+            "source": data.get("source", "chatbot"),
+            "page": data.get("page", "/"),
+            "created_at": datetime.now(timezone.utc),
+            "status": "new",
+            "follow_up_date": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+            "notes": f"Lead captured via chatbot as {data.get('type', 'unknown')}"
+        }
+        
+        # Store in database
+        await db.leads.insert_one(lead_data)
+        logger.info(f"New lead captured: {lead_data['email']} ({lead_data['type']})")
+        
+        # Send confirmation email to lead
+        try:
+            if lead_data['type'] == 'renter':
+                subject = "Welcome to NoFeePlaces - Your No-Fee Apartment Search Starts Here!"
+                html_content = f"""
+                <html>
+                <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: white; margin: 0;">🏠 Welcome to NoFeePlaces!</h1>
+                    </div>
+                    
+                    <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
+                        <p style="font-size: 16px; color: #374151;">Hi {lead_data['name']},</p>
+                        
+                        <p style="font-size: 16px; color: #374151;">
+                            Thank you for chatting with us! We're excited to help you find your perfect no-fee apartment in NYC.
+                        </p>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+                            <h2 style="color: #667eea; margin-top: 0;">Why Choose NoFeePlaces?</h2>
+                            <ul style="color: #374151; line-height: 1.8;">
+                                <li>✅ <strong>Zero Broker Fees</strong> - Save $3,000-$8,000</li>
+                                <li>✅ <strong>182 Verified Listings</strong> - Real apartments, real photos</li>
+                                <li>✅ <strong>Direct Contact</strong> - Speak with landlords directly</li>
+                                <li>✅ <strong>Price Range</strong> - $2,106 - $17,100/month</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="https://nofeeplaces.com" 
+                               style="background: #667eea; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold;">
+                                Browse Apartments Now
+                            </a>
+                        </div>
+                        
+                        <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
+                            Need help? Reply to this email or contact us at <strong>placesfirm@gmail.com</strong> or call <strong>+1-646-408-8048</strong>
+                        </p>
+                    </div>
+                </body>
+                </html>
+                """
+            else:  # property_manager
+                subject = "Let's List Your Properties on NoFeePlaces!"
+                html_content = f"""
+                <html>
+                <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+                        <h1 style="color: white; margin: 0;">🏢 Welcome to NoFeePlaces!</h1>
+                    </div>
+                    
+                    <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px;">
+                        <p style="font-size: 16px; color: #374151;">Hi {lead_data['name']},</p>
+                        
+                        <p style="font-size: 16px; color: #374151;">
+                            Thank you for your interest in listing properties with NoFeePlaces! We're excited to partner with you.
+                        </p>
+                        
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+                            <h2 style="color: #667eea; margin-top: 0;">Benefits for Property Managers:</h2>
+                            <ul style="color: #374151; line-height: 1.8;">
+                                <li>✅ <strong>High-Quality Leads</strong> - Serious renters only</li>
+                                <li>✅ <strong>No Listing Fees</strong> - Free to list</li>
+                                <li>✅ <strong>Featured Placement</strong> - Top visibility</li>
+                                <li>✅ <strong>Direct Inquiries</strong> - Connect with renters instantly</li>
+                            </ul>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #374151;">
+                            <strong>Next Steps:</strong><br>
+                            Our team will reach out within 24 hours to discuss:
+                        </p>
+                        <ul style="color: #374151;">
+                            <li>Your available properties</li>
+                            <li>Listing requirements</li>
+                            <li>Partnership opportunities</li>
+                        </ul>
+                        
+                        <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">
+                            Questions? Email us at <strong>placesfirm@gmail.com</strong> or call <strong>+1-646-408-8048</strong>
+                        </p>
+                    </div>
+                </body>
+                </html>
+                """
+            
+            await email_service.send_email_async(
+                to_email=lead_data['email'],
+                subject=subject,
+                html_content=html_content
+            )
+            logger.info(f"Confirmation email sent to {lead_data['email']}")
+            
+        except Exception as e:
+            logger.error(f"Error sending confirmation email: {e}")
+        
+        # Send notification to admin
+        try:
+            admin_subject = f"🎯 New Lead: {lead_data['type'].replace('_', ' ').title()} - {lead_data['name']}"
+            admin_html = f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; padding: 20px;">
+                <h2 style="color: #667eea;">New Lead Captured!</h2>
+                
+                <div style="background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <p><strong>Name:</strong> {lead_data['name']}</p>
+                    <p><strong>Email:</strong> {lead_data['email']}</p>
+                    <p><strong>Type:</strong> {lead_data['type'].replace('_', ' ').title()}</p>
+                    <p><strong>Source:</strong> {lead_data['source']}</p>
+                    <p><strong>Page:</strong> {lead_data['page']}</p>
+                    <p><strong>Session ID:</strong> {lead_data['session_id']}</p>
+                    <p><strong>Captured:</strong> {lead_data['created_at'].strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
+                </div>
+                
+                <p><strong>Follow-up Date:</strong> {lead_data['follow_up_date']}</p>
+                
+                <p style="color: #6b7280; font-size: 14px;">
+                    View all leads in your admin dashboard.
+                </p>
+            </body>
+            </html>
+            """
+            
+            await email_service.send_email_async(
+                to_email="placesfirm@gmail.com",
+                subject=admin_subject,
+                html_content=admin_html
+            )
+            logger.info("Admin notification sent")
+            
+        except Exception as e:
+            logger.error(f"Error sending admin notification: {e}")
+        
+        return {
+            "success": True,
+            "message": "Lead captured successfully",
+            "lead_id": lead_data['id']
+        }
+        
+    except Exception as e:
+        logger.error(f"Error capturing lead: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to capture lead")
+
 # Newsletter endpoints
 @api_router.post("/newsletter/subscribe")
 async def subscribe_to_newsletter(subscription: NewsletterSubscription):
