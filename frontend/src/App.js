@@ -260,6 +260,91 @@ const Home = () => {
         setShowAuthModal={setShowAuthModal}
       />
       <Hero setShowAuthModal={setShowAuthModal} />
+      
+      {/* CATEGORY BUTTONS - MOVED UP FOR PROMINENCE */}
+      <section className="bg-gradient-to-b from-slate-50 to-white py-12">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Find Your Perfect Apartment</h2>
+            <p className="text-lg text-gray-600">Browse by category to discover apartments that match your budget and lifestyle</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {/* Best Value Button */}
+            <a
+              href="/apartments/best-value"
+              className="group relative bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="relative z-10">
+                <div className="text-5xl mb-4">⭐</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Best Value</h3>
+                <p className="text-purple-100 text-sm mb-3">Top Deals</p>
+                <div className="text-3xl font-bold text-white mb-3">5 Apartments</div>
+                <p className="text-xs text-purple-100">Luxury amenities at great prices</p>
+                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                  Top 20% Value
+                </div>
+              </div>
+            </a>
+            
+            {/* Budget Button */}
+            <a
+              href="/apartments/budget"
+              className="group relative bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="relative z-10">
+                <div className="text-5xl mb-4">💰</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Budget</h3>
+                <p className="text-green-100 text-sm mb-3">Under $4,500/mo</p>
+                <div className="text-3xl font-bold text-white mb-3">129 Apartments</div>
+                <p className="text-xs text-green-100">Perfect for budget-conscious renters</p>
+                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                  Most Popular
+                </div>
+              </div>
+            </a>
+
+            {/* Smart Button */}
+            <a
+              href="/apartments/smart"
+              className="group relative bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="relative z-10">
+                <div className="text-5xl mb-4">🎯</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Smart</h3>
+                <p className="text-blue-100 text-sm mb-3">$4,500 - $6,500/mo</p>
+                <div className="text-3xl font-bold text-white mb-3">69 Apartments</div>
+                <p className="text-xs text-blue-100">Best value at fair prices</p>
+                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                  Sweet Spot
+                </div>
+              </div>
+            </a>
+
+            {/* Sky's the Limit Button */}
+            <a
+              href="/apartments/luxury"
+              className="group relative bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="relative z-10">
+                <div className="text-5xl mb-4">✨</div>
+                <h3 className="text-2xl font-bold text-white mb-2">Sky's the Limit</h3>
+                <p className="text-amber-100 text-sm mb-3">Over $6,500/mo</p>
+                <div className="text-3xl font-bold text-white mb-3">22 Apartments</div>
+                <p className="text-xs text-amber-100">Premium luxury living</p>
+                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                  Ultra Luxury
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+      
       <SEOAffordableSection />
       
       {/* Featured Apartments Section Removed - Units moved to category pages */}
