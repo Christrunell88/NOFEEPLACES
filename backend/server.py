@@ -946,14 +946,19 @@ async def get_apartments_by_category(
     page: int = Query(1, ge=1),
     limit: int = Query(50, ge=1, le=500)
 ):
-    """Get apartments by price category (budget, smart, luxury)"""
+    """Get apartments by category (best-value, budget, smart, luxury)"""
     try:
         # Validate category
-        if category not in ['budget', 'smart', 'luxury']:
+        if category not in ['best-value', 'budget', 'smart', 'luxury']:
             raise HTTPException(status_code=400, detail="Invalid category")
         
-        # Build query
-        query = {"price_category": category, "available": True}
+        # Build query based on category
+        if category == 'best-value':
+            # Filter by best_value flag
+            query = {"best_value": True, "available": True}
+        else:
+            # Filter by price_category
+            query = {"price_category": category, "available": True}
         
         # Get apartments
         skip = (page - 1) * limit
