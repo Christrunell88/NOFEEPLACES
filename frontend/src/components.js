@@ -358,15 +358,7 @@ export const Header = () => {
 
           {/* Right Side: Professional Authentication & Menu */}
           <div className="flex items-center space-x-4">
-            {/* Professional Auth Button */}
-            {!isAuthenticated && (
-              <button
-                onClick={() => setShowAuthModal(true)}
-                className="hidden sm:block px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl text-sm border border-blue-500 hover:border-blue-400"
-              >
-                Get Started
-              </button>
-            )}
+            {/* Removed redundant "Get Started" button - Hero has CTAs */}
             
             {/* Professional User Avatar */}
             {isAuthenticated && (
