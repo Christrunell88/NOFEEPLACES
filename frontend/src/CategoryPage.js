@@ -151,6 +151,13 @@ export const CategoryPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
+      {/* Dynamic Meta Tags for SEO */}
+      <CategoryMetaTags 
+        category={category} 
+        apartmentCount={stats.total}
+        avgPrice={stats.avgPrice}
+      />
+      
       <Header />
       
       {/* Hero Section */}
