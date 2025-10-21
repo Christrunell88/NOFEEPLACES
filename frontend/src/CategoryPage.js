@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, ApartmentCard } from './components';
 import { useAuth } from './auth';
+import { CategoryMetaTags } from './MetaTags';
 
 const API = process.env.REACT_APP_BACKEND_URL || '';
 
