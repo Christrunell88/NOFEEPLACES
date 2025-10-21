@@ -1241,6 +1241,7 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
