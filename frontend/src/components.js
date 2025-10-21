@@ -5,6 +5,7 @@ import { useAuth } from './auth';
 import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationClick } from './analytics';
 import HamburgerMenu from './HamburgerMenu';
 import { HeaderWordMark } from './WordMark';
+import { ListingMetaTags } from './MetaTags';
 
 // Import all missing components
 import {
