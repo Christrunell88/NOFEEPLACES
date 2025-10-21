@@ -7,6 +7,21 @@ import { useAuth } from './auth';
 const API = process.env.REACT_APP_BACKEND_URL || '';
 
 const CATEGORY_CONFIG = {
+  'best-value': {
+    title: 'Best Value Apartments',
+    emoji: '⭐',
+    description: 'Top-rated apartments offering exceptional value based on price per square foot, premium amenities, and desirable neighborhoods. Only the top 20% make the cut.',
+    priceRange: 'All Price Ranges',
+    color: 'purple',
+    seoTitle: 'Best Value No-Fee Apartments NYC | Top Deals | NoFeePlaces',
+    seoDescription: 'Discover NYC\'s best value apartments - luxury amenities at great prices. Hand-picked top 20% based on price/sqft, location, and features. No broker fees.',
+    features: [
+      'Top 20% value score',
+      'Luxury amenities included',
+      'Best price per square foot',
+      'Prime locations & neighborhoods'
+    ]
+  },
   budget: {
     title: 'Budget Apartments',
     emoji: '💰',
