@@ -71,9 +71,9 @@ csv_writer.writerow([
 
 # Write data
 for apt in apartments:
-    sqft = apt.get('sqft', 0)
-    price = apt.get('price', 0)
-    price_per_sqft = round(price / sqft, 2) if sqft > 0 else 0
+    sqft = apt.get('sqft') or 0
+    price = apt.get('price') or 0
+    price_per_sqft = round(price / sqft, 2) if sqft and sqft > 0 else 0
     
     contact_info = apt.get('contact_info', {})
     
