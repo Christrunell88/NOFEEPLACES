@@ -273,15 +273,15 @@ const Home = () => {
             {/* Best Value Button */}
             <a
               href="/apartments/best-value"
-              className="group relative bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+              className="group relative bg-gradient-to-br from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-indigo-500/20"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">⭐</div>
                 <h3 className="text-2xl font-bold text-white mb-2">Best Value</h3>
-                <p className="text-purple-100 text-sm mb-3">Top Deals</p>
+                <p className="text-indigo-100 text-sm mb-3">Top Deals</p>
                 <div className="text-3xl font-bold text-white mb-3">5 Apartments</div>
-                <p className="text-xs text-purple-100">Luxury amenities at great prices</p>
+                <p className="text-xs text-indigo-100">Luxury amenities at great prices</p>
                 <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
                   Top 20% Value
                 </div>
@@ -291,15 +291,15 @@ const Home = () => {
             {/* Budget Button */}
             <a
               href="/apartments/budget"
-              className="group relative bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+              className="group relative bg-gradient-to-br from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-emerald-600/20"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">💰</div>
                 <h3 className="text-2xl font-bold text-white mb-2">Budget</h3>
-                <p className="text-green-100 text-sm mb-3">Under $4,500/mo</p>
+                <p className="text-emerald-100 text-sm mb-3">Under $4,500/mo</p>
                 <div className="text-3xl font-bold text-white mb-3">129 Apartments</div>
-                <p className="text-xs text-green-100">Perfect for budget-conscious renters</p>
+                <p className="text-xs text-emerald-100">Perfect for budget-conscious renters</p>
                 <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
                   Most Popular
                 </div>
@@ -309,7 +309,7 @@ const Home = () => {
             {/* Smart Button */}
             <a
               href="/apartments/smart"
-              className="group relative bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+              className="group relative bg-gradient-to-br from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-blue-600/20"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
               <div className="relative z-10">
@@ -327,15 +327,15 @@ const Home = () => {
             {/* Sky's the Limit Button */}
             <a
               href="/apartments/luxury"
-              className="group relative bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden"
+              className="group relative bg-gradient-to-br from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-slate-600/20"
             >
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">✨</div>
                 <h3 className="text-2xl font-bold text-white mb-2">Sky's the Limit</h3>
-                <p className="text-amber-100 text-sm mb-3">Over $6,500/mo</p>
+                <p className="text-slate-100 text-sm mb-3">Over $6,500/mo</p>
                 <div className="text-3xl font-bold text-white mb-3">22 Apartments</div>
-                <p className="text-xs text-amber-100">Premium luxury living</p>
+                <p className="text-xs text-slate-100">Premium luxury living</p>
                 <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
                   Ultra Luxury
                 </div>
