@@ -97,16 +97,7 @@ const SEOAffordableSection = () => {
             </div>
           </div>
 
-          {/* Simple CTA */}
-          <div className="text-center">
-            <button 
-              onClick={() => window.scrollTo({ top: 1200, behavior: 'smooth' })}
-              className="bg-teal-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-teal-600 transition-colors shadow-lg inline-flex items-center"
-            >
-              <span className="mr-2">🔍</span>
-              Browse All No-Fee Apartments
-            </button>
-          </div>
+          {/* Removed redundant CTA - Category buttons appear right after this section */}
         </div>
       </div>
     </section>
