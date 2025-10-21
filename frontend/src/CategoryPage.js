@@ -116,6 +116,13 @@ export const CategoryPage = () => {
   }
 
   const colorClasses = {
+    purple: {
+      bg: 'bg-purple-50',
+      border: 'border-purple-200',
+      text: 'text-purple-800',
+      badge: 'bg-purple-100 text-purple-800',
+      button: 'bg-purple-600 hover:bg-purple-700'
+    },
     green: {
       bg: 'bg-green-50',
       border: 'border-green-200',
