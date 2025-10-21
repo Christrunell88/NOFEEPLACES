@@ -275,8 +275,21 @@ const Home = () => {
       <main id="main-content" className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
         {/* Price Category Filter Buttons */}
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Browse by Price Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Browse by Category</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Best Value Button - NEW */}
+            <a
+              href="/apartments/best-value"
+              className="group relative bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 border-2 border-purple-400 rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center"
+            >
+              <div className="text-4xl mb-3">⭐</div>
+              <h3 className="text-xl font-bold text-purple-800 mb-2">Best Value</h3>
+              <p className="text-purple-700 text-sm mb-3">Top Deals</p>
+              <div className="text-2xl font-bold text-purple-900 mb-2">5 Apartments</div>
+              <p className="text-xs text-purple-600">Luxury amenities at great prices</p>
+              <div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 rounded-xl transition-opacity"></div>
+            </a>
+            
             {/* Budget Button */}
             <a
               href="/apartments/budget"
