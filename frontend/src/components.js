@@ -792,7 +792,17 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             </div>
           )}
 
-          {/* Clean card bottom - no buttons needed */}
+          {/* Action Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowScheduleModal(true);
+            }}
+            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-2.5 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all font-medium text-sm flex items-center justify-center space-x-2"
+          >
+            <span>📅</span>
+            <span>Schedule Showing</span>
+          </button>
         </div>
       </div>
 
