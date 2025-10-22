@@ -266,6 +266,8 @@ const FeedbackModal = ({ isOpen, onClose }) => {
               </button>
             </div>
           </form>
+          </>
+          )}
 
           {/* Footer */}
           <div className="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500 text-center">
