@@ -8,7 +8,7 @@ const SEOAffordableSection = () => {
           {/* Main SEO Heading */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-              Can't Find an Affordable Apartment in NYC?
+              Affordable NYC Apartments - No Broker Fees
             </h2>
             <p className="text-lg text-gray-600">
               Skip the broker fees. Find 240+ no-fee apartments starting at $1,900/month.
