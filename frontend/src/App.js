@@ -13,6 +13,7 @@ import {
   trackPerformanceMetric,
   trackVisitorArrival
 } from './analytics';
+import { OrganizationSchema } from './StructuredData';
 import { 
   LandlordPricing, 
   LandlordRegistration, 
