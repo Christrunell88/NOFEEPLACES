@@ -106,22 +106,51 @@ const FeedbackModal = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {/* Success Message */}
-          {submitStatus === 'success' && (
-            <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
-              ✅ Thank you! Your feedback has been submitted successfully.
+          {/* Authentication Gate */}
+          {!isAuthenticated ? (
+            <div className="text-center py-6">
+              <div className="text-6xl mb-4">🔐</div>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Sign In Required</h3>
+              <p className="text-gray-600 mb-6">
+                Please sign in to leave feedback. This helps us track and respond to your suggestions more effectively.
+              </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h4 className="font-semibold text-blue-800 mb-2">Why Sign In?</h4>
+                <ul className="text-sm text-blue-700 space-y-1 text-left">
+                  <li>• Get updates on your feedback</li>
+                  <li>• Track your reported issues</li>
+                  <li>• Receive priority support</li>
+                  <li>• Build your contribution history</li>
+                </ul>
+              </div>
+              <button
+                onClick={() => {
+                  onClose();
+                  window.dispatchEvent(new CustomEvent('openAuthModal'));
+                }}
+                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              >
+                Sign In to Leave Feedback
+              </button>
             </div>
-          )}
+          ) : (
+            <>
+              {/* Success Message */}
+              {submitStatus === 'success' && (
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                  ✅ Thank you! Your feedback has been submitted successfully.
+                </div>
+              )}
 
-          {/* Error Message */}
-          {submitStatus === 'error' && (
-            <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              ❌ Sorry, there was an error submitting your feedback. Please try again.
-            </div>
-          )}
+              {/* Error Message */}
+              {submitStatus === 'error' && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  ❌ Sorry, there was an error submitting your feedback. Please try again.
+                </div>
+              )}
 
-          {/* Feedback Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Feedback Form */}
+              <form onSubmit={handleSubmit} className="space-y-4">
             {/* Feedback Type */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
