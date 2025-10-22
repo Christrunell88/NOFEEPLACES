@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Header, ApartmentCard } from './components';
 import { useAuth } from './auth';
 import { CategoryMetaTags } from './MetaTags';
+import { ItemListSchema } from './StructuredData';
 
 const API = process.env.REACT_APP_BACKEND_URL || '';
 
