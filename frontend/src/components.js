@@ -1278,6 +1278,12 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
               {/* Action Buttons */}
               <div className="space-y-3">
                 <button
+                  onClick={() => setShowScheduleModal(true)}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-4 rounded-lg hover:from-green-600 hover:to-green-700 transition-all font-semibold text-lg"
+                >
+                  📅 Schedule Showing
+                </button>
+                <button
                   onClick={() => setShowContactModal(true)}
                   className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-lg"
                 >
