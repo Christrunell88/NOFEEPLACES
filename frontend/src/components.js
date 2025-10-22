@@ -7,6 +7,7 @@ import HamburgerMenu from './HamburgerMenu';
 import { HeaderWordMark } from './WordMark';
 import { ListingMetaTags } from './MetaTags';
 import { RealEstateListingSchema } from './StructuredData';
+import ScheduleShowingModal from './ScheduleShowingModal';
 
 // Import all missing components
 import {
