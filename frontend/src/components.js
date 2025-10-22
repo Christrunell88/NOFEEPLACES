@@ -814,6 +814,14 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
         />
       )}
       
+      {/* Schedule Showing Modal */}
+      {showScheduleModal && (
+        <ScheduleShowingModal
+          apartment={apartment}
+          onClose={() => setShowScheduleModal(false)}
+        />
+      )}
+      
       {/* Apartment Details Modal */}
       {showDetailsModal && (
         <ApartmentDetailsModal 
