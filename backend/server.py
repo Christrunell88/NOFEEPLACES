@@ -1022,6 +1022,7 @@ async def get_apartments(
     neighborhood: Optional[str] = None,
     borough: Optional[str] = None,
     search: Optional[str] = None,
+    price_category: Optional[str] = None,
     sort_by: Optional[str] = Query("price", description="Field to sort by: price, bedrooms, created_at"),
     sort_order: Optional[str] = Query("asc", description="Sort order: asc (ascending) or desc (descending)")
 ):
@@ -1050,6 +1051,8 @@ async def get_apartments(
         match_query["neighborhood"] = {"$regex": neighborhood, "$options": "i"}
     if borough:
         match_query["borough"] = {"$regex": borough, "$options": "i"}
+    if price_category:
+        match_query["price_category"] = {"$regex": price_category, "$options": "i"}
     if search:
         match_query["$or"] = [
             {"title": {"$regex": search, "$options": "i"}},
