@@ -92,11 +92,8 @@ Allow: /*?*price=
 Allow: /*?*bedrooms=
 Allow: /*?*neighborhood=
 
-# Sitemap locations - Updated for AI crawlers
+# Sitemap location
 Sitemap: https://nofeeplaces.com/sitemap.xml
-Sitemap: https://nofeeplaces.com/sitemap-apartments.xml
-Sitemap: https://nofeeplaces.com/sitemap-neighborhoods.xml
-Sitemap: https://nofeeplaces.com/sitemap-blog.xml
 
 # Crawl optimization for AI bots
 Crawl-delay: 1
