@@ -1,53 +1,93 @@
 #!/usr/bin/env python3
 """
-NoFeePlaces.com Backend API Testing Suite
-Tests all backend endpoints for authentication, apartments, user features, and data scraping
+NoFeePlaces Backend Testing Suite
+Comprehensive testing for Schedule Showing Feature and Login Functionality
 """
 
-import requests
+import asyncio
+import aiohttp
 import json
-import time
-from datetime import datetime
-from typing import Dict, Any, Optional
+import uuid
+from datetime import datetime, timedelta
+from typing import Dict, Any, List
+import logging
 
-# Configuration
-BASE_URL = "https://apartment-viewings.preview.emergentagent.com/api"
-TEST_USER_EMAIL = "testuser@nofeeplaces.com"
-TEST_USER_PASSWORD = "SecurePassword123!"
-TEST_USER_NAME = "John Doe"
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-class NoFeePlacesAPITester:
+class NoFeePlacesBackendTester:
     def __init__(self):
-        self.base_url = BASE_URL
-        self.auth_token = None
-        self.test_user_id = None
-        self.test_apartment_id = None
-        self.test_saved_search_id = None
-        self.test_appointment_id = None
-        self.results = {
-            "passed": 0,
-            "failed": 0,
-            "errors": []
-        }
+        # Use production URL from frontend/.env
+        self.base_url = "https://apartment-viewings.preview.emergentagent.com/api"
+        self.session = None
+        self.test_results = []
+        self.total_tests = 0
+        self.passed_tests = 0
+        
+    async def __aenter__(self):
+        self.session = aiohttp.ClientSession()
+        return self
+        
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.session:
+            await self.session.close()
     
-    def log_result(self, test_name: str, success: bool, message: str = ""):
+    def log_test_result(self, test_name: str, passed: bool, details: str = "", error: str = ""):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
-        print(f"{status}: {test_name}")
-        if message:
-            print(f"   {message}")
-        
-        if success:
-            self.results["passed"] += 1
+        self.total_tests += 1
+        if passed:
+            self.passed_tests += 1
+            status = "✅ PASS"
         else:
-            self.results["failed"] += 1
-            self.results["errors"].append(f"{test_name}: {message}")
-    
-    def make_request(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> requests.Response:
-        """Make HTTP request with error handling"""
-        url = f"{self.base_url}{endpoint}"
-        default_headers = {"Content-Type": "application/json"}
+            status = "❌ FAIL"
         
+        result = {
+            "test": test_name,
+            "status": status,
+            "passed": passed,
+            "details": details,
+            "error": error
+        }
+        self.test_results.append(result)
+        logger.info(f"{status}: {test_name}")
+        if details:
+            logger.info(f"  Details: {details}")
+        if error:
+            logger.error(f"  Error: {error}")
+    
+    async def make_request(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> Dict:
+        """Make HTTP request to API"""
+        url = f"{self.base_url}{endpoint}"
+        try:
+            if method.upper() == "GET":
+                async with self.session.get(url, headers=headers) as response:
+                    return {
+                        "status": response.status,
+                        "data": await response.json() if response.content_type == 'application/json' else await response.text(),
+                        "headers": dict(response.headers)
+                    }
+            elif method.upper() == "POST":
+                async with self.session.post(url, json=data, headers=headers) as response:
+                    return {
+                        "status": response.status,
+                        "data": await response.json() if response.content_type == 'application/json' else await response.text(),
+                        "headers": dict(response.headers)
+                    }
+        except Exception as e:
+            return {"status": 0, "error": str(e)}
+    
+    async def get_test_apartment_id(self) -> str:
+        """Get a valid apartment ID for testing"""
+        try:
+            response = await self.make_request("GET", "/apartments?limit=1")
+            if response["status"] == 200 and "apartments" in response["data"]:
+                apartments = response["data"]["apartments"]
+                if apartments:
+                    return apartments[0]["id"]
+            return "test-apartment-id"  # Fallback
+        except:
+            return "test-apartment-id"  # Fallback
         if headers:
             default_headers.update(headers)
         
