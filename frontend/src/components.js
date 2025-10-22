@@ -1307,6 +1307,14 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
             onClose={() => setShowContactModal(false)}
           />
         )}
+        
+        {/* Schedule Showing Modal */}
+        {showScheduleModal && (
+          <ScheduleShowingModal
+            apartment={apartment}
+            onClose={() => setShowScheduleModal(false)}
+          />
+        )}
       </div>
     </div>
     </>
