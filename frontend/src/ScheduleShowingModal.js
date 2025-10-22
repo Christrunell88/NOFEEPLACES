@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth } from './auth';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
 const ScheduleShowingModal = ({ apartment, onClose }) => {
+  const { isAuthenticated, user } = useAuth();
   const [showingDate, setShowingDate] = useState('');
   const [showingTime, setShowingTime] = useState('');
   const [visitorName, setVisitorName] = useState('');
@@ -14,6 +16,15 @@ const ScheduleShowingModal = ({ apartment, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+
+  // Pre-fill user information if authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      setVisitorName(user.name || user.full_name || '');
+      setVisitorEmail(user.email || '');
+    }
+  }, [isAuthenticated, user]);
 
   // Time slots
   const timeSlots = ['9 AM', '12 PM', '3 PM', '6 PM'];
