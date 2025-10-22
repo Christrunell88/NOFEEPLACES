@@ -14,6 +14,7 @@ import {
   trackVisitorArrival
 } from './analytics';
 import { OrganizationSchema } from './StructuredData';
+import BoroughPage from './BoroughPage';
 import { 
   LandlordPricing, 
   LandlordRegistration, 
