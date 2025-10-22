@@ -621,7 +621,13 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
     }
   };
 
-  const currentImage = apartment.images?.[currentImageIndex] || '/api/placeholder/400/300';
+  // Safely get current image with bounds checking
+  const safeImageIndex = apartment.images && apartment.images.length > 0 
+    ? Math.min(currentImageIndex, apartment.images.length - 1)
+    : 0;
+  const currentImage = (apartment.images && apartment.images.length > 0)
+    ? apartment.images[safeImageIndex]
+    : '/api/placeholder/400/300';
   const imageCount = apartment.images?.length || 0;
 
   return (
