@@ -7,7 +7,7 @@ print("=" * 60)
 
 # Test 1: Get all apartments
 print("\n1. Testing GET /api/apartments (total count)")
-response = requests.get('https://aptlistpro.preview.emergentagent.com/api/apartments')
+response = requests.get('https://aptfinder-1.preview.emergentagent.com/api/apartments')
 if response.status_code == 200:
     apartments = response.json()
     total_count = len(apartments)
@@ -27,7 +27,7 @@ else:
 
 # Test 2: Search for Gotham West specifically
 print("\n2. Testing search for 'Gotham West'")
-search_response = requests.get('https://aptlistpro.preview.emergentagent.com/api/apartments', params={'search_term': 'Gotham West'})
+search_response = requests.get('https://aptfinder-1.preview.emergentagent.com/api/apartments', params={'search_term': 'Gotham West'})
 if search_response.status_code == 200:
     search_results = search_response.json()
     print(f'✅ Search for "Gotham West" returned: {len(search_results)} apartments')
@@ -44,7 +44,7 @@ else:
 
 # Test 3: Search for Hell's Kitchen
 print("\n3. Testing search for 'Hell's Kitchen'")
-hk_response = requests.get('https://aptlistpro.preview.emergentagent.com/api/apartments', params={'search_term': "Hell's Kitchen"})
+hk_response = requests.get('https://aptfinder-1.preview.emergentagent.com/api/apartments', params={'search_term': "Hell's Kitchen"})
 if hk_response.status_code == 200:
     hk_results = hk_response.json()
     hk_gotham_count = sum(1 for apt in hk_results if 'gotham' in apt.get('title', '').lower())

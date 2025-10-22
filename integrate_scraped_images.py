@@ -241,7 +241,7 @@ async def main():
             print("=" * 50)
             print("1. Restart backend server: sudo supervisorctl restart backend")
             print("2. Clear browser cache if needed")
-            print("3. Check preview at: https://aptlistpro.preview.emergentagent.com")
+            print("3. Check preview at: https://aptfinder-1.preview.emergentagent.com")
             print("\n📸 The apartments will now show authentic scraped images!")
         else:
             print(f"\n⚠️ No apartments were updated - check image organization")

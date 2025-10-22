@@ -16,7 +16,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://aptlistpro.preview.emergentagent.com/api"
+BASE_URL = "https://aptfinder-1.preview.emergentagent.com/api"
 TEST_USER_EMAIL = "healthcheck@nofeeplaces.com"
 TEST_USER_PASSWORD = "HealthCheck123!"
 TEST_USER_NAME = "Health Check User"

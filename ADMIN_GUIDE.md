@@ -2,7 +2,7 @@
 
 ## 🔐 Admin Access
 
-**Login URL:** https://aptlistpro.preview.emergentagent.com/admin
+**Login URL:** https://aptfinder-1.preview.emergentagent.com/admin
 
 **Admin Credentials:**
 - Email: `placesfirm@gmail.com`

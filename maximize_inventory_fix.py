@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 
 class MaximizeInventoryFix:
     def __init__(self):
-        self.production_api = "https://aptlistpro.preview.emergentagent.com/api"
+        self.production_api = "https://aptfinder-1.preview.emergentagent.com/api"
         
         # EXPANDED pricing ranges to capture maximum inventory
         # Very permissive ranges from budget to ultra-luxury
