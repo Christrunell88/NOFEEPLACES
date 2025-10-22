@@ -159,6 +159,9 @@ export const CategoryPage = () => {
         avgPrice={stats.avgPrice}
       />
       
+      {/* JSON-LD Structured Data for ItemList */}
+      <ItemListSchema apartments={apartments} category={category} />
+      
       <Header />
       
       {/* Hero Section */}
