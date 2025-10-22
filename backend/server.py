@@ -1267,6 +1267,102 @@ async def contact_apartment(contact: ContactRequest):
         contact_id=contact_data["id"]
     )
 
+
+@api_router.post("/showings/schedule", response_model=ScheduleShowingResponse)
+async def schedule_showing(showing: ScheduleShowingRequest):
+    """Schedule an apartment showing with calendar invite emails"""
+    from datetime import datetime, timedelta
+    import pytz
+    
+    # Validate 24-hour advance notice
+    try:
+        showing_datetime_str = f"{showing.showing_date} {showing.showing_time}"
+        # Parse the showing date and time
+        showing_dt = datetime.strptime(showing_datetime_str, "%Y-%m-%d %I %p")
+        # Make it timezone aware (EST/EDT for NYC)
+        eastern = pytz.timezone('America/New_York')
+        showing_dt = eastern.localize(showing_dt)
+        
+        # Get current time in EST
+        current_dt = datetime.now(eastern)
+        
+        # Check 24-hour advance notice
+        time_diff = showing_dt - current_dt
+        if time_diff.total_seconds() < 24 * 3600:
+            raise HTTPException(
+                status_code=400,
+                detail="Showings must be scheduled at least 24 hours in advance"
+            )
+        
+        # Check if it's in the past
+        if showing_dt < current_dt:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot schedule showings in the past"
+            )
+            
+    except ValueError as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid date/time format: {str(e)}"
+        )
+    
+    # Store showing request in database
+    showing_data = showing.dict()
+    showing_data["id"] = str(uuid.uuid4())
+    showing_data["created_at"] = datetime.now(timezone.utc).isoformat()
+    showing_data["status"] = "scheduled"
+    showing_data["showing_datetime_utc"] = showing_dt.astimezone(timezone.utc).isoformat()
+    
+    try:
+        await db.showings.insert_one(showing_data)
+        logger.info(f"New showing scheduled: {showing.visitor_name} for {showing.apartment_title} on {showing.showing_date} at {showing.showing_time}")
+    except Exception as e:
+        logger.error(f"Failed to store showing in database: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to schedule showing")
+    
+    # Send confirmation emails with calendar invite
+    confirmation_sent = False
+    try:
+        await email_service.send_showing_confirmation(
+            visitor_email=showing.visitor_email,
+            visitor_name=showing.visitor_name,
+            visitor_phone=showing.visitor_phone,
+            apartment_title=showing.apartment_title,
+            apartment_address=showing.apartment_address,
+            apartment_price=showing.apartment_price,
+            showing_date=showing.showing_date,
+            showing_time=showing.showing_time,
+            showing_datetime=showing_dt,
+            special_notes=showing.special_notes
+        )
+        
+        # Send notification to admin
+        await email_service.send_showing_admin_notification(
+            visitor_name=showing.visitor_name,
+            visitor_email=showing.visitor_email,
+            visitor_phone=showing.visitor_phone,
+            apartment_title=showing.apartment_title,
+            apartment_address=showing.apartment_address,
+            apartment_price=showing.apartment_price,
+            showing_date=showing.showing_date,
+            showing_time=showing.showing_time,
+            special_notes=showing.special_notes
+        )
+        
+        confirmation_sent = True
+        logger.info(f"Showing confirmation emails sent to {showing.visitor_email} and admin")
+    except Exception as e:
+        logger.error(f"Failed to send showing confirmation emails: {str(e)}")
+        # Don't fail the request if email fails, showing is still scheduled
+    
+    return ScheduleShowingResponse(
+        success=True,
+        message=f"Showing scheduled for {showing.showing_date} at {showing.showing_time}. Confirmation emails sent!",
+        showing_id=showing_data["id"],
+        confirmation_sent=confirmation_sent
+    )
+
 @api_router.post("/visitor/track")
 async def track_visitor(request: Request):
     """Track website visitors and send email notifications"""
