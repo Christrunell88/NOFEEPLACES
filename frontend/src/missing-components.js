@@ -98,31 +98,6 @@ export const Hero = ({ setShowAuthModal }) => {
           <p className="text-lg md:text-xl mb-8 text-white font-light opacity-90 max-w-2xl mx-auto">
             240+ verified no-fee apartments • Save $3,000+ on broker fees
           </p>
-          
-          {/* Condensed CTAs - Just 2 buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button 
-              onClick={scrollToListings}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              Browse Apartments
-            </button>
-            
-            {setShowAuthModal && (
-              <button
-                onClick={() => setShowAuthModal(true)}
-                className="bg-white/20 hover:bg-white/30 text-white border border-white/50 px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 backdrop-blur-sm flex items-center"
-              >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM4.343 12.343l9.9 9.9M8.5 8.5l9.9 9.9" />
-                </svg>
-                Get Alerts
-              </button>
-            )}
-          </div>
         </div>
       </div>
       
