@@ -10,7 +10,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
 DB_NAME = os.environ.get('DB_NAME', 'nofeeplaces_database')
-BACKEND_URL = "https://aptfinder-1.preview.emergentagent.com"
+BACKEND_URL = "https://apartment-viewings.preview.emergentagent.com"
 
 
 async def fix_image_urls():

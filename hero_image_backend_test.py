@@ -13,7 +13,7 @@ from typing import Dict, Any, Optional, List
 import re
 
 # Configuration
-BASE_URL = "https://aptfinder-1.preview.emergentagent.com/api"
+BASE_URL = "https://apartment-viewings.preview.emergentagent.com/api"
 
 class HeroImageBackendTester:
     def __init__(self):

@@ -12,7 +12,7 @@ import os
 
 class AuthenticListingsAuditor:
     def __init__(self):
-        self.production_api = "https://aptfinder-1.preview.emergentagent.com/api"
+        self.production_api = "https://apartment-viewings.preview.emergentagent.com/api"
         self.mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
         self.db_name = os.environ.get('DB_NAME', 'nofeeplaces')
         
