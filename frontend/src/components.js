@@ -1074,6 +1074,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
 const ApartmentDetailsModal = ({ apartment, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
   const { isAuthenticated } = useAuth();
 
   // Use neighborhood for non-authenticated users, full address for authenticated users
