@@ -173,10 +173,10 @@ const BoroughPage = () => {
       <div className="bg-gray-800 py-12 mt-12">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-white mb-4">
-            Can't find what you're looking for in {info.name}?
+            Explore More Apartments in Other NYC Boroughs
           </h3>
           <p className="text-gray-300 mb-6">
-            Browse apartments in other NYC boroughs
+            Browse apartments in Manhattan, Brooklyn, Queens, and more
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {Object.keys(boroughInfo)
