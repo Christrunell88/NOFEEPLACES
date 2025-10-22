@@ -1919,7 +1919,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Email Button Duplication Fix Testing"
+    - "Schedule Showing Feature Backend Testing"
+    - "Login Functionality Backend Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
