@@ -261,6 +261,25 @@ class FeedbackResponse(BaseModel):
     message: str
     feedback_id: str
 
+
+class ScheduleShowingRequest(BaseModel):
+    apartment_id: str
+    apartment_title: str
+    apartment_address: str
+    apartment_price: float
+    showing_date: str  # YYYY-MM-DD format
+    showing_time: str  # 9 AM, 12 PM, 3 PM, 6 PM
+    visitor_name: str
+    visitor_email: str
+    visitor_phone: str
+    special_notes: Optional[str] = ""
+
+class ScheduleShowingResponse(BaseModel):
+    success: bool
+    message: str
+    showing_id: str
+    confirmation_sent: bool
+
 # AI Content Discovery endpoint for search engines
 @api_router.get("/content-discovery")
 async def content_discovery():
