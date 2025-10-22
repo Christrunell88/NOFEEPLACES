@@ -53,11 +53,6 @@ export const Hero = ({ setShowAuthModal }) => {
     return () => clearInterval(interval);
   }, [heroImages.length]);
 
-  const scrollToListings = () => {
-    trackHeroAction('scroll', 'Browse Apartments');
-    window.scrollTo({ top: 1200, behavior: 'smooth' });
-  };
-
   const goToImage = (index) => {
     setCurrentImageIndex(index);
     trackHeroAction('carousel_navigation', `Image ${index + 1} - ${heroImages[index].style}`);
