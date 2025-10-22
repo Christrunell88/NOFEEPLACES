@@ -154,6 +154,19 @@ const Home = () => {
     };
   }, []);
 
+  // Listen for auth modal open events from other components
+  useEffect(() => {
+    const handleOpenAuthModal = () => {
+      setShowAuthModal(true);
+    };
+
+    window.addEventListener('openAuthModal', handleOpenAuthModal);
+    
+    return () => {
+      window.removeEventListener('openAuthModal', handleOpenAuthModal);
+    };
+  }, []);
+
   // Track visitor arrival on initial load
   useEffect(() => {
     trackVisitorArrival();
