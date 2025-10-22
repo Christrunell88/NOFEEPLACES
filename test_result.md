@@ -1727,6 +1727,31 @@ agent_communication:
           comment: "APARTMENT SORTING FUNCTIONALITY TESTING COMPLETED: Comprehensive testing of apartment listing sorting after backend update to show newest listings first completed with 100% success rate (7/7 tests passed). SORTING IMPLEMENTATION VERIFIED: ✅ GET /api/apartments returns apartments sorted by creation date in descending order (newest first), ✅ Sorting works correctly across multiple pages with pagination consistency maintained, ✅ Search terms (manhattan) maintain newest-first ordering within filtered results, ✅ Price filters (min_price=3000) maintain newest-first ordering within filtered results, ✅ API response structure remains completely intact with all required fields present. PERFORMANCE EXCELLENT: All sorting operations complete in under 0.03 seconds with no performance degradation. Tested scenarios include basic listing, large page sizes (50-100 items), search with sorting, price filters with sorting, and pagination with sorting. RECENT LISTINGS VERIFICATION: Found recent listings (StreetEasy, Related Rentals) properly positioned in top results, confirming newest apartments appear first as expected. API INTEGRITY CONFIRMED: All apartments retain complete data structure including id, title, address, price, bedrooms, bathrooms, sqft, neighborhood, borough, description, amenities, images, contact_info, and created_at fields. REVIEW REQUEST REQUIREMENTS MET: (1) ✅ Apartment Ordering - newest first confirmed, (2) ✅ Pagination - sorting consistency across pages verified, (3) ✅ Search and Filters - newest first maintained in filtered results, (4) ✅ API Response - structure integrity preserved, (5) ✅ Performance - no issues with simplified sorting logic. CONCLUSION: Backend sorting update successfully implemented with apartments now displaying newest listings first across all endpoints, search scenarios, and pagination while maintaining excellent performance and complete API response integrity."
 
 backend:
+
+  - task: "Schedule Showing Feature Backend Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py, /app/backend/email_service.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "SCHEDULE SHOWING FEATURE READY FOR TESTING: Recently implemented showing scheduling feature includes POST /api/showings/schedule endpoint that receives showing details, stores them in showing_schedules MongoDB collection, and sends confirmation emails with calendar invites (.ics attachments). Email service updated with send_showing_confirmation_email and create_calendar_invite methods. Frontend has ScheduleShowingModal component integrated into ApartmentCard and ApartmentDetailsModal. Backend was restarted to load new endpoint. Need comprehensive backend testing to verify: (1) API endpoint functionality with proper request/response models, (2) MongoDB storage of showing schedules, (3) Email confirmation delivery to both user and admin (placesfirm@gmail.com), (4) iCal calendar invite generation and attachment, (5) Data validation and error handling, (6) Business hours constraints (Mon-Sun 9 AM - 6 PM), (7) 24-hour minimum notice requirement enforcement."
+
+  - task: "Login Functionality Backend Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "LOGIN FUNCTIONALITY READY FOR TESTING: User requested testing of login functionality. Need comprehensive backend testing to verify: (1) POST /api/auth/login endpoint functionality, (2) JWT token generation and validation, (3) Email and password authentication, (4) Proper error handling for invalid credentials, (5) Response format with access token, (6) Protected endpoint access with valid tokens, (7) Token expiration and refresh mechanisms if applicable, (8) Social authentication endpoints (Google, Facebook, Apple), (9) User registration flow if needed."
+
   - task: "User Authentication System"
     implemented: true
     working: true
