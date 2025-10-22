@@ -138,7 +138,34 @@ const ScheduleShowingModal = ({ apartment, onClose }) => {
             </p>
           </div>
 
-          {submitStatus === 'success' ? (
+          {!isAuthenticated ? (
+            <div className="text-center py-8">
+              <div className="text-6xl mb-4">🔐</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-4">Sign In Required</h3>
+              <p className="text-gray-600 mb-6">
+                Please sign in to schedule apartment showings. This helps us verify appointments and protect both tenants and landlords.
+              </p>
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
+                <h4 className="font-semibold text-purple-800 mb-2">Why Sign In?</h4>
+                <ul className="text-sm text-purple-700 space-y-1 text-left">
+                  <li>• Verify your identity for confirmed appointments</li>
+                  <li>• Track your scheduled showings</li>
+                  <li>• Receive calendar invites and reminders</li>
+                  <li>• Get priority booking confirmations</li>
+                </ul>
+              </div>
+              <button
+                onClick={() => {
+                  onClose();
+                  // Trigger auth modal (this will be handled by parent component)
+                  window.dispatchEvent(new CustomEvent('openAuthModal'));
+                }}
+                className="w-full bg-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
+              >
+                Sign In to Schedule
+              </button>
+            </div>
+          ) : submitStatus === 'success' ? (
             <div className="text-center py-8">
               <div className="text-6xl mb-4">✅</div>
               <h3 className="text-2xl font-bold text-green-600 mb-2">Showing Scheduled!</h3>
