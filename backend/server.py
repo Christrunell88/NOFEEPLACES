@@ -971,13 +971,21 @@ async def get_apartments_by_category(
         if category not in ['best-value', 'budget', 'smart', 'luxury']:
             raise HTTPException(status_code=400, detail="Invalid category")
         
+        # Map URL category to database price_category
+        category_mapping = {
+            'budget': 'Budget',
+            'smart': 'Smart',
+            'luxury': "Sky's the Limit"
+        }
+        
         # Build query based on category
         if category == 'best-value':
             # Filter by best_value flag
             query = {"best_value": True, "available": True}
         else:
-            # Filter by price_category
-            query = {"price_category": category, "available": True}
+            # Filter by mapped price_category
+            db_category = category_mapping.get(category, category)
+            query = {"price_category": db_category, "available": True}
         
         # Get apartments
         skip = (page - 1) * limit
