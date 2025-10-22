@@ -32,6 +32,10 @@ Crawl-delay: 1
 
 # High-priority SEO pages - Allow all search engines
 Allow: /apartments
+Allow: /apartments/best-value
+Allow: /apartments/budget
+Allow: /apartments/smart
+Allow: /apartments/luxury
 Allow: /search
 Allow: /blog
 Allow: /blog/*
