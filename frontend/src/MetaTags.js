@@ -94,6 +94,7 @@ export const CategoryMetaTags = ({ category, apartmentCount, avgPrice }) => {
 
   const config = categoryConfig[category] || categoryConfig['budget'];
   const avgPriceText = avgPrice ? ` Average: $${Math.round(avgPrice).toLocaleString()}/mo.` : '';
+  const canonicalUrl = `https://nofeeplaces.com/apartments/${category}`;
 
   return (
     <Helmet>
@@ -102,12 +103,12 @@ export const CategoryMetaTags = ({ category, apartmentCount, avgPrice }) => {
       
       <meta property="og:title" content={config.title} />
       <meta property="og:description" content={config.description} />
-      <meta property="og:url" content={`https://nofeeplaces.com/apartments/${category}`} />
+      <meta property="og:url" content={canonicalUrl} />
       
       <meta name="twitter:title" content={config.title} />
       <meta name="twitter:description" content={config.description} />
       
-      <link rel="canonical" href={`https://nofeeplaces.com/apartments/${category}`} />
+      <link rel="canonical" href={canonicalUrl} />
     </Helmet>
   );
 };
