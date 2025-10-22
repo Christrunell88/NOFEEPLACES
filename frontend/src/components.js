@@ -575,18 +575,29 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
     }
   }, [isAuthenticated, user, apartment.id]);
 
+  // Reset image index when apartment changes
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [apartment?.id]);
+
   const handleNextImage = (e) => {
     e.stopPropagation();
-    setCurrentImageIndex((prev) => 
-      prev === (apartment.images?.length || 1) - 1 ? 0 : prev + 1
-    );
+    if (!apartment.images || apartment.images.length === 0) return;
+    
+    setCurrentImageIndex((prev) => {
+      const maxIndex = apartment.images.length - 1;
+      return prev >= maxIndex ? 0 : prev + 1;
+    });
   };
 
   const handlePrevImage = (e) => {
     e.stopPropagation();
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? (apartment.images?.length || 1) - 1 : prev - 1
-    );
+    if (!apartment.images || apartment.images.length === 0) return;
+    
+    setCurrentImageIndex((prev) => {
+      const maxIndex = apartment.images.length - 1;
+      return prev <= 0 ? maxIndex : prev - 1;
+    });
   };
 
   const handleFavorite = async (e) => {
