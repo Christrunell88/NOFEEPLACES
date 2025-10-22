@@ -196,6 +196,22 @@ frontend:
           agent: "testing"
           comment: "HERO IMAGE CAROUSEL FUNCTIONALITY VERIFIED: Comprehensive testing confirms the hero image carousel is working perfectly with all 3 woman-in-apartment images displaying correctly, 5-second auto-advance functional, and carousel indicators operational. All expected Unsplash images found and verified as woman-in-apartment lifestyle shots with proper quality and aspect ratio."
 
+
+  - task: "Image Carousel Runtime Error Fix in ApartmentDetailsModal"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported: 'clicked on Queens Studio apartment, clicked to next image and received a huge Uncaught runtime errors'. This indicates a critical runtime error in the image carousel navigation of the ApartmentDetailsModal component."
+        - working: true
+          agent: "main"
+          comment: "IMAGE CAROUSEL BUG FIXED: Successfully identified and fixed critical runtime error in image carousel navigation. ROOT CAUSE: Image carousel had flawed index bounds checking - used fallback value '|| 1' which caused out-of-bounds array access when navigating between images or when switching between apartments with different image counts. SPECIFIC ISSUES: 1) No reset of currentImageIndex when apartment changes (viewing apt with 3 images at index 2, then opening apt with 1 image tries to access index 2), 2) handleNextImage/handlePrevImage logic didn't properly validate image array exists/has length, 3) No safety check when rendering images with currentImageIndex. CHANGES MADE: ✅ Added React.useEffect to reset currentImageIndex to 0 when apartment changes (fixes state carryover issue), ✅ Implemented proper bounds checking in handleNextImage with early return if images undefined/empty, ✅ Implemented proper bounds checking in handlePrevImage with early return if images undefined/empty, ✅ Used Math.min(currentImageIndex, images.length-1) in image rendering for safety, ✅ Added onError handler for graceful image load failures with fallback to placeholder, ✅ Applied identical fix to ApartmentCard component to prevent same issue there. TECHNICAL DETAILS: Changed from 'prev === (images?.length || 1) - 1' to proper maxIndex calculation with explicit bounds checking. Components affected: ApartmentDetailsModal (lines 1037-1137) and ApartmentCard (lines 508-650). TESTING READY: Fix implemented and ready for comprehensive frontend testing with automated testing agent to verify carousel navigation works correctly for all apartment listings, especially Queens Studio apartments."
+
 backend:
   - task: "Database Consolidation with Proper Labeling"
     implemented: true
