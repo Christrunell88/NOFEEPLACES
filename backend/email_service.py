@@ -76,11 +76,21 @@ class EmailService:
             
             # Add attachments if provided
             if attachments:
+                from email.mime.base import MIMEBase
+                from email import encoders
+                
                 for attachment in attachments:
                     if attachment.get('type') == 'image' and attachment.get('data'):
                         img = MIMEImage(attachment['data'])
                         img.add_header('Content-ID', f"<{attachment.get('cid', 'image')}>")
                         msg.attach(img)
+                    elif attachment.get('type') == 'calendar' and attachment.get('data'):
+                        # Add calendar invite attachment
+                        cal_part = MIMEBase('text', 'calendar', method='REQUEST', name=attachment.get('filename', 'invite.ics'))
+                        cal_part.set_payload(attachment['data'])
+                        encoders.encode_base64(cal_part)
+                        cal_part.add_header('Content-Disposition', f'attachment; filename="{attachment.get("filename", "invite.ics")}"')
+                        msg.attach(cal_part)
             
             # Create SMTP session
             server = smtplib.SMTP(self.smtp_server, self.smtp_port)
