@@ -6,6 +6,7 @@ import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationC
 import HamburgerMenu from './HamburgerMenu';
 import { HeaderWordMark } from './WordMark';
 import { ListingMetaTags } from './MetaTags';
+import { RealEstateListingSchema } from './StructuredData';
 
 // Import all missing components
 import {
