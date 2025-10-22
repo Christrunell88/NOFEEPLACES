@@ -1044,16 +1044,28 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
     ? (apartment.address || apartment.location)
     : (apartment.neighborhood || apartment.location?.split(',')[0] || 'this property');
 
+  // Reset image index when apartment changes
+  React.useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [apartment?.id]);
+
+  // Safe image navigation with proper bounds checking
   const handleNextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === (apartment.images?.length || 1) - 1 ? 0 : prev + 1
-    );
+    if (!apartment.images || apartment.images.length === 0) return;
+    
+    setCurrentImageIndex((prev) => {
+      const maxIndex = apartment.images.length - 1;
+      return prev >= maxIndex ? 0 : prev + 1;
+    });
   };
 
   const handlePrevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? (apartment.images?.length || 1) - 1 : prev - 1
-    );
+    if (!apartment.images || apartment.images.length === 0) return;
+    
+    setCurrentImageIndex((prev) => {
+      const maxIndex = apartment.images.length - 1;
+      return prev <= 0 ? maxIndex : prev - 1;
+    });
   };
 
   return (
