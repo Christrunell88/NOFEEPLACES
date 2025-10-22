@@ -877,5 +877,294 @@ Reply directly to this email to respond to {sender_name}
         # })
 
 
+    async def send_showing_confirmation(
+        self,
+        visitor_email: str,
+        visitor_name: str,
+        visitor_phone: str,
+        apartment_title: str,
+        apartment_address: str,
+        apartment_price: float,
+        showing_date: str,
+        showing_time: str,
+        showing_datetime: any,
+        special_notes: str = ""
+    ) -> bool:
+        """Send showing confirmation email to visitor with calendar invite"""
+        try:
+            # Generate .ics calendar file
+            ics_content = self._generate_calendar_invite(
+                summary=f"Apartment Showing: {apartment_title}",
+                description=f"Showing for {apartment_title} at {apartment_address}\nPrice: ${apartment_price:,.0f}/month\nContact: {visitor_phone}",
+                location=apartment_address,
+                start_datetime=showing_datetime,
+                duration_hours=1
+            )
+            
+            subject = f"Showing Confirmed: {apartment_title} on {showing_date}"
+            
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+                    .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                    .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }}
+                    .content {{ background: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; }}
+                    .details {{ background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea; }}
+                    .detail-row {{ margin: 10px 0; }}
+                    .label {{ font-weight: bold; color: #667eea; }}
+                    .button {{ display: inline-block; padding: 12px 30px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0; }}
+                    .footer {{ text-align: center; color: #666; font-size: 12px; margin-top: 30px; }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>🏠 Your Showing is Confirmed!</h1>
+                    </div>
+                    <div class="content">
+                        <p>Hi {visitor_name},</p>
+                        <p>Great news! Your apartment showing has been confirmed. We're excited to show you this property.</p>
+                        
+                        <div class="details">
+                            <h3 style="color: #667eea; margin-top: 0;">Showing Details</h3>
+                            <div class="detail-row">
+                                <span class="label">Property:</span> {apartment_title}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Address:</span> {apartment_address}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Price:</span> ${apartment_price:,.0f}/month
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Date:</span> {showing_date}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Time:</span> {showing_time}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Your Phone:</span> {visitor_phone}
+                            </div>
+                            {f'<div class="detail-row"><span class="label">Notes:</span> {special_notes}</div>' if special_notes else ''}
+                        </div>
+                        
+                        <p><strong>Important:</strong></p>
+                        <ul>
+                            <li>Please arrive 5 minutes early</li>
+                            <li>Bring a valid photo ID</li>
+                            <li>Add this showing to your calendar using the attached invite</li>
+                            <li>If you need to reschedule, contact us at least 24 hours in advance</li>
+                        </ul>
+                        
+                        <p>We look forward to showing you this apartment!</p>
+                        
+                        <div class="footer">
+                            <p>NoFeePlaces.com - Your No Fee Apartment Experts</p>
+                            <p>Email: placesfirm@gmail.com | Phone: +1-646-408-8048</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+            
+            text_content = f"""
+Showing Confirmed!
+
+Hi {visitor_name},
+
+Your apartment showing has been confirmed:
+
+Property: {apartment_title}
+Address: {apartment_address}
+Price: ${apartment_price:,.0f}/month
+Date: {showing_date}
+Time: {showing_time}
+Your Phone: {visitor_phone}
+{f'Notes: {special_notes}' if special_notes else ''}
+
+Important Reminders:
+- Please arrive 5 minutes early
+- Bring a valid photo ID
+- Add this showing to your calendar using the attached invite
+- If you need to reschedule, contact us at least 24 hours in advance
+
+We look forward to showing you this apartment!
+
+NoFeePlaces.com
+placesfirm@gmail.com | +1-646-408-8048
+            """
+            
+            # Send email with calendar attachment
+            success = await self.send_email_async(
+                to_email=visitor_email,
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content,
+                attachments=[{
+                    'type': 'calendar',
+                    'data': ics_content.encode('utf-8'),
+                    'filename': 'apartment_showing.ics',
+                    'content_type': 'text/calendar'
+                }]
+            )
+            
+            await self._log_email_attempt(visitor_email, subject, "showing_confirmation", success)
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending showing confirmation: {str(e)}")
+            return False
+    
+    async def send_showing_admin_notification(
+        self,
+        visitor_name: str,
+        visitor_email: str,
+        visitor_phone: str,
+        apartment_title: str,
+        apartment_address: str,
+        apartment_price: float,
+        showing_date: str,
+        showing_time: str,
+        special_notes: str = ""
+    ) -> bool:
+        """Send showing notification to admin"""
+        try:
+            subject = f"New Showing Scheduled: {apartment_title} - {showing_date}"
+            
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+                    .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                    .header {{ background: #1f2937; color: white; padding: 20px; text-align: center; }}
+                    .content {{ background: #f9f9f9; padding: 30px; }}
+                    .details {{ background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }}
+                    .detail-row {{ margin: 10px 0; padding: 8px; border-bottom: 1px solid #e5e7eb; }}
+                    .label {{ font-weight: bold; color: #6366f1; display: inline-block; width: 150px; }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h2>📅 New Showing Scheduled</h2>
+                    </div>
+                    <div class="content">
+                        <div class="details">
+                            <h3>Visitor Information</h3>
+                            <div class="detail-row">
+                                <span class="label">Name:</span> {visitor_name}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Email:</span> {visitor_email}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Phone:</span> {visitor_phone}
+                            </div>
+                            
+                            <h3>Apartment Details</h3>
+                            <div class="detail-row">
+                                <span class="label">Property:</span> {apartment_title}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Address:</span> {apartment_address}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Price:</span> ${apartment_price:,.0f}/month
+                            </div>
+                            
+                            <h3>Showing Schedule</h3>
+                            <div class="detail-row">
+                                <span class="label">Date:</span> {showing_date}
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Time:</span> {showing_time}
+                            </div>
+                            {f'<div class="detail-row"><span class="label">Special Notes:</span> {special_notes}</div>' if special_notes else ''}
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+            
+            text_content = f"""
+New Showing Scheduled
+
+Visitor Information:
+Name: {visitor_name}
+Email: {visitor_email}
+Phone: {visitor_phone}
+
+Apartment Details:
+Property: {apartment_title}
+Address: {apartment_address}
+Price: ${apartment_price:,.0f}/month
+
+Showing Schedule:
+Date: {showing_date}
+Time: {showing_time}
+{f'Special Notes: {special_notes}' if special_notes else ''}
+            """
+            
+            success = await self.send_email_async(
+                to_email=self.admin_email,
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            await self._log_email_attempt(self.admin_email, subject, "showing_admin_notification", success)
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending showing admin notification: {str(e)}")
+            return False
+    
+    def _generate_calendar_invite(
+        self,
+        summary: str,
+        description: str,
+        location: str,
+        start_datetime: any,
+        duration_hours: int = 1
+    ) -> str:
+        """Generate iCalendar (.ics) file content"""
+        from datetime import timedelta
+        
+        end_datetime = start_datetime + timedelta(hours=duration_hours)
+        
+        # Format datetime for iCalendar (YYYYMMDDTHHMMSS)
+        dtstart = start_datetime.strftime("%Y%m%dT%H%M%S")
+        dtend = end_datetime.strftime("%Y%m%dT%H%M%S")
+        dtstamp = start_datetime.strftime("%Y%m%dT%H%M%SZ")
+        
+        ics_content = f"""BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//NoFeePlaces.com//Apartment Showing//EN
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:{dtstamp}@nofeeplaces.com
+DTSTAMP:{dtstamp}
+DTSTART:{dtstart}
+DTEND:{dtend}
+SUMMARY:{summary}
+DESCRIPTION:{description}
+LOCATION:{location}
+STATUS:CONFIRMED
+SEQUENCE:0
+ORGANIZER:mailto:placesfirm@gmail.com
+END:VEVENT
+END:VCALENDAR"""
+        
+        return ics_content
+
+
 # Global email service instance
 email_service = EmailService()
