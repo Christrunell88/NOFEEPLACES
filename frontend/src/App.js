@@ -622,6 +622,12 @@ function App() {
                 {/* Price Category Pages */}
                 <Route path="/apartments/:category" element={<CategoryPage />} />
                 
+                {/* Borough/City Pages - SEO Optimized */}
+                <Route path="/manhattan" element={<BoroughPage />} />
+                <Route path="/brooklyn" element={<BoroughPage />} />
+                <Route path="/queens" element={<BoroughPage />} />
+                <Route path="/bronx" element={<BoroughPage />} />
+                
                 {/* Static Pages */}
                 <Route path="/about" element={<AboutUsPage />} />
                 <Route path="/why-no-fee" element={<WhyNoFeePage />} />
