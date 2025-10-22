@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from './auth';
 
 const FeedbackModal = ({ isOpen, onClose }) => {
+  const { isAuthenticated, user } = useAuth();
   const [feedbackData, setFeedbackData] = useState({
     type: 'bug',
     title: '',
@@ -12,6 +14,16 @@ const FeedbackModal = ({ isOpen, onClose }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Pre-fill email if authenticated
+  useEffect(() => {
+    if (isAuthenticated && user && user.email) {
+      setFeedbackData(prev => ({
+        ...prev,
+        email: user.email
+      }));
+    }
+  }, [isAuthenticated, user]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
