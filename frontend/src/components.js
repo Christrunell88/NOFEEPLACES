@@ -1101,9 +1101,17 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
           {/* Image Gallery */}
           <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden mb-6">
             <img
-              src={apartment.images?.[currentImageIndex] || '/api/placeholder/800/400'}
+              src={
+                (apartment.images && apartment.images.length > 0) 
+                  ? apartment.images[Math.min(currentImageIndex, apartment.images.length - 1)]
+                  : '/api/placeholder/800/400'
+              }
               alt={apartment.title}
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/api/placeholder/800/400';
+              }}
             />
             
             {/* Image Navigation */}
