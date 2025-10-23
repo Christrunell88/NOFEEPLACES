@@ -13,6 +13,27 @@ module.exports = {
     },
     configure: (webpackConfig) => {
       
+      // Fix source-map-loader issues with node_modules
+      webpackConfig.module.rules = webpackConfig.module.rules.map(rule => {
+        if (rule.enforce === 'pre' && rule.use) {
+          const useArray = Array.isArray(rule.use) ? rule.use : [rule.use];
+          const sourceMapLoaderIndex = useArray.findIndex(
+            item => item.loader && item.loader.includes('source-map-loader')
+          );
+          
+          if (sourceMapLoaderIndex !== -1) {
+            // Exclude problematic node_modules from source-map-loader
+            rule.exclude = [
+              /node_modules\/cookie/,
+              /node_modules\/react-snap/,
+              /node_modules\/@babel/,
+              ...(rule.exclude ? [rule.exclude] : [])
+            ];
+          }
+        }
+        return rule;
+      });
+      
       // Disable hot reload completely if environment variable is set
       if (config.disableHotReload) {
         // Remove hot reload related plugins
@@ -41,6 +62,12 @@ module.exports = {
           ],
         };
       }
+      
+      // Suppress source map warnings from node_modules
+      webpackConfig.ignoreWarnings = [
+        /Failed to parse source map/,
+        /source-map-loader/,
+      ];
       
       return webpackConfig;
     },
