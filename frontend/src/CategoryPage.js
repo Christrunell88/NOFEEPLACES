@@ -123,28 +123,28 @@ export const CategoryPage = () => {
       border: 'border-purple-200',
       text: 'text-purple-800',
       badge: 'bg-purple-100 text-purple-800',
-      button: 'bg-purple-600 hover:bg-purple-700'
+      button: 'bg-purple-500 hover:bg-purple-600'
     },
     green: {
-      bg: 'bg-green-50',
-      border: 'border-green-200',
-      text: 'text-green-800',
-      badge: 'bg-green-100 text-green-800',
-      button: 'bg-green-600 hover:bg-green-700'
+      bg: 'bg-teal-50',
+      border: 'border-teal-200',
+      text: 'text-teal-800',
+      badge: 'bg-teal-100 text-teal-800',
+      button: 'bg-teal-500 hover:bg-teal-600'
     },
     blue: {
-      bg: 'bg-blue-50',
-      border: 'border-blue-200',
-      text: 'text-blue-800',
-      badge: 'bg-blue-100 text-blue-800',
-      button: 'bg-blue-600 hover:bg-blue-700'
+      bg: 'bg-sky-50',
+      border: 'border-sky-200',
+      text: 'text-sky-800',
+      badge: 'bg-sky-100 text-sky-800',
+      button: 'bg-sky-500 hover:bg-sky-600'
     },
     amber: {
       bg: 'bg-amber-50',
       border: 'border-amber-200',
       text: 'text-amber-800',
       badge: 'bg-amber-100 text-amber-800',
-      button: 'bg-amber-600 hover:bg-amber-700'
+      button: 'bg-amber-500 hover:bg-amber-600'
     }
   };
 
