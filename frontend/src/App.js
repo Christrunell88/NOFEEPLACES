@@ -626,6 +626,7 @@ function App() {
                 
                 {/* Tenant Listing Routes */}
                 <Route path="/tenant/list-apartment" element={<TenantListingPage />} />
+                <Route path="/list" element={<TenantListingPage />} />
                 <Route path="/tenant/browse" element={<TenantBrowsePage />} />
                 
                 {/* Analytics Dashboard */}
