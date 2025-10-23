@@ -2,16 +2,169 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* Import Elegant Fonts - Playfair Display (Serif) + Inter (Sans-serif) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  /* Typography - Minimalist Chic with Deep Jewel Tones */
+  body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @apply text-neutral-800;
+  }
+
+  /* Elegant Serif Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-semibold tracking-tight;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+
+  /* Deep Jewel Tone Color Variables */
+  :root {
+    /* Sophisticated Emerald Green (Primary) */
+    --emerald-dark: #0f5849;
+    --emerald: #15796a;
+    --emerald-light: #1a9080;
+    
+    /* Deep Sapphire Blue (Secondary) */
+    --sapphire-dark: #1e3a5f;
+    --sapphire: #2d5282;
+    --sapphire-light: #3d6ba5;
+    
+    /* Rich Burgundy (Accent) */
+    --burgundy-dark: #6b2737;
+    --burgundy: #8b3449;
+    --burgundy-light: #a84560;
+    
+    /* Elegant Gold */
+    --gold: #d4a574;
+    --gold-light: #e4c19a;
+  }
 }
 
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+@layer components {
+  /* Sophisticated Button Styles */
+  .btn-elegant-primary {
+    @apply px-8 py-3.5 rounded-sm font-medium tracking-wide text-white transition-all duration-300 uppercase text-sm;
+    background: linear-gradient(135deg, #15796a 0%, #0f5849 100%);
+    box-shadow: 0 2px 8px rgba(15, 88, 73, 0.25);
+    letter-spacing: 0.05em;
+  }
+  
+  .btn-elegant-primary:hover {
+    box-shadow: 0 6px 16px rgba(15, 88, 73, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-elegant-secondary {
+    @apply px-8 py-3.5 rounded-sm font-medium tracking-wide transition-all duration-300 uppercase text-sm;
+    background: transparent;
+    color: #0f5849;
+    border: 2px solid #0f5849;
+    letter-spacing: 0.05em;
+  }
+  
+  .btn-elegant-secondary:hover {
+    background: #0f5849;
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  /* Elegant Card Styles */
+  .card-luxury {
+    @apply bg-white rounded-sm overflow-hidden transition-all duration-300;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  
+  .card-luxury:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+    transform: translateY(-3px);
+  }
+
+  /* Elegant Typography */
+  .heading-luxury {
+    font-family: 'Playfair Display', Georgia, serif;
+    @apply font-semibold tracking-tight leading-tight;
+  }
+
+  .text-luxury {
+    font-family: 'Inter', sans-serif;
+    @apply tracking-wide leading-relaxed;
+    letter-spacing: 0.02em;
+  }
+
+  /* Badge Styles */
+  .badge-no-fee {
+    @apply inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase;
+    background: linear-gradient(135deg, #15796a 0%, #0f5849 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(15, 88, 73, 0.2);
+  }
+
+  .badge-luxury {
+    @apply inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-widest uppercase;
+    background: #f5f5f5;
+    color: #404040;
+  }
+
+  /* Section Divider */
+  .divider-luxury {
+    @apply w-16 h-0.5 mx-auto my-6;
+    background: linear-gradient(90deg, transparent, #d4a574, transparent);
+  }
+
+  /* Input Styles */
+  .input-luxury {
+    @apply w-full px-4 py-3 rounded-sm border border-neutral-300 focus:border-emerald focus:outline-none focus:ring-2 focus:ring-emerald/20 transition-all duration-200;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Deep Jewel Tone Utilities */
+  .bg-emerald-dark { background-color: #0f5849; }
+  .bg-emerald { background-color: #15796a; }
+  .bg-emerald-light { background-color: #1a9080; }
+  
+  .bg-sapphire-dark { background-color: #1e3a5f; }
+  .bg-sapphire { background-color: #2d5282; }
+  .bg-sapphire-light { background-color: #3d6ba5; }
+  
+  .bg-burgundy-dark { background-color: #6b2737; }
+  .bg-burgundy { background-color: #8b3449; }
+  
+  .bg-gold { background-color: #d4a574; }
+  .bg-gold-light { background-color: #e4c19a; }
+
+  .text-emerald-dark { color: #0f5849; }
+  .text-emerald { color: #15796a; }
+  .text-sapphire { color: #2d5282; }
+  .text-burgundy { color: #8b3449; }
+  .text-gold { color: #d4a574; }
+
+  .border-emerald { border-color: #15796a; }
+  .border-sapphire { border-color: #2d5282; }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Elegant Selection */
+::selection {
+  background-color: #15796a;
+  color: white;
+}
+
+/* Focus Styles */
+*:focus-visible {
+  outline: 2px solid #15796a;
+  outline-offset: 2px;
 }
