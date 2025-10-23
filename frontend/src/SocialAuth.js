@@ -23,7 +23,7 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
           window.AppleID.auth.init({
             clientId: process.env.REACT_APP_APPLE_CLIENT_ID || 'com.nofeeplaces.signin',
             scope: 'name email',
-            redirectURI: `${window.location.origin}/auth/apple/callback`,
+            redirectURI: window.location.origin,
             state: 'apple-auth-state',
             usePopup: true
           });
