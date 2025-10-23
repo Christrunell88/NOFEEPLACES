@@ -15,8 +15,38 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "postbuild": "react-snap",
     "test": "craco test",
     "eject": "react-scripts eject"
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": true
+    },
+    "skipThirdPartyRequests": true,
+    "puppeteerArgs": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-accelerated-2d-canvas",
+      "--disable-gpu"
+    ],
+    "crawl": true,
+    "include": [
+      "/",
+      "/apartments/budget",
+      "/apartments/smart",
+      "/apartments/luxury",
+      "/apartments/best-value",
+      "/borough/manhattan",
+      "/borough/brooklyn",
+      "/borough/queens",
+      "/list",
+      "/about",
+      "/contact"
+    ]
   },
   "browserslist": {
     "production": [
