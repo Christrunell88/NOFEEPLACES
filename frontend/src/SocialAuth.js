@@ -7,19 +7,11 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [appleLoaded, setAppleLoaded] = useState(false);
 
-  // Load Apple SDK
+  // Initialize Apple SDK (script already loaded in index.html)
   useEffect(() => {
-    const loadAppleSDK = () => {
+    const initializeAppleSDK = () => {
       if (window.AppleID) {
-        setAppleLoaded(true);
-        return;
-      }
-
-      const script = document.createElement('script');
-      script.src = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js';
-      script.async = true;
-      script.onload = () => {
-        if (window.AppleID) {
+        try {
           window.AppleID.auth.init({
             clientId: process.env.REACT_APP_APPLE_CLIENT_ID || 'com.nofeeplaces.signin',
             scope: 'name email',
@@ -28,16 +20,27 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
             usePopup: true
           });
           setAppleLoaded(true);
+          console.log('✅ Apple SDK initialized successfully');
+        } catch (error) {
+          console.error('Apple SDK initialization error:', error);
+          setAppleLoaded(false);
         }
-      };
-      script.onerror = () => {
-        console.error('Failed to load Apple SDK');
-        setAppleLoaded(false);
-      };
-      document.body.appendChild(script);
+      } else {
+        // Retry after a short delay
+        const retryTimeout = setTimeout(() => {
+          initializeAppleSDK();
+        }, 500);
+        return () => clearTimeout(retryTimeout);
+      }
     };
 
-    loadAppleSDK();
+    // Wait for DOM to be ready
+    if (document.readyState === 'complete') {
+      initializeAppleSDK();
+    } else {
+      window.addEventListener('load', initializeAppleSDK);
+      return () => window.removeEventListener('load', initializeAppleSDK);
+    }
   }, []);
 
   // Facebook authentication handler
