@@ -291,16 +291,16 @@ const Home = () => {
             {/* Best Value Button */}
             <a
               href="/apartments/best-value"
-              className="group relative bg-gradient-to-br from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-indigo-500/20"
+              className="group relative bg-gradient-to-br from-purple-100 to-purple-200 hover:from-purple-200 hover:to-purple-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-purple-300/50"
             >
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">⭐</div>
-                <h3 className="text-2xl font-bold text-white mb-2">Best Value</h3>
-                <p className="text-indigo-100 text-sm mb-3">Top Deals</p>
-                <div className="text-3xl font-bold text-white mb-3">5 Apartments</div>
-                <p className="text-xs text-indigo-100">Luxury amenities at great prices</p>
-                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                <h3 className="text-2xl font-bold text-purple-800 mb-2">Best Value</h3>
+                <p className="text-purple-600 text-sm mb-3">Top Deals</p>
+                <div className="text-3xl font-bold text-purple-900 mb-3">5 Apartments</div>
+                <p className="text-xs text-purple-700">Luxury amenities at great prices</p>
+                <div className="mt-4 inline-block bg-purple-200 px-4 py-1 rounded-full text-purple-800 text-xs font-semibold">
                   Top 20% Value
                 </div>
               </div>
@@ -309,16 +309,16 @@ const Home = () => {
             {/* Budget Button */}
             <a
               href="/apartments/budget"
-              className="group relative bg-gradient-to-br from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-emerald-600/20"
+              className="group relative bg-gradient-to-br from-teal-100 to-teal-200 hover:from-teal-200 hover:to-teal-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-teal-300/50"
             >
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">💰</div>
-                <h3 className="text-2xl font-bold text-white mb-2">Budget</h3>
-                <p className="text-emerald-100 text-sm mb-3">Under $4,500/mo</p>
-                <div className="text-3xl font-bold text-white mb-3">129 Apartments</div>
-                <p className="text-xs text-emerald-100">Perfect for budget-conscious renters</p>
-                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                <h3 className="text-2xl font-bold text-teal-800 mb-2">Budget</h3>
+                <p className="text-teal-600 text-sm mb-3">Under $4,500/mo</p>
+                <div className="text-3xl font-bold text-teal-900 mb-3">129 Apartments</div>
+                <p className="text-xs text-teal-700">Perfect for budget-conscious renters</p>
+                <div className="mt-4 inline-block bg-teal-200 px-4 py-1 rounded-full text-teal-800 text-xs font-semibold">
                   Most Popular
                 </div>
               </div>
@@ -327,16 +327,16 @@ const Home = () => {
             {/* Smart Button */}
             <a
               href="/apartments/smart"
-              className="group relative bg-gradient-to-br from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-blue-600/20"
+              className="group relative bg-gradient-to-br from-sky-100 to-sky-200 hover:from-sky-200 hover:to-sky-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-sky-300/50"
             >
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">🎯</div>
-                <h3 className="text-2xl font-bold text-white mb-2">Smart</h3>
-                <p className="text-blue-100 text-sm mb-3">$4,500 - $6,500/mo</p>
-                <div className="text-3xl font-bold text-white mb-3">69 Apartments</div>
-                <p className="text-xs text-blue-100">Best value at fair prices</p>
-                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                <h3 className="text-2xl font-bold text-sky-800 mb-2">Smart</h3>
+                <p className="text-sky-600 text-sm mb-3">$4,500 - $6,500/mo</p>
+                <div className="text-3xl font-bold text-sky-900 mb-3">69 Apartments</div>
+                <p className="text-xs text-sky-700">Best value at fair prices</p>
+                <div className="mt-4 inline-block bg-sky-200 px-4 py-1 rounded-full text-sky-800 text-xs font-semibold">
                   Sweet Spot
                 </div>
               </div>
@@ -345,16 +345,16 @@ const Home = () => {
             {/* Sky's the Limit Button */}
             <a
               href="/apartments/luxury"
-              className="group relative bg-gradient-to-br from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 rounded-2xl p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center overflow-hidden border border-slate-600/20"
+              className="group relative bg-gradient-to-br from-amber-100 to-amber-200 hover:from-amber-200 hover:to-amber-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-amber-300/50"
             >
-              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="relative z-10">
                 <div className="text-5xl mb-4">✨</div>
-                <h3 className="text-2xl font-bold text-white mb-2">Sky's the Limit</h3>
-                <p className="text-slate-100 text-sm mb-3">Over $6,500/mo</p>
-                <div className="text-3xl font-bold text-white mb-3">22 Apartments</div>
-                <p className="text-xs text-slate-100">Premium luxury living</p>
-                <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-white text-xs font-semibold">
+                <h3 className="text-2xl font-bold text-amber-800 mb-2">Sky's the Limit</h3>
+                <p className="text-amber-600 text-sm mb-3">Over $6,500/mo</p>
+                <div className="text-3xl font-bold text-amber-900 mb-3">22 Apartments</div>
+                <p className="text-xs text-amber-700">Premium luxury living</p>
+                <div className="mt-4 inline-block bg-amber-200 px-4 py-1 rounded-full text-amber-800 text-xs font-semibold">
                   Ultra Luxury
                 </div>
               </div>
