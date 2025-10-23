@@ -367,10 +367,10 @@ export const Header = () => {
             {isAuthenticated && (
               <div className="flex items-center space-x-3 mr-2 bg-slate-800 rounded-lg px-3 py-2 border border-slate-600">
                 <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">
-                  {user?.full_name?.charAt(0)?.toUpperCase() || 'U'}
+                  {(user?.full_name || user?.name)?.charAt(0)?.toUpperCase() || 'U'}
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-sm font-semibold text-white">{user?.full_name || 'User'}</div>
+                  <div className="text-sm font-semibold text-white">{user?.full_name || user?.name || 'User'}</div>
                   <div className="text-xs text-gray-400">Member</div>
                 </div>
               </div>
