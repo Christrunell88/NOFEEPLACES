@@ -31,8 +31,11 @@
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-accelerated-2d-canvas",
-      "--disable-gpu"
+      "--disable-gpu",
+      "--single-process",
+      "--no-zygote"
     ],
+    "puppeteerExecutablePath": "/usr/bin/chromium-browser",
     "crawl": true,
     "include": [
       "/",
