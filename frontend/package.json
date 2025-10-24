@@ -15,7 +15,8 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "postbuild": "react-snap",
+    "postbuild": "echo 'Build completed. Prerendering skipped (no browser in container environment)'",
+    "prerender": "react-snap",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
