@@ -26,6 +26,9 @@ export const RealEstateListingSchema = ({ apartment }) => {
     contact_info
   } = apartment;
 
+  // Get domain URL from environment variable
+  const domainUrl = process.env.REACT_APP_DOMAIN_URL || 'https://nofeeplaces.com';
+
   // Create structured address
   const structuredAddress = {
     "@type": "PostalAddress",
@@ -38,7 +41,7 @@ export const RealEstateListingSchema = ({ apartment }) => {
 
   // Create URL-friendly slug
   const slug = `${neighborhood}-${borough}-${bedrooms === 0 ? 'studio' : bedrooms + 'br'}`.toLowerCase().replace(/\s+/g, '-');
-  const listingUrl = `https://nofeeplaces.com/listing/${slug}`;
+  const listingUrl = `${domainUrl}/listing/${slug}`;
 
   // Create JSON-LD schema
   const schema = {
