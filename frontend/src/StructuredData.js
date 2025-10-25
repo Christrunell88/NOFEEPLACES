@@ -118,6 +118,9 @@ export const RealEstateListingSchema = ({ apartment }) => {
 export const ItemListSchema = ({ apartments, category }) => {
   if (!apartments || apartments.length === 0) return null;
 
+  // Get domain URL from environment variable
+  const domainUrl = process.env.REACT_APP_DOMAIN_URL || 'https://nofeeplaces.com';
+
   const categoryTitles = {
     'best-value': 'Best Value No-Fee Apartments NYC',
     'budget': 'Budget No-Fee Apartments NYC',
@@ -137,7 +140,7 @@ export const ItemListSchema = ({ apartments, category }) => {
       "item": {
         "@type": "RealEstateListing",
         "name": apt.title || `${apt.bedrooms === 0 ? 'Studio' : apt.bedrooms + 'BR'} in ${apt.neighborhood}`,
-        "url": `https://nofeeplaces.com/listing/${apt.id}`,
+        "url": `${domainUrl}/listing/${apt.id}`,
         "address": {
           "@type": "PostalAddress",
           "streetAddress": apt.address,
