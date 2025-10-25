@@ -26,7 +26,7 @@ const SEOAffordableSection = () => {
               <div>
                 <div className="text-teal-500 text-3xl mb-2">✨</div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">We eliminate all broker fees</h3>
-                <p className="text-gray-600">240+ verified no-fee apartments</p>
+                <p className="text-gray-600">250+ verified no-fee apartments</p>
               </div>
             </div>
           </div>
