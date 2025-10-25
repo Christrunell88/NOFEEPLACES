@@ -19,7 +19,7 @@
 ## How to Test:
 
 1. **Go to Admin Dashboard:**
-   - URL: `https://apartment-viewings.preview.emergentagent.com/admin`
+   - URL: `https://nycnofee.preview.emergentagent.com/admin`
    - Login: `placesfirm@gmail.com` / `Checkers080/?`
 
 2. **Click "Add-listing" Tab**
