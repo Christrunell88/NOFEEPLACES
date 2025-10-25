@@ -1939,8 +1939,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Schedule Showing Feature Backend Testing"
-    - "Login Functionality Backend Testing"
+    - "Schedule Showing Feature Frontend Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
