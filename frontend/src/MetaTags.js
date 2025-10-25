@@ -116,7 +116,7 @@ export const CategoryMetaTags = ({ category, apartmentCount, avgPrice }) => {
 export const HomeMetaTags = () => (
   <Helmet>
     <title>No Fee Places | Rent Apartments Without Broker Fees</title>
-    <meta name="description" content="Find no-fee apartments in NYC. List, rent, and earn without brokers or commissions. 240+ verified rentals across Manhattan, Brooklyn & Queens." />
+    <meta name="description" content="Find no-fee apartments in NYC. List, rent, and earn without brokers or commissions. 250+ verified rentals across Manhattan, Brooklyn & Queens." />
     <link rel="canonical" href="https://nofeeplaces.com/" />
   </Helmet>
 );
