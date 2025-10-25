@@ -83,7 +83,7 @@ export const RealEstateListingSchema = ({ apartment }) => {
     "landlord": {
       "@type": "Organization",
       "name": building_name || "NoFeePlaces",
-      "url": "https://nofeeplaces.com"
+      "url": domainUrl
     },
     "offers": {
       "@type": "Offer",
@@ -94,7 +94,7 @@ export const RealEstateListingSchema = ({ apartment }) => {
       "seller": {
         "@type": "Organization",
         "name": "NoFeePlaces",
-        "url": "https://nofeeplaces.com"
+        "url": domainUrl
       }
     },
     "brand": {
