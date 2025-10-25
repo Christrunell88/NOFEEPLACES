@@ -164,13 +164,16 @@ export const ItemListSchema = ({ apartments, category }) => {
 };
 
 export const OrganizationSchema = () => {
+  // Get domain URL from environment variable
+  const domainUrl = process.env.REACT_APP_DOMAIN_URL || 'https://nofeeplaces.com';
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "NoFeePlaces",
     "legalName": "NoFeePlaces LLC",
-    "url": "https://nofeeplaces.com",
-    "logo": "https://nofeeplaces.com/logo.png",
+    "url": domainUrl,
+    "logo": `${domainUrl}/logo.png`,
     "foundingDate": "2025",
     "description": "Find no-fee apartments in NYC. List, rent, and earn without brokers or commissions.",
     "address": {
