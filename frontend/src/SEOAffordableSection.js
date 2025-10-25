@@ -11,7 +11,7 @@ const SEOAffordableSection = () => {
               Affordable NYC Apartments - No Broker Fees
             </h2>
             <p className="text-lg text-gray-600">
-              Skip the broker fees. Find 240+ no-fee apartments starting at $1,900/month.
+              Skip the broker fees. Find 250+ no-fee apartments starting at $1,900/month.
             </p>
           </div>
 
