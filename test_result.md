@@ -1745,6 +1745,18 @@ backend:
           agent: "testing"
           comment: "SCHEDULE SHOWING FEATURE BACKEND TESTING COMPLETED: Comprehensive testing of schedule showing feature completed with 67% success rate (4/6 tests passed). CORE FUNCTIONALITY WORKING EXCELLENTLY: ✅ POST /api/showings/schedule endpoint exists and functional, ✅ Valid showing requests processed successfully with unique showing_id generation (e.g., 2757fc46-ec5b-44f1-951b-784e94b561d8), ✅ MongoDB storage working - showings stored in database with proper data structure, ✅ Email confirmation system working perfectly - both user and admin (placesfirm@gmail.com) receive confirmation emails with calendar invites, ✅ Required field validation working - missing fields properly rejected with 422 status, ✅ Email service integration excellent - SMTP delivery successful to valid addresses. VALIDATION GAPS IDENTIFIED: ❌ 24-hour minimum notice NOT enforced - tomorrow's showings accepted when they should be rejected, ❌ Business hours validation NOT implemented - 8 AM showings accepted outside 9 AM-6 PM window, ❌ Email format validation lenient - invalid formats accepted by API but rejected at SMTP level (acceptable). BACKEND LOGS VERIFICATION: Confirmed successful showing scheduling, email delivery to both parties, calendar invite generation, and proper error handling for invalid email addresses. CRITICAL SUCCESS: Core showing scheduling functionality is production-ready with excellent email integration and database storage. Minor validation improvements needed for business rules enforcement."
 
+  - task: "Schedule Showing Feature Frontend Testing"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/ScheduleShowingModal.js, /app/frontend/src/components.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "SCHEDULE SHOWING FRONTEND READY FOR TESTING: After successful deployment, ready to test Schedule Showing modal integration on production domain nofeeplaces.com. IMPLEMENTATION SUMMARY: ✅ ScheduleShowingModal component added with authentication gate (requires user login), ✅ Integrated into ApartmentCard and ApartmentDetailsModal with 'Schedule Showing' button, ✅ Calendar interface showing available time slots Mon-Sun 9 AM - 6 PM, ✅ Collects user name, email, phone, apartment details, ✅ Sends booking request to POST /api/showings/schedule endpoint, ✅ Success/error feedback to user after submission. TESTING SCOPE: (1) Button visibility and click functionality on apartment cards and detail modals, (2) Authentication gate - unauthenticated users see login prompt, authenticated users see booking form, (3) Calendar date/time selection functionality, (4) Form field validation and submission, (5) Success/error message display, (6) Email confirmation receipt (user and admin), (7) Mobile responsiveness, (8) Integration with backend API. User has deployed application and requested comprehensive automated frontend testing."
+
   - task: "Login Functionality Backend Testing"
     implemented: true
     working: true
