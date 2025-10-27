@@ -1747,15 +1747,18 @@ backend:
 
   - task: "Schedule Showing Feature Frontend Testing"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/ScheduleShowingModal.js, /app/frontend/src/components.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "SCHEDULE SHOWING FRONTEND READY FOR TESTING: After successful deployment, ready to test Schedule Showing modal integration on production domain nofeeplaces.com. IMPLEMENTATION SUMMARY: ✅ ScheduleShowingModal component added with authentication gate (requires user login), ✅ Integrated into ApartmentCard and ApartmentDetailsModal with 'Schedule Showing' button, ✅ Calendar interface showing available time slots Mon-Sun 9 AM - 6 PM, ✅ Collects user name, email, phone, apartment details, ✅ Sends booking request to POST /api/showings/schedule endpoint, ✅ Success/error feedback to user after submission. TESTING SCOPE: (1) Button visibility and click functionality on apartment cards and detail modals, (2) Authentication gate - unauthenticated users see login prompt, authenticated users see booking form, (3) Calendar date/time selection functionality, (4) Form field validation and submission, (5) Success/error message display, (6) Email confirmation receipt (user and admin), (7) Mobile responsiveness, (8) Integration with backend API. User has deployed application and requested comprehensive automated frontend testing."
+        - working: false
+          agent: "testing"
+          comment: "PARTIAL SUCCESS with CRITICAL APPLE SIGN-IN ISSUE: Schedule Showing feature testing completed with mixed results. ✅ WORKING FEATURES: Schedule Showing buttons visible and functional (50+ buttons found on apartment cards), Authentication gate working correctly (shows 'Sign In Required' modal for unauthenticated users), 'Sign In to Schedule' button opens authentication modal with multiple social login options, Mobile responsiveness excellent (all functionality works on mobile viewport), Google and Facebook authentication options appear in modal. ❌ CRITICAL ISSUE REPORTED BY USER: Apple sign-in not functioning - user reports no redirect to Apple occurs when 'Continue with Apple' button is clicked. This blocks users who prefer Apple authentication from scheduling showings. TESTING STATUS: Core Schedule Showing UI and authentication gate working, but Apple sign-in integration requires immediate investigation and fix. Testing paused for Apple sign-in troubleshooting."
 
   - task: "Login Functionality Backend Testing"
     implemented: true
