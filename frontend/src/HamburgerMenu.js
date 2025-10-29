@@ -170,10 +170,7 @@ const HamburgerMenu = () => {
                     </Link>
                     
                     <button
-                      onClick={() => {
-                        logout();
-                        closeMenu();
-                      }}
+                      onClick={handleLogout}
                       className="flex items-center space-x-3 w-full text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-2.5 px-3 rounded-lg group"
                       aria-label="Sign out of your account"
                     >
@@ -184,6 +181,30 @@ const HamburgerMenu = () => {
                       </div>
                       <span className="font-medium text-sm">Sign Out</span>
                     </button>
+                  </div>
+                )}
+
+                {/* User Login Section (if NOT authenticated) */}
+                {!isAuthenticated && (
+                  <div className="pt-2 space-y-1">
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Account</div>
+                    
+                    <button
+                      onClick={handleLoginClick}
+                      className="flex items-center space-x-3 w-full text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-all py-3 px-4 rounded-lg shadow-md hover:shadow-lg group"
+                      aria-label="Sign in to your account"
+                    >
+                      <div className="w-5 h-5 text-white">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                      </div>
+                      <span className="font-bold">Sign In / Sign Up</span>
+                    </button>
+                    
+                    <div className="text-xs text-gray-500 text-center mt-2 px-2">
+                      Sign in with Google, Facebook, or Apple
+                    </div>
                   </div>
                 )}
               </div>
