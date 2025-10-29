@@ -109,17 +109,17 @@
 user_problem_statement: "COMPREHENSIVE LOGIN FUNCTIONALITY TESTING IN HAMBURGER MENU - User Report: 'Login isn't working with google' - Test Environment: Production URL: https://nofeeplaces.com"
 
 frontend:
-  - task: "Frontend Price Sorting UI with Toggle"
+  - task: "Hamburger Menu Login Functionality Testing"
     implemented: true
-    working: true
-    file: "/app/frontend/src/App.js"
+    working: "NA"
+    file: "/app/frontend/src/HamburgerMenu.js, /app/frontend/src/auth.js, /app/frontend/src/SocialAuth.js, /app/frontend/src/missing-components.js"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-        - working: true
-          agent: "main"
-          comment: "FRONTEND PRICE SORTING UI IMPLEMENTATION COMPLETED: Successfully added sorting controls UI to apartment listings page. CHANGES MADE: ✅ Added sortBy and sortOrder state variables to Home component, ✅ Created sorting controls section with dark slate background above apartment listings, ✅ Added 'Sort by' dropdown with options (Price, Bedrooms, Newest First), ✅ Added 'Order' toggle button that switches between 'Low to High' and 'High to Low', ✅ Button displays rotating arrow icon to indicate sort direction, ✅ Updated fetchApartments to include sort_by and sort_order parameters in API call, ✅ Added dependencies to useEffect for automatic re-fetching when sort changes, ✅ Page resets to 1 when sort options change. UI FEATURES: Sorting controls styled with mint green accent color matching site theme, responsive design works on mobile and desktop, visual feedback with arrow rotation on order toggle. VISUAL TESTING COMPLETED: Verified sorting controls display correctly above apartment listings, confirmed toggle button switches between ascending/descending order, verified apartments re-sort when order is changed (tested low-to-high showing $2,163 first, high-to-low showing $17,100 first), confirmed UI is intuitive and user-friendly."
+        - working: "NA"
+          agent: "testing"
+          comment: "COMPREHENSIVE LOGIN FUNCTIONALITY TESTING INITIATED: Starting comprehensive testing of hamburger menu login functionality based on user report 'Login isn't working with google'. Testing scope includes: 1) Hamburger menu access & login button visibility, 2) Login modal/page display with all authentication options, 3) Google authentication flow (CRITICAL), 4) Email/password login baseline test, 5) Console error monitoring, 6) Mobile testing, 7) Authentication state management. Production URL: https://nofeeplaces.com. Files involved: HamburgerMenu.js (hamburger menu), auth.js (authentication logic), SocialAuth.js (social login), missing-components.js (AuthModal). Testing will focus on identifying specific Google login issues and providing detailed error diagnostics."
 
   - task: "Admin Login and Dashboard System"
     implemented: true
