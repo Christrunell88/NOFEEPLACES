@@ -106,7 +106,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Consolidate all apartments into 'nofeeplaces_database' with proper labeling and implement price sorting functionality with toggle between low-to-high and high-to-low order."
+user_problem_statement: "COMPREHENSIVE LOGIN FUNCTIONALITY TESTING IN HAMBURGER MENU - User Report: 'Login isn't working with google' - Test Environment: Production URL: https://nofeeplaces.com"
 
 frontend:
   - task: "Frontend Price Sorting UI with Toggle"
