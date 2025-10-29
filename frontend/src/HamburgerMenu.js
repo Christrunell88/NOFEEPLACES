@@ -16,6 +16,17 @@ const HamburgerMenu = () => {
     setIsOpen(false);
   };
 
+  const handleLoginClick = () => {
+    closeMenu();
+    // Dispatch event to open auth modal in App.js
+    window.dispatchEvent(new CustomEvent('openAuthModal'));
+  };
+
+  const handleLogout = () => {
+    logout();
+    closeMenu();
+  };
+
   return (
     <div className="relative">
       {/* Professional Hamburger Button */}
