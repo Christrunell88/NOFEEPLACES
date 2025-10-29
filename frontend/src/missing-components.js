@@ -20,29 +20,34 @@ export const Hero = ({ setShowAuthModal }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     {
-      url: 'https://images.unsplash.com/photo-1749878064741-75d7ef992d36?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGFwYXJ0bWVudCUyMGludGVyaW9yfGVufDB8fHx8MTc1OTc4NDA5MHww&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
-      alt: 'Elegant woman in modern apartment kitchen',
-      style: 'Kitchen & Lifestyle'
+      url: 'https://images.pexels.com/photos/7464198/pexels-photo-7464198.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Young professional relaxing in modern NYC apartment',
+      style: 'Apartment Living'
     },
     {
-      url: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwzfHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
-      alt: 'Sophisticated living room with natural light',
-      style: 'Living Room'
+      url: 'https://images.unsplash.com/photo-1753685726971-7219d3f27217?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200&h=600&fit=crop',
+      alt: 'Diverse woman enjoying her stylish apartment with natural light',
+      style: 'Modern Lifestyle'
     },
     {
-      url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHx8sdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
-      alt: 'Elegant bedroom with modern design',
-      style: 'Bedroom'
+      url: 'https://images.pexels.com/photos/4246109/pexels-photo-4246109.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Young person in contemporary apartment living space',
+      style: 'NYC Living'
     },
     {
-      url: 'https://images.unsplash.com/photo-1675279200694-8529c73b1fd0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
-      alt: 'Contemporary kitchen and dining area',
-      style: 'Kitchen & Dining'
+      url: 'https://images.unsplash.com/photo-1758273706386-8d45d00ea3f7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200&h=600&fit=crop',
+      alt: 'Young woman in stylish apartment with exposed brick wall',
+      style: 'Urban Apartment'
     },
     {
-      url: 'https://images.unsplash.com/photo-1665249934445-1de680641f50?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw1fHxsdXh1cnklMjBhcGFydG1lbnQlMjBpbnRlcmlvciUyMG5hdHVyYWwlMjBsaWdodHxlbnwwfHx8fDE3NTk3ODY3MDJ8MA&ixlib=rb-4.1.0&q=85&w=1200&h=600&fit=crop',
-      alt: 'Modern living space with floor-to-ceiling windows',
-      style: 'Modern Living'
+      url: 'https://images.pexels.com/photos/6707116/pexels-photo-6707116.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Professional enjoying no-fee apartment lifestyle',
+      style: 'Apartment Life'
+    },
+    {
+      url: 'https://images.pexels.com/photos/7394507/pexels-photo-7394507.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Savvy New Yorker in modern apartment setting',
+      style: 'NYC Apartment'
     }
   ];
 
