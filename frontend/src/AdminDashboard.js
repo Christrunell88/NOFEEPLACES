@@ -32,6 +32,12 @@ const AdminDashboard = () => {
     available: true
   });
   
+  // Manual scraper state
+  const [scraping, setScraping] = useState(false);
+  const [scrapeResult, setScrapeResult] = useState(null);
+  const [scrapeHistory, setScrapeHistory] = useState([]);
+  const [scrapeStatus, setScrapeStatus] = useState(null);
+  
   const navigate = useNavigate();
 
   // Check admin authentication
