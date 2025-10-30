@@ -508,9 +508,6 @@ const Home = () => {
 
       <Footer />
 
-      {/* Floating Feedback Button */}
-      <FloatingFeedbackButton />
-
       {/* Authentication Modal */}
       {showAuthModal && (
         <AuthModal onClose={() => setShowAuthModal(false)} />
