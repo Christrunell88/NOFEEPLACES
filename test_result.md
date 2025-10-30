@@ -209,6 +209,17 @@ frontend:
           comment: "CONTACT INFORMATION RENDERING FIX COMPLETED: Identified root cause - the ApartmentDetails component (used for individual apartment pages) was missing the Contact Information section, while the ApartmentDetailsModal (popup) had it. Added comprehensive Contact Information section to ApartmentDetails component with: ✅ Email display with mailto link (placesfirm@gmail.com), ✅ Phone display with tel link (+1-646-408-8048), ✅ Company name (NoFeePlaces LLC), ✅ Professional purple-themed design matching site style, ✅ Icons and labels for each contact method, ✅ 'Send Message About This Apartment' button still available. Visual testing confirms all contact details are now prominently displayed on apartment detail pages. The section appears in a purple box with clear labels and clickable links for email and phone."
 
 backend:
+  - task: "Malt Drive Apartment 508 Backend Integration"
+    implemented: true
+    working: true
+    file: "/app/add_malt_drive_508.py, /app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "BACKEND INTEGRATION FOR MALT DRIVE 508 COMPLETED: Successfully integrated Studio 1 Bath Apartment 508 into MongoDB database with building-centric organization. DATA FIX: Fixed Pydantic validation error by changing broker_fee from integer 0 to string 'No fee'. VERIFIED: ✅ GET /api/apartments/{unit_id} returns 200 with complete data, ✅ All 21 .avif format images accessible from maltdrive.com, ✅ Unit properly linked to building_id ec2ae99d-4083-44b1-81ec-0241cf5d54a6, ✅ Building stats auto-updated (6 units, price range $3,685-$7,660). DATABASE ORGANIZATION: Unit follows building-centric schema with building_name, building_id, and proper parent-child relationships. SOURCE URL: https://maltdrive.com/listing/2-21-malt-drive_508/ stored for reference. Comprehensive backend testing needed to verify all apartment endpoints, building-specific queries, and recently added listings API."
 
 metadata:
   created_by: "main_agent"
