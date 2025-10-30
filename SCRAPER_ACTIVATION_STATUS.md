@@ -41,6 +41,24 @@
 - **Status**: ✅ Configured & Active
 - **Image Folder**: `/app/backend/uploads/building_images/malt_drive/`
 
+### 6. CD 280
+- **URL**: https://manhattanskyline.com/buildings/east-village/cd-280
+- **Building ID**: 5494b16d-68a2-4357-a8ce-8b793a320868
+- **Location**: East Village, Manhattan
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/cd_280/`
+- **Note**: Manhattan Skyline property
+
+### 7. 55 Thompson
+- **URL**: https://manhattanskyline.com/buildings/soho/55-thompson
+- **Building ID**: cad42059-3799-4bea-b6b9-ca9be1e99688
+- **Location**: SoHo, Manhattan
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/55_thompson/`
+- **Note**: Manhattan Skyline property
+
 ---
 
 ## 📋 BUILDINGS AWAITING URLS
