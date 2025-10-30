@@ -319,6 +319,22 @@ class ManhattanSkylineScraper(BuildingScraper):
         return listings
 
 
+class GreenpointScraper(BuildingScraper):
+    """Scraper for The Greenpoint building"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from The Greenpoint website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching The Greenpoint listings from {listings_url}")
+        
+        # The Greenpoint has its own website with check-availability page
+        # TODO: Implement The Greenpoint scraping logic
+        logger.warning("GreenpointScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
 class WindsorCommunitiesScraper(BuildingScraper):
     """Scraper for Windsor Communities properties (e.g., Waterline Square)"""
     
