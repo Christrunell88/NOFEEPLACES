@@ -80,6 +80,7 @@ const Home = () => {
     neighborhood: '',
     borough: ''
   });
+  const [selectedAmenities, setSelectedAmenities] = useState([]); // New: amenities filter
   const [sortBy, setSortBy] = useState('price');  // New: sorting field
   const [sortOrder, setSortOrder] = useState('asc');  // New: sorting order
   const [viewMode, setViewMode] = useState('list');
@@ -87,6 +88,8 @@ const Home = () => {
   const [totalApartments, setTotalApartments] = useState(0);
   const [searchStats, setSearchStats] = useState(null);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [neighborhoods, setNeighborhoods] = useState([]); // New: neighborhoods list
+  const [recentlyAdded, setRecentlyAdded] = useState([]); // New: recently added apartments
   const { isAuthenticated, user, logout } = useAuth();
 
   // Debug: Log what isAuthenticated returns in the main component
