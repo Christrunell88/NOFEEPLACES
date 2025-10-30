@@ -1,0 +1,1422 @@
+{
+  "Unknown": [
+    {
+      "id": "c601ba37-723f-4e15-b550-881d1d5b3fa7",
+      "title": "Studio in Bronx - 4 Months Free",
+      "price": 2163.0,
+      "bedrooms": 0,
+      "neighborhood": "Mott Haven",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "d1f13b86-82ae-45a9-b63b-dfbe413b48bb",
+      "title": "Spacious 2BR/1BA in East Flatbush",
+      "price": 3188.0,
+      "bedrooms": 2,
+      "neighborhood": "East Flatbush",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "827a2b62-fafd-4fff-b54e-e353037f06f9",
+      "title": "2BR/2BA in North Bronx",
+      "price": 3392.0,
+      "bedrooms": 2,
+      "neighborhood": "Mott Haven",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "db6b37ca-cf6f-4037-9996-837cb95a0f23",
+      "title": "1BR in Central Harlem",
+      "price": 3840.0,
+      "bedrooms": 1,
+      "neighborhood": "Central Harlem",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "260bdc3b-9fce-4ec2-98df-c3bac814fe88",
+      "title": "1BR in Boerum Hill",
+      "price": 3850.0,
+      "bedrooms": 1,
+      "neighborhood": "Boerum Hill",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "f5aa8762-18b5-400a-bdb8-5df1033e756f",
+      "title": "1BR in Hunters Point",
+      "price": 4870.0,
+      "bedrooms": 1,
+      "neighborhood": "Hunters Point",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "fa490c5f-4c8d-48a1-8769-65f36967be0e",
+      "title": "1BR in Midtown - Theater District",
+      "price": 5393.0,
+      "bedrooms": 1,
+      "neighborhood": "Theater District",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "690c1b2b-d242-4d34-99a4-ddc5e7301e24",
+      "title": "Modern 2BR/1BA in Kips Bay",
+      "price": 5969.0,
+      "bedrooms": 2,
+      "neighborhood": "Kips Bay",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "b225b6f6-c95a-4049-bcf0-817766127ba6",
+      "title": "1BR in Fort Greene Brooklyn",
+      "price": 6305.0,
+      "bedrooms": 1,
+      "neighborhood": "Fort Greene",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "3961f5e2-6d3e-44e5-a951-55f5c5e152ab",
+      "title": "Luxury 2BR/2BA at Gotham West",
+      "price": 7870.0,
+      "bedrooms": 2,
+      "neighborhood": "Hell's Kitchen",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "c7264290-9d8f-4afb-8f7a-2fca083cdc43",
+      "title": "Elegant 2BR/2BA on Upper East Side",
+      "price": 10500.0,
+      "bedrooms": 2,
+      "neighborhood": "Lenox Hill",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "132e0e17-ae37-43ca-9d07-c2e178840aef",
+      "title": "Luxury 3BR/2.5BA on Upper East Side",
+      "price": 17100.0,
+      "bedrooms": 3,
+      "neighborhood": "Lenox Hill",
+      "score": 40,
+      "flags": [
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "b20e3960-66aa-49f0-bec4-0a7e8828d0e7",
+      "title": "1 Bedroom in Upper East Side - The Delecor",
+      "price": 8400,
+      "bedrooms": 1,
+      "neighborhood": "Upper East Side",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "1e6d654f-5cd1-44ca-a8cf-956ddc1c101c",
+      "title": "Studio at Forty Six Fifty - Unit 2112",
+      "price": 2613.33,
+      "bedrooms": 0,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "a55d5d59-1634-44ff-88f0-caa09b0c63f5",
+      "title": "Studio at Forty Six Fifty - Unit 1402",
+      "price": 2615.83,
+      "bedrooms": 0,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "9bb4e1dd-e176-4dcd-9059-f95816acb5f8",
+      "title": "Studio at Forty Six Fifty - Unit 0911",
+      "price": 2633.33,
+      "bedrooms": 0,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "4770a3d0-68c3-4999-8e7a-d7721483bee6",
+      "title": "Studio at Forty Six Fifty - Unit 1702",
+      "price": 2840.83,
+      "bedrooms": 0,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "06a166b6-edd7-4593-b27f-fea56db54847",
+      "title": "Studio at Forty Six Fifty - Unit 1811",
+      "price": 2857.5,
+      "bedrooms": 0,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "61052be8-57ce-4f3d-a684-3c2ceb105d4a",
+      "title": "1 Bedroom at Forty Six Fifty - Unit 0708",
+      "price": 2822.5,
+      "bedrooms": 1,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "cc180900-ec5e-445f-b198-0a37c2a1e54d",
+      "title": "1 Bedroom at Forty Six Fifty - Unit 0909",
+      "price": 2962.5,
+      "bedrooms": 1,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "250b02da-2e73-4e38-8a15-71447bf98f92",
+      "title": "1 Bedroom at Forty Six Fifty - Unit 1009",
+      "price": 2975.0,
+      "bedrooms": 1,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "1f1ac022-5894-41da-a02e-54abfc384554",
+      "title": "1 Bedroom at Forty Six Fifty - Unit 1906",
+      "price": 3200.0,
+      "bedrooms": 1,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "e81a9e04-6663-4861-9edb-75eb970cb4be",
+      "title": "2 Bedroom at Forty Six Fifty - Unit 1703",
+      "price": 4200.0,
+      "bedrooms": 2,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "7b9e37ea-4efb-4d7c-aef7-3046e418c09a",
+      "title": "2 Bedroom at Forty Six Fifty - Unit 1110",
+      "price": 4470.83,
+      "bedrooms": 2,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    },
+    {
+      "id": "b3aaa726-ebae-4963-8574-7079920831bc",
+      "title": "2 Bedroom at Forty Six Fifty - Unit 1210",
+      "price": 4483.33,
+      "bedrooms": 2,
+      "neighborhood": "Hudson Heights",
+      "score": 60,
+      "flags": [
+        "No interior unit photos",
+        "No source URL",
+        "Unverified source: Unknown"
+      ],
+      "recommendation": "REVIEW"
+    }
+  ],
+  "MNS Real Estate": [
+    {
+      "id": "42b7ed21-8c4c-4b43-acc6-174e810d5c95",
+      "title": "Studio in Gowanus",
+      "price": 3567.0,
+      "bedrooms": 0,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "658e8c40-8401-42f4-a75f-56e00b9d5457",
+      "title": "1BR in Greenpoint",
+      "price": 3809.0,
+      "bedrooms": 1,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "0a53a908-a91b-4e2b-be31-177571acee4a",
+      "title": "Studio in Brooklyn Heights",
+      "price": 3858.0,
+      "bedrooms": 0,
+      "neighborhood": "Brooklyn Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "b72b055a-512c-4322-98b6-19d770e5d7d1",
+      "title": "3BR in Williamsburg",
+      "price": 8115.0,
+      "bedrooms": 3,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "9a5182e7-006d-46a7-a840-268f15fedf68",
+      "title": "1BR in Windsor Terrace",
+      "price": 3000.0,
+      "bedrooms": 1,
+      "neighborhood": "Windsor Terrace",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "5349da95-da26-4bdf-836f-364c2a60772f",
+      "title": "2BR in Windsor Terrace",
+      "price": 4708.0,
+      "bedrooms": 2,
+      "neighborhood": "Windsor Terrace",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "fdd19030-8303-4a37-a9ae-295f2d693a9a",
+      "title": "1BR in Windsor Terrace",
+      "price": 3644.0,
+      "bedrooms": 1,
+      "neighborhood": "Windsor Terrace",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "372ba5ce-1135-489e-b2fc-f4400c4a0775",
+      "title": "1BR in Bedford-Stuyvesant",
+      "price": 3138.0,
+      "bedrooms": 1,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "fc9d1ba5-a096-4064-9121-8bf36b9f12ba",
+      "title": "Studio in Bedford-Stuyvesant",
+      "price": 2543.0,
+      "bedrooms": 0,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "114e3224-4c2a-4c2b-8227-741ed9796992",
+      "title": "2BR in Bedford-Stuyvesant",
+      "price": 5329.0,
+      "bedrooms": 2,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "30428a9a-279b-4a83-8e57-6b57b8fd0c0d",
+      "title": "1BR in Williamsburg",
+      "price": 4500.0,
+      "bedrooms": 1,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "f677ce07-5cf5-428b-ad5b-28b297cc0514",
+      "title": "1BR in Prospect Heights",
+      "price": 5018.0,
+      "bedrooms": 1,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "6e2094aa-c5a1-4e7a-b88d-7c215338ddcd",
+      "title": "1BR in Prospect Heights",
+      "price": 3942.0,
+      "bedrooms": 1,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "1c7ce300-1fb7-4a27-81de-bb9de2a74c8b",
+      "title": "Studio in Prospect Heights",
+      "price": 3191.0,
+      "bedrooms": 0,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "02f99632-76b9-4e58-8230-e1768383a93e",
+      "title": "2BR in Prospect Heights",
+      "price": 5747.0,
+      "bedrooms": 2,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "ff670f73-b7f4-48c0-b0c6-e7c4fecfd897",
+      "title": "2BR in Prospect Heights",
+      "price": 5413.0,
+      "bedrooms": 2,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "3b7518fa-e008-4f7e-abce-e0e6580151c9",
+      "title": "2BR in Clinton Hill",
+      "price": 4993.0,
+      "bedrooms": 2,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "88060530-e98c-4079-92e9-193d6a0c89a7",
+      "title": "2BR in Bedford-Stuyvesant",
+      "price": 3733.0,
+      "bedrooms": 2,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "727b0dd2-0fc8-41fb-8a00-1a5703a86674",
+      "title": "1BR in Bensonhurst",
+      "price": 2500.0,
+      "bedrooms": 1,
+      "neighborhood": "Bensonhurst",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "3c1521d3-9952-4e47-b76c-710afe297294",
+      "title": "Studio in Clinton Hill",
+      "price": 2976.0,
+      "bedrooms": 0,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "1d4a0e84-1778-4281-b46e-bcd79fd3237a",
+      "title": "1BR in Clinton Hill",
+      "price": 3496.0,
+      "bedrooms": 1,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "53e6b4b1-bc2f-4ee0-949b-915539ba29e1",
+      "title": "2BR in Windsor Terrace",
+      "price": 6875.0,
+      "bedrooms": 2,
+      "neighborhood": "Windsor Terrace",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "29ce0180-92ee-45bd-9360-8d75ae2d729e",
+      "title": "Studio in Williamsburg",
+      "price": 4450.0,
+      "bedrooms": 0,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "4134d68f-d63a-42ae-907f-9783eb12e219",
+      "title": "2BR in Crown Heights",
+      "price": 3957.0,
+      "bedrooms": 2,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "ef4faffb-19a1-41e6-bca9-88f3dc682781",
+      "title": "5BR in Crown Heights",
+      "price": 6720.0,
+      "bedrooms": 5,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "39ca3f7c-2707-4f8a-ad6e-1fc1fe7999d2",
+      "title": "2BR in Crown Heights",
+      "price": 5582.0,
+      "bedrooms": 2,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "b66ce50d-9e2f-4526-a1b1-822c211854d4",
+      "title": "3BR in Flatbush",
+      "price": 4821.0,
+      "bedrooms": 3,
+      "neighborhood": "Flatbush",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "a0918aca-2de3-445c-a643-88f6da72487a",
+      "title": "1BR in Bedford-Stuyvesant",
+      "price": 2182.0,
+      "bedrooms": 1,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "fb878138-e93e-4c87-9283-09de3e3a1afa",
+      "title": "1BR in Wingate",
+      "price": 2850.0,
+      "bedrooms": 1,
+      "neighborhood": "Wingate",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "3ba35f44-3d96-464f-a03e-83fca96ecaec",
+      "title": "Studio in Prospect Heights",
+      "price": 3013.0,
+      "bedrooms": 0,
+      "neighborhood": "Prospect Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "e72eb4cd-d156-4111-bfd6-a14a9127f03b",
+      "title": "1BR in Brooklyn Heights",
+      "price": 4926.0,
+      "bedrooms": 1,
+      "neighborhood": "Brooklyn Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "4224a9ed-a482-4b21-b184-03a4d8f578b1",
+      "title": "2BR in Gowanus",
+      "price": 5876.0,
+      "bedrooms": 2,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "00a5415f-1849-4ec9-b4b8-9a862a3b580a",
+      "title": "2BR in Gowanus",
+      "price": 5275.0,
+      "bedrooms": 2,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "6543bce8-5c27-440e-8f0a-76c629ce9103",
+      "title": "1BR in Gowanus",
+      "price": 3379.0,
+      "bedrooms": 1,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "d7d2ccf0-172d-424f-a9aa-94c9d63ef210",
+      "title": "1BR in Gowanus",
+      "price": 3938.0,
+      "bedrooms": 1,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "f3efcb43-4fbd-414e-aed8-d1c639cc5ca2",
+      "title": "Studio in Gowanus",
+      "price": 3339.0,
+      "bedrooms": 0,
+      "neighborhood": "Gowanus",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "bff3f375-6642-4f53-a746-276aa139b06c",
+      "title": "Studio in Brooklyn Heights",
+      "price": 3069.0,
+      "bedrooms": 0,
+      "neighborhood": "Brooklyn Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "2a1d34e8-de3f-4f99-8e55-e3375b72311f",
+      "title": "1BR in Brooklyn Heights",
+      "price": 3282.0,
+      "bedrooms": 1,
+      "neighborhood": "Brooklyn Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "1bd8b08f-ff3d-4a58-b1cb-192be67951be",
+      "title": "1BR in Greenpoint",
+      "price": 4659.0,
+      "bedrooms": 1,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "a4985b89-2de7-423c-aa13-d2e74e5c96d5",
+      "title": "1BR in Williamsburg",
+      "price": 3808.0,
+      "bedrooms": 1,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "6a07b2f6-9ffa-4c59-810b-f452cf77ba69",
+      "title": "1BR in Crown Heights",
+      "price": 2750.0,
+      "bedrooms": 1,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "26078ccb-edd1-4ce4-b978-1b5494d9dfc1",
+      "title": "326BR in Williamsburg",
+      "price": 7500.0,
+      "bedrooms": 2,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "30b58c72-01f9-4204-ad8b-a0a1fa859203",
+      "title": "Studio in Greenpoint",
+      "price": 3169.0,
+      "bedrooms": 0,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "af827ae3-ab40-4a19-9cf5-0a68844f6442",
+      "title": "1BR in Clinton Hill",
+      "price": 4134.0,
+      "bedrooms": 1,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "20e29cb4-4e90-4ada-a116-5e6b028ccb64",
+      "title": "2BR in Clinton Hill",
+      "price": 5930.0,
+      "bedrooms": 2,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "153c7744-0cc9-4161-b688-c9e431f83519",
+      "title": "Studio in Crown Heights",
+      "price": 2596.0,
+      "bedrooms": 0,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "04b923be-79f5-4ca0-b366-58b5f976d050",
+      "title": "5BR in Crown Heights",
+      "price": 4098.0,
+      "bedrooms": 5,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "6bd0db7c-192b-4c08-93fa-c14e2519884c",
+      "title": "Studio in Bedford-Stuyvesant",
+      "price": 3652.0,
+      "bedrooms": 0,
+      "neighborhood": "Bedford-Stuyvesant",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "92bbdbd5-67b6-4026-8333-7d2908af5ba5",
+      "title": "326BR in Williamsburg",
+      "price": 3546.0,
+      "bedrooms": 2,
+      "neighborhood": "Williamsburg",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "e8fd5c76-4a18-4f2d-b1bd-9a644240f6da",
+      "title": "Studio in Greenpoint",
+      "price": 3859.0,
+      "bedrooms": 0,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "83c6ad57-8ac8-458e-91ef-fb19e42aed84",
+      "title": "2BR in Greenpoint",
+      "price": 7817.0,
+      "bedrooms": 2,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "aea2462a-1ae8-42ab-b38f-081d14873d01",
+      "title": "2BR in Greenpoint",
+      "price": 5679.0,
+      "bedrooms": 2,
+      "neighborhood": "Greenpoint",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "f6431b97-4459-400d-954b-9cd17ea25a85",
+      "title": "Studio in Park Slope",
+      "price": 3125.0,
+      "bedrooms": 0,
+      "neighborhood": "Park Slope",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "06fdea62-6905-43b8-ac4b-bcd91b959ab0",
+      "title": "Studio in Crown Heights",
+      "price": 3129.0,
+      "bedrooms": 0,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "ee9e8a07-e8ed-4b08-a5d6-105afc0a1849",
+      "title": "Studio in Clinton Hill",
+      "price": 3210.0,
+      "bedrooms": 0,
+      "neighborhood": "Clinton Hill",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "055b02db-db62-4832-8239-f4be6f566ce5",
+      "title": "2BR in Flatbush",
+      "price": 3350.0,
+      "bedrooms": 2,
+      "neighborhood": "Flatbush",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "8b1a1836-2e1a-4a8b-8fbc-9c3e17b2991a",
+      "title": "1BR in Flatbush",
+      "price": 3466.0,
+      "bedrooms": 1,
+      "neighborhood": "Flatbush",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "a403365b-2d88-42e0-8d77-5de502e46457",
+      "title": "Studio in Flatbush",
+      "price": 2761.0,
+      "bedrooms": 0,
+      "neighborhood": "Flatbush",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "03222ab9-f086-4ae3-99b8-f16a3754cb46",
+      "title": "2BR in Kensington",
+      "price": 2684.0,
+      "bedrooms": 2,
+      "neighborhood": "Kensington",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "9c3c07e2-c78f-4399-9a57-13090f17c9bb",
+      "title": "Studio in Bushwick",
+      "price": 2106.0,
+      "bedrooms": 0,
+      "neighborhood": "Bushwick",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "64662897-c7d2-49e7-9c7e-7b93c9c0822c",
+      "title": "1BR in Crown Heights",
+      "price": 4016.0,
+      "bedrooms": 1,
+      "neighborhood": "Crown Heights",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    },
+    {
+      "id": "4061b905-7f97-4ce4-9a05-f8a1b29a0050",
+      "title": "2BR in Downtown Brooklyn",
+      "price": 5250.0,
+      "bedrooms": 2,
+      "neighborhood": "Downtown Brooklyn",
+      "score": 10,
+      "flags": [
+        "Only 1 image",
+        "No interior unit photos",
+        "No address",
+        "No source URL",
+        "Unverified source: MNS Real Estate",
+        "No amenities"
+      ],
+      "recommendation": "REMOVE"
+    }
+  ]
+}
