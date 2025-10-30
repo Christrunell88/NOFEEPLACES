@@ -129,7 +129,13 @@ const Home = () => {
   useEffect(() => {
     fetchApartments();
     fetchSearchStats();
-  }, [searchFilters, currentPage, sortBy, sortOrder]);  // Added sortBy and sortOrder dependencies
+  }, [searchFilters, currentPage, sortBy, sortOrder, selectedAmenities]);  // Added selectedAmenities dependency
+
+  // Fetch neighborhoods and recently added on mount
+  useEffect(() => {
+    fetchNeighborhoods();
+    fetchRecentlyAdded();
+  }, []);
 
   // Listen for neighborhood search events from SEO section
   useEffect(() => {
