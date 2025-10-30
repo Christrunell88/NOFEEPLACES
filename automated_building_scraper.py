@@ -356,6 +356,7 @@ class AutomatedScraperService:
             'delecor': DelecoScraper,
             'mercedes_house': MercedesHouseScraper,
             'forty_six_fifty': FortySixFiftyScraper,
+            'manhattan_skyline': ManhattanSkylineScraper,
             'windsor': WindsorCommunitiesScraper
         }
         
