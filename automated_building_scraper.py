@@ -335,6 +335,9 @@ class AutomatedScraperService:
         """Initialize scraper instances for each building"""
         scraper_classes = {
             'maltdrive': MaltDriveScraper,
+            'delecor': DelecoScraper,
+            'mercedes_house': MercedesHouseScraper,
+            'forty_six_fifty': FortySixFiftyScraper,
             'windsor': WindsorCommunitiesScraper
         }
         
