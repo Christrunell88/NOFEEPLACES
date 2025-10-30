@@ -99,6 +99,26 @@
 - **Image Folder**: `/app/backend/uploads/building_images/claridges/`
 - **Note**: Manhattan Skyline property
 
+### 12. PLG
+- **URL**: https://www.bushburg.com/residential-properties/
+- **Building ID**: d8badc6b-bf32-4562-953d-641f4623ecff
+- **Location**: Prospect Lefferts Gardens, Brooklyn
+- **Address**: 123 Linden Blvd
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/plg/`
+- **Note**: Bushburg property
+
+### 13. The Aria
+- **URL**: https://www.liveatarianyc.com/floorplans
+- **Building ID**: 7a9d9252-b3ac-437d-8034-715675c7ae52
+- **Location**: Financial District, Manhattan
+- **Address**: 90-100 John Street
+- **Current Units**: 4
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/the_aria/`
+- **Note**: Independent website - Financial District luxury
+
 ---
 
 ## 📋 BUILDINGS AWAITING URLS
