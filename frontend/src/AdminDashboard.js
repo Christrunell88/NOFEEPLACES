@@ -844,6 +844,194 @@ const AdminDashboard = () => {
           </div>
         )}
 
+
+        {/* Scraper Tab */}
+        {activeTab === 'scraper' && (
+          <div>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Building Scraper Control</h2>
+              <p className="text-gray-600">Manually trigger scraping of all configured buildings for new listings</p>
+            </div>
+
+            {/* Manual Scrape Button */}
+            <div className="bg-white rounded-lg shadow p-6 mb-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">Manual Scrape</h3>
+                  <p className="text-sm text-gray-600">Click to immediately scrape all buildings instead of waiting for automated schedule</p>
+                </div>
+                <button
+                  onClick={handleManualScrape}
+                  disabled={scraping}
+                  className={`px-6 py-3 rounded-lg font-medium transition flex items-center space-x-2 ${
+                    scraping 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-purple-600 hover:bg-purple-700 text-white'
+                  }`}
+                >
+                  {scraping ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span>Scraping...</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      <span>Run Manual Scrape</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* Last Scrape Result */}
+              {scrapeResult && (
+                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                  <h4 className="font-semibold text-green-800 mb-2">✅ Scrape Completed</h4>
+                  <div className="grid grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <p className="text-gray-600">Buildings Processed</p>
+                      <p className="text-2xl font-bold text-gray-800">{scrapeResult.summary.buildings_processed}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-600">New Listings Found</p>
+                      <p className="text-2xl font-bold text-green-600">{scrapeResult.summary.new_listings}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-600">Errors</p>
+                      <p className="text-2xl font-bold text-red-600">{scrapeResult.summary.errors}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-2">Completed at: {new Date(scrapeResult.timestamp).toLocaleString()}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Scraper Status */}
+            {scrapeStatus && (
+              <div className="bg-white rounded-lg shadow p-6 mb-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">System Status</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="p-4 bg-blue-50 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Total Scrapers</p>
+                    <p className="text-3xl font-bold text-blue-600">{scrapeStatus.total_scrapers}</p>
+                  </div>
+                  <div className="p-4 bg-green-50 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Enabled</p>
+                    <p className="text-3xl font-bold text-green-600">{scrapeStatus.enabled_scrapers}</p>
+                  </div>
+                  <div className="p-4 bg-purple-50 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Frequency</p>
+                    <p className="text-2xl font-bold text-purple-600">36h</p>
+                  </div>
+                  <div className="p-4 bg-orange-50 rounded-lg">
+                    <p className="text-sm text-gray-600 mb-1">Last Run</p>
+                    <p className="text-sm font-semibold text-orange-600">
+                      {scrapeStatus.last_manual_scrape?.triggered_at 
+                        ? new Date(scrapeStatus.last_manual_scrape.triggered_at).toLocaleDateString()
+                        : 'Never'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Scrape History */}
+            <div className="bg-white rounded-lg shadow">
+              <div className="p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-800">Manual Scrape History</h3>
+                  <button
+                    onClick={loadScrapeHistory}
+                    className="text-sm text-purple-600 hover:text-purple-700 font-medium"
+                  >
+                    Refresh
+                  </button>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date & Time</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Triggered By</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Buildings</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">New Listings</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Errors</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {scrapeHistory.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                          No manual scrapes yet. Click "Run Manual Scrape" to start!
+                        </td>
+                      </tr>
+                    ) : (
+                      scrapeHistory.map((log, index) => (
+                        <tr key={index} className="hover:bg-gray-50">
+                          <td className="px-6 py-4 text-sm text-gray-900">
+                            {new Date(log.triggered_at).toLocaleString()}
+                          </td>
+                          <td className="px-6 py-4 text-sm text-gray-600">
+                            {log.triggered_by}
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                              {log.summary?.buildings_processed || 0}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <span className="px-2 py-1 bg-green-100 text-green-800 rounded font-semibold">
+                              {log.summary?.new_listings || 0}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <span className={`px-2 py-1 rounded ${
+                              log.summary?.errors > 0 
+                                ? 'bg-red-100 text-red-800' 
+                                : 'bg-gray-100 text-gray-800'
+                            }`}>
+                              {log.summary?.errors || 0}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-sm">
+                            <span className={`px-2 py-1 rounded font-medium ${
+                              log.return_code === 0
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-red-100 text-red-800'
+                            }`}>
+                              {log.return_code === 0 ? '✓ Success' : '✗ Failed'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Info Box */}
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <h4 className="font-semibold text-blue-800 mb-2">ℹ️ About Automated Scraping</h4>
+              <ul className="text-sm text-blue-700 space-y-1">
+                <li>• Automated scraping runs every 36 hours for each building</li>
+                <li>• Monitors 15 scrapers covering 30+ buildings across NYC</li>
+                <li>• New listings are automatically added to the database</li>
+                <li>• Manual scrape bypasses the 36-hour frequency limit</li>
+                <li>• Check logs at: /app/logs/building_scraper.log</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+
         {/* Users Tab */}
         {/* Visitors Tab */}
         {activeTab === 'visitors' && (
