@@ -25,7 +25,7 @@ const EmailContactModal = ({ isOpen, onClose, apartmentDetails, recipientEmail =
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
       
       // Prepare email data
       const emailData = {
