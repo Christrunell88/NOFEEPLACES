@@ -965,4 +965,238 @@ const AdminDashboard = () => {
   );
 };
 
+// AI Moderation Panel Component
+const ModerationPanel = () => {
+  const [stats, setStats] = useState(null);
+  const [selectedListings, setSelectedListings] = useState([]);
+  const [moderating, setModerating] = useState(false);
+  const [moderationResults, setModerationResults] = useState(null);
+  const [pendingListings, setPendingListings] = useState([]);
+
+  useEffect(() => {
+    loadModerationStats();
+    loadPendingListings();
+  }, []);
+
+  const loadModerationStats = async () => {
+    try {
+      const response = await axios.get(`${API}/api/admin/moderation-stats`);
+      setStats(response.data.stats);
+    } catch (error) {
+      console.error('Failed to load moderation stats:', error);
+    }
+  };
+
+  const loadPendingListings = async () => {
+    try {
+      const response = await axios.get(`${API}/api/apartments?limit=100`);
+      // Filter listings that haven't been moderated yet
+      const pending = response.data.apartments.filter(apt => !apt.moderation_status);
+      setPendingListings(pending);
+    } catch (error) {
+      console.error('Failed to load pending listings:', error);
+    }
+  };
+
+  const handleModerate = async () => {
+    if (selectedListings.length === 0) {
+      alert('Please select at least one listing to moderate');
+      return;
+    }
+
+    setModerating(true);
+    setModerationResults(null);
+
+    try {
+      const response = await axios.post(`${API}/api/admin/moderate-listings`, {
+        listing_ids: selectedListings
+      });
+
+      setModerationResults(response.data);
+      alert(`Moderation complete!\nApproved: ${response.data.approved}\nRejected: ${response.data.rejected}\nManual Review: ${response.data.manual_review}`);
+      
+      // Reload stats and listings
+      await loadModerationStats();
+      await loadPendingListings();
+      setSelectedListings([]);
+    } catch (error) {
+      console.error('Moderation failed:', error);
+      alert('Moderation failed: ' + (error.response?.data?.detail || error.message));
+    } finally {
+      setModerating(false);
+    }
+  };
+
+  const handleSelectAll = () => {
+    if (selectedListings.length === pendingListings.length) {
+      setSelectedListings([]);
+    } else {
+      setSelectedListings(pendingListings.map(apt => apt.id));
+    }
+  };
+
+  const toggleSelection = (listingId) => {
+    setSelectedListings(prev => 
+      prev.includes(listingId) 
+        ? prev.filter(id => id !== listingId)
+        : [...prev, listingId]
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Stats Cards */}
+      {stats && (
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-blue-500">
+            <div className="text-sm font-medium text-gray-600">Total Listings</div>
+            <div className="text-3xl font-bold text-gray-900 mt-2">{stats.total_listings}</div>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
+            <div className="text-sm font-medium text-gray-600">Approved</div>
+            <div className="text-3xl font-bold text-green-600 mt-2">{stats.approved}</div>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-red-500">
+            <div className="text-sm font-medium text-gray-600">Rejected</div>
+            <div className="text-3xl font-bold text-red-600 mt-2">{stats.rejected}</div>
+          </div>
+          <div className="bg-white rounded-lg shadow p-6 border-l-4 border-yellow-500">
+            <div className="text-sm font-medium text-gray-600">Pending</div>
+            <div className="text-3xl font-bold text-yellow-600 mt-2">{stats.pending}</div>
+          </div>
+        </div>
+      )}
+
+      {/* Moderation Controls */}
+      <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg p-6 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-xl font-bold mb-2">AI Moderation Engine</h3>
+            <p className="text-purple-100">
+              Automatically analyze listings for quality, spam detection, price accuracy, and proper categorization
+            </p>
+          </div>
+          <div className="ml-4">
+            <svg className="w-16 h-16 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Selection and Action Buttons */}
+      <div className="bg-white rounded-lg shadow p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900">Pending Moderation</h3>
+            <p className="text-sm text-gray-600">{selectedListings.length} of {pendingListings.length} listings selected</p>
+          </div>
+          <div className="flex space-x-3">
+            <button
+              onClick={handleSelectAll}
+              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition"
+            >
+              {selectedListings.length === pendingListings.length ? 'Deselect All' : 'Select All'}
+            </button>
+            <button
+              onClick={handleModerate}
+              disabled={moderating || selectedListings.length === 0}
+              className={`px-6 py-2 rounded-lg font-medium transition ${
+                moderating || selectedListings.length === 0
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white shadow-lg'
+              }`}
+            >
+              {moderating ? (
+                <span className="flex items-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Moderating...
+                </span>
+              ) : (
+                'Moderate Selected Listings'
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Listings Table */}
+        {pendingListings.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Select</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Title</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Beds/Baths</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                {pendingListings.map((listing) => (
+                  <tr key={listing.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedListings.includes(listing.id)}
+                        onChange={() => toggleSelection(listing.id)}
+                        className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                    </td>
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{listing.title}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">${listing.price}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{listing.neighborhood}, {listing.borough}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{listing.bedrooms}BR / {listing.bathrooms}BA</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="text-center py-12 text-gray-500">
+            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="mt-4 text-lg font-medium">All listings have been moderated!</p>
+          </div>
+        )}
+      </div>
+
+      {/* Moderation Results */}
+      {moderationResults && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Moderation Results</h3>
+          <div className="space-y-3">
+            {moderationResults.results.map((result) => (
+              <div key={result.listing_id} className="border border-gray-200 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium text-gray-900">{result.title}</p>
+                    <p className="text-sm text-gray-600">ID: {result.listing_id}</p>
+                  </div>
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    result.decision === 'approve' ? 'bg-green-100 text-green-800' :
+                    result.decision === 'reject' ? 'bg-red-100 text-red-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {result.decision === 'approve' ? '✓ Approved' :
+                     result.decision === 'reject' ? '✗ Rejected' :
+                     '⚠ Manual Review'}
+                  </span>
+                </div>
+                {result.moderation?.final_decision?.reason && (
+                  <p className="text-sm text-gray-600 mt-2">{result.moderation.final_decision.reason}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default AdminDashboard;
