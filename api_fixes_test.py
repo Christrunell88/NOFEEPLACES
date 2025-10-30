@@ -15,7 +15,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://nycnofee.preview.emergentagent.com/api"
+BASE_URL = "https://renteasy-nyc.preview.emergentagent.com/api"
 
 class APIFixesTester:
     def __init__(self):

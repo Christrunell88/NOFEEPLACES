@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://nycnofee.preview.emergentagent.com/api"
+BASE_URL = "https://renteasy-nyc.preview.emergentagent.com/api"
 
 class GothamWestTester:
     def __init__(self):

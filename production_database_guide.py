@@ -52,17 +52,17 @@ def diagnose_database_setup():
     # Check production API
     print(f"\n📡 Production API:")
     try:
-        response = requests.get("https://nycnofee.preview.emergentagent.com/api/apartments", 
+        response = requests.get("https://renteasy-nyc.preview.emergentagent.com/api/apartments", 
                               params={"limit": 5})
         
         if response.status_code == 200:
             data = response.json()
             prod_count = data.get('total', 0)
-            print(f"   API endpoint: https://nycnofee.preview.emergentagent.com/api")
+            print(f"   API endpoint: https://renteasy-nyc.preview.emergentagent.com/api")
             print(f"   Total apartments: {prod_count}")
             
             # Check for the specific problem
-            cpw_response = requests.get("https://nycnofee.preview.emergentagent.com/api/apartments",
+            cpw_response = requests.get("https://renteasy-nyc.preview.emergentagent.com/api/apartments",
                                        params={"search": "Central Park West"})
             
             if cpw_response.status_code == 200:
@@ -151,7 +151,7 @@ def create_deployment_instructions():
     
     print(f"\n⚡ QUICK TEST:")
     print(f"   After applying any fix, test with:")
-    print(f"   curl 'https://nycnofee.preview.emergentagent.com/api/apartments?search=Central+Park+West'")
+    print(f"   curl 'https://renteasy-nyc.preview.emergentagent.com/api/apartments?search=Central+Park+West'")
 
 def main():
     """Main diagnosis and solution"""
