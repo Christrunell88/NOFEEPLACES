@@ -86,6 +86,40 @@
       },
       "last_scraped": null,
       "scraping_notes": "Malt Drive uses dynamic loading. Check for both 2-20 and 2-21 addresses."
+    },
+    {
+      "building_id": "5494b16d-68a2-4357-a8ce-8b793a320868",
+      "building_name": "CD 280",
+      "address": "280 E 2 Street",
+      "neighborhood": "East Village",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "manhattan_skyline",
+      "source_config": {
+        "base_url": "https://manhattanskyline.com",
+        "listings_url": "https://manhattanskyline.com/buildings/east-village/cd-280",
+        "building_slug": "cd-280"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Manhattan Skyline property - East Village location"
+    },
+    {
+      "building_id": "cad42059-3799-4bea-b6b9-ca9be1e99688",
+      "building_name": "55 Thompson",
+      "address": "55 Thompson Street",
+      "neighborhood": "SoHo",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "manhattan_skyline",
+      "source_config": {
+        "base_url": "https://manhattanskyline.com",
+        "listings_url": "https://manhattanskyline.com/buildings/soho/55-thompson",
+        "building_slug": "55-thompson"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Manhattan Skyline property - SoHo location"
     }
   ],
   "global_settings": {
