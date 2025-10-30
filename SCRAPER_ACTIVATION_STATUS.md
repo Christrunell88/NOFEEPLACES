@@ -227,7 +227,7 @@ for log in logs:
 
 ## ✅ SUMMARY
 
-**11 Buildings Activated:**
+**13 Buildings Activated! 🎉**
 1. The Delecor ✅
 2. Mercedes House ✅
 3. Forty Six Fifty ✅
@@ -239,14 +239,16 @@ for log in logs:
 9. Saranac ✅
 10. The Greenpoint ✅
 11. Claridge's ✅
+12. PLG ✅
+13. The Aria ✅
 
 **Property Breakdown:**
 - **Manhattan Skyline Properties (5):** CD 280, 55 Thompson, Chelsea Place, Saranac, Claridge's
 - **Malt Drive Properties (2):** 2-21, 2-20
-- **Independent Properties (4):** The Delecor, Mercedes House, Forty Six Fifty, The Greenpoint
+- **Independent Properties (6):** The Delecor, Mercedes House, Forty Six Fifty, The Greenpoint, PLG (Bushburg), The Aria
 
 **Frequency**: Every 36 hours per building
 **Status**: System active and running
-**Last Test**: All 11 buildings processed successfully (0 errors)
-**Coverage**: 11 / 14 buildings (79% complete)
-**Next**: Add remaining 3 buildings (PLG, The Aria, The Murray Hill)
+**Last Test**: All 13 buildings processed successfully (0 errors)
+**Coverage**: 13 / 14 buildings (93% complete) 🎯
+**Remaining**: 1 building (The Murray Hill)
