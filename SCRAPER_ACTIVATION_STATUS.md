@@ -119,6 +119,20 @@
 - **Image Folder**: `/app/backend/uploads/building_images/the_aria/`
 - **Note**: Independent website - Financial District luxury
 
+### 14. The Murray Hill
+- **URL**: https://manhattanskyline.com/buildings/murray-hill/the-murray-hill
+- **Building ID**: 2ae663c0-90f8-418f-be2d-6d60c9debefb
+- **Location**: Murray Hill, Manhattan
+- **Address**: 115 East 34th Street
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/the_murray_hill/`
+- **Note**: Manhattan Skyline property
+
+---
+
+## 🎉 100% COMPLETE - ALL BUILDINGS CONFIGURED!
+
 ---
 
 ## 📋 BUILDINGS AWAITING URLS
