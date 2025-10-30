@@ -229,7 +229,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Authentication Loading State Race Condition Fix"
+    - "Malt Drive Apartment 508 Backend Integration"
+    - "Malt Drive Apartment 508 Addition and Display"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
