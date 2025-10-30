@@ -239,6 +239,41 @@
       },
       "last_scraped": null,
       "scraping_notes": "Manhattan Skyline property - Murray Hill location"
+    },
+    {
+      "building_id": "two-trees-company-wide",
+      "building_name": "Two Trees Management - All Properties",
+      "address": "Multiple locations",
+      "neighborhood": "Various",
+      "borough": "Brooklyn, Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "two_trees",
+      "source_config": {
+        "base_url": "https://www.twotreesny.com",
+        "listings_url": "https://www.twotreesny.com/availabilities/apartments",
+        "properties": [
+          "60 Water Street",
+          "30 Washington Street",
+          "25 Washington Street",
+          "65 Washington Street",
+          "81 Washington Street",
+          "66 Water Street",
+          "85 Water Street",
+          "125 Court Street",
+          "110 Livingston Street",
+          "164 Atlantic Avenue",
+          "200 Atlantic Avenue",
+          "138 Court Street",
+          "One Domino Square",
+          "One South First",
+          "325 Kent Avenue",
+          "300 Ashland Place",
+          "Mercedes House"
+        ]
+      },
+      "last_scraped": null,
+      "scraping_notes": "Two Trees manages 17+ properties across Brooklyn and Manhattan. Centralized availability page. Mercedes House already tracked separately."
     }
   ],
   "global_settings": {
