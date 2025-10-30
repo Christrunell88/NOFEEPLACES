@@ -196,6 +196,25 @@ frontend:
           agent: "main"
           comment: "CONTACT INFORMATION RENDERING FIX COMPLETED: Identified root cause - the ApartmentDetails component (used for individual apartment pages) was missing the Contact Information section, while the ApartmentDetailsModal (popup) had it. Added comprehensive Contact Information section to ApartmentDetails component with: ✅ Email display with mailto link (placesfirm@gmail.com), ✅ Phone display with tel link (+1-646-408-8048), ✅ Company name (NoFeePlaces LLC), ✅ Professional purple-themed design matching site style, ✅ Icons and labels for each contact method, ✅ 'Send Message About This Apartment' button still available. Visual testing confirms all contact details are now prominently displayed on apartment detail pages. The section appears in a purple box with clear labels and clickable links for email and phone."
 
+backend:
+
+metadata:
+  created_by: "main_agent"
+  version: "4.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "Authentication Loading State Race Condition Fix"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+    - agent: "main"
+      message: "AUTHENTICATION LOADING STATE RACE CONDITION FIX COMPLETED: Fixed critical authentication state management issue where components checking auth status on mount encountered race conditions during initial auth loading. ROOT CAUSE: AuthProvider had loading state but didn't expose it in AuthContext, and isAuthenticated was calculated as '!!user' without considering loading state. This caused ScheduleShowingModal, FeedbackModal, and TenantListing to show incorrect UI (either form when should show sign-in gate, or vice versa) when opened before authentication finished loading. CHANGES MADE: ✅ Updated auth.js to expose loading in context value, ✅ Modified isAuthenticated logic from '!!user' to '!!user && !loading' for accuracy, ✅ Updated ScheduleShowingModal to use loading state and show spinner during auth check, ✅ Updated FeedbackModal with same loading state handling, ✅ Updated TenantListing with loading state check before showing auth gate. All affected components now properly wait for authentication to finish loading before showing content, eliminating the race condition. User will manually test the fix."
+
 frontend:
 frontend:
   - task: "Apartment Listings Display Price Sorting Frontend"
