@@ -1038,12 +1038,32 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [similarUnits, setSimilarUnits] = useState(null);
+  const [showAllUnits, setShowAllUnits] = useState(false);
   const { isAuthenticated } = useAuth();
 
   // Use neighborhood for non-authenticated users, full address for authenticated users
   const locationInfo = isAuthenticated 
     ? (apartment.address || apartment.location)
     : (apartment.neighborhood || apartment.location?.split(',')[0] || 'this property');
+
+  // Fetch similar units when modal opens
+  React.useEffect(() => {
+    const fetchSimilarUnits = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/apartments/${apartment.id}/similar-units`);
+        if (response.data.total > 0) {
+          setSimilarUnits(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch similar units:', error);
+      }
+    };
+    
+    if (apartment.id) {
+      fetchSimilarUnits();
+    }
+  }, [apartment.id]);
 
   // Reset image index when apartment changes
   React.useEffect(() => {
