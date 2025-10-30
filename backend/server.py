@@ -1257,11 +1257,21 @@ async def get_neighborhoods():
 
 @api_router.get("/apartments/browse/recently-added")
 async def get_recently_added(limit: int = Query(8, ge=1, le=20)):
-    """Get recently added apartments for homepage display"""
+    """Get recently added apartments for homepage display - one per building for variety"""
     try:
-        recently_added = await db.apartments.find(
-            {"available": True}
-        ).sort("created_at", -1).limit(limit).to_list(length=limit)
+        # Get distinct buildings first (prioritize high priority and featured)
+        pipeline = [
+            {"$match": {"available": True}},
+            {"$sort": {"priority": -1, "featured": -1, "created_at": -1}},
+            {"$group": {
+                "_id": "$building_id",
+                "apartment": {"$first": "$$ROOT"}
+            }},
+            {"$replaceRoot": {"newRoot": "$apartment"}},
+            {"$limit": limit}
+        ]
+        
+        recently_added = await db.apartments.aggregate(pipeline).to_list(length=limit)
         
         return {
             "apartments": [Apartment(**apt) for apt in recently_added],
