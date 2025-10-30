@@ -6,7 +6,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
 const ScheduleShowingModal = ({ apartment, onClose }) => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const [showingDate, setShowingDate] = useState('');
   const [showingTime, setShowingTime] = useState('');
   const [visitorName, setVisitorName] = useState('');
