@@ -154,6 +154,40 @@
       },
       "last_scraped": null,
       "scraping_notes": "Manhattan Skyline property - Tribeca location"
+    },
+    {
+      "building_id": "a953a5af-498d-47da-ba07-a79a7b2aaed9",
+      "building_name": "The Greenpoint",
+      "address": "21 India Street",
+      "neighborhood": "Greenpoint",
+      "borough": "Brooklyn",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "greenpoint",
+      "source_config": {
+        "base_url": "https://thegreenpoint.nyc",
+        "listings_url": "https://thegreenpoint.nyc/check-availability/",
+        "gallery_url": "https://thegreenpoint.nyc/gallery/"
+      },
+      "last_scraped": null,
+      "scraping_notes": "The Greenpoint NYC - Brooklyn waterfront property"
+    },
+    {
+      "building_id": "77e47169-691c-4edb-bfdc-1a9f7da8cc03",
+      "building_name": "Claridge's",
+      "address": "101 West 55th Street",
+      "neighborhood": "Midtown West",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "manhattan_skyline",
+      "source_config": {
+        "base_url": "https://manhattanskyline.com",
+        "listings_url": "https://manhattanskyline.com/buildings/midtown-west/claridges",
+        "building_slug": "claridges"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Manhattan Skyline property - Midtown West location"
     }
   ],
   "global_settings": {
