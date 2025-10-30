@@ -129,9 +129,24 @@
 - **Image Folder**: `/app/backend/uploads/building_images/the_murray_hill/`
 - **Note**: Manhattan Skyline property
 
+### 15. Two Trees Management - All Properties
+- **URL**: https://www.twotreesny.com/availabilities/apartments
+- **Building ID**: two-trees-company-wide
+- **Location**: Multiple (DUMBO, Brooklyn Heights, Williamsburg, Fort Greene, Hell's Kitchen)
+- **Boroughs**: Brooklyn, Manhattan
+- **Properties Managed**: 17+ buildings including:
+  - **DUMBO**: 60 Water St, 30/25/65/81 Washington St, 66/85 Water St
+  - **Brooklyn Heights/Cobble Hill**: 125 Court St, 110 Livingston St, 164/200 Atlantic Ave, 138 Court St
+  - **Williamsburg**: One Domino Square, One South First, 325 Kent Ave
+  - **Fort Greene**: 300 Ashland Place
+  - **Manhattan**: Mercedes House (already tracked separately)
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/two_trees/`
+- **Note**: Property management company with centralized availability page
+
 ---
 
-## 🎉 100% COMPLETE - ALL BUILDINGS CONFIGURED!
+## 🎉 EXPANDED TO 15 SCRAPERS - MULTI-PROPERTY COMPANIES ADDED!
 
 ---
 
