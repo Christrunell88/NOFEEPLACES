@@ -105,11 +105,11 @@
 
 These buildings exist in the database but need listing URLs:
 
-- **The Greenpoint** (Greenpoint, Brooklyn)
-- **Claridge's** (Midtown West, Manhattan)
 - **PLG** (Prospect Lefferts Gardens, Brooklyn)
 - **The Aria** (Financial District, Manhattan)
 - **The Murray Hill** (Murray Hill, Manhattan)
+
+**Note**: Only 3 buildings remaining! Almost complete.
 
 ---
 
