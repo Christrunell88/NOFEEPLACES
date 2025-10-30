@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './auth';
 
 const FeedbackModal = ({ isOpen, onClose }) => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const [feedbackData, setFeedbackData] = useState({
     type: 'bug',
     title: '',
