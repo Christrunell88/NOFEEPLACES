@@ -175,11 +175,12 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
 
       <div className="space-y-3">
         {/* Google Login Button */}
-        <button
-          onClick={handleGoogleLogin}
-          disabled={isButtonDisabled}
-          className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
-        >
+        <div id="google-signin-button">
+          <button
+            onClick={handleGoogleLogin}
+            disabled={isButtonDisabled}
+            className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+          >
           <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
             <path
               fill="#4285F4"
