@@ -8,9 +8,17 @@ from pymongo import MongoClient
 from datetime import datetime, timezone
 import uuid
 
-# Get MongoDB connection details
-MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017')
-db_name = MONGO_URL.split('/')[-1].split('?')[0] if '/' in MONGO_URL else 'nofeeplaces_database'
+# Get MongoDB connection details from environment
+MONGO_URL = os.getenv('MONGO_URL', 'mongodb://localhost:27017/nofeeplaces_db')
+
+# Extract database name properly
+if '/' in MONGO_URL:
+    # Split by '/' and get the last part, then split by '?' to remove query params
+    db_name = MONGO_URL.split('/')[-1].split('?')[0]
+    if not db_name or db_name == 'localhost:27017':
+        db_name = 'nofeeplaces_db'
+else:
+    db_name = 'nofeeplaces_db'
 
 print(f"Connecting to MongoDB: {MONGO_URL}")
 print(f"Using database: {db_name}")
