@@ -1278,10 +1278,130 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
                 >
                   Call Now
                 </button>
+                
+                {/* View All Units Button */}
+                {similarUnits && similarUnits.total > 0 && (
+                  <button
+                    onClick={() => setShowAllUnits(true)}
+                    className="w-full bg-emerald-50 border border-emerald-300 text-emerald-700 py-3 px-4 rounded hover:bg-emerald-100 transition-colors font-medium flex items-center justify-center gap-2"
+                  >
+                    <span>🏢</span>
+                    <span>View All {similarUnits.total} Units in {similarUnits.building_name}</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
         </div>
+
+        {/* All Units Modal */}
+        {showAllUnits && similarUnits && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    All Available Units in {similarUnits.building_name}
+                  </h2>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {similarUnits.total} units • Same bedroom count • Sorted by price
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowAllUnits(false)}
+                  className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {similarUnits.apartments.map((unit) => (
+                  <div 
+                    key={unit.id}
+                    className={`border rounded-lg p-4 hover:shadow-lg transition-shadow ${
+                      unit.id === apartment.id ? 'border-emerald-500 bg-emerald-50' : 'border-gray-200'
+                    }`}
+                  >
+                    {unit.id === apartment.id && (
+                      <div className="bg-emerald-600 text-white text-xs font-semibold px-2 py-1 rounded mb-2 inline-block">
+                        CURRENT VIEWING
+                      </div>
+                    )}
+                    
+                    {/* Unit Image */}
+                    {unit.images && unit.images[0] && (
+                      <img 
+                        src={unit.images[0]} 
+                        alt={unit.title}
+                        className="w-full h-48 object-cover rounded-lg mb-3"
+                      />
+                    )}
+                    
+                    {/* Unit Details */}
+                    <h3 className="font-semibold text-gray-900 mb-2">{unit.title}</h3>
+                    <div className="text-2xl font-bold text-emerald-600 mb-2">
+                      ${unit.price?.toLocaleString()}/mo
+                    </div>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                      <span>{unit.bedrooms} bd</span>
+                      <span>•</span>
+                      <span>{unit.bathrooms} ba</span>
+                      {unit.sqft && (
+                        <>
+                          <span>•</span>
+                          <span>{unit.sqft} ft²</span>
+                        </>
+                      )}
+                    </div>
+                    
+                    {/* Price Difference Indicator */}
+                    {unit.price !== similarUnits.main_unit_price && (
+                      <div className="text-sm mb-3">
+                        {unit.price < similarUnits.main_unit_price ? (
+                          <span className="text-green-600 font-medium">
+                            💰 ${(similarUnits.main_unit_price - unit.price).toLocaleString()} cheaper
+                          </span>
+                        ) : (
+                          <span className="text-gray-600">
+                            ${(unit.price - similarUnits.main_unit_price).toLocaleString()} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    
+                    {/* Availability Status */}
+                    {!unit.available && (
+                      <div className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded mb-2 inline-block">
+                        Previously Available
+                      </div>
+                    )}
+                    
+                    {/* View Details Button */}
+                    <button
+                      onClick={() => {
+                        setShowAllUnits(false);
+                        // If different unit, could trigger parent to show that unit
+                        if (unit.id !== apartment.id && unit.available) {
+                          window.location.href = `/apartment/${unit.id}`;
+                        }
+                      }}
+                      disabled={unit.id === apartment.id}
+                      className={`w-full py-2 px-4 rounded font-medium transition-colors ${
+                        unit.id === apartment.id
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                          : 'bg-gray-900 text-white hover:bg-gray-800'
+                      }`}
+                    >
+                      {unit.id === apartment.id ? 'Currently Viewing' : 'View This Unit'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Contact Modal */}
         {showContactModal && (
