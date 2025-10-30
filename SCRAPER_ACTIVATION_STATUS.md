@@ -259,8 +259,9 @@ for log in logs:
 
 ## ✅ SUMMARY
 
-**🎊 ALL 14 BUILDINGS ACTIVATED - 100% COMPLETE! 🎊**
+**🎊 15 SCRAPERS ACTIVE - EXPANDED COVERAGE! 🎊**
 
+**Original 14 Buildings:**
 1. The Delecor ✅
 2. Mercedes House ✅
 3. Forty Six Fifty ✅
@@ -276,14 +277,18 @@ for log in logs:
 13. The Aria ✅
 14. The Murray Hill ✅
 
+**New Multi-Property Companies:**
+15. Two Trees Management (17+ properties) ✅
+
 **Property Breakdown:**
 - **Manhattan Skyline Properties (6):** CD 280, 55 Thompson, Chelsea Place, Saranac, Claridge's, The Murray Hill
 - **Malt Drive Properties (2):** 2-21, 2-20
+- **Two Trees Properties (17+):** DUMBO (7), Brooklyn Heights (5), Williamsburg (3), Fort Greene (1), Manhattan (1)
 - **Independent Properties (6):** The Delecor, Mercedes House, Forty Six Fifty, The Greenpoint, PLG (Bushburg), The Aria
 
-**Frequency**: Every 36 hours per building
+**Frequency**: Every 36 hours per building/company
 **Status**: System active and running
-**Last Test**: All 14 buildings processed successfully (0 errors)
-**Coverage**: 14 / 14 buildings (100% COMPLETE!) 🎯🎉
-**Total Units Monitored**: 60+ apartments across NYC
+**Last Test**: All 15 scrapers processed successfully (0 errors)
+**Coverage**: 14 original buildings + 17+ Two Trees properties = 30+ total buildings monitored! 🎯🎉
+**Total Units Monitored**: 100+ apartments across NYC
 **System Status**: FULLY OPERATIONAL ✅
