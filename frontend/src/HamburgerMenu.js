@@ -82,6 +82,47 @@ const HamburgerMenu = () => {
             <div className="flex h-full">
               {/* Left Side - Professional Navigation Links */}
               <div className="flex-1 p-6 space-y-6">
+                {/* User Authentication Section - TOP PLACEMENT */}
+                {!isAuthenticated && (
+                  <div className="mb-6 pb-6 border-b border-gray-200">
+                    <button
+                      onClick={handleLoginClick}
+                      className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-4 rounded-lg transition-colors font-medium text-sm"
+                      aria-label="Sign in to your account"
+                    >
+                      Sign In / Sign Up
+                    </button>
+                    <p className="text-xs text-gray-500 text-center mt-2">
+                      Google • Facebook • Apple
+                    </p>
+                  </div>
+                )}
+
+                {/* Authenticated User Profile - TOP PLACEMENT */}
+                {isAuthenticated && (
+                  <div className="mb-6 pb-6 border-b border-gray-200">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-semibold">
+                        {user?.name ? user.name.charAt(0).toUpperCase() : user?.email?.charAt(0).toUpperCase() || 'U'}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-gray-900 truncate text-sm">
+                          {user?.name || user?.email?.split('@')[0]}
+                        </div>
+                        <div className="text-xs text-gray-500 truncate">
+                          {user?.email}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 py-2 px-4 rounded-lg transition-colors font-medium text-sm"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+
                 <div className="space-y-1">
                   <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Company</div>
                   
