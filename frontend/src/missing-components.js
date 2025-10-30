@@ -426,7 +426,7 @@ export const Footer = () => {
             <div>
               <h3 className="font-semibold mb-4">Contact</h3>
               <ul className="space-y-2">
-                <li><span className="text-gray-400">support@nofeeplaces.com</span></li>
+                <li><span className="text-gray-400">placesfirm@gmail.com</span></li>
                 <li><span className="text-gray-400">(646) 408-8048</span></li>
                 <li>
                   <button 
