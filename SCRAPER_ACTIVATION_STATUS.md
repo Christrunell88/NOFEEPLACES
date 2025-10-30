@@ -188,7 +188,7 @@ for log in logs:
 
 ## ✅ SUMMARY
 
-**7 Buildings Activated:**
+**9 Buildings Activated:**
 1. The Delecor ✅
 2. Mercedes House ✅
 3. Forty Six Fifty ✅
@@ -196,8 +196,13 @@ for log in logs:
 5. Malt Drive 2-20 ✅
 6. CD 280 ✅
 7. 55 Thompson ✅
+8. Chelsea Place ✅
+9. Saranac ✅
+
+**Manhattan Skyline Properties (4):**
+- CD 280, 55 Thompson, Chelsea Place, Saranac
 
 **Frequency**: Every 36 hours
 **Status**: System active and running
-**Last Test**: All 7 buildings processed successfully
+**Last Test**: All 9 buildings processed successfully (0 errors)
 **Next**: Implement building-specific scraping logic
