@@ -114,6 +114,50 @@ const AdminDashboard = () => {
     }
   };
 
+  // Manual scraper functions
+  const loadScrapeStatus = async () => {
+    try {
+      const response = await axios.get(`${API}/api/admin/scrape/status`, getAuthHeaders());
+      setScrapeStatus(response.data);
+    } catch (error) {
+      console.error('Failed to load scrape status:', error);
+    }
+  };
+
+  const loadScrapeHistory = async () => {
+    try {
+      const response = await axios.get(`${API}/api/admin/scrape/history?limit=10`, getAuthHeaders());
+      setScrapeHistory(response.data.logs);
+    } catch (error) {
+      console.error('Failed to load scrape history:', error);
+    }
+  };
+
+  const handleManualScrape = async () => {
+    if (!window.confirm('This will scrape all 15 configured buildings for new listings. Continue?')) {
+      return;
+    }
+    
+    setScraping(true);
+    setScrapeResult(null);
+    
+    try {
+      const response = await axios.post(`${API}/api/admin/scrape/manual`, {}, getAuthHeaders());
+      setScrapeResult(response.data);
+      // Reload history and status
+      await loadScrapeHistory();
+      await loadScrapeStatus();
+      
+      alert(`Scrape completed! Found ${response.data.summary.new_listings} new listings across ${response.data.summary.buildings_processed} buildings.`);
+    } catch (error) {
+      console.error('Manual scrape failed:', error);
+      alert(`Scrape failed: ${error.response?.data?.detail || error.message}`);
+    } finally {
+      setScraping(false);
+    }
+  };
+
+
   const handleDeleteApartment = async (apartmentId) => {
     if (!window.confirm('Are you sure you want to delete this apartment?')) {
       return;
