@@ -1,13 +1,64 @@
 {
   "scrapers": [
     {
+      "building_id": "afb7eb7c-764a-4d39-8761-2ab0c2f9b13b",
+      "building_name": "The Delecor",
+      "address": "250 East 83rd Street",
+      "neighborhood": "Upper East Side",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "delecor",
+      "source_config": {
+        "base_url": "https://www.thedelecor.com",
+        "listings_url": "https://www.thedelecor.com/availability",
+        "gallery_url": "https://www.thedelecor.com/gallery"
+      },
+      "last_scraped": null,
+      "scraping_notes": "The Delecor - Upper East Side luxury building"
+    },
+    {
+      "building_id": "mercedes-house-id",
+      "building_name": "Mercedes House",
+      "address": "550 West 54th Street",
+      "neighborhood": "Hell's Kitchen",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "mercedes_house",
+      "source_config": {
+        "base_url": "https://www.mercedeshouseny.com",
+        "listings_url": "https://www.mercedeshouseny.com/#availabilities",
+        "gallery_url": "https://www.mercedeshouseny.com/#gallery"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Mercedes House - Single page app with hash navigation"
+    },
+    {
+      "building_id": "59aed800-5373-45a2-a9ab-14321b814c51",
+      "building_name": "Forty Six Fifty",
+      "address": "4650 Broadway",
+      "neighborhood": "Hudson Heights",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "forty_six_fifty",
+      "source_config": {
+        "base_url": "https://www.fortysixfifty.com",
+        "listings_url": "https://www.fortysixfifty.com/availability",
+        "gallery_url": "https://www.fortysixfifty.com/gallery"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Forty Six Fifty - Hudson Heights building with 12 units"
+    },
+    {
       "building_id": "ec2ae99d-4083-44b1-81ec-0241cf5d54a6",
       "building_name": "Malt Drive 2-21",
       "address": "2-21 Malt Drive",
       "neighborhood": "Long Island City",
       "borough": "Queens",
       "enabled": true,
-      "scrape_frequency_hours": 24,
+      "scrape_frequency_hours": 36,
       "source_type": "maltdrive",
       "source_config": {
         "base_url": "https://maltdrive.com",
@@ -25,7 +76,7 @@
       "neighborhood": "Long Island City",
       "borough": "Queens",
       "enabled": true,
-      "scrape_frequency_hours": 24,
+      "scrape_frequency_hours": 36,
       "source_type": "maltdrive",
       "source_config": {
         "base_url": "https://maltdrive.com",
@@ -35,23 +86,6 @@
       },
       "last_scraped": null,
       "scraping_notes": "Malt Drive uses dynamic loading. Check for both 2-20 and 2-21 addresses."
-    },
-    {
-      "building_id": "waterline-square-1",
-      "building_name": "Waterline Square",
-      "address": "675 West 59th Street",
-      "neighborhood": "Upper West Side",
-      "borough": "Manhattan",
-      "enabled": false,
-      "scrape_frequency_hours": 24,
-      "source_type": "windsor",
-      "source_config": {
-        "base_url": "https://www.windsorcommunities.com",
-        "listings_url": "https://www.windsorcommunities.com/properties/waterline-square/floorplans/",
-        "gallery_url": "https://www.windsorcommunities.com/properties/waterline-square/gallery/"
-      },
-      "last_scraped": null,
-      "scraping_notes": "Windsor Communities site. May require API calls or Selenium for dynamic content."
     }
   ],
   "global_settings": {
