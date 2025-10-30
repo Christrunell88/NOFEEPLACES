@@ -369,6 +369,26 @@ class AriaScraper(BuildingScraper):
         return listings
 
 
+class TwoTreesScraper(BuildingScraper):
+    """Scraper for Two Trees properties (60 Water, 300 Ashland, Mercedes House, etc.)"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from Two Trees centralized availability page"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching Two Trees listings from {listings_url}")
+        
+        # Two Trees has a centralized availability page showing all properties
+        # Properties include: DUMBO, Brooklyn Heights, Williamsburg, Fort Greene, Hell's Kitchen
+        # Mercedes House is already tracked separately
+        # TODO: Implement Two Trees scraping logic
+        # Note: Need to extract building name, unit number, price, beds, baths from each listing
+        # and match to appropriate building in database or create new building entries
+        logger.warning("TwoTreesScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
 class WindsorCommunitiesScraper(BuildingScraper):
     """Scraper for Windsor Communities properties (e.g., Waterline Square)"""
     
