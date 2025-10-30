@@ -270,19 +270,6 @@ const HamburgerMenu = () => {
                   </Link>
                 </div>
                 
-                {/* Admin Footer */}
-                <div className="p-3 bg-slate-200 border-t border-slate-300">
-                  <div className="text-center">
-                    <div className="text-xs text-slate-600 font-medium mb-1">Secure Access</div>
-                    <div className="flex items-center justify-center space-x-1">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-slate-500">Online</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             {/* Professional Footer */}
             <div className="absolute bottom-0 left-0 right-32 bg-gradient-to-r from-gray-100 to-gray-200 border-t border-gray-300 p-4">
               <div className="text-center">
