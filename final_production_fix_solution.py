@@ -16,7 +16,7 @@ def demonstrate_issue_and_solution():
     print("1️⃣  CONFIRMING THE ISSUE EXISTS:")
     
     try:
-        response = requests.get("https://renteasy-nyc.preview.emergentagent.com/api/apartments",
+        response = requests.get("https://nofeeplaces-homes.preview.emergentagent.com/api/apartments",
                               params={"search": "Central Park West"})
         
         if response.status_code == 200:
@@ -61,7 +61,7 @@ def demonstrate_issue_and_solution():
     print(f"   a) Deploy the updated backend/server.py to production")
     print(f"   b) Restart the production backend service")
     print(f"   c) Call the admin endpoint:")
-    print(f"      curl -X POST 'https://renteasy-nyc.preview.emergentagent.com/api/admin/fix-central-park-west'")
+    print(f"      curl -X POST 'https://nofeeplaces-homes.preview.emergentagent.com/api/admin/fix-central-park-west'")
     print(f"   d) Verify the fix by checking preview again")
     
     # 4. Show what the fix will do

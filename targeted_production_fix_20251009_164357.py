@@ -7,7 +7,7 @@ import requests
 import json
 from datetime import datetime
 
-PRODUCTION_API = "https://renteasy-nyc.preview.emergentagent.com/api"
+PRODUCTION_API = "https://nofeeplaces-homes.preview.emergentagent.com/api"
 
 # Fixes to apply
 FIXES = []

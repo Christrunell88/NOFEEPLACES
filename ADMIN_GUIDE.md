@@ -2,7 +2,7 @@
 
 ## 🔐 Admin Access
 
-**Login URL:** https://renteasy-nyc.preview.emergentagent.com/admin
+**Login URL:** https://nofeeplaces-homes.preview.emergentagent.com/admin
 
 **Admin Credentials:**
 - Email: `placesfirm@gmail.com`
