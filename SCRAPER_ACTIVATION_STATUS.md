@@ -85,13 +85,11 @@
 
 These buildings exist in the database but need listing URLs:
 
-- **Chelsea Place** (Chelsea)
-- **Saranac** (Tribeca)
-- **The Greenpoint** (Greenpoint)
-- **Claridge's** (Midtown West)
-- **PLG** (Prospect Lefferts Gardens)
-- **The Aria** (Financial District)
-- **The Murray Hill** (Murray Hill)
+- **The Greenpoint** (Greenpoint, Brooklyn)
+- **Claridge's** (Midtown West, Manhattan)
+- **PLG** (Prospect Lefferts Gardens, Brooklyn)
+- **The Aria** (Financial District, Manhattan)
+- **The Murray Hill** (Murray Hill, Manhattan)
 
 ---
 
