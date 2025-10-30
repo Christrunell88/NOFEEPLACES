@@ -335,6 +335,40 @@ class GreenpointScraper(BuildingScraper):
         return listings
 
 
+class BushburgScraper(BuildingScraper):
+    """Scraper for Bushburg properties (PLG, etc.)"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from Bushburg website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        property_name = self.config['source_config'].get('property_name', '')
+        
+        logger.info(f"Fetching {self.building_name} listings from {listings_url}")
+        
+        # Bushburg manages multiple residential properties
+        # Need to filter for specific property (PLG)
+        # TODO: Implement Bushburg scraping logic
+        logger.warning("BushburgScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
+class AriaScraper(BuildingScraper):
+    """Scraper for The Aria building"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from The Aria website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching The Aria listings from {listings_url}")
+        
+        # The Aria has floorplans page at liveatarianyc.com
+        # TODO: Implement The Aria scraping logic
+        logger.warning("AriaScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
 class WindsorCommunitiesScraper(BuildingScraper):
     """Scraper for Windsor Communities properties (e.g., Waterline Square)"""
     
