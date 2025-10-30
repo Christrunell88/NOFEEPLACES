@@ -721,7 +721,7 @@ export const AIChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
 
-  const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
 
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
@@ -1079,7 +1079,7 @@ export const EmailContactModal = ({ apartment, onClose }) => {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
       
       // Prepare apartment details for email
       const apartmentDetails = apartment ? {
@@ -1336,7 +1336,7 @@ export const ShowYourPlaceModal = ({ onClose }) => {
     setStatus({ type: '', message: '' });
 
     try {
-      const API_URL = process.env.REACT_APP_BACKEND_URL || 'https://affordable-apts.emergent.host';
+      const API_URL = process.env.REACT_APP_BACKEND_URL;
       
       // Create FormData for file upload
       const submitData = new FormData();
