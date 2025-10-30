@@ -9,7 +9,7 @@ const API = `${BACKEND_URL}/api`;
 
 // Tenant Apartment Listing Page
 export const TenantListingPage = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, loading } = useAuth();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
