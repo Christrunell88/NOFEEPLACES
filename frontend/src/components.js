@@ -638,10 +638,10 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
         {JSON.stringify(structuredData)}
       </script>
       
-      <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+      <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200 group">
         {/* Image Section - Clickable */}
         <div 
-          className="relative h-64 bg-gray-200 overflow-hidden cursor-pointer group"
+          className="relative h-56 bg-gray-100 overflow-hidden cursor-pointer"
           onClick={() => setShowDetailsModal(true)}
           role="button"
           tabIndex={0}
@@ -657,151 +657,114 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             <img
               src={currentImage}
               alt={apartment.title}
-              className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+              className="w-full h-full object-cover group-hover:opacity-95 transition-opacity duration-200"
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-100">
+            <div className="w-full h-full flex items-center justify-center bg-gray-50">
               <div className="text-center text-gray-400">
-                <div className="text-4xl mb-2">🏢</div>
-                <div className="text-sm">No Image Available</div>
+                <div className="text-3xl mb-1">🏢</div>
+                <div className="text-xs">No Image</div>
               </div>
             </div>
           )}
-          
-          {/* Hover Overlay with "View Details" hint */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-medium text-lg">
-              <span className="bg-teal-500 px-4 py-2 rounded-lg shadow-lg">View Details</span>
-            </div>
-          </div>
 
           {/* Image Navigation */}
           {imageCount > 1 && (
             <>
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrevImage();
-                }}
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-75 transition-opacity z-10"
+                onClick={handlePrevImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full w-7 h-7 flex items-center justify-center hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-sm"
                 aria-label="Previous image"
               >
                 ‹
               </button>
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNextImage();
-                }}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-opacity-75 transition-opacity z-10"
+                onClick={handleNextImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full w-7 h-7 flex items-center justify-center hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-sm"
                 aria-label="Next image"
               >
                 ›
               </button>
-              <div className="absolute top-2 left-2 bg-black bg-opacity-75 text-white px-2 py-1 rounded text-sm">
+              <div className="absolute bottom-3 right-3 bg-black/60 text-white px-2 py-0.5 rounded text-xs">
                 {currentImageIndex + 1}/{imageCount}
               </div>
             </>
           )}
 
-          {/* NO FEE Badge */}
-          <div className="absolute top-2 right-2 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-            NO FEE
+          {/* NO FEE Badge - Subtle */}
+          <div className="absolute top-3 left-3 bg-white/95 text-gray-800 px-2.5 py-1 rounded text-xs font-medium shadow-sm">
+            No Fee
           </div>
 
-          {/* Favorite Button */}
+          {/* Favorite Button - Minimal */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleFavorite();
-            }}
-            className={`absolute top-2 right-32 w-8 h-8 rounded-full flex items-center justify-center transition-colors z-10 ${
+            onClick={handleFavorite}
+            className={`absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center transition-all z-10 shadow-sm ${
               isFavorited 
                 ? 'bg-red-500 text-white' 
-                : 'bg-white text-gray-400 hover:text-red-500'
+                : 'bg-white/95 text-gray-400 hover:text-red-500 hover:bg-white'
             }`}
+            aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
           >
-            ♥
+            <svg className="w-4 h-4" fill={isFavorited ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
           </button>
         </div>
 
-        {/* Content Section */}
-        <div className="p-6">
-          <h3 className="text-xl font-semibold text-slate-800 mb-2 line-clamp-2">
+        {/* Content Section - Clean & Minimal */}
+        <div className="p-4">
+          {/* Title */}
+          <h3 className="text-base font-semibold text-gray-900 mb-1 line-clamp-1">
             {apartment.title}
           </h3>
 
-          <p className="text-gray-300 text-sm mb-3 flex items-center">
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {/* Show address based on authentication status */}
-              {getDisplayAddress(apartment, isAuthenticated)}
-              {!isAuthenticated && (
-                <span className="ml-2 text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">
-                  Sign in for full address
-                </span>
-              )}
-            </span>
+          {/* Location */}
+          <p className="text-sm text-gray-600 mb-3 line-clamp-1">
+            {getDisplayAddress(apartment, isAuthenticated)}
+            {!isAuthenticated && (
+              <span className="ml-1 text-xs text-gray-400">• Sign in for full address</span>
+            )}
           </p>
 
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-2xl font-bold text-amber-600">
-              ${apartment.price?.toLocaleString()}<span className="text-sm text-gray-500">/mo</span>
+          {/* Price & Details - Single Line */}
+          <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+            <div className="text-xl font-bold text-gray-900">
+              ${apartment.price?.toLocaleString()}<span className="text-sm font-normal text-gray-500">/mo</span>
             </div>
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
-              {apartment.bedrooms && (
-                <span className="flex items-center">
-                  <span className="font-medium">{apartment.bedrooms}</span>
-                  <span className="ml-1">bed</span>
-                </span>
+            <div className="flex items-center gap-3 text-sm text-gray-600">
+              {apartment.bedrooms !== undefined && (
+                <span>{apartment.bedrooms} bd</span>
               )}
               {apartment.bathrooms && (
-                <span className="flex items-center">
-                  <span className="font-medium">{parseInt(apartment.bathrooms)}</span>
-                  <span className="ml-1">bath</span>
-                </span>
+                <span>{parseInt(apartment.bathrooms)} ba</span>
               )}
               {apartment.sqft && (
-                <span className="flex items-center">
-                  <span className="font-medium">{apartment.sqft}</span>
-                  <span className="ml-1">sq ft</span>
-                </span>
+                <span>{apartment.sqft} ft²</span>
               )}
             </div>
           </div>
 
-          {/* Amenities */}
+          {/* Amenities - Simplified */}
           {apartment.amenities?.length > 0 && (
-            <div className="mb-4">
-              <div className="flex flex-wrap gap-2">
-                {apartment.amenities.slice(0, 3).map((amenity, index) => (
-                  <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                    {amenity}
-                  </span>
-                ))}
-                {apartment.amenities.length > 3 && (
-                  <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full">
-                    +{apartment.amenities.length - 3} more
-                  </span>
-                )}
-              </div>
+            <div className="mb-3">
+              <p className="text-xs text-gray-500 line-clamp-1">
+                {apartment.amenities.slice(0, 3).join(' • ')}
+                {apartment.amenities.length > 3 && ` • +${apartment.amenities.length - 3} more`}
+              </p>
             </div>
           )}
 
-          {/* Action Button */}
+          {/* Action Button - Simplified */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               setShowScheduleModal(true);
             }}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-2.5 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all font-medium text-sm flex items-center justify-center space-x-2"
+            className="w-full bg-gray-900 text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors font-medium text-sm"
           >
-            <span>📅</span>
-            <span>Schedule Showing</span>
+            Schedule Showing
           </button>
         </div>
       </div>
