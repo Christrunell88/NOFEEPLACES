@@ -1032,10 +1032,11 @@ async def get_apartments(
     borough: Optional[str] = None,
     search: Optional[str] = None,
     price_category: Optional[str] = None,
-    sort_by: Optional[str] = Query("price", description="Field to sort by: price, bedrooms, created_at"),
+    amenities: Optional[str] = Query(None, description="Comma-separated amenity list"),
+    sort_by: Optional[str] = Query("price", description="Field to sort by: price, bedrooms, created_at, newest"),
     sort_order: Optional[str] = Query("asc", description="Sort order: asc (ascending) or desc (descending)")
 ):
-    """Get apartments with enhanced filtering, sorting options, and AI-friendly responses"""
+    """Get apartments with enhanced filtering, sorting options, amenities, and AI-friendly responses"""
     skip = (page - 1) * limit
     
     # Build aggregation pipeline for sophisticated sorting
@@ -1062,6 +1063,15 @@ async def get_apartments(
         match_query["borough"] = {"$regex": borough, "$options": "i"}
     if price_category:
         match_query["price_category"] = {"$regex": price_category, "$options": "i"}
+    
+    # Add amenities filtering
+    if amenities:
+        amenity_list = [a.strip() for a in amenities.split(",") if a.strip()]
+        if amenity_list:
+            match_query["amenities"] = {
+                "$all": [{"$regex": amenity, "$options": "i"} for amenity in amenity_list]
+            }
+    
     if search:
         match_query["$or"] = [
             {"title": {"$regex": search, "$options": "i"}},
@@ -1094,8 +1104,8 @@ async def get_apartments(
         sort_criteria["price"] = sort_direction
     elif sort_by == "bedrooms":
         sort_criteria["bedrooms"] = sort_direction
-    elif sort_by == "created_at":
-        sort_criteria["created_at"] = sort_direction
+    elif sort_by in ["created_at", "newest"]:
+        sort_criteria["created_at"] = -1  # Always descending for newest
     else:
         # Default to price ascending
         sort_criteria["price"] = 1
