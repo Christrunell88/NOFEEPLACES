@@ -269,7 +269,9 @@ const HamburgerMenu = () => {
                     Admin
                   </Link>
                 </div>
-                
+              </div>
+            </div>
+
             {/* Professional Footer */}
             <div className="absolute bottom-0 left-0 right-32 bg-gradient-to-r from-gray-100 to-gray-200 border-t border-gray-300 p-4">
               <div className="text-center">
