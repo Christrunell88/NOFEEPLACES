@@ -65,12 +65,13 @@
 
 These buildings exist in the database but need listing URLs:
 
-- **CD 280** (East Village)
-- **55 Thompson** (SoHo)
 - **Chelsea Place** (Chelsea)
 - **Saranac** (Tribeca)
 - **The Greenpoint** (Greenpoint)
 - **Claridge's** (Midtown West)
+- **PLG** (Prospect Lefferts Gardens)
+- **The Aria** (Financial District)
+- **The Murray Hill** (Murray Hill)
 
 ---
 
