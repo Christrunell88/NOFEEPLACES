@@ -4157,7 +4157,7 @@ async def create_listing_admin(
 
 @app.post("/api/admin/scrape/manual")
 async def manual_scrape_trigger(
-    current_user: dict = Depends(verify_admin)
+    current_user: dict = Depends(verify_admin_token)
 ):
     """
     Manually trigger the building scraper (Admin only)
