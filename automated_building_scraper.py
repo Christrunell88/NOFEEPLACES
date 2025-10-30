@@ -408,6 +408,8 @@ class AutomatedScraperService:
             'forty_six_fifty': FortySixFiftyScraper,
             'manhattan_skyline': ManhattanSkylineScraper,
             'greenpoint': GreenpointScraper,
+            'bushburg': BushburgScraper,
+            'aria': AriaScraper,
             'windsor': WindsorCommunitiesScraper
         }
         
