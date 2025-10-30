@@ -212,17 +212,6 @@ const HamburgerMenu = () => {
               {/* Right Side - Professional Admin Panel */}
               <div className="w-36 bg-gradient-to-b from-slate-50 to-slate-100 border-l border-gray-200 flex flex-col">
                 {/* Admin Header */}
-                <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-slate-100 to-slate-200">
-                  <div className="text-center">
-                    <div className="w-12 h-12 mx-auto bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl flex items-center justify-center mb-3 shadow-lg">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-sm font-bold text-slate-800 mb-1">Services</h3>
-                    <p className="text-xs text-slate-600 font-medium">Quick Access</p>
-                  </div>
-                </div>
                 
                 {/* Services & Admin Actions */}
                 <div className="flex-1 p-4 space-y-3">
