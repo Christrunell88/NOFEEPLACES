@@ -59,6 +59,26 @@
 - **Image Folder**: `/app/backend/uploads/building_images/55_thompson/`
 - **Note**: Manhattan Skyline property
 
+### 8. Chelsea Place
+- **URL**: https://manhattanskyline.com/buildings/chelsea/chelsea-place#unitList
+- **Building ID**: 5e888391-f38d-4f13-8942-98dae1488f91
+- **Location**: Chelsea, Manhattan
+- **Address**: 363 West 30th Street
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/chelsea_place/`
+- **Note**: Manhattan Skyline property with unitList hash navigation
+
+### 9. Saranac
+- **URL**: https://manhattanskyline.com/buildings/tribeca/saranac
+- **Building ID**: 05dd6491-ca04-43bf-9d21-6e4c88219992
+- **Location**: Tribeca, Manhattan
+- **Address**: 95 Worth Street
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/saranac/`
+- **Note**: Manhattan Skyline property
+
 ---
 
 ## 📋 BUILDINGS AWAITING URLS
