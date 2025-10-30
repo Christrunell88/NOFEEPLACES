@@ -382,59 +382,79 @@ export const MapView = ({ apartments }) => {
 
 // Footer Component
 export const Footer = () => {
+  const [showFeedbackModal, setShowFeedbackModal] = React.useState(false);
+
   return (
-    <footer className="bg-black text-white py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="mb-4">
-              <FooterWordMark 
-                linkTo="/"
-                tagline="ZERO BROKER FEES • NYC RENTALS"
-              />
+    <>
+      <footer className="bg-black text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="mb-4">
+                <FooterWordMark 
+                  linkTo="/"
+                  tagline="ZERO BROKER FEES • NYC RENTALS"
+                />
+              </div>
+              <p className="text-gray-400">
+                Find your perfect NYC apartment without broker fees. Professional platform connecting renters with verified no-fee properties.
+              </p>
             </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><Link to="/" className="text-gray-400 hover:text-white">Home</Link></li>
+                <li><Link to="/apartments" className="text-gray-400 hover:text-white">Apartments</Link></li>
+                <li><Link to="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
+                <li><Link to="/tenant/browse" className="text-gray-400 hover:text-white">Browse Listings</Link></li>
+                <li><Link to="/tenant/list-apartment" className="text-gray-400 hover:text-white">List Your Place</Link></li>
+                <li><Link to="/landlord/login" className="text-gray-400 hover:text-white">Owner Portal</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Neighborhoods</h3>
+              <ul className="space-y-2">
+                <li><span className="text-gray-400">Manhattan</span></li>
+                <li><span className="text-gray-400">Brooklyn</span></li>
+                <li><span className="text-gray-400">Queens</span></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-4">Contact</h3>
+              <ul className="space-y-2">
+                <li><span className="text-gray-400">support@nofeeplaces.com</span></li>
+                <li><span className="text-gray-400">(646) 408-8048</span></li>
+                <li>
+                  <button 
+                    onClick={() => setShowFeedbackModal(true)}
+                    className="text-gray-400 hover:text-white underline"
+                  >
+                    Send Feedback
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              Find your perfect NYC apartment without broker fees. Professional platform connecting renters with verified no-fee properties.
+              © 2025 NoFeePlaces.com. All rights reserved.
             </p>
           </div>
-          
-          <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link to="/" className="text-gray-400 hover:text-white">Home</Link></li>
-              <li><Link to="/apartments" className="text-gray-400 hover:text-white">Apartments</Link></li>
-              <li><Link to="/blog" className="text-gray-400 hover:text-white">Blog</Link></li>
-              <li><Link to="/tenant/browse" className="text-gray-400 hover:text-white">Browse Listings</Link></li>
-              <li><Link to="/tenant/list-apartment" className="text-gray-400 hover:text-white">List Your Place</Link></li>
-              <li><Link to="/landlord/login" className="text-gray-400 hover:text-white">Owner Portal</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold mb-4">Neighborhoods</h3>
-            <ul className="space-y-2">
-              <li><span className="text-gray-400">Manhattan</span></li>
-              <li><span className="text-gray-400">Brooklyn</span></li>
-              <li><span className="text-gray-400">Queens</span></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2">
-              <li><span className="text-gray-400">support@nofeeplaces.com</span></li>
-              <li><span className="text-gray-400">(646) 408-8048</span></li>
-            </ul>
-          </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400">
-            © 2025 NoFeePlaces.com. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* Feedback Modal */}
+      {showFeedbackModal && (
+        <FeedbackModal 
+          isOpen={showFeedbackModal}
+          onClose={() => setShowFeedbackModal(false)}
+        />
+      )}
+    </>
   );
 };
 
