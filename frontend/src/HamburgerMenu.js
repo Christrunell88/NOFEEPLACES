@@ -260,16 +260,13 @@ const HamburgerMenu = () => {
                     Newsletter
                   </Link>
                   
-                  {/* Admin Login - Single entry */}
+                  {/* Admin - Simplified */}
                   <Link
                     to="/admin"
                     onClick={closeMenu}
-                    className="flex items-center justify-center w-full bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white text-xs font-semibold py-3 px-3 rounded-lg transition-all shadow-md hover:shadow-lg group"
+                    className="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 text-xs font-medium py-3 px-3 rounded-lg transition-all border border-gray-200 hover:border-gray-300"
                   >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    Admin Login
+                    Admin
                   </Link>
                 </div>
                 
