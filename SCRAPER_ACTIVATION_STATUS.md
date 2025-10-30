@@ -79,6 +79,26 @@
 - **Image Folder**: `/app/backend/uploads/building_images/saranac/`
 - **Note**: Manhattan Skyline property
 
+### 10. The Greenpoint
+- **URL**: https://thegreenpoint.nyc/check-availability/
+- **Building ID**: a953a5af-498d-47da-ba07-a79a7b2aaed9
+- **Location**: Greenpoint, Brooklyn
+- **Address**: 21 India Street
+- **Current Units**: 21
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/the_greenpoint/`
+- **Note**: Independent website - Brooklyn waterfront property
+
+### 11. Claridge's
+- **URL**: https://manhattanskyline.com/buildings/midtown-west/claridges
+- **Building ID**: 77e47169-691c-4edb-bfdc-1a9f7da8cc03
+- **Location**: Midtown West, Manhattan
+- **Address**: 101 West 55th Street
+- **Current Units**: 1
+- **Status**: ✅ Configured & Active
+- **Image Folder**: `/app/backend/uploads/building_images/claridges/`
+- **Note**: Manhattan Skyline property
+
 ---
 
 ## 📋 BUILDINGS AWAITING URLS
