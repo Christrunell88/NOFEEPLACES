@@ -430,72 +430,57 @@ const Home = () => {
         apartmentCount={totalApartments}
       />
       
+      {/* QUICK FILTERS */}
+      <QuickFilters 
+        selectedAmenities={selectedAmenities}
+        onToggleAmenity={toggleAmenity}
+      />
+      
       <main id="main-content" className="main-content container mx-auto px-4 md:px-6 py-6 md:py-8">
-        {/* Sorting Controls */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 p-4 bg-slate-800 rounded-lg border border-slate-700">
-          <div className="flex items-center space-x-3 mb-3 md:mb-0">
-            <span className="text-slate-300 font-medium text-sm md:text-base">Sort by:</span>
-            <select 
-              value={sortBy}
-              onChange={(e) => {
-                setSortBy(e.target.value);
-                setCurrentPage(1); // Reset to first page on sort change
-              }}
-              className="px-3 py-2 bg-slate-700 text-white rounded-lg border border-slate-600 focus:outline-none focus:ring-2 focus:ring-mint-500 text-sm md:text-base"
-            >
-              <option value="price">Price</option>
-              <option value="bedrooms">Bedrooms</option>
-              <option value="created_at">Newest First</option>
-            </select>
+        {/* Enhanced Sorting Controls */}
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+          <div className="flex-1">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              {loading ? 'Searching apartments...' : `${totalApartments} No Fee Apartments`}
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">
+              Zero broker fees • Save $3,000+ on your next rental
+            </p>
           </div>
           
-          <div className="flex items-center space-x-2">
-            <span className="text-slate-300 text-sm md:text-base">Order:</span>
-            <button 
-              onClick={() => {
-                setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                setCurrentPage(1); // Reset to first page on order change
+          <div className="flex items-center gap-4">
+            <SortOptions
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSortChange={(field, order) => {
+                setSortBy(field);
+                setSortOrder(order);
+                setCurrentPage(1);
               }}
-              className="flex items-center space-x-2 px-4 py-2 bg-mint-600 hover:bg-mint-500 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-            >
-              <span>{sortOrder === 'asc' ? 'Low to High' : 'High to Low'}</span>
-              <svg 
-                className={`w-4 h-4 transition-transform ${sortOrder === 'desc' ? 'rotate-180' : ''}`}
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
+            />
+            
+            <div className="flex space-x-2">
+              <button 
+                onClick={() => setViewMode('list')}
+                className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
+                  viewMode === 'list' 
+                  ? 'bg-emerald-600 text-white shadow-sm' 
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4 md:mb-6 gap-4">
-          <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
-            {loading ? 'Searching No Fee Apartments NYC...' : 'No Fee Apartments NYC 2025 | Zero Broker Fee Rentals'}
-          </h2>
-          <div className="flex space-x-2">
-            <button 
-              onClick={() => setViewMode('list')}
-              className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
-                viewMode === 'list' 
-                ? 'bg-purple-600 text-white shadow-lg' 
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
-              }`}
-            >
-              List View
-            </button>
-            <button 
-              onClick={() => setViewMode('map')}
-              className={`px-3 md:px-4 py-2 rounded-lg transition-colors text-sm md:text-base ${
-                viewMode === 'map' 
-                ? 'bg-purple-600 text-white shadow-lg' 
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
-              }`}
-            >
-              Map View
-            </button>
+                List
+              </button>
+              <button 
+                onClick={() => setViewMode('map')}
+                className={`px-4 py-2 rounded-lg transition-colors text-sm font-medium ${
+                  viewMode === 'map' 
+                  ? 'bg-emerald-600 text-white shadow-sm' 
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                Map
+              </button>
+            </div>
           </div>
         </div>
 
