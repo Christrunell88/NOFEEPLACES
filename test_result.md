@@ -111,6 +111,18 @@
 user_problem_statement: "AUTHENTICATION STATE MANAGEMENT FIX - User Report: 'From listing card the login will not populate the password' - Issue: When clicking Schedule Showing button on listing cards while not logged in, authentication modal doesn't properly open or password field doesn't populate. Investigation revealed race condition in authentication loading state. Production URL: https://nofeeplaces.com"
 
 frontend:
+  - task: "Malt Drive Apartment 508 Addition and Display"
+    implemented: true
+    working: true
+    file: "/app/add_malt_drive_508.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "MALT DRIVE APARTMENT 508 ADDITION COMPLETED: Successfully added/updated Studio 1 Bath Apartment 508 at Malt Drive 2-21 building (Long Island City, Queens). SOURCE: Crawled https://maltdrive.com/listing/2-21-malt-drive_508/. IMPROVEMENTS: Upgraded from 8 to 21 high-quality .avif interior images, complete amenity list (Northern Exposure, Open Kitchen, Walk-In Closet, In-Unit Washer/Dryer, Solar Shades), proper broker_fee='No fee' for Pydantic validation. FRONTEND VERIFIED: ✅ Displays in 'Recently Added' section with '1/21' image counter, ✅ Correct title/price/location, ✅ 'No Fee' badge, ✅ All amenities visible, ✅ Schedule Showing button functional. BACKEND VERIFIED: ✅ API /api/apartments/{id} returns 200, ✅ All 21 images accessible, ✅ Pydantic validation passing. Building maintains 6 units, price range $3,685-$7,660. Ready for comprehensive testing."
+
   - task: "Authentication Loading State Race Condition Fix"
     implemented: true
     working: true
