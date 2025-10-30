@@ -373,6 +373,7 @@ class AutomatedScraperService:
             'mercedes_house': MercedesHouseScraper,
             'forty_six_fifty': FortySixFiftyScraper,
             'manhattan_skyline': ManhattanSkylineScraper,
+            'greenpoint': GreenpointScraper,
             'windsor': WindsorCommunitiesScraper
         }
         
