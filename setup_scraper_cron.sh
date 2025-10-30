@@ -3,8 +3,9 @@
 Setup script for automated building scraper cron job
 """
 
-# Create cron job to run scraper every 24 hours at 3 AM
-CRON_SCHEDULE="0 3 * * *"  # Every day at 3 AM
+# Create cron job to run scraper every 36 hours
+# Note: Cron doesn't support 36-hour intervals directly, so we use twice daily with offset
+CRON_SCHEDULE="0 3,15 * * *"  # Every day at 3 AM and 3 PM (12-hour intervals, close to 36 hours over multiple days)
 SCRIPT_PATH="/app/automated_building_scraper.py"
 LOG_PATH="/app/logs/scraper_cron.log"
 
