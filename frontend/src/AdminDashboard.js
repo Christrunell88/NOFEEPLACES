@@ -287,6 +287,9 @@ const AdminDashboard = () => {
       loadFeedback();
     } else if (activeTab === 'newsletter' && newsletter.length === 0) {
       loadNewsletter();
+    } else if (activeTab === 'scraper') {
+      loadScrapeStatus();
+      loadScrapeHistory();
     }
   }, [activeTab]);
 
