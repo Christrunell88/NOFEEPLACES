@@ -1082,15 +1082,15 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
         onClick={onClose}
       >
       <div 
-        className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
+        {/* Header - Minimal */}
         <div className="flex justify-between items-center p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-800">{apartment.title}</h2>
+          <h2 className="text-2xl font-semibold text-gray-900">{apartment.title}</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+            className="text-gray-400 hover:text-gray-600 text-2xl font-light w-8 h-8 flex items-center justify-center"
             aria-label="Close apartment details"
           >
             ×
@@ -1100,7 +1100,7 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
         {/* Content */}
         <div className="p-6">
           {/* Image Gallery */}
-          <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden mb-6">
+          <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden mb-6">
             <img
               src={
                 (apartment.images && apartment.images.length > 0) 
@@ -1115,88 +1115,88 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
               }}
             />
             
-            {/* Image Navigation */}
+            {/* Image Navigation - Clean */}
             {apartment.images && apartment.images.length > 1 && (
               <>
                 <button
                   onClick={handlePrevImage}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white shadow-sm"
                   aria-label="Previous image in gallery"
                 >
                   ←
                 </button>
                 <button
                   onClick={handleNextImage}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-70"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white shadow-sm"
                   aria-label="Next image in gallery"
                 >
                   →
                 </button>
                 
                 {/* Image Counter */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded text-sm">
                   {currentImageIndex + 1} / {apartment.images.length}
                 </div>
               </>
             )}
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-8">
             {/* Left Column - Details */}
             <div>
-              {/* Price and Badges */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-3xl font-bold text-green-600">
-                  ${apartment.price?.toLocaleString()}/month
+              {/* Price and Badge - Minimal */}
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+                <div className="text-3xl font-bold text-gray-900">
+                  ${apartment.price?.toLocaleString()}<span className="text-lg font-normal text-gray-500">/mo</span>
                 </div>
-                <div className="flex gap-2">
-                  <span className="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    NO FEE
-                  </span>
-                </div>
+                <span className="bg-white border border-gray-300 text-gray-700 px-3 py-1 rounded text-sm font-medium">
+                  No Fee
+                </span>
               </div>
 
-              {/* Basic Info */}
-              <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
-                <div className="text-center">
-                  <div className="text-xl font-bold text-gray-800">
+              {/* Basic Info - Clean Grid */}
+              <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="text-center py-3 bg-gray-50 rounded">
+                  <div className="text-2xl font-semibold text-gray-900">
                     {apartment.bedrooms === 0 ? 'Studio' : `${apartment.bedrooms}`}
                   </div>
-                  <div className="text-sm text-gray-600">
-                    {apartment.bedrooms === 0 ? '' : 'Bedrooms'}
+                  <div className="text-xs text-gray-600 mt-1">
+                    {apartment.bedrooms === 0 ? '' : apartment.bedrooms === 1 ? 'Bedroom' : 'Bedrooms'}
                   </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-gray-800">{apartment.bathrooms}</div>
-                  <div className="text-sm text-gray-600">Bathrooms</div>
+                <div className="text-center py-3 bg-gray-50 rounded">
+                  <div className="text-2xl font-semibold text-gray-900">{parseInt(apartment.bathrooms)}</div>
+                  <div className="text-xs text-gray-600 mt-1">{parseInt(apartment.bathrooms) === 1 ? 'Bathroom' : 'Bathrooms'}</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-xl font-bold text-gray-800">{apartment.sqft}</div>
-                  <div className="text-sm text-gray-600">Sq Ft</div>
+                <div className="text-center py-3 bg-gray-50 rounded">
+                  <div className="text-2xl font-semibold text-gray-900">{apartment.sqft || '—'}</div>
+                  <div className="text-xs text-gray-600 mt-1">Sq Ft</div>
                 </div>
               </div>
 
-              {/* Location */}
+              {/* Location - No Emoji */}
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">📍 Location</h3>
-                <p className="text-gray-700">{apartment.address || apartment.location}</p>
-                <p className="text-gray-600">{apartment.neighborhood}</p>
+                <h3 className="text-sm font-semibold text-gray-900 mb-2 uppercase tracking-wide">Location</h3>
+                <p className="text-gray-700 text-sm">{apartment.address || apartment.location}</p>
+                <p className="text-gray-600 text-sm">{apartment.neighborhood}, {apartment.borough}</p>
               </div>
 
-              {/* Description */}
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-2">📝 Description</h3>
-                <p className="text-gray-700">{apartment.description}</p>
-              </div>
+              {/* Description - Clean */}
+              {apartment.description && (
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-2 uppercase tracking-wide">Description</h3>
+                  <p className="text-gray-700 text-sm leading-relaxed">{apartment.description}</p>
+                </div>
+              )}
 
-              {/* Amenities */}
+              {/* Amenities - Simple List */}
               {apartment.amenities && apartment.amenities.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-2">✨ Amenities</h3>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Amenities</h3>
                   <div className="grid grid-cols-2 gap-2">
                     {apartment.amenities.map((amenity, index) => (
-                      <div key={index} className="flex items-center text-gray-700">
-                        <span className="text-green-500 mr-2">✓</span>
+                      <div key={index} className="flex items-center text-sm text-gray-700">
+                        <span className="text-gray-400 mr-2">•</span>
                         {amenity}
                       </div>
                     ))}
@@ -1205,58 +1205,58 @@ const ApartmentDetailsModal = ({ apartment, onClose }) => {
               )}
             </div>
 
-            {/* Right Column - Additional Info */}
+            {/* Right Column - Contact & Actions */}
             <div>
-              {/* Contact Information */}
-              <div className="bg-purple-50 p-4 rounded-lg mb-6">
-                <h3 className="text-lg font-semibold mb-3 text-purple-800">📞 Contact Information</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center">
-                    <span className="text-purple-600 mr-2">📧</span>
+              {/* Contact Information - Minimal */}
+              <div className="bg-gray-50 p-5 rounded-lg mb-6 border border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Contact</h3>
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <div className="text-xs text-gray-500 mb-1">Email</div>
                     <a 
                       href={`mailto:${apartment.contact_email || 'placesfirm@gmail.com'}`}
-                      className="font-medium text-purple-700 hover:text-purple-900 hover:underline"
+                      className="text-gray-900 hover:text-gray-600 underline"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {apartment.contact_email || 'placesfirm@gmail.com'}
                     </a>
                   </div>
-                  <div className="flex items-center">
-                    <span className="text-purple-600 mr-2">📱</span>
+                  <div>
+                    <div className="text-xs text-gray-500 mb-1">Phone</div>
                     <a 
                       href={`tel:${apartment.contact_phone || '+1-646-408-8048'}`}
-                      className="font-medium text-purple-700 hover:text-purple-900 hover:underline"
+                      className="text-gray-900 hover:text-gray-600 underline"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {apartment.contact_phone || '+1-646-408-8048'}
                     </a>
                   </div>
-                  <div className="flex items-center">
-                    <span className="text-purple-600 mr-2">🏢</span>
-                    <span className="font-medium">NoFeePlaces LLC</span>
+                  <div>
+                    <div className="text-xs text-gray-500 mb-1">Management</div>
+                    <span className="text-gray-900">NoFeePlaces</span>
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - Clean Black & White */}
               <div className="space-y-3">
                 <button
                   onClick={() => setShowScheduleModal(true)}
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 px-4 rounded-lg hover:from-green-600 hover:to-green-700 transition-all font-semibold text-lg"
+                  className="w-full bg-gray-900 text-white py-3 px-4 rounded hover:bg-gray-800 transition-colors font-medium"
                 >
-                  📅 Schedule Showing
+                  Schedule Showing
                 </button>
                 <button
                   onClick={() => setShowContactModal(true)}
-                  className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg hover:bg-purple-700 transition-colors font-semibold text-lg"
+                  className="w-full bg-white border border-gray-300 text-gray-900 py-3 px-4 rounded hover:bg-gray-50 transition-colors font-medium"
                 >
-                  📧 Send Email Inquiry
+                  Send Email Inquiry
                 </button>
                 <button
-                  onClick={() => window.open(`tel:${apartment.contact_phone}`)}
-                  className="w-full bg-teal-500 text-white py-3 px-4 rounded-lg hover:bg-teal-600 transition-colors font-semibold"
+                  onClick={() => window.open(`tel:${apartment.contact_phone || '+1-646-408-8048'}`)}
+                  className="w-full bg-white border border-gray-300 text-gray-900 py-3 px-4 rounded hover:bg-gray-50 transition-colors font-medium"
                 >
-                  📞 Call Now
+                  Call Now
                 </button>
               </div>
             </div>
