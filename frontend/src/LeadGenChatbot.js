@@ -168,7 +168,7 @@ export const LeadGenChatbot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 animate-bounce"
+          className="fixed bottom-6 right-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full p-4 shadow-2xl hover:shadow-3xl transition-all duration-300 z-50 animate-bounce"
           aria-label="Open chat"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,14 +187,14 @@ export const LeadGenChatbot = () => {
       {isOpen && (
         <div className="fixed bottom-6 right-6 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 border border-gray-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4 rounded-t-2xl flex items-center justify-between">
+          <div className="bg-emerald-500 text-white p-4 rounded-t-2xl flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-2xl">
                 🏠
               </div>
               <div>
                 <h3 className="font-bold">NoFeeBot</h3>
-                <p className="text-xs text-purple-100">Your Apartment Assistant</p>
+                <p className="text-xs text-emerald-100">Your Apartment Assistant</p>
               </div>
             </div>
             <button
@@ -217,7 +217,7 @@ export const LeadGenChatbot = () => {
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                     msg.type === 'user'
-                      ? 'bg-purple-600 text-white'
+                      ? 'bg-emerald-500 text-white'
                       : 'bg-white text-gray-800 shadow-sm border border-gray-200'
                   }`}
                 >
@@ -231,19 +231,19 @@ export const LeadGenChatbot = () => {
               <div className="flex flex-col gap-2 mt-4">
                 <button
                   onClick={() => handleQuickReply("I'm looking to rent 🏠", 'renter')}
-                  className="bg-white border-2 border-purple-600 text-purple-600 hover:bg-purple-50 rounded-xl px-4 py-3 font-medium transition-all"
+                  className="bg-white border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-50 rounded-xl px-4 py-3 font-medium transition-all"
                 >
                   I'm looking to rent 🏠
                 </button>
                 <button
                   onClick={() => handleQuickReply("I manage properties 🏢", 'property_manager')}
-                  className="bg-white border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded-xl px-4 py-3 font-medium transition-all"
+                  className="bg-white border-2 border-gray-600 text-gray-700 hover:bg-gray-50 rounded-xl px-4 py-3 font-medium transition-all"
                 >
                   I manage properties 🏢
                 </button>
                 <button
                   onClick={() => handleQuickReply("Send feedback 💬", 'feedback')}
-                  className="bg-white border-2 border-blue-600 text-blue-600 hover:bg-blue-50 rounded-xl px-4 py-3 font-medium transition-all"
+                  className="bg-white border-2 border-gray-600 text-gray-700 hover:bg-gray-50 rounded-xl px-4 py-3 font-medium transition-all"
                 >
                   Send feedback 💬
                 </button>
@@ -273,13 +273,13 @@ export const LeadGenChatbot = () => {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent text-sm"
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
                 disabled={chatStage === 'greeting'}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={!inputMessage.trim() || chatStage === 'greeting'}
-                className="bg-purple-600 text-white rounded-xl px-4 py-3 hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+                className="bg-emerald-500 text-white rounded-xl px-4 py-3 hover:bg-emerald-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
