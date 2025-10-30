@@ -430,6 +430,7 @@ class AutomatedScraperService:
             'greenpoint': GreenpointScraper,
             'bushburg': BushburgScraper,
             'aria': AriaScraper,
+            'two_trees': TwoTreesScraper,
             'windsor': WindsorCommunitiesScraper
         }
         
