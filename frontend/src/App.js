@@ -553,6 +553,14 @@ const Home = () => {
       {showAuthModal && (
         <AuthModal onClose={() => setShowAuthModal(false)} />
       )}
+      
+      {/* Apartment Details Modal */}
+      {selectedApartment && (
+        <ApartmentDetailsModal
+          apartment={selectedApartment}
+          onClose={() => setSelectedApartment(null)}
+        />
+      )}
     </div>
   );
 };
