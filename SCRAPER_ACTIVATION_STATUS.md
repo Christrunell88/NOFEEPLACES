@@ -150,11 +150,17 @@
 
 ---
 
-## 📋 ALL BUILDINGS CONFIGURED! 🎉
+## 📋 BUILDING COVERAGE STATUS
 
-**🎊 COMPLETE! 100% Coverage Achieved!**
+**🎊 100% Original Buildings + Multi-Property Expansion!**
 
-All 14 buildings in the database are now configured and actively monitoring for new listings every 36 hours!
+- **Original Building Database**: 14 / 14 (100% ✅)
+- **Multi-Property Companies**: 2 (Manhattan Skyline, Two Trees)
+- **Total Scrapers Active**: 15
+- **Total Properties Monitored**: 30+ individual buildings across NYC
+
+### Two Trees Properties Now Monitored (17+ buildings):
+All Two Trees properties across DUMBO, Brooklyn Heights, Williamsburg, Fort Greene, and Hell's Kitchen are now being monitored through their centralized availability page!
 
 ---
 
