@@ -201,6 +201,7 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
           </svg>
           {isButtonDisabled ? 'Signing in...' : 'Continue with Google'}
         </button>
+        </div>
 
         {/* Facebook Login Button */}
         <FacebookLogin
