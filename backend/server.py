@@ -1233,6 +1233,44 @@ async def get_search_stats():
         logger.error(f"Error getting search stats: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to get search statistics")
 
+@api_router.get("/apartments/browse/neighborhoods")
+async def get_neighborhoods():
+    """Get top neighborhoods with apartment counts for browse feature"""
+    try:
+        pipeline = [
+            {"$match": {"available": True, "neighborhood": {"$ne": None, "$ne": ""}}},
+            {"$group": {"_id": "$neighborhood", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 12}
+        ]
+        neighborhoods = await db.apartments.aggregate(pipeline).to_list(length=None)
+        
+        return {
+            "neighborhoods": [
+                {"name": n["_id"], "count": n["count"]} 
+                for n in neighborhoods
+            ]
+        }
+    except Exception as e:
+        logger.error(f"Error getting neighborhoods: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get neighborhoods")
+
+@api_router.get("/apartments/browse/recently-added")
+async def get_recently_added(limit: int = Query(8, ge=1, le=20)):
+    """Get recently added apartments for homepage display"""
+    try:
+        recently_added = await db.apartments.find(
+            {"available": True}
+        ).sort("created_at", -1).limit(limit).to_list(length=limit)
+        
+        return {
+            "apartments": [Apartment(**apt) for apt in recently_added],
+            "total": len(recently_added)
+        }
+    except Exception as e:
+        logger.error(f"Error getting recently added apartments: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get recently added apartments")
+
 @api_router.get("/apartments/{apartment_id}", response_model=Apartment)
 async def get_apartment(apartment_id: str):
     """Get single apartment details"""
