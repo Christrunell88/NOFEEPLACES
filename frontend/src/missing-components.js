@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ApartmentDetailsModal } from './components';
 import { useAuth } from './auth';
 import { FooterWordMark } from './WordMark';
+import FeedbackModal from './FeedbackModal';
 import { 
   trackContactForm, 
   trackHeroAction, 
