@@ -780,6 +780,17 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {/* AI Moderation Tab */}
+        {activeTab === 'moderation' && (
+          <div>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">AI-Powered Listing Moderation</h2>
+            </div>
+
+            <ModerationPanel />
+          </div>
+        )}
+
         {/* Users Tab */}
         {/* Visitors Tab */}
         {activeTab === 'visitors' && (
