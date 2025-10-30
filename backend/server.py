@@ -4263,7 +4263,7 @@ async def get_scrape_history(
 
 @app.get("/api/admin/scrape/status")
 async def get_scrape_status(
-    current_user: dict = Depends(verify_admin)
+    current_user: dict = Depends(verify_admin_token)
 ):
     """
     Get current scraper configuration and last run status (Admin only)
