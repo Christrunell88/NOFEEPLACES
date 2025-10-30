@@ -72,7 +72,7 @@ unit_data = {
     'featured': False,
     'is_verified': True,
     'priority': 5,
-    'broker_fee': 0,  # No fee
+    'broker_fee': 'No fee',
     'no_fee': True
 }
 
