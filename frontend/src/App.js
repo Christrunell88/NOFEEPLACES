@@ -30,7 +30,6 @@ import {
   ViewListings 
 } from './LandlordListings';
 import { FeaturedApartments } from './missing-components';
-import SEOAffordableSection from './SEOAffordableSection';
 import VisitorTracker from './VisitorTracker';
 import { AnalyticsDashboard } from './AnalyticsDashboard';
 import TenantListingPage from './TenantListing';
