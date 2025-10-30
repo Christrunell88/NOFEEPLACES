@@ -170,13 +170,16 @@ for log in logs:
 
 ## ✅ SUMMARY
 
-**5 Buildings Activated:**
+**7 Buildings Activated:**
 1. The Delecor ✅
 2. Mercedes House ✅
 3. Forty Six Fifty ✅
 4. Malt Drive 2-21 ✅
 5. Malt Drive 2-20 ✅
+6. CD 280 ✅
+7. 55 Thompson ✅
 
 **Frequency**: Every 36 hours
 **Status**: System active and running
+**Last Test**: All 7 buildings processed successfully
 **Next**: Implement building-specific scraping logic
