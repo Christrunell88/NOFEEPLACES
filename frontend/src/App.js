@@ -324,6 +324,38 @@ const Home = () => {
       />
       <Hero setShowAuthModal={setShowAuthModal} />
       
+      {/* BOROUGH QUICK LINKS */}
+      {searchStats?.boroughs && (
+        <BoroughQuickLinks
+          boroughs={searchStats.boroughs}
+          onBoroughClick={(borough) => {
+            handleFilterChange('borough', borough);
+            window.scrollTo({ top: 800, behavior: 'smooth' });
+          }}
+        />
+      )}
+      
+      {/* RECENTLY ADDED SECTION */}
+      {recentlyAdded.length > 0 && (
+        <RecentlyAdded
+          apartments={recentlyAdded}
+          onApartmentClick={(apartment) => {
+            setSelectedApartment(apartment);
+          }}
+        />
+      )}
+      
+      {/* BROWSE BY NEIGHBORHOOD */}
+      {neighborhoods.length > 0 && (
+        <BrowseByNeighborhood
+          neighborhoods={neighborhoods}
+          onNeighborhoodClick={(neighborhood) => {
+            handleFilterChange('neighborhood', neighborhood);
+            window.scrollTo({ top: 1000, behavior: 'smooth' });
+          }}
+        />
+      )}
+      
       {/* CATEGORY BUTTONS - MINIMALIST DESIGN */}
       <section className="bg-white py-16">
         <div className="container mx-auto px-4 md:px-6">
