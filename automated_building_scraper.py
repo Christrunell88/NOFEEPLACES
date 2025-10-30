@@ -253,6 +253,54 @@ class MaltDriveScraper(BuildingScraper):
         return listings
 
 
+class DelecoScraper(BuildingScraper):
+    """Scraper for The Delecor building"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from The Delecor website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching Delecor listings from {listings_url}")
+        
+        # TODO: Implement Delecor scraping logic
+        # Similar structure to other buildings
+        logger.warning("DelecoScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
+class MercedesHouseScraper(BuildingScraper):
+    """Scraper for Mercedes House"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from Mercedes House website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching Mercedes House listings from {listings_url}")
+        
+        # Note: This is a single-page app with hash navigation
+        # May require JavaScript execution or API endpoint discovery
+        # TODO: Implement Mercedes House scraping logic
+        logger.warning("MercedesHouseScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
+class FortySixFiftyScraper(BuildingScraper):
+    """Scraper for Forty Six Fifty building"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from Forty Six Fifty website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        
+        logger.info(f"Fetching Forty Six Fifty listings from {listings_url}")
+        
+        # TODO: Implement Forty Six Fifty scraping logic
+        logger.warning("FortySixFiftyScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
 class WindsorCommunitiesScraper(BuildingScraper):
     """Scraper for Windsor Communities properties (e.g., Waterline Square)"""
     
