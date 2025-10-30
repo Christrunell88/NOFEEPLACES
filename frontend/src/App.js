@@ -36,7 +36,6 @@ import { AnalyticsDashboard } from './AnalyticsDashboard';
 import TenantListingPage from './TenantListing';
 import TenantBrowsePage from './TenantBrowse';
 import CategoryPage from './CategoryPage';
-import FloatingFeedbackButton from './FloatingFeedbackButton';
 import { AboutUsPage, WhyNoFeePage, ContactUsPage, LetsTalkPage } from './StaticPages';
 import ConversionOptimizedHome from './ConversionOptimizedHome';
 import ConversionHero from './ConversionHero';
