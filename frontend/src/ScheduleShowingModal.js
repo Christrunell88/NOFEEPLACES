@@ -138,7 +138,12 @@ const ScheduleShowingModal = ({ apartment, onClose }) => {
             </p>
           </div>
 
-          {!isAuthenticated ? (
+          {loading ? (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Checking authentication...</p>
+            </div>
+          ) : !isAuthenticated ? (
             <div className="text-center py-8">
               <div className="text-6xl mb-4">🔐</div>
               <h3 className="text-2xl font-bold text-gray-800 mb-4">Sign In Required</h3>
