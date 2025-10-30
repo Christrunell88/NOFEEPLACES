@@ -284,6 +284,9 @@ const Home = () => {
       neighborhood: '',
       borough: ''
     });
+    setSelectedAmenities([]);
+    setSortBy('price');
+    setSortOrder('asc');
     setCurrentPage(1);
   };
 
