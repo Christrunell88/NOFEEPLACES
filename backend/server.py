@@ -4152,3 +4152,154 @@ async def create_listing_admin(
         logger.error(f"Admin create listing error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to create listing: {str(e)}")
 
+
+# ==================== ADMIN: MANUAL SCRAPER TRIGGER ====================
+
+@app.post("/api/admin/scrape/manual")
+async def manual_scrape_trigger(
+    current_user: dict = Depends(verify_admin)
+):
+    """
+    Manually trigger the building scraper (Admin only)
+    Runs the automated scraper immediately instead of waiting for cron schedule
+    """
+    try:
+        import subprocess
+        import os
+        
+        logger.info(f"Manual scrape triggered by admin: {current_user.get('email')}")
+        
+        # Run the scraper script
+        scraper_path = "/app/automated_building_scraper.py"
+        
+        if not os.path.exists(scraper_path):
+            raise HTTPException(status_code=404, detail="Scraper script not found")
+        
+        # Execute scraper in subprocess
+        result = subprocess.run(
+            ["python3", scraper_path],
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout
+        )
+        
+        # Parse the output to get summary
+        output_lines = result.stdout.split('\n')
+        summary = {
+            "buildings_processed": 0,
+            "new_listings": 0,
+            "errors": 0,
+            "status": "completed"
+        }
+        
+        for line in output_lines:
+            if "Buildings processed:" in line:
+                try:
+                    summary["buildings_processed"] = int(line.split(":")[1].strip())
+                except:
+                    pass
+            elif "New listings found:" in line:
+                try:
+                    summary["new_listings"] = int(line.split(":")[1].strip())
+                except:
+                    pass
+            elif "Errors:" in line:
+                try:
+                    summary["errors"] = int(line.split(":")[1].strip())
+                except:
+                    pass
+        
+        # Store scrape log in database
+        scrape_log = {
+            "triggered_by": current_user.get('email'),
+            "triggered_at": datetime.now(timezone.utc).isoformat(),
+            "type": "manual",
+            "summary": summary,
+            "stdout": result.stdout[-1000:],  # Last 1000 chars
+            "stderr": result.stderr[-500:] if result.stderr else "",
+            "return_code": result.returncode
+        }
+        
+        await db.manual_scrape_logs.insert_one(scrape_log)
+        
+        return {
+            "success": True,
+            "message": "Manual scrape completed successfully",
+            "summary": summary,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        
+    except subprocess.TimeoutExpired:
+        logger.error("Manual scrape timeout - exceeded 5 minutes")
+        raise HTTPException(status_code=408, detail="Scraper timeout - please try again")
+    except Exception as e:
+        logger.error(f"Manual scrape error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Scrape failed: {str(e)}")
+
+
+@app.get("/api/admin/scrape/history")
+async def get_scrape_history(
+    limit: int = 10,
+    current_user: dict = Depends(verify_admin)
+):
+    """
+    Get history of manual scrapes (Admin only)
+    """
+    try:
+        logs = await db.manual_scrape_logs.find().sort("triggered_at", -1).limit(limit).to_list(length=limit)
+        
+        # Remove MongoDB _id
+        for log in logs:
+            log.pop('_id', None)
+        
+        return {
+            "success": True,
+            "logs": logs
+        }
+    except Exception as e:
+        logger.error(f"Error fetching scrape history: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch history: {str(e)}")
+
+
+@app.get("/api/admin/scrape/status")
+async def get_scrape_status(
+    current_user: dict = Depends(verify_admin)
+):
+    """
+    Get current scraper configuration and last run status (Admin only)
+    """
+    try:
+        import json
+        
+        # Load scraper config
+        config_path = "/app/building_scraper_config.json"
+        with open(config_path, 'r') as f:
+            config = json.load(f)
+        
+        # Get last scrape from database (both manual and automated)
+        last_manual = await db.manual_scrape_logs.find_one(sort=[("triggered_at", -1)])
+        last_automated = await db.scraper_logs.find_one(sort=[("timestamp", -1)])
+        
+        # Count enabled scrapers
+        enabled_count = sum(1 for s in config.get('scrapers', []) if s.get('enabled', False))
+        
+        return {
+            "success": True,
+            "total_scrapers": len(config.get('scrapers', [])),
+            "enabled_scrapers": enabled_count,
+            "last_manual_scrape": {
+                "triggered_at": last_manual.get('triggered_at') if last_manual else None,
+                "triggered_by": last_manual.get('triggered_by') if last_manual else None,
+                "summary": last_manual.get('summary') if last_manual else None
+            } if last_manual else None,
+            "last_automated_scrape": {
+                "timestamp": last_automated.get('timestamp') if last_automated else None,
+                "building": last_automated.get('building_name') if last_automated else None,
+                "new_listings": last_automated.get('new_listings_found') if last_automated else 0
+            } if last_automated else None
+        }
+    except Exception as e:
+        logger.error(f"Error fetching scrape status: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to fetch status: {str(e)}")
+
+
