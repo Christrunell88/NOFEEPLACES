@@ -91,6 +91,7 @@ const Home = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [neighborhoods, setNeighborhoods] = useState([]); // New: neighborhoods list
   const [recentlyAdded, setRecentlyAdded] = useState([]); // New: recently added apartments
+  const [selectedApartment, setSelectedApartment] = useState(null); // For modal
   const { isAuthenticated, user, logout } = useAuth();
 
   // Debug: Log what isAuthenticated returns in the main component
