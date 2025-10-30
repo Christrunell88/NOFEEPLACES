@@ -3014,6 +3014,175 @@ async def fix_central_park_west():
             'modified_count': 0
         }
 
+# ==================== AI MODERATION ENDPOINTS ====================
+
+# Pydantic models for moderation
+class ModerationRequest(BaseModel):
+    listing_ids: List[str] = Field(..., description="List of listing IDs to moderate")
+
+class ModerationResponse(BaseModel):
+    success: bool
+    total: int
+    approved: int
+    rejected: int
+    manual_review: int
+    failed: int
+    results: List[Dict]
+
+@api_router.post("/admin/moderate-listings", response_model=ModerationResponse)
+async def moderate_listings(request: ModerationRequest):
+    """
+    AI-powered listing moderation endpoint
+    Analyzes listings for quality, spam, duplicates, and categorization
+    """
+    try:
+        logger.info(f"Starting moderation for {len(request.listing_ids)} listings")
+        
+        # Initialize moderator
+        moderator = ListingModerator()
+        
+        # Fetch listings from database
+        listings = []
+        for listing_id in request.listing_ids:
+            listing = await db.apartments.find_one({'id': listing_id})
+            if listing:
+                # Convert ObjectId to string for JSON serialization
+                if '_id' in listing:
+                    listing['_id'] = str(listing['_id'])
+                listings.append(listing)
+        
+        if not listings:
+            raise HTTPException(status_code=404, detail="No listings found for the provided IDs")
+        
+        # Run batch moderation
+        moderation_results = await moderator.moderate_batch(listings)
+        
+        # Update listings with moderation results in database
+        for result in moderation_results['listings']:
+            listing_id = result['listing_id']
+            decision = result['decision']
+            moderation_data = result.get('moderation', {})
+            
+            # Prepare update data
+            update_data = {
+                'moderation_status': decision,
+                'moderation_timestamp': datetime.now(timezone.utc).isoformat(),
+                'moderation_results': moderation_data
+            }
+            
+            # Auto-categorize if recommendation available
+            if 'recommended_category' in moderation_data:
+                update_data['price_category'] = moderation_data['recommended_category']
+            
+            # Update listing in database
+            await db.apartments.update_one(
+                {'id': listing_id},
+                {'$set': update_data}
+            )
+        
+        logger.info(f"Moderation complete: {moderation_results['approved']} approved, "
+                   f"{moderation_results['rejected']} rejected, "
+                   f"{moderation_results['manual_review']} need review")
+        
+        return ModerationResponse(
+            success=True,
+            total=moderation_results['total'],
+            approved=moderation_results['approved'],
+            rejected=moderation_results['rejected'],
+            manual_review=moderation_results['manual_review'],
+            failed=moderation_results['failed'],
+            results=moderation_results['listings']
+        )
+        
+    except Exception as e:
+        logger.error(f"Moderation error: {e}")
+        raise HTTPException(status_code=500, detail=f"Moderation failed: {str(e)}")
+
+@api_router.post("/admin/moderate-single-listing")
+async def moderate_single_listing(listing_id: str):
+    """
+    Moderate a single listing with detailed analysis
+    """
+    try:
+        logger.info(f"Moderating single listing: {listing_id}")
+        
+        # Fetch listing
+        listing = await db.apartments.find_one({'id': listing_id})
+        if not listing:
+            raise HTTPException(status_code=404, detail=f"Listing {listing_id} not found")
+        
+        # Convert ObjectId
+        if '_id' in listing:
+            listing['_id'] = str(listing['_id'])
+        
+        # Initialize moderator
+        moderator = ListingModerator()
+        
+        # Run moderation
+        moderation_result = await moderator.moderate_listing(listing)
+        
+        # Update listing with results
+        update_data = {
+            'moderation_status': moderation_result['final_decision']['action'],
+            'moderation_timestamp': datetime.now(timezone.utc).isoformat(),
+            'moderation_results': moderation_result
+        }
+        
+        # Auto-categorize
+        if 'recommended_category' in moderation_result:
+            update_data['price_category'] = moderation_result['recommended_category']
+        
+        await db.apartments.update_one(
+            {'id': listing_id},
+            {'$set': update_data}
+        )
+        
+        logger.info(f"Single listing moderation complete: {listing_id} - "
+                   f"{moderation_result['final_decision']['action']}")
+        
+        return {
+            'success': True,
+            'listing_id': listing_id,
+            'moderation': moderation_result
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Single listing moderation error: {e}")
+        raise HTTPException(status_code=500, detail=f"Moderation failed: {str(e)}")
+
+@api_router.get("/admin/moderation-stats")
+async def get_moderation_stats():
+    """
+    Get statistics about moderated listings
+    """
+    try:
+        total = await db.apartments.count_documents({})
+        moderated = await db.apartments.count_documents({'moderation_status': {'$exists': True}})
+        approved = await db.apartments.count_documents({'moderation_status': 'approve'})
+        rejected = await db.apartments.count_documents({'moderation_status': 'reject'})
+        manual_review = await db.apartments.count_documents({'moderation_status': 'manual_review'})
+        pending = total - moderated
+        
+        return {
+            'success': True,
+            'stats': {
+                'total_listings': total,
+                'moderated': moderated,
+                'pending': pending,
+                'approved': approved,
+                'rejected': rejected,
+                'manual_review': manual_review,
+                'moderation_rate': round((moderated / total * 100), 2) if total > 0 else 0
+            }
+        }
+    except Exception as e:
+        logger.error(f"Error getting moderation stats: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to get stats: {str(e)}")
+
+# ==================== END AI MODERATION ENDPOINTS ====================
+
 # Include API routers
 app.include_router(api_router)
 app.include_router(landlord_router)
