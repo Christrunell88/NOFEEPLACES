@@ -179,75 +179,7 @@ const HamburgerMenu = () => {
                   </Link>
                 </div>
 
-                {/* User Account Section (if authenticated) */}
-                {isAuthenticated && (
-                  <div className="pt-2 space-y-1">
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Your Account</div>
-                    
-                    <Link
-                      to="/dashboard"
-                      onClick={closeMenu}
-                      className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all py-2.5 px-3 rounded-lg group"
-                    >
-                      <div className="w-4 h-4 text-gray-500 group-hover:text-blue-600">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                      </div>
-                      <span className="font-medium text-sm">Dashboard</span>
-                    </Link>
-                    
-                    <Link
-                      to="/favorites"
-                      onClick={closeMenu}
-                      className="flex items-center space-x-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all py-2.5 px-3 rounded-lg group"
-                    >
-                      <div className="w-4 h-4 text-gray-500 group-hover:text-blue-600">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </div>
-                      <span className="font-medium text-sm">Saved Properties</span>
-                    </Link>
-                    
-                    <button
-                      onClick={handleLogout}
-                      className="flex items-center space-x-3 w-full text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all py-2.5 px-3 rounded-lg group"
-                      aria-label="Sign out of your account"
-                    >
-                      <div className="w-4 h-4 text-gray-500 group-hover:text-red-600">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                      </div>
-                      <span className="font-medium text-sm">Sign Out</span>
-                    </button>
-                  </div>
-                )}
-
-                {/* User Login Section (if NOT authenticated) */}
-                {!isAuthenticated && (
-                  <div className="pt-2 space-y-1">
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Account</div>
-                    
-                    <button
-                      onClick={handleLoginClick}
-                      className="flex items-center space-x-3 w-full text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-all py-3 px-4 rounded-lg shadow-md hover:shadow-lg group"
-                      aria-label="Sign in to your account"
-                    >
-                      <div className="w-5 h-5 text-white">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                        </svg>
-                      </div>
-                      <span className="font-bold">Sign In / Sign Up</span>
-                    </button>
-                    
-                    <div className="text-xs text-gray-500 text-center mt-2 px-2">
-                      Sign in with Google, Facebook, or Apple
-                    </div>
-                  </div>
-                )}
+                {/* Boroughs */}
               </div>
 
               {/* Right Side - Professional Admin Panel */}
