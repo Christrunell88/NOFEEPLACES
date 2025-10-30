@@ -123,13 +123,12 @@
 
 ## 📋 BUILDINGS AWAITING URLS
 
-These buildings exist in the database but need listing URLs:
+**🎉 COMPLETE! All buildings configured!**
 
-- **PLG** (Prospect Lefferts Gardens, Brooklyn)
-- **The Aria** (Financial District, Manhattan)
+Only 1 building remaining:
 - **The Murray Hill** (Murray Hill, Manhattan)
 
-**Note**: Only 3 buildings remaining! Almost complete.
+**Note**: 13 out of 14 buildings are now active! 93% complete.
 
 ---
 
