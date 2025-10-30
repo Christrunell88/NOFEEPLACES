@@ -222,6 +222,23 @@
       },
       "last_scraped": null,
       "scraping_notes": "The Aria - Financial District luxury building"
+    },
+    {
+      "building_id": "2ae663c0-90f8-418f-be2d-6d60c9debefb",
+      "building_name": "The Murray Hill",
+      "address": "115 East 34th Street",
+      "neighborhood": "Murray Hill",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "manhattan_skyline",
+      "source_config": {
+        "base_url": "https://manhattanskyline.com",
+        "listings_url": "https://manhattanskyline.com/buildings/murray-hill/the-murray-hill",
+        "building_slug": "the-murray-hill"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Manhattan Skyline property - Murray Hill location"
     }
   ],
   "global_settings": {
