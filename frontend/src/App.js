@@ -186,6 +186,11 @@ const Home = () => {
         }
       });
       
+      // Add amenities filter if selected
+      if (selectedAmenities.length > 0) {
+        params.append('amenities', selectedAmenities.join(','));
+      }
+      
       params.append('page', currentPage);
       params.append('limit', 100); // Increased to show more apartments per page
       params.append('sort_by', sortBy);  // Add sorting parameters
@@ -200,7 +205,7 @@ const Home = () => {
       trackPerformanceMetric('apartment_search_time', Math.round(searchTime));
       
       // Track search event if filters are applied
-      const hasActiveFilters = Object.values(searchFilters).some(value => value !== '' && value !== null);
+      const hasActiveFilters = Object.values(searchFilters).some(value => value !== '' && value !== null) || selectedAmenities.length > 0;
       if (hasActiveFilters) {
         trackApartmentSearch(searchFilters);
       }
@@ -228,6 +233,24 @@ const Home = () => {
     }
   };
 
+  const fetchNeighborhoods = async () => {
+    try {
+      const response = await axios.get(`${API}/apartments/browse/neighborhoods`);
+      setNeighborhoods(response.data.neighborhoods || []);
+    } catch (error) {
+      console.error('Failed to fetch neighborhoods:', error);
+    }
+  };
+
+  const fetchRecentlyAdded = async () => {
+    try {
+      const response = await axios.get(`${API}/apartments/browse/recently-added?limit=8`);
+      setRecentlyAdded(response.data.apartments || []);
+    } catch (error) {
+      console.error('Failed to fetch recently added:', error);
+    }
+  };
+
   const handleFilterChange = (key, value) => {
     setSearchFilters(prev => ({
       ...prev,
@@ -239,6 +262,17 @@ const Home = () => {
     if (value !== '' && value !== null && value !== undefined) {
       trackFilterUsage(key, value);
     }
+  };
+
+  const toggleAmenity = (amenity) => {
+    setSelectedAmenities(prev => {
+      if (prev.includes(amenity)) {
+        return prev.filter(a => a !== amenity);
+      } else {
+        return [...prev, amenity];
+      }
+    });
+    setCurrentPage(1);
   };
 
   const clearFilters = () => {
