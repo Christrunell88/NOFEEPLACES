@@ -301,6 +301,24 @@ class FortySixFiftyScraper(BuildingScraper):
         return listings
 
 
+class ManhattanSkylineScraper(BuildingScraper):
+    """Scraper for Manhattan Skyline properties (CD 280, 55 Thompson, etc.)"""
+    
+    def extract_listings(self) -> List[Dict[str, Any]]:
+        """Extract listings from Manhattan Skyline website"""
+        listings = []
+        listings_url = self.config['source_config']['listings_url']
+        building_slug = self.config['source_config']['building_slug']
+        
+        logger.info(f"Fetching {self.building_name} listings from {listings_url}")
+        
+        # Manhattan Skyline uses a consistent structure across properties
+        # TODO: Implement Manhattan Skyline scraping logic
+        # Note: May need to check for availability section or apartment listings
+        logger.warning("ManhattanSkylineScraper.extract_listings() not fully implemented yet")
+        return listings
+
+
 class WindsorCommunitiesScraper(BuildingScraper):
     """Scraper for Windsor Communities properties (e.g., Waterline Square)"""
     
