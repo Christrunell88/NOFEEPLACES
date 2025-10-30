@@ -1281,6 +1281,37 @@ async def get_apartment(apartment_id: str):
     
     return Apartment(**apartment)
 
+@api_router.get("/apartments/{apartment_id}/similar-units")
+async def get_similar_units(apartment_id: str):
+    """Get all units in the same building (including hidden duplicates)"""
+    try:
+        # Get the main apartment
+        main_apt = await db.apartments.find_one({"id": apartment_id})
+        if not main_apt:
+            raise HTTPException(status_code=404, detail="Apartment not found")
+        
+        # Find similar units: same address, bedrooms, neighborhood
+        query = {
+            "id": {"$ne": apartment_id},  # Exclude the current one
+            "bedrooms": main_apt.get("bedrooms"),
+            "neighborhood": main_apt.get("neighborhood"),
+            "address": main_apt.get("address")
+        }
+        
+        # Include both available and unavailable (hidden duplicates)
+        similar_units = await db.apartments.find(query).sort("price", 1).to_list(length=50)
+        
+        return {
+            "total": len(similar_units),
+            "apartments": [Apartment(**apt) for apt in similar_units],
+            "building_name": main_apt.get("building_name") or "this building",
+            "main_unit_price": main_apt.get("price")
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting similar units: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get similar units")
+
 @api_router.post("/contact", response_model=ContactResponse)
 async def contact_apartment(contact: ContactRequest):
     """Handle apartment contact requests with email notifications"""
