@@ -4240,7 +4240,7 @@ async def manual_scrape_trigger(
 @app.get("/api/admin/scrape/history")
 async def get_scrape_history(
     limit: int = 10,
-    current_user: dict = Depends(verify_admin)
+    current_user: dict = Depends(verify_admin_token)
 ):
     """
     Get history of manual scrapes (Admin only)
