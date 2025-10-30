@@ -341,8 +341,6 @@ const Home = () => {
         </div>
       </section>
       
-      <SEOAffordableSection />
-      
       {/* Featured Apartments Section Removed - Units moved to category pages */}
       
       {/* Newsletter Section Removed - SEO preserved */}
