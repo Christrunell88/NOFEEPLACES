@@ -104,10 +104,60 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
     }
   };
 
-  // Google authentication handler (existing implementation)
-  const handleGoogleLogin = () => {
-    // Redirect to existing Google OAuth
-    window.location.href = `${process.env.REACT_APP_BACKEND_URL}/api/auth/google/login`;
+  // Google authentication handler with proper SDK
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true);
+      
+      // Check if Google SDK is loaded
+      if (!window.google) {
+        console.error('Google SDK not loaded');
+        onError && onError('Google Sign-In not available. Please refresh the page.');
+        return;
+      }
+
+      // Initialize Google Sign-In
+      window.google.accounts.id.initialize({
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        callback: handleGoogleCallback
+      });
+
+      // Prompt for sign-in
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // Fallback to one-tap if prompt fails
+          window.google.accounts.id.renderButton(
+            document.getElementById('google-signin-button'),
+            { theme: 'outline', size: 'large' }
+          );
+        }
+      });
+    } catch (error) {
+      console.error('Google Sign-In initialization error:', error);
+      onError && onError('Failed to initialize Google Sign-In');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Google callback handler
+  const handleGoogleCallback = async (response) => {
+    try {
+      setIsLoading(true);
+      const result = await loginWithGoogle(response.credential);
+      
+      if (result.success) {
+        onSuccess && onSuccess(result.user);
+        onClose && onClose();
+      } else {
+        onError && onError(result.error);
+      }
+    } catch (error) {
+      console.error('Google authentication error:', error);
+      onError && onError('Google Sign-In failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const isButtonDisabled = isLoading || loading;
