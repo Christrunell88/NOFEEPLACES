@@ -98,10 +98,9 @@ def add_unit_to_building(building_id, unit_data):
     if existing:
         print(f"\n⚠️  Unit {unit_data['unit_number']} already exists!")
         print(f"   Existing Unit ID: {existing['id']}")
-        confirm = input("   Update existing unit? (yes/no): ").strip().lower()
-        if confirm != 'yes':
-            print("Cancelled.")
-            return False
+        print(f"   Existing images: {len(existing.get('images', []))}")
+        print(f"   New images: {len(unit_data['images'])}")
+        print(f"   Auto-updating with improved data...")
         
         # Update existing unit
         apartment_data = {
