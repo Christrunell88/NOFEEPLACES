@@ -188,6 +188,40 @@
       },
       "last_scraped": null,
       "scraping_notes": "Manhattan Skyline property - Midtown West location"
+    },
+    {
+      "building_id": "d8badc6b-bf32-4562-953d-641f4623ecff",
+      "building_name": "PLG",
+      "address": "123 Linden Blvd",
+      "neighborhood": "Prospect Lefferts Gardens",
+      "borough": "Brooklyn",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "bushburg",
+      "source_config": {
+        "base_url": "https://www.bushburg.com",
+        "listings_url": "https://www.bushburg.com/residential-properties/",
+        "property_name": "PLG"
+      },
+      "last_scraped": null,
+      "scraping_notes": "Bushburg property - Prospect Lefferts Gardens, Brooklyn"
+    },
+    {
+      "building_id": "7a9d9252-b3ac-437d-8034-715675c7ae52",
+      "building_name": "The Aria",
+      "address": "90-100 John Street",
+      "neighborhood": "Financial District",
+      "borough": "Manhattan",
+      "enabled": true,
+      "scrape_frequency_hours": 36,
+      "source_type": "aria",
+      "source_config": {
+        "base_url": "https://www.liveatarianyc.com",
+        "listings_url": "https://www.liveatarianyc.com/floorplans",
+        "gallery_url": "https://www.liveatarianyc.com/gallery"
+      },
+      "last_scraped": null,
+      "scraping_notes": "The Aria - Financial District luxury building"
     }
   ],
   "global_settings": {
