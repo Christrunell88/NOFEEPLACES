@@ -278,84 +278,64 @@ const Home = () => {
       />
       <Hero setShowAuthModal={setShowAuthModal} />
       
-      {/* CATEGORY BUTTONS - MOVED UP FOR PROMINENCE */}
-      <section className="bg-gradient-to-b from-slate-50 to-white py-16">
+      {/* CATEGORY BUTTONS - MINIMALIST DESIGN */}
+      <section className="bg-white py-16">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Find Your Perfect Apartment</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-3">Find Your Perfect Apartment</h2>
             <p className="text-lg text-gray-600">Browse by category to discover apartments that match your budget and lifestyle</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {/* Best Value Button */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto">
+            {/* Best Value */}
             <a
               href="/apartments/best-value"
-              className="group relative bg-gradient-to-br from-purple-100 to-purple-200 hover:from-purple-200 hover:to-purple-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-purple-300/50"
+              className="group bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-6 transition-all duration-200 hover:border-gray-300 hover:shadow-sm"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative z-10">
-                <div className="text-5xl mb-4">⭐</div>
-                <h3 className="text-2xl font-bold text-purple-800 mb-2">Best Value</h3>
-                <p className="text-purple-600 text-sm mb-3">Top Deals</p>
-                <div className="text-3xl font-bold text-purple-900 mb-3">5 Apartments</div>
-                <p className="text-xs text-purple-700">Luxury amenities at great prices</p>
-                <div className="mt-4 inline-block bg-purple-200 px-4 py-1 rounded-full text-purple-800 text-xs font-semibold">
-                  Top 20% Value
-                </div>
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Best Value</h3>
+                <p className="text-sm text-gray-500 mb-3">Top Deals</p>
+                <div className="text-3xl font-bold text-gray-900 mb-2">5</div>
+                <p className="text-xs text-gray-600">Luxury amenities at great prices</p>
               </div>
             </a>
             
-            {/* Budget Button */}
+            {/* Budget */}
             <a
               href="/apartments/budget"
-              className="group relative bg-gradient-to-br from-teal-100 to-teal-200 hover:from-teal-200 hover:to-teal-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-teal-300/50"
+              className="group bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-6 transition-all duration-200 hover:border-gray-300 hover:shadow-sm"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative z-10">
-                <div className="text-5xl mb-4">💰</div>
-                <h3 className="text-2xl font-bold text-teal-800 mb-2">Budget</h3>
-                <p className="text-teal-600 text-sm mb-3">Under $4,500/mo</p>
-                <div className="text-3xl font-bold text-teal-900 mb-3">129 Apartments</div>
-                <p className="text-xs text-teal-700">Perfect for budget-conscious renters</p>
-                <div className="mt-4 inline-block bg-teal-200 px-4 py-1 rounded-full text-teal-800 text-xs font-semibold">
-                  Most Popular
-                </div>
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Budget</h3>
+                <p className="text-sm text-gray-500 mb-3">Under $4,500/mo</p>
+                <div className="text-3xl font-bold text-gray-900 mb-2">129</div>
+                <p className="text-xs text-gray-600">Perfect for budget-conscious renters</p>
               </div>
             </a>
 
-            {/* Smart Button */}
+            {/* Smart */}
             <a
               href="/apartments/smart"
-              className="group relative bg-gradient-to-br from-sky-100 to-sky-200 hover:from-sky-200 hover:to-sky-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-sky-300/50"
+              className="group bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-6 transition-all duration-200 hover:border-gray-300 hover:shadow-sm"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative z-10">
-                <div className="text-5xl mb-4">🎯</div>
-                <h3 className="text-2xl font-bold text-sky-800 mb-2">Smart</h3>
-                <p className="text-sky-600 text-sm mb-3">$4,500 - $6,500/mo</p>
-                <div className="text-3xl font-bold text-sky-900 mb-3">69 Apartments</div>
-                <p className="text-xs text-sky-700">Best value at fair prices</p>
-                <div className="mt-4 inline-block bg-sky-200 px-4 py-1 rounded-full text-sky-800 text-xs font-semibold">
-                  Sweet Spot
-                </div>
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Smart</h3>
+                <p className="text-sm text-gray-500 mb-3">$4,500 - $6,500/mo</p>
+                <div className="text-3xl font-bold text-gray-900 mb-2">69</div>
+                <p className="text-xs text-gray-600">Best value at fair prices</p>
               </div>
             </a>
 
-            {/* Sky's the Limit Button */}
+            {/* Sky's the Limit */}
             <a
               href="/apartments/luxury"
-              className="group relative bg-gradient-to-br from-amber-100 to-amber-200 hover:from-amber-200 hover:to-amber-300 rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:scale-105 text-center overflow-hidden border border-amber-300/50"
+              className="group bg-white hover:bg-gray-50 border border-gray-200 rounded-lg p-6 transition-all duration-200 hover:border-gray-300 hover:shadow-sm"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="relative z-10">
-                <div className="text-5xl mb-4">✨</div>
-                <h3 className="text-2xl font-bold text-amber-800 mb-2">Sky's the Limit</h3>
-                <p className="text-amber-600 text-sm mb-3">Over $6,500/mo</p>
-                <div className="text-3xl font-bold text-amber-900 mb-3">22 Apartments</div>
-                <p className="text-xs text-amber-700">Premium luxury living</p>
-                <div className="mt-4 inline-block bg-amber-200 px-4 py-1 rounded-full text-amber-800 text-xs font-semibold">
-                  Ultra Luxury
-                </div>
+              <div className="text-center">
+                <h3 className="text-xl font-semibold text-gray-900 mb-1">Luxury</h3>
+                <p className="text-sm text-gray-500 mb-3">Over $6,500/mo</p>
+                <div className="text-3xl font-bold text-gray-900 mb-2">22</div>
+                <p className="text-xs text-gray-600">Premium luxury living</p>
               </div>
             </a>
           </div>
