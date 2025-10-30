@@ -184,7 +184,7 @@ const Home = () => {
       });
       
       params.append('page', currentPage);
-      params.append('limit', 50); // Reduced to prevent server errors
+      params.append('limit', 100); // Increased to show more apartments per page
       params.append('sort_by', sortBy);  // Add sorting parameters
       params.append('sort_order', sortOrder);
 
