@@ -547,6 +547,21 @@ const Home = () => {
         )}
       </main>
 
+      {/* Newsletter Signup Section */}
+      <section className="bg-gradient-to-r from-purple-600 to-blue-600 py-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              📬 Stay Updated on NYC No-Fee Apartments
+            </h2>
+            <p className="text-white/90 mb-6">
+              Get weekly listings, market insights, and apartment hunting tips delivered to your inbox.
+            </p>
+            <Components.NewsletterSignup source="homepage_footer" size="large" />
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* Authentication Modal */}
