@@ -2,82 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from './auth';
 
 const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
-  const { loginWithApple, loginWithGoogle, loading } = useAuth();
+  const { loginWithGoogle, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  const [appleLoaded, setAppleLoaded] = useState(false);
-
-  // Initialize Apple SDK (script already loaded in index.html)
-  useEffect(() => {
-    const initializeAppleSDK = () => {
-      if (window.AppleID) {
-        try {
-          window.AppleID.auth.init({
-            clientId: process.env.REACT_APP_APPLE_CLIENT_ID || 'com.nofeeplaces.signin',
-            scope: 'name email',
-            redirectURI: `${window.location.origin}/apple-callback.html`,
-            state: 'apple-auth-state',
-            usePopup: true
-          });
-          setAppleLoaded(true);
-          console.log('✅ Apple SDK initialized successfully');
-        } catch (error) {
-          console.error('Apple SDK initialization error:', error);
-          setAppleLoaded(false);
-        }
-      } else {
-        // Retry after a short delay
-        const retryTimeout = setTimeout(() => {
-          initializeAppleSDK();
-        }, 500);
-        return () => clearTimeout(retryTimeout);
-      }
-    };
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'complete') {
-      initializeAppleSDK();
-    } else {
-      window.addEventListener('load', initializeAppleSDK);
-      return () => window.removeEventListener('load', initializeAppleSDK);
-    }
-  }, []);
-
-  // Apple authentication handler
-  const handleAppleSignIn = async () => {
-    if (!appleLoaded || !window.AppleID) {
-      onError && onError('Apple authentication service is not available');
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      const response = await window.AppleID.auth.signIn();
-      
-      const result = await loginWithApple(
-        response.authorization.code,
-        response.authorization.id_token,
-        response.user
-      );
-      
-      if (result.success) {
-        onSuccess && onSuccess(result.user);
-        onClose && onClose();
-      } else {
-        onError && onError(result.error);
-      }
-    } catch (error) {
-      console.error('Apple Sign-In error:', error);
-      
-      // Handle user cancellation
-      if (error.error === 'popup_closed_by_user') {
-        return; // Don't show error for user cancellation
-      }
-      
-      onError && onError('Apple Sign-In failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // Google authentication handler with proper SDK
   const handleGoogleLogin = async () => {
