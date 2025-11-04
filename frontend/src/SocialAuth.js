@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import FacebookLogin from '@greatsumini/react-facebook-login';
 import { useAuth } from './auth';
 
 const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
-  const { loginWithFacebook, loginWithApple, loginWithGoogle, loading } = useAuth();
+  const { loginWithApple, loginWithGoogle, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [appleLoaded, setAppleLoaded] = useState(false);
 
