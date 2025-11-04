@@ -102,15 +102,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginWithGoogle = async (googleCodeOrToken) => {
+  const loginWithGoogle = async (googleToken) => {
     try {
-      // Determine if it's an authorization code or ID token
-      const isCode = typeof googleCodeOrToken === 'string' && googleCodeOrToken.length > 100;
-      
-      const response = await axios.post(`${API}/auth/google`, isCode ? {
-        code: googleCodeOrToken
-      } : {
-        token: googleCodeOrToken
+      const response = await axios.post(`${API}/auth/google`, {
+        token: googleToken
       });
       
       const { access_token } = response.data;
