@@ -3373,8 +3373,7 @@ class UserLoginRequest(BaseModel):
     password: str
 
 class GoogleAuthRequest(BaseModel):
-    token: str = None
-    code: str = None
+    token: str
 
 @app.post("/api/auth/register")
 async def register_user(request: UserRegisterRequest):
