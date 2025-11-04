@@ -535,42 +535,6 @@ async def get_or_create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
     await db.users.insert_one(user_create_data)
     return user_create_data
 
-# Social Authentication Endpoints
-@api_router.post("/auth/facebook", response_model=SocialAuthResponse)
-async def facebook_auth(auth_request: FacebookAuthRequest):
-    """Authenticate user with Facebook access token"""
-    try:
-        # Validate Facebook token and get user info
-        user_data = await facebook_auth_service.validate_access_token(auth_request.access_token)
-        
-        # Get or create user
-        user = await get_or_create_user(user_data)
-        
-        # Create access token
-        access_token = create_access_token(
-            data={"sub": user['id'], "email": user['email']}
-        )
-        
-        return SocialAuthResponse(
-            access_token=access_token,
-            user={
-                "id": user['id'],
-                "email": user['email'],
-                "name": user['name'],
-                "profile_picture": user.get('profile_picture'),
-                "facebook_id": user.get('facebook_id')
-            }
-        )
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Facebook authentication error: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Authentication failed"
-        )
-
 @api_router.post("/auth/apple", response_model=SocialAuthResponse)
 async def apple_auth(auth_request: AppleAuthRequest):
     """Authenticate user with Apple identity token"""
