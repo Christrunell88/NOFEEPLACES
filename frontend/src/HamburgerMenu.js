@@ -124,58 +124,42 @@ const HamburgerMenu = () => {
                 )}
 
                 <div className="space-y-1">
-                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Company</div>
+                  <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}>Company</div>
                   
                   <Link
                     to="/about"
                     onClick={closeMenu}
-                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
+                    className="block text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                    style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
                   >
-                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium">About Us</span>
+                    About Us
                   </Link>
                   
                   <Link
                     to="/why-no-fee"
                     onClick={closeMenu}
-                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
+                    className="block text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                    style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
                   >
-                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
-                      </svg>
-                    </div>
-                    <span className="font-medium">Why No Fee?</span>
+                    Why No Fee?
                   </Link>
                   
                   <Link
                     to="/contact"
                     onClick={closeMenu}
-                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
+                    className="block text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                    style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
                   >
-                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium">Contact Us</span>
+                    Contact Us
                   </Link>
                   
                   <Link
                     to="/lets-talk"
                     onClick={closeMenu}
-                    className="flex items-center space-x-3 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-3 rounded-lg group"
+                    className="block text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                    style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
                   >
-                    <div className="w-5 h-5 text-gray-500 group-hover:text-blue-600">
-                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                      </svg>
-                    </div>
-                    <span className="font-medium">Let's Talk</span>
+                    Let's Talk
                   </Link>
                 </div>
 
