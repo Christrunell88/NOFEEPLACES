@@ -5,56 +5,60 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
   const { loginWithGoogle, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Google authentication handler with proper SDK
-  const handleGoogleLogin = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Check if Google SDK is loaded
-      if (!window.google) {
-        console.error('Google SDK not loaded');
-        onError && onError('Google Sign-In not available. Please refresh the page.');
-        return;
-      }
+  // Google authentication handler
+  const handleGoogleLogin = () => {
+    if (!window.google) {
+      console.error('Google SDK not loaded');
+      onError && onError('Google Sign-In not available. Please refresh the page.');
+      return;
+    }
 
-      // Initialize Google Sign-In
+    setIsLoading(true);
+    
+    try {
+      // Initialize and trigger Google Sign-In
       window.google.accounts.id.initialize({
         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleGoogleCallback
+        callback: handleGoogleCallback,
+        auto_select: false,
+        cancel_on_tap_outside: true
       });
 
-      // Prompt for sign-in
+      // Trigger the Google One Tap prompt
       window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback to one-tap if prompt fails
-          window.google.accounts.id.renderButton(
-            document.getElementById('google-signin-button'),
-            { theme: 'outline', size: 'large' }
-          );
+        console.log('Google prompt notification:', notification);
+        if (notification.isNotDisplayed()) {
+          console.warn('Google One Tap not displayed:', notification.getNotDisplayedReason());
+          setIsLoading(false);
+        }
+        if (notification.isSkippedMoment()) {
+          console.warn('Google One Tap skipped:', notification.getSkippedReason());
+          setIsLoading(false);
         }
       });
     } catch (error) {
-      console.error('Google Sign-In initialization error:', error);
+      console.error('Google Sign-In error:', error);
       onError && onError('Failed to initialize Google Sign-In');
-    } finally {
       setIsLoading(false);
     }
   };
 
   // Google callback handler
   const handleGoogleCallback = async (response) => {
+    console.log('Google callback triggered with credential');
     try {
-      setIsLoading(true);
       const result = await loginWithGoogle(response.credential);
       
       if (result.success) {
+        console.log('✅ Google login successful');
         onSuccess && onSuccess(result.user);
         onClose && onClose();
       } else {
-        onError && onError(result.error);
+        console.error('❌ Google login failed:', result.error);
+        onError && onError(result.error || 'Google Sign-In failed');
       }
     } catch (error) {
-      console.error('Google authentication error:', error);
+      console.error('❌ Google authentication error:', error);
       onError && onError('Google Sign-In failed. Please try again.');
     } finally {
       setIsLoading(false);
