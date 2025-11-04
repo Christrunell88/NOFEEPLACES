@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 NoFeePlaces Backend Testing Suite
-Comprehensive testing for Schedule Showing Feature and Login Functionality
+Comprehensive testing for Google Authentication and Backend Functionality
 """
 
 import asyncio
