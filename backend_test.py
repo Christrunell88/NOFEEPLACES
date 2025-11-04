@@ -741,6 +741,15 @@ class NoFeePlacesBackendTester:
         await self.test_schedule_showing_required_fields()
         await self.test_schedule_showing_email_format()
         
+        # Google Authentication Tests
+        logger.info("\n🔐 GOOGLE AUTHENTICATION TESTS")
+        logger.info("-" * 40)
+        await self.test_google_auth_endpoint_exists()
+        await self.test_google_auth_missing_token_validation()
+        await self.test_google_auth_invalid_token_handling()
+        await self.test_google_auth_request_structure_validation()
+        await self.test_google_auth_configuration()
+        
         # Login Functionality Tests
         logger.info("\n🔐 LOGIN FUNCTIONALITY TESTS")
         logger.info("-" * 40)
