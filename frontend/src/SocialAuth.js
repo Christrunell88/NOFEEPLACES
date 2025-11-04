@@ -42,30 +42,6 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
     }
   }, []);
 
-  // Facebook authentication handler
-  const handleFacebookSuccess = async (response) => {
-    setIsLoading(true);
-    try {
-      const result = await loginWithFacebook(response.accessToken, response.userID);
-      
-      if (result.success) {
-        onSuccess && onSuccess(result.user);
-        onClose && onClose();
-      } else {
-        onError && onError(result.error);
-      }
-    } catch (error) {
-      onError && onError('Facebook login failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleFacebookError = (error) => {
-    console.error('Facebook login error:', error);
-    onError && onError('Facebook login failed. Please try again.');
-  };
-
   // Apple authentication handler
   const handleAppleSignIn = async () => {
     if (!appleLoaded || !window.AppleID) {
