@@ -77,30 +77,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginWithFacebook = async (accessToken, userId) => {
-    try {
-      const response = await axios.post(`${API}/auth/facebook`, {
-        access_token: accessToken,
-        user_id: userId
-      });
-      
-      const { access_token } = response.data;
-      
-      localStorage.setItem('token', access_token);
-      setToken(access_token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
-      await fetchUser();
-      return { success: true, user: response.data.user };
-    } catch (error) {
-      console.error('Facebook login error:', error);
-      return { 
-        success: false, 
-        error: error.response?.data?.detail || 'Facebook login failed' 
-      };
-    }
-  };
-
   const loginWithApple = async (authorizationCode, identityToken, userData = null) => {
     try {
       const response = await axios.post(`${API}/auth/apple`, {
