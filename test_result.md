@@ -2069,7 +2069,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Schedule Showing Feature Frontend Testing"
+    - "Google Authentication Flow Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
