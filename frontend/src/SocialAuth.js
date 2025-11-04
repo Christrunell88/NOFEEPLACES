@@ -6,47 +6,39 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
   const { loginWithGoogle, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Google authentication handler using proper OAuth flow
-  const googleLogin = useGoogleLogin({
-    onSuccess: async (codeResponse) => {
-      console.log('✅ Google OAuth success, got authorization code');
-      setIsLoading(true);
-      try {
-        // Exchange authorization code for user info via backend
-        const result = await loginWithGoogle(codeResponse.code);
-        
-        if (result.success) {
-          console.log('✅ Backend authentication successful');
-          onSuccess && onSuccess(result.user);
-          onClose && onClose();
-        } else {
-          console.error('❌ Backend authentication failed:', result.error);
-          onError && onError(result.error || 'Google Sign-In failed');
-        }
-      } catch (error) {
-        console.error('❌ Authentication error:', error);
-        onError && onError('Google Sign-In failed. Please try again.');
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    onError: (error) => {
-      console.error('❌ Google OAuth error:', error);
-      onError && onError('Google Sign-In failed. Please try again.');
-      setIsLoading(false);
-    },
-    flow: 'auth-code',
-  });
-
-  const handleGoogleLogin = () => {
+  // Google authentication callback handler
+  const handleGoogleSuccess = async (credentialResponse) => {
+    console.log('✅ Google Sign-In success, received credential');
     setIsLoading(true);
     try {
-      googleLogin();
+      // Send ID token to backend for verification
+      const result = await loginWithGoogle(credentialResponse.credential);
+      
+      if (result.success) {
+        console.log('✅ Backend authentication successful');
+        onSuccess && onSuccess(result.user);
+        onClose && onClose();
+      } else {
+        console.error('❌ Backend authentication failed:', result.error);
+        onError && onError(result.error || 'Google Sign-In failed');
+      }
     } catch (error) {
-      console.error('Error triggering Google login:', error);
-      onError && onError('Failed to start Google Sign-In');
+      console.error('❌ Authentication error:', error);
+      onError && onError('Google Sign-In failed. Please try again.');
+    } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleGoogleError = () => {
+    console.error('❌ Google Sign-In failed');
+    onError && onError('Google Sign-In failed. Please try again.');
+    setIsLoading(false);
+  };
+
+  const handleGoogleLogin = () => {
+    // Trigger loading state when button is clicked
+    setIsLoading(true);
   };
 
   const isButtonDisabled = isLoading || loading;
