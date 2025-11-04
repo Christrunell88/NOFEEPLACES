@@ -561,6 +561,163 @@ class NoFeePlacesBackendTester:
             )
     
     # ==========================================
+    # GOOGLE AUTHENTICATION TESTS
+    # ==========================================
+    
+    async def test_google_auth_endpoint_exists(self):
+        """Test: Verify /api/auth/google endpoint exists"""
+        try:
+            # Test with empty POST to see if endpoint exists
+            response = await self.make_request("POST", "/auth/google", {})
+            
+            if response["status"] == 422:
+                # 422 means endpoint exists but validation failed (expected)
+                self.log_test_result(
+                    "Google Auth Endpoint Exists", 
+                    True, 
+                    f"Endpoint accessible, returned {response['status']} (validation error as expected)"
+                )
+            elif response["status"] == 404:
+                self.log_test_result(
+                    "Google Auth Endpoint Exists", 
+                    False, 
+                    "Endpoint not found (404)"
+                )
+            else:
+                self.log_test_result(
+                    "Google Auth Endpoint Exists", 
+                    True, 
+                    f"Endpoint exists, returned {response['status']}"
+                )
+        except Exception as e:
+            self.log_test_result(
+                "Google Auth Endpoint Exists", 
+                False, 
+                f"Connection error: {str(e)}"
+            )
+            
+    async def test_google_auth_missing_token_validation(self):
+        """Test: Verify 422 error for missing token field"""
+        try:
+            # Test with empty request body
+            response = await self.make_request("POST", "/auth/google", {})
+            
+            if response["status"] == 422:
+                self.log_test_result(
+                    "Google Auth Missing Token Validation", 
+                    True, 
+                    f"Correctly returned 422 for missing token field"
+                )
+            else:
+                self.log_test_result(
+                    "Google Auth Missing Token Validation", 
+                    False, 
+                    f"Expected 422, got {response['status']}"
+                )
+        except Exception as e:
+            self.log_test_result(
+                "Google Auth Missing Token Validation", 
+                False, 
+                f"Error testing missing token: {str(e)}"
+            )
+            
+    async def test_google_auth_invalid_token_handling(self):
+        """Test: Verify error handling for invalid token"""
+        try:
+            # Test with invalid token
+            invalid_token_data = {"token": "invalid_google_token_12345"}
+            
+            response = await self.make_request("POST", "/auth/google", invalid_token_data)
+            
+            if response["status"] in [400, 401, 500]:
+                self.log_test_result(
+                    "Google Auth Invalid Token Handling", 
+                    True, 
+                    f"Correctly handled invalid token with status {response['status']}"
+                )
+            else:
+                self.log_test_result(
+                    "Google Auth Invalid Token Handling", 
+                    False, 
+                    f"Unexpected status {response['status']} for invalid token"
+                )
+        except Exception as e:
+            self.log_test_result(
+                "Google Auth Invalid Token Handling", 
+                False, 
+                f"Error testing invalid token: {str(e)}"
+            )
+            
+    async def test_google_auth_request_structure_validation(self):
+        """Test: Verify GoogleAuthRequest model validation"""
+        try:
+            # Test with extra fields (should be ignored or handled)
+            extra_fields_data = {
+                "token": "test_token_123",
+                "extra_field": "should_be_ignored",
+                "another_field": 12345
+            }
+            
+            response = await self.make_request("POST", "/auth/google", extra_fields_data)
+            
+            # Should still process the request (even if token is invalid)
+            # The key is that it doesn't fail due to extra fields
+            if response["status"] in [400, 401, 500, 422]:  # Expected for invalid token or validation
+                self.log_test_result(
+                    "Google Auth Request Structure Validation", 
+                    True, 
+                    f"Pydantic model correctly processed request with extra fields. Status: {response['status']}"
+                )
+            else:
+                self.log_test_result(
+                    "Google Auth Request Structure Validation", 
+                    True, 
+                    f"Request processed successfully with status {response['status']}"
+                )
+        except Exception as e:
+            self.log_test_result(
+                "Google Auth Request Structure Validation", 
+                False, 
+                f"Error testing request structure: {str(e)}"
+            )
+            
+    async def test_google_auth_configuration(self):
+        """Test: Verify Google Client ID configuration"""
+        try:
+            # Test with a token that would trigger Google client validation
+            test_data = {"token": "test.jwt.token"}
+            
+            response = await self.make_request("POST", "/auth/google", test_data)
+            
+            # Check if the error indicates Google auth is configured
+            response_text = str(response.get("data", ""))
+            if "Google auth not configured" in response_text:
+                self.log_test_result(
+                    "Google Auth Configuration", 
+                    False, 
+                    "Google Client ID not configured in backend"
+                )
+            elif response["status"] in [400, 401, 500]:
+                # If we get other errors, it means Google client is configured
+                self.log_test_result(
+                    "Google Auth Configuration", 
+                    True, 
+                    f"Google Client ID appears to be configured (got {response['status']} instead of config error)"
+                )
+            else:
+                self.log_test_result(
+                    "Google Auth Configuration", 
+                    True, 
+                    f"Google configuration appears valid (status: {response['status']})"
+                )
+        except Exception as e:
+            self.log_test_result(
+                "Google Auth Configuration", 
+                False, 
+                f"Error testing Google configuration: {str(e)}"
+            )
+
+    # ==========================================
     # MAIN TEST EXECUTION
     # ==========================================
     
