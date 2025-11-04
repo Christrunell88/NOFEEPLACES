@@ -3537,19 +3537,63 @@ async def get_me(request: Request):
 async def google_auth(request: GoogleAuthRequest):
     """Authenticate with Google"""
     try:
+        import httpx
         from google.oauth2 import id_token
-        from google.auth.transport import requests
+        from google.auth.transport import requests as google_requests
         
-        # Verify Google token
         google_client_id = os.environ.get('GOOGLE_CLIENT_ID')
+        google_client_secret = os.environ.get('GOOGLE_CLIENT_SECRET')
+        
         if not google_client_id:
             raise HTTPException(status_code=500, detail="Google auth not configured")
         
-        idinfo = id_token.verify_oauth2_token(
-            request.token,
-            requests.Request(),
-            google_client_id
-        )
+        # Handle authorization code flow (modern approach)
+        if request.code:
+            logger.info("Processing Google authorization code")
+            
+            if not google_client_secret:
+                raise HTTPException(status_code=500, detail="Google client secret not configured")
+            
+            # Exchange authorization code for tokens
+            async with httpx.AsyncClient() as client:
+                token_response = await client.post(
+                    'https://oauth2.googleapis.com/token',
+                    data={
+                        'code': request.code,
+                        'client_id': google_client_id,
+                        'client_secret': google_client_secret,
+                        'redirect_uri': 'postmessage',  # For @react-oauth/google
+                        'grant_type': 'authorization_code'
+                    }
+                )
+                
+                if token_response.status_code != 200:
+                    logger.error(f"Token exchange failed: {token_response.text}")
+                    raise HTTPException(status_code=400, detail="Failed to exchange authorization code")
+                
+                tokens = token_response.json()
+                id_token_str = tokens.get('id_token')
+                
+                if not id_token_str:
+                    raise HTTPException(status_code=400, detail="No ID token received")
+                
+                # Verify the ID token
+                idinfo = id_token.verify_oauth2_token(
+                    id_token_str,
+                    google_requests.Request(),
+                    google_client_id
+                )
+        
+        # Handle legacy token flow (fallback)
+        elif request.token:
+            logger.info("Processing Google ID token (legacy)")
+            idinfo = id_token.verify_oauth2_token(
+                request.token,
+                google_requests.Request(),
+                google_client_id
+            )
+        else:
+            raise HTTPException(status_code=400, detail="Either code or token must be provided")
         
         email = idinfo['email']
         name = idinfo.get('name', email.split('@')[0])
