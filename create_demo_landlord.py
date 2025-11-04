@@ -202,7 +202,7 @@ async def create_demo_landlord():
     print(f"🏠 Demo apartments: {len(demo_apartments)}")
     print(f"📞 Demo inquiries: {len(demo_contacts)}")
     print(f"\n🎯 Dashboard URL:")
-    print(f"   https://nofeeplaces-homes.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
+    print(f"   https://buildingtracker-1.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
     
     client.close()
 

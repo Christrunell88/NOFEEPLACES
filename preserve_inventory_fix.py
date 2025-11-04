@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 
 class InventoryPreservingFix:
     def __init__(self):
-        self.production_api = "https://nofeeplaces-homes.preview.emergentagent.com/api"
+        self.production_api = "https://buildingtracker-1.preview.emergentagent.com/api"
         
         # Realistic NYC pricing by neighborhood and apartment type
         self.pricing_guidelines = {

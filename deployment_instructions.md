@@ -33,7 +33,7 @@ sudo systemctl restart backend
 ### Step 3: Apply the Fix
 Once deployed, call the admin endpoint:
 ```bash
-curl -X POST "https://nofeeplaces-homes.preview.emergentagent.com/api/admin/fix-central-park-west"
+curl -X POST "https://buildingtracker-1.preview.emergentagent.com/api/admin/fix-central-park-west"
 ```
 
 ### Step 4: Verify

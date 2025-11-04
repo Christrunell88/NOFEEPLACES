@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 class GoogleAuthScheduleFlowTester:
     def __init__(self):
         # Use production URL from frontend/.env
-        self.base_url = "https://nofeeplaces-homes.preview.emergentagent.com/api"
+        self.base_url = "https://buildingtracker-1.preview.emergentagent.com/api"
         self.session = None
         self.test_results = []
         self.total_tests = 0

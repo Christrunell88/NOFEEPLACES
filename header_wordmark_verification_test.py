@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://nofeeplaces-homes.preview.emergentagent.com/api"
+BASE_URL = "https://buildingtracker-1.preview.emergentagent.com/api"
 
 class HeaderWordMarkVerificationTester:
     def __init__(self):
@@ -288,8 +288,8 @@ class HeaderWordMarkVerificationTester:
         try:
             # Test CORS and basic API accessibility
             headers = {
-                "Origin": "https://nofeeplaces-homes.preview.emergentagent.com",
-                "Referer": "https://nofeeplaces-homes.preview.emergentagent.com/"
+                "Origin": "https://buildingtracker-1.preview.emergentagent.com",
+                "Referer": "https://buildingtracker-1.preview.emergentagent.com/"
             }
             
             response = self.make_request("GET", "/apartments", {"limit": 1}, headers=headers)
