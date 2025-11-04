@@ -727,6 +727,7 @@ function App() {
         </AuthProvider>
       </ToastProvider>
     </ErrorBoundary>
+    </GoogleOAuthProvider>
   );
 }
 
