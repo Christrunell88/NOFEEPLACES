@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './auth';
-import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 
 const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
   const { loginWithGoogle, loading } = useAuth();
