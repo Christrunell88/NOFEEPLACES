@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginWithGoogle = async (googleToken) => {
     try {
-      const response = await axios.post(`${API}/api/auth/google`, {
+      const response = await axios.post(`${API}/auth/google`, {
         token: googleToken
       });
       
