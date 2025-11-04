@@ -778,11 +778,16 @@ class NoFeePlacesBackendTester:
         
         # Categorize results
         schedule_showing_tests = [r for r in self.test_results if "showing" in r["test"].lower() or "schedule" in r["test"].lower()]
-        login_tests = [r for r in self.test_results if "auth" in r["test"].lower() or "login" in r["test"].lower() or "social" in r["test"].lower()]
-        other_tests = [r for r in self.test_results if r not in schedule_showing_tests and r not in login_tests]
+        google_auth_tests = [r for r in self.test_results if "google auth" in r["test"].lower()]
+        login_tests = [r for r in self.test_results if ("auth" in r["test"].lower() or "login" in r["test"].lower() or "social" in r["test"].lower()) and r not in google_auth_tests]
+        other_tests = [r for r in self.test_results if r not in schedule_showing_tests and r not in login_tests and r not in google_auth_tests]
         
         logger.info("\n📅 SCHEDULE SHOWING FEATURE RESULTS:")
         for test in schedule_showing_tests:
+            logger.info(f"  {test['status']}: {test['test']}")
+        
+        logger.info("\n🔐 GOOGLE AUTHENTICATION RESULTS:")
+        for test in google_auth_tests:
             logger.info(f"  {test['status']}: {test['test']}")
         
         logger.info("\n🔐 LOGIN FUNCTIONALITY RESULTS:")
