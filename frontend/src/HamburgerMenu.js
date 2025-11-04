@@ -182,29 +182,23 @@ const HamburgerMenu = () => {
                 {/* Boroughs */}
               </div>
 
-              {/* Right Side - Professional Admin Panel */}
-              <div className="w-36 bg-gradient-to-b from-slate-50 to-slate-100 border-l border-gray-200 flex flex-col">
-                {/* Admin Header */}
+              {/* Right Side - Clean Menu */}
+              <div className="w-40 bg-white border-l border-gray-200 flex flex-col">
                 
-                {/* Services & Admin Actions */}
-                <div className="flex-1 p-4 space-y-3">
-                  {/* Services moved to right */}
+                {/* Menu Items */}
+                <div className="flex-1 p-6 space-y-4">
                   <Link
                     to="/tenant/list-apartment"
                     onClick={closeMenu}
-                    className="flex items-center justify-center w-full bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-emerald-300 shadow-sm group"
+                    className="block w-full text-center bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-serif text-base py-4 px-4 rounded-lg transition-all shadow-md hover:shadow-lg"
                   >
-                    <svg className="w-4 h-4 mr-2 group-hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
                     List Property
                   </Link>
                   
-                  {/* Admin - Simplified */}
                   <Link
                     to="/admin"
                     onClick={closeMenu}
-                    className="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900 text-xs font-medium py-3 px-3 rounded-lg transition-all border border-gray-200 hover:border-gray-300"
+                    className="block w-full text-center bg-gray-800 hover:bg-gray-900 text-white font-serif text-base py-4 px-4 rounded-lg transition-all"
                   >
                     Admin
                   </Link>
