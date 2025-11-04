@@ -656,12 +656,15 @@ const BlogPostPage = () => {
 };
 
 function App() {
+  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  
   return (
-    <ErrorBoundary>
-      <ToastProvider>
-        <AuthProvider>
-          <div className="App">
-            <BrowserRouter>
+    <GoogleOAuthProvider clientId={googleClientId}>
+      <ErrorBoundary>
+        <ToastProvider>
+          <AuthProvider>
+            <div className="App">
+              <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
