@@ -186,10 +186,6 @@ class ContactResponse(BaseModel):
     contact_id: str
 
 # Social Authentication Models
-class FacebookAuthRequest(BaseModel):
-    access_token: str
-    user_id: str
-
 class AppleAuthRequest(BaseModel):
     authorization_code: str
     identity_token: str
