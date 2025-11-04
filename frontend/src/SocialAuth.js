@@ -1,66 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from './auth';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
   const { loginWithGoogle, loading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Google authentication handler
-  const handleGoogleLogin = () => {
-    if (!window.google) {
-      console.error('Google SDK not loaded');
-      onError && onError('Google Sign-In not available. Please refresh the page.');
-      return;
-    }
-
-    setIsLoading(true);
-    
-    try {
-      // Initialize and trigger Google Sign-In
-      window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleGoogleCallback,
-        auto_select: false,
-        cancel_on_tap_outside: true
-      });
-
-      // Trigger the Google One Tap prompt
-      window.google.accounts.id.prompt((notification) => {
-        console.log('Google prompt notification:', notification);
-        if (notification.isNotDisplayed()) {
-          console.warn('Google One Tap not displayed:', notification.getNotDisplayedReason());
-          setIsLoading(false);
+  // Google authentication handler using proper OAuth flow
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      console.log('✅ Google OAuth success, got authorization code');
+      setIsLoading(true);
+      try {
+        // Exchange authorization code for user info via backend
+        const result = await loginWithGoogle(codeResponse.code);
+        
+        if (result.success) {
+          console.log('✅ Backend authentication successful');
+          onSuccess && onSuccess(result.user);
+          onClose && onClose();
+        } else {
+          console.error('❌ Backend authentication failed:', result.error);
+          onError && onError(result.error || 'Google Sign-In failed');
         }
-        if (notification.isSkippedMoment()) {
-          console.warn('Google One Tap skipped:', notification.getSkippedReason());
-          setIsLoading(false);
-        }
-      });
-    } catch (error) {
-      console.error('Google Sign-In error:', error);
-      onError && onError('Failed to initialize Google Sign-In');
-      setIsLoading(false);
-    }
-  };
-
-  // Google callback handler
-  const handleGoogleCallback = async (response) => {
-    console.log('Google callback triggered with credential');
-    try {
-      const result = await loginWithGoogle(response.credential);
-      
-      if (result.success) {
-        console.log('✅ Google login successful');
-        onSuccess && onSuccess(result.user);
-        onClose && onClose();
-      } else {
-        console.error('❌ Google login failed:', result.error);
-        onError && onError(result.error || 'Google Sign-In failed');
+      } catch (error) {
+        console.error('❌ Authentication error:', error);
+        onError && onError('Google Sign-In failed. Please try again.');
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error('❌ Google authentication error:', error);
+    },
+    onError: (error) => {
+      console.error('❌ Google OAuth error:', error);
       onError && onError('Google Sign-In failed. Please try again.');
-    } finally {
+      setIsLoading(false);
+    },
+    flow: 'auth-code',
+  });
+
+  const handleGoogleLogin = () => {
+    setIsLoading(true);
+    try {
+      googleLogin();
+    } catch (error) {
+      console.error('Error triggering Google login:', error);
+      onError && onError('Failed to start Google Sign-In');
       setIsLoading(false);
     }
   };
