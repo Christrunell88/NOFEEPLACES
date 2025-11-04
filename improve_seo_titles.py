@@ -17,9 +17,9 @@ def generate_seo_title(apartment):
     bedrooms = apartment.get('bedrooms', 0)
     bathrooms = apartment.get('bathrooms', 1)
     price = apartment.get('price', 0)
-    building_name = apartment.get('building_name', '').strip()
-    neighborhood = apartment.get('neighborhood', '').strip()
-    borough = apartment.get('borough', 'NYC').strip()
+    building_name = (apartment.get('building_name') or '').strip()
+    neighborhood = (apartment.get('neighborhood') or '').strip()
+    borough = (apartment.get('borough') or 'NYC').strip()
     
     # Format bedroom/bathroom
     if bedrooms == 0:
