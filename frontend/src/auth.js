@@ -137,7 +137,6 @@ export const AuthProvider = ({ children }) => {
     login,
     register,
     logout,
-    loginWithFacebook,
     loginWithApple,
     loginWithGoogle,
     loading,
