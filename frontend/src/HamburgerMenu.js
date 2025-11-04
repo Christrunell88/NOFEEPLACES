@@ -200,17 +200,6 @@ const HamburgerMenu = () => {
                     List Property
                   </Link>
                   
-                  <Link
-                    to="/newsletter"
-                    onClick={closeMenu}
-                    className="flex items-center justify-center w-full bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 text-xs font-semibold py-3 px-3 rounded-lg transition-all border border-slate-200 hover:border-purple-300 shadow-sm group"
-                  >
-                    <svg className="w-4 h-4 mr-2 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM9 7h6m0 10v-3H9v3z M20.121 12.121A3 3 0 0 0 18 9h-1.172A3 3 0 0 0 13 7.172V6a3 3 0 1 0-6 0v1.172A3 3 0 0 0 3.172 9H2a3 3 0 0 0 2.121 3.121z" />
-                    </svg>
-                    Newsletter
-                  </Link>
-                  
                   {/* Admin - Simplified */}
                   <Link
                     to="/admin"
