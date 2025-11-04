@@ -93,7 +93,7 @@ const HamburgerMenu = () => {
                       Sign In / Sign Up
                     </button>
                     <p className="text-xs text-gray-500 text-center mt-2">
-                      Google • Facebook • Apple
+                      Google • Apple
                     </p>
                   </div>
                 )}
