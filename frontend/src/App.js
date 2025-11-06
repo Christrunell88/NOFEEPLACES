@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import axios from "axios";
 import * as Components from './components';
 import { AuthProvider, useAuth } from './auth';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { 
   trackPageView, 
   trackApartmentSearch, 
