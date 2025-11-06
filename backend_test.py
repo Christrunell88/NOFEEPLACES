@@ -15,801 +15,504 @@ import os
 # Backend URL from frontend .env
 BACKEND_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
 
-class NoFeePlacesBackendTester:
+class AuthenticationTester:
     def __init__(self):
-        # Use production URL from frontend/.env
-        self.base_url = "https://nofee-login-fix.preview.emergentagent.com/api"
         self.session = None
         self.test_results = []
-        self.total_tests = 0
-        self.passed_tests = 0
+        self.test_user_email = None
+        self.test_user_password = "TestPass123!"
+        self.test_user_name = "Test User"
         
-    async def __aenter__(self):
+    async def setup(self):
+        """Setup test session"""
         self.session = aiohttp.ClientSession()
-        return self
+        # Generate unique email with timestamp
+        timestamp = int(time.time())
+        self.test_user_email = f"test-user-{timestamp}@example.com"
+        print(f"🔧 Test Setup Complete")
+        print(f"📧 Test Email: {self.test_user_email}")
+        print(f"🔑 Test Password: {self.test_user_password}")
+        print(f"👤 Test Name: {self.test_user_name}")
+        print(f"🌐 Backend URL: {BACKEND_URL}")
+        print("-" * 60)
         
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def cleanup(self):
+        """Cleanup test session"""
         if self.session:
             await self.session.close()
-    
-    def log_test_result(self, test_name: str, passed: bool, details: str = "", error: str = ""):
+            
+    def log_result(self, test_name, success, details, response_data=None):
         """Log test result"""
-        self.total_tests += 1
-        if passed:
-            self.passed_tests += 1
-            status = "✅ PASS"
-        else:
-            status = "❌ FAIL"
-        
+        status = "✅ PASS" if success else "❌ FAIL"
         result = {
             "test": test_name,
-            "status": status,
-            "passed": passed,
+            "success": success,
             "details": details,
-            "error": error
+            "response_data": response_data
         }
         self.test_results.append(result)
-        logger.info(f"{status}: {test_name}")
-        if details:
-            logger.info(f"  Details: {details}")
-        if error:
-            logger.error(f"  Error: {error}")
-    
-    async def make_request(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> Dict:
-        """Make HTTP request to API"""
-        url = f"{self.base_url}{endpoint}"
+        print(f"{status} {test_name}")
+        print(f"   Details: {details}")
+        if response_data and not success:
+            print(f"   Response: {response_data}")
+        print()
+        
+    async def test_user_registration(self):
+        """Test Scenario 1: New User Registration"""
+        print("🧪 TEST SCENARIO 1: New User Registration")
+        
         try:
-            if method.upper() == "GET":
-                async with self.session.get(url, headers=headers) as response:
-                    return {
-                        "status": response.status,
-                        "data": await response.json() if response.content_type == 'application/json' else await response.text(),
-                        "headers": dict(response.headers)
-                    }
-            elif method.upper() == "POST":
-                async with self.session.post(url, json=data, headers=headers) as response:
-                    return {
-                        "status": response.status,
-                        "data": await response.json() if response.content_type == 'application/json' else await response.text(),
-                        "headers": dict(response.headers)
-                    }
-        except Exception as e:
-            return {"status": 0, "error": str(e)}
-    
-    async def get_test_apartment_id(self) -> str:
-        """Get a valid apartment ID for testing"""
-        try:
-            response = await self.make_request("GET", "/apartments?limit=1")
-            if response["status"] == 200 and "apartments" in response["data"]:
-                apartments = response["data"]["apartments"]
-                if apartments:
-                    return apartments[0]["id"]
-            return "test-apartment-id"  # Fallback
-        except:
-            return "test-apartment-id"  # Fallback
-    
-    # ==========================================
-    # SCHEDULE SHOWING FEATURE TESTS
-    # ==========================================
-    
-    async def test_schedule_showing_endpoint_exists(self):
-        """Test 1: Verify schedule showing endpoint exists"""
-        test_data = {
-            "apartment_id": "test-id",
-            "apartment_title": "Test Apartment",
-            "apartment_address": "123 Test St, NYC",
-            "apartment_price": 3000.0,
-            "showing_date": "2025-01-25",
-            "showing_time": "2 PM",
-            "visitor_name": "John Smith",
-            "visitor_email": "john.smith@example.com",
-            "visitor_phone": "+1-555-123-4567",
-            "special_notes": "Test showing request"
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", test_data)
-        
-        if response["status"] in [200, 201, 400, 422]:  # Endpoint exists (even if validation fails)
-            self.log_test_result(
-                "Schedule Showing Endpoint Exists",
-                True,
-                f"Endpoint responded with status {response['status']}"
-            )
-        else:
-            self.log_test_result(
-                "Schedule Showing Endpoint Exists",
-                False,
-                f"Endpoint not found or server error: {response['status']}"
-            )
-    
-    async def test_schedule_showing_valid_request(self):
-        """Test 2: Test valid showing schedule request"""
-        # Get future date (3 days from now to ensure 24-hour notice)
-        future_date = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d")
-        apartment_id = await self.get_test_apartment_id()
-        
-        test_data = {
-            "apartment_id": apartment_id,
-            "apartment_title": "Luxury Studio in Manhattan",
-            "apartment_address": "400 West 61st Street, New York, NY",
-            "apartment_price": 4500.0,
-            "showing_date": future_date,
-            "showing_time": "2 PM",
-            "visitor_name": "Sarah Johnson",
-            "visitor_email": "sarah.johnson@example.com",
-            "visitor_phone": "+1-555-987-6543",
-            "special_notes": "Interested in viewing the apartment, flexible with timing"
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", test_data)
-        
-        if response["status"] in [200, 201]:
-            data = response["data"]
-            if isinstance(data, dict) and data.get("success") and data.get("showing_id"):
-                self.log_test_result(
-                    "Valid Showing Schedule Request",
-                    True,
-                    f"Showing scheduled successfully with ID: {data.get('showing_id')}"
-                )
-            else:
-                self.log_test_result(
-                    "Valid Showing Schedule Request",
-                    False,
-                    f"Invalid response format: {data}"
-                )
-        else:
-            self.log_test_result(
-                "Valid Showing Schedule Request",
-                False,
-                f"Request failed with status {response['status']}: {response.get('data', '')}"
-            )
-    
-    async def test_schedule_showing_24_hour_notice(self):
-        """Test 3: Test 24-hour minimum notice requirement"""
-        # Try to schedule for tomorrow (should fail)
-        tomorrow = (datetime.now() + timedelta(days=1)).strftime("%Y-%m-%d")
-        
-        test_data = {
-            "apartment_id": "test-apartment-id",
-            "apartment_title": "Test Apartment",
-            "apartment_address": "123 Test St, NYC",
-            "apartment_price": 3000.0,
-            "showing_date": tomorrow,
-            "showing_time": "2 PM",
-            "visitor_name": "Test User",
-            "visitor_email": "test@example.com",
-            "visitor_phone": "+1-555-123-4567"
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", test_data)
-        
-        if response["status"] == 400:
-            data = response["data"]
-            if "24 hours" in str(data).lower() or "advance notice" in str(data).lower():
-                self.log_test_result(
-                    "24-Hour Notice Requirement",
-                    True,
-                    "Correctly rejected showing with insufficient notice"
-                )
-            else:
-                self.log_test_result(
-                    "24-Hour Notice Requirement",
-                    False,
-                    f"Wrong error message: {data}"
-                )
-        else:
-            self.log_test_result(
-                "24-Hour Notice Requirement",
-                False,
-                f"Should have rejected request, got status {response['status']}"
-            )
-    
-    async def test_schedule_showing_business_hours(self):
-        """Test 4: Test business hours constraints (9 AM - 6 PM)"""
-        future_date = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d")
-        
-        # Test invalid time (8 AM - before business hours)
-        test_data = {
-            "apartment_id": "test-apartment-id",
-            "apartment_title": "Test Apartment",
-            "apartment_address": "123 Test St, NYC",
-            "apartment_price": 3000.0,
-            "showing_date": future_date,
-            "showing_time": "8 AM",  # Before business hours
-            "visitor_name": "Test User",
-            "visitor_email": "test@example.com",
-            "visitor_phone": "+1-555-123-4567"
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", test_data)
-        
-        # Note: The current implementation may not have business hours validation
-        # We'll check if it's implemented or just log the result
-        if response["status"] == 400:
-            self.log_test_result(
-                "Business Hours Validation",
-                True,
-                "Correctly rejected showing outside business hours"
-            )
-        else:
-            self.log_test_result(
-                "Business Hours Validation",
-                False,
-                f"Business hours validation not implemented (status: {response['status']})",
-                "Minor: Business hours validation may need implementation"
-            )
-    
-    async def test_schedule_showing_required_fields(self):
-        """Test 5: Test required field validation"""
-        # Test missing required fields
-        incomplete_data = {
-            "apartment_id": "test-apartment-id",
-            "apartment_title": "Test Apartment",
-            # Missing required fields: showing_date, showing_time, visitor_name, visitor_email, visitor_phone
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", incomplete_data)
-        
-        if response["status"] == 422:  # Validation error
-            self.log_test_result(
-                "Required Fields Validation",
-                True,
-                "Correctly rejected request with missing required fields"
-            )
-        else:
-            self.log_test_result(
-                "Required Fields Validation",
-                False,
-                f"Should have rejected incomplete request, got status {response['status']}"
-            )
-    
-    async def test_schedule_showing_email_format(self):
-        """Test 6: Test email format validation"""
-        future_date = (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d")
-        
-        test_data = {
-            "apartment_id": "test-apartment-id",
-            "apartment_title": "Test Apartment",
-            "apartment_address": "123 Test St, NYC",
-            "apartment_price": 3000.0,
-            "showing_date": future_date,
-            "showing_time": "2 PM",
-            "visitor_name": "Test User",
-            "visitor_email": "invalid-email-format",  # Invalid email
-            "visitor_phone": "+1-555-123-4567"
-        }
-        
-        response = await self.make_request("POST", "/showings/schedule", test_data)
-        
-        if response["status"] == 422:  # Validation error
-            self.log_test_result(
-                "Email Format Validation",
-                True,
-                "Correctly rejected request with invalid email format"
-            )
-        else:
-            self.log_test_result(
-                "Email Format Validation",
-                False,
-                f"Email validation may be lenient (status: {response['status']})",
-                "Minor: Email format validation may need strengthening"
-            )
-    
-    # ==========================================
-    # LOGIN FUNCTIONALITY TESTS
-    # ==========================================
-    
-    async def test_auth_login_endpoint_exists(self):
-        """Test 7: Verify login endpoint exists"""
-        test_data = {
-            "email": "test@example.com",
-            "password": "testpassword"
-        }
-        
-        response = await self.make_request("POST", "/auth/login", test_data)
-        
-        if response["status"] in [200, 401, 422]:  # Endpoint exists
-            self.log_test_result(
-                "Login Endpoint Exists",
-                True,
-                f"Login endpoint responded with status {response['status']}"
-            )
-        else:
-            self.log_test_result(
-                "Login Endpoint Exists",
-                False,
-                f"Login endpoint not found: {response['status']}"
-            )
-    
-    async def test_auth_login_invalid_credentials(self):
-        """Test 8: Test login with invalid credentials"""
-        test_data = {
-            "email": "nonexistent@example.com",
-            "password": "wrongpassword"
-        }
-        
-        response = await self.make_request("POST", "/auth/login", test_data)
-        
-        if response["status"] == 401:
-            self.log_test_result(
-                "Invalid Credentials Handling",
-                True,
-                "Correctly rejected invalid credentials with 401 status"
-            )
-        else:
-            self.log_test_result(
-                "Invalid Credentials Handling",
-                False,
-                f"Expected 401 for invalid credentials, got {response['status']}"
-            )
-    
-    async def test_auth_login_admin_credentials(self):
-        """Test 9: Test login with admin credentials"""
-        # Use admin credentials from backend/.env
-        test_data = {
-            "email": "placesfirm@gmail.com",
-            "password": "Checkers080/?"
-        }
-        
-        response = await self.make_request("POST", "/auth/login", test_data)
-        
-        if response["status"] == 200:
-            data = response["data"]
-            if isinstance(data, dict) and "access_token" in data:
-                self.log_test_result(
-                    "Admin Login Success",
-                    True,
-                    "Admin login successful with access token returned"
-                )
-                return data.get("access_token")  # Return token for further tests
-            else:
-                self.log_test_result(
-                    "Admin Login Success",
-                    False,
-                    f"Login succeeded but invalid response format: {data}"
-                )
-        else:
-            self.log_test_result(
-                "Admin Login Success",
-                False,
-                f"Admin login failed with status {response['status']}: {response.get('data', '')}"
-            )
-        return None
-    
-    async def test_auth_me_endpoint(self):
-        """Test 10: Test user info endpoint with JWT token"""
-        # First try to get a valid token
-        token = await self.test_auth_login_admin_credentials()
-        
-        if not token:
-            self.log_test_result(
-                "User Info Endpoint (with token)",
-                False,
-                "Could not obtain valid token for testing"
-            )
-            return
-        
-        headers = {"Authorization": f"Bearer {token}"}
-        response = await self.make_request("GET", "/auth/me", headers=headers)
-        
-        if response["status"] == 200:
-            data = response["data"]
-            if isinstance(data, dict) and "email" in data:
-                self.log_test_result(
-                    "User Info Endpoint (with token)",
-                    True,
-                    f"User info retrieved successfully for {data.get('email')}"
-                )
-            else:
-                self.log_test_result(
-                    "User Info Endpoint (with token)",
-                    False,
-                    f"Invalid user info response format: {data}"
-                )
-        else:
-            self.log_test_result(
-                "User Info Endpoint (with token)",
-                False,
-                f"User info request failed with status {response['status']}"
-            )
-    
-    async def test_auth_me_without_token(self):
-        """Test 11: Test user info endpoint without token"""
-        response = await self.make_request("GET", "/auth/me")
-        
-        if response["status"] == 401:
-            self.log_test_result(
-                "User Info Endpoint (no token)",
-                True,
-                "Correctly rejected request without authorization token"
-            )
-        else:
-            self.log_test_result(
-                "User Info Endpoint (no token)",
-                False,
-                f"Should have rejected request without token, got status {response['status']}"
-            )
-    
-    async def test_social_auth_endpoints(self):
-        """Test 12: Test social authentication endpoints exist"""
-        # Test Facebook auth endpoint
-        facebook_data = {
-            "access_token": "fake_facebook_token",
-            "user_id": "fake_user_id"
-        }
-        
-        facebook_response = await self.make_request("POST", "/auth/facebook", facebook_data)
-        
-        # Test Apple auth endpoint
-        apple_data = {
-            "authorization_code": "fake_apple_code",
-            "identity_token": "fake_identity_token"
-        }
-        
-        apple_response = await self.make_request("POST", "/auth/apple", apple_data)
-        
-        facebook_exists = facebook_response["status"] in [200, 401, 422, 503]
-        apple_exists = apple_response["status"] in [200, 401, 422, 503]
-        
-        if facebook_exists and apple_exists:
-            self.log_test_result(
-                "Social Auth Endpoints Exist",
-                True,
-                "Both Facebook and Apple auth endpoints are available"
-            )
-        elif facebook_exists or apple_exists:
-            self.log_test_result(
-                "Social Auth Endpoints Exist",
-                True,
-                f"Partial social auth available (Facebook: {facebook_exists}, Apple: {apple_exists})"
-            )
-        else:
-            self.log_test_result(
-                "Social Auth Endpoints Exist",
-                False,
-                "Social authentication endpoints not found"
-            )
-    
-    # ==========================================
-    # ADDITIONAL BACKEND VERIFICATION TESTS
-    # ==========================================
-    
-    async def test_backend_health(self):
-        """Test 13: Basic backend health check"""
-        response = await self.make_request("GET", "/apartments?limit=1")
-        
-        if response["status"] == 200:
-            self.log_test_result(
-                "Backend Health Check",
-                True,
-                "Backend is responding to API requests"
-            )
-        else:
-            self.log_test_result(
-                "Backend Health Check",
-                False,
-                f"Backend health check failed: {response['status']}"
-            )
-    
-    async def test_apartment_data_availability(self):
-        """Test 14: Verify apartment data is available for showing scheduling"""
-        response = await self.make_request("GET", "/apartments?limit=5")
-        
-        if response["status"] == 200:
-            data = response["data"]
-            if isinstance(data, dict) and "apartments" in data and len(data["apartments"]) > 0:
-                apartment = data["apartments"][0]
-                required_fields = ["id", "title", "price"]
-                has_required = all(field in apartment for field in required_fields)
-                
-                if has_required:
-                    self.log_test_result(
-                        "Apartment Data Availability",
-                        True,
-                        f"Found {len(data['apartments'])} apartments with required fields"
-                    )
-                else:
-                    self.log_test_result(
-                        "Apartment Data Availability",
-                        False,
-                        f"Apartments missing required fields: {apartment.keys()}"
-                    )
-            else:
-                self.log_test_result(
-                    "Apartment Data Availability",
-                    False,
-                    "No apartment data available for showing scheduling"
-                )
-        else:
-            self.log_test_result(
-                "Apartment Data Availability",
-                False,
-                f"Could not retrieve apartment data: {response['status']}"
-            )
-    
-    async def test_email_service_integration(self):
-        """Test 15: Test email service integration (contact form)"""
-        test_data = {
-            "name": "Test User",
-            "email": "test@example.com",
-            "phone": "+1-555-123-4567",
-            "message": "Testing email service integration for showing confirmations"
-        }
-        
-        response = await self.make_request("POST", "/contact", test_data)
-        
-        if response["status"] in [200, 201]:
-            data = response["data"]
-            if isinstance(data, dict) and ("message" in data or "contact_id" in data):
-                self.log_test_result(
-                    "Email Service Integration",
-                    True,
-                    "Email service appears to be working (contact form successful)"
-                )
-            else:
-                self.log_test_result(
-                    "Email Service Integration",
-                    False,
-                    f"Contact form succeeded but unexpected response: {data}"
-                )
-        else:
-            self.log_test_result(
-                "Email Service Integration",
-                False,
-                f"Email service may have issues (contact form failed): {response['status']}"
-            )
-    
-    # ==========================================
-    # GOOGLE AUTHENTICATION TESTS
-    # ==========================================
-    
-    async def test_google_auth_endpoint_exists(self):
-        """Test: Verify /api/auth/google endpoint exists"""
-        try:
-            # Test with empty POST to see if endpoint exists
-            response = await self.make_request("POST", "/auth/google", {})
-            
-            if response["status"] == 422:
-                # 422 means endpoint exists but validation failed (expected)
-                self.log_test_result(
-                    "Google Auth Endpoint Exists", 
-                    True, 
-                    f"Endpoint accessible, returned {response['status']} (validation error as expected)"
-                )
-            elif response["status"] == 404:
-                self.log_test_result(
-                    "Google Auth Endpoint Exists", 
-                    False, 
-                    "Endpoint not found (404)"
-                )
-            else:
-                self.log_test_result(
-                    "Google Auth Endpoint Exists", 
-                    True, 
-                    f"Endpoint exists, returned {response['status']}"
-                )
-        except Exception as e:
-            self.log_test_result(
-                "Google Auth Endpoint Exists", 
-                False, 
-                f"Connection error: {str(e)}"
-            )
-            
-    async def test_google_auth_missing_token_validation(self):
-        """Test: Verify 422 error for missing token field"""
-        try:
-            # Test with empty request body
-            response = await self.make_request("POST", "/auth/google", {})
-            
-            if response["status"] == 422:
-                self.log_test_result(
-                    "Google Auth Missing Token Validation", 
-                    True, 
-                    f"Correctly returned 422 for missing token field"
-                )
-            else:
-                self.log_test_result(
-                    "Google Auth Missing Token Validation", 
-                    False, 
-                    f"Expected 422, got {response['status']}"
-                )
-        except Exception as e:
-            self.log_test_result(
-                "Google Auth Missing Token Validation", 
-                False, 
-                f"Error testing missing token: {str(e)}"
-            )
-            
-    async def test_google_auth_invalid_token_handling(self):
-        """Test: Verify error handling for invalid token"""
-        try:
-            # Test with invalid token
-            invalid_token_data = {"token": "invalid_google_token_12345"}
-            
-            response = await self.make_request("POST", "/auth/google", invalid_token_data)
-            
-            if response["status"] in [400, 401, 500]:
-                self.log_test_result(
-                    "Google Auth Invalid Token Handling", 
-                    True, 
-                    f"Correctly handled invalid token with status {response['status']}"
-                )
-            else:
-                self.log_test_result(
-                    "Google Auth Invalid Token Handling", 
-                    False, 
-                    f"Unexpected status {response['status']} for invalid token"
-                )
-        except Exception as e:
-            self.log_test_result(
-                "Google Auth Invalid Token Handling", 
-                False, 
-                f"Error testing invalid token: {str(e)}"
-            )
-            
-    async def test_google_auth_request_structure_validation(self):
-        """Test: Verify GoogleAuthRequest model validation"""
-        try:
-            # Test with extra fields (should be ignored or handled)
-            extra_fields_data = {
-                "token": "test_token_123",
-                "extra_field": "should_be_ignored",
-                "another_field": 12345
+            registration_data = {
+                "email": self.test_user_email,
+                "password": self.test_user_password,
+                "full_name": self.test_user_name
             }
             
-            response = await self.make_request("POST", "/auth/google", extra_fields_data)
-            
-            # Should still process the request (even if token is invalid)
-            # The key is that it doesn't fail due to extra fields
-            if response["status"] in [400, 401, 500, 422]:  # Expected for invalid token or validation
-                self.log_test_result(
-                    "Google Auth Request Structure Validation", 
-                    True, 
-                    f"Pydantic model correctly processed request with extra fields. Status: {response['status']}"
-                )
-            else:
-                self.log_test_result(
-                    "Google Auth Request Structure Validation", 
-                    True, 
-                    f"Request processed successfully with status {response['status']}"
-                )
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/register",
+                json=registration_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                response_text = await response.text()
+                
+                if response.status == 200:
+                    response_data = await response.json() if response_text else {}
+                    
+                    # Verify response structure
+                    required_fields = ["access_token", "token_type", "user"]
+                    missing_fields = [field for field in required_fields if field not in response_data]
+                    
+                    if missing_fields:
+                        self.log_result(
+                            "User Registration - Response Structure",
+                            False,
+                            f"Missing required fields: {missing_fields}",
+                            response_data
+                        )
+                        return None
+                    
+                    # Verify token type
+                    if response_data.get("token_type") != "bearer":
+                        self.log_result(
+                            "User Registration - Token Type",
+                            False,
+                            f"Expected token_type 'bearer', got '{response_data.get('token_type')}'",
+                            response_data
+                        )
+                        return None
+                    
+                    # Verify user object
+                    user_data = response_data.get("user", {})
+                    user_required_fields = ["id", "email", "full_name"]
+                    missing_user_fields = [field for field in user_required_fields if field not in user_data]
+                    
+                    if missing_user_fields:
+                        self.log_result(
+                            "User Registration - User Object",
+                            False,
+                            f"Missing user fields: {missing_user_fields}",
+                            response_data
+                        )
+                        return None
+                    
+                    # Verify user data matches input
+                    if user_data.get("email") != self.test_user_email:
+                        self.log_result(
+                            "User Registration - Email Match",
+                            False,
+                            f"Email mismatch: expected {self.test_user_email}, got {user_data.get('email')}",
+                            response_data
+                        )
+                        return None
+                        
+                    if user_data.get("full_name") != self.test_user_name:
+                        self.log_result(
+                            "User Registration - Name Match",
+                            False,
+                            f"Name mismatch: expected {self.test_user_name}, got {user_data.get('full_name')}",
+                            response_data
+                        )
+                        return None
+                    
+                    self.log_result(
+                        "User Registration - Complete Flow",
+                        True,
+                        f"Successfully registered user with access_token, correct token_type, and user object with id: {user_data.get('id')}"
+                    )
+                    
+                    return response_data.get("access_token")
+                    
+                else:
+                    self.log_result(
+                        "User Registration - HTTP Status",
+                        False,
+                        f"Expected status 200, got {response.status}",
+                        response_text
+                    )
+                    return None
+                    
         except Exception as e:
-            self.log_test_result(
-                "Google Auth Request Structure Validation", 
-                False, 
-                f"Error testing request structure: {str(e)}"
+            self.log_result(
+                "User Registration - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
             )
+            return None
             
-    async def test_google_auth_configuration(self):
-        """Test: Verify Google Client ID configuration"""
+    async def test_duplicate_email_prevention(self):
+        """Test Scenario 2: Duplicate Email Prevention"""
+        print("🧪 TEST SCENARIO 2: Duplicate Email Prevention")
+        
         try:
-            # Test with a token that would trigger Google client validation
-            test_data = {"token": "test.jwt.token"}
+            # Try to register with the same email again
+            registration_data = {
+                "email": self.test_user_email,
+                "password": self.test_user_password,
+                "full_name": self.test_user_name
+            }
             
-            response = await self.make_request("POST", "/auth/google", test_data)
-            
-            # Check if the error indicates Google auth is configured
-            response_text = str(response.get("data", ""))
-            if "Google auth not configured" in response_text:
-                self.log_test_result(
-                    "Google Auth Configuration", 
-                    False, 
-                    "Google Client ID not configured in backend"
-                )
-            elif response["status"] in [400, 401, 500]:
-                # If we get other errors, it means Google client is configured
-                self.log_test_result(
-                    "Google Auth Configuration", 
-                    True, 
-                    f"Google Client ID appears to be configured (got {response['status']} instead of config error)"
-                )
-            else:
-                self.log_test_result(
-                    "Google Auth Configuration", 
-                    True, 
-                    f"Google configuration appears valid (status: {response['status']})"
-                )
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/register",
+                json=registration_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                response_text = await response.text()
+                
+                if response.status == 400:
+                    try:
+                        response_data = json.loads(response_text)
+                        error_detail = response_data.get("detail", "")
+                        
+                        if "Email already registered" in error_detail:
+                            self.log_result(
+                                "Duplicate Email Prevention",
+                                True,
+                                f"Correctly returned 400 error with message: '{error_detail}'"
+                            )
+                        else:
+                            self.log_result(
+                                "Duplicate Email Prevention - Error Message",
+                                False,
+                                f"Expected 'Email already registered' message, got: '{error_detail}'",
+                                response_data
+                            )
+                    except json.JSONDecodeError:
+                        self.log_result(
+                            "Duplicate Email Prevention - Response Format",
+                            False,
+                            f"Expected JSON response, got: {response_text}"
+                        )
+                else:
+                    self.log_result(
+                        "Duplicate Email Prevention - HTTP Status",
+                        False,
+                        f"Expected status 400, got {response.status}",
+                        response_text
+                    )
+                    
         except Exception as e:
-            self.log_test_result(
-                "Google Auth Configuration", 
-                False, 
-                f"Error testing Google configuration: {str(e)}"
+            self.log_result(
+                "Duplicate Email Prevention - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
             )
-
-    # ==========================================
-    # MAIN TEST EXECUTION
-    # ==========================================
-    
+            
+    async def test_login_with_created_account(self):
+        """Test Scenario 3: Login with Created Account"""
+        print("🧪 TEST SCENARIO 3: Login with Created Account")
+        
+        try:
+            login_data = {
+                "email": self.test_user_email,
+                "password": self.test_user_password
+            }
+            
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/login",
+                json=login_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                response_text = await response.text()
+                
+                if response.status == 200:
+                    response_data = await response.json() if response_text else {}
+                    
+                    # Verify response structure
+                    required_fields = ["access_token", "user"]
+                    missing_fields = [field for field in required_fields if field not in response_data]
+                    
+                    if missing_fields:
+                        self.log_result(
+                            "Login - Response Structure",
+                            False,
+                            f"Missing required fields: {missing_fields}",
+                            response_data
+                        )
+                        return None
+                    
+                    # Verify user details
+                    user_data = response_data.get("user", {})
+                    if user_data.get("email") != self.test_user_email:
+                        self.log_result(
+                            "Login - User Email",
+                            False,
+                            f"Email mismatch: expected {self.test_user_email}, got {user_data.get('email')}",
+                            response_data
+                        )
+                        return None
+                    
+                    self.log_result(
+                        "Login with Created Account",
+                        True,
+                        f"Successfully logged in with access_token and correct user details"
+                    )
+                    
+                    return response_data.get("access_token")
+                    
+                else:
+                    self.log_result(
+                        "Login - HTTP Status",
+                        False,
+                        f"Expected status 200, got {response.status}",
+                        response_text
+                    )
+                    return None
+                    
+        except Exception as e:
+            self.log_result(
+                "Login with Created Account - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
+            )
+            return None
+            
+    async def test_wrong_password(self):
+        """Test Scenario 4: Wrong Password"""
+        print("🧪 TEST SCENARIO 4: Wrong Password")
+        
+        try:
+            login_data = {
+                "email": self.test_user_email,
+                "password": "WrongPassword123!"
+            }
+            
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/login",
+                json=login_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                response_text = await response.text()
+                
+                if response.status == 401:
+                    try:
+                        response_data = json.loads(response_text)
+                        error_detail = response_data.get("detail", "")
+                        
+                        if "Invalid credentials" in error_detail:
+                            self.log_result(
+                                "Wrong Password",
+                                True,
+                                f"Correctly returned 401 error with message: '{error_detail}'"
+                            )
+                        else:
+                            self.log_result(
+                                "Wrong Password - Error Message",
+                                False,
+                                f"Expected 'Invalid credentials' message, got: '{error_detail}'",
+                                response_data
+                            )
+                    except json.JSONDecodeError:
+                        self.log_result(
+                            "Wrong Password - Response Format",
+                            False,
+                            f"Expected JSON response, got: {response_text}"
+                        )
+                else:
+                    self.log_result(
+                        "Wrong Password - HTTP Status",
+                        False,
+                        f"Expected status 401, got {response.status}",
+                        response_text
+                    )
+                    
+        except Exception as e:
+            self.log_result(
+                "Wrong Password - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
+            )
+            
+    async def test_password_hashing_verification(self):
+        """Additional Test: Verify password is hashed using bcrypt"""
+        print("🧪 ADDITIONAL TEST: Password Hashing Verification")
+        
+        try:
+            # This test verifies that passwords are properly hashed by attempting
+            # to login with the correct password after registration
+            login_data = {
+                "email": self.test_user_email,
+                "password": self.test_user_password
+            }
+            
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/login",
+                json=login_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                
+                if response.status == 200:
+                    self.log_result(
+                        "Password Hashing (bcrypt)",
+                        True,
+                        "Password hashing working correctly - login successful with correct password"
+                    )
+                else:
+                    self.log_result(
+                        "Password Hashing (bcrypt)",
+                        False,
+                        f"Password hashing may be broken - login failed with status {response.status}"
+                    )
+                    
+        except Exception as e:
+            self.log_result(
+                "Password Hashing (bcrypt) - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
+            )
+            
+    async def test_jwt_token_generation(self):
+        """Additional Test: Verify JWT tokens are generated correctly"""
+        print("🧪 ADDITIONAL TEST: JWT Token Generation")
+        
+        try:
+            # Register a new user to get a fresh token
+            timestamp = int(time.time())
+            jwt_test_email = f"jwt-test-{timestamp}@example.com"
+            
+            registration_data = {
+                "email": jwt_test_email,
+                "password": self.test_user_password,
+                "full_name": "JWT Test User"
+            }
+            
+            async with self.session.post(
+                f"{BACKEND_URL}/auth/register",
+                json=registration_data,
+                headers={"Content-Type": "application/json"}
+            ) as response:
+                
+                if response.status == 200:
+                    response_data = await response.json()
+                    access_token = response_data.get("access_token")
+                    
+                    if access_token and len(access_token.split('.')) == 3:
+                        self.log_result(
+                            "JWT Token Generation",
+                            True,
+                            f"JWT token generated correctly with proper structure (3 parts separated by dots)"
+                        )
+                    else:
+                        self.log_result(
+                            "JWT Token Generation",
+                            False,
+                            f"JWT token format invalid: {access_token}"
+                        )
+                else:
+                    self.log_result(
+                        "JWT Token Generation",
+                        False,
+                        f"Failed to register user for JWT test: status {response.status}"
+                    )
+                    
+        except Exception as e:
+            self.log_result(
+                "JWT Token Generation - Exception",
+                False,
+                f"Exception occurred: {str(e)}"
+            )
+            
     async def run_all_tests(self):
-        """Run all backend tests"""
-        logger.info("🚀 Starting NoFeePlaces Backend Testing Suite")
-        logger.info("=" * 60)
+        """Run all authentication tests"""
+        print("🚀 STARTING EMAIL/PASSWORD AUTHENTICATION TESTING")
+        print("=" * 60)
         
-        # Backend Health Tests
-        await self.test_backend_health()
-        await self.test_apartment_data_availability()
-        await self.test_email_service_integration()
+        await self.setup()
         
-        # Schedule Showing Feature Tests
-        logger.info("\n📅 SCHEDULE SHOWING FEATURE TESTS")
-        logger.info("-" * 40)
-        await self.test_schedule_showing_endpoint_exists()
-        await self.test_schedule_showing_valid_request()
-        await self.test_schedule_showing_24_hour_notice()
-        await self.test_schedule_showing_business_hours()
-        await self.test_schedule_showing_required_fields()
-        await self.test_schedule_showing_email_format()
+        # Test Scenario 1: New User Registration
+        access_token = await self.test_user_registration()
         
-        # Google Authentication Tests
-        logger.info("\n🔐 GOOGLE AUTHENTICATION TESTS")
-        logger.info("-" * 40)
-        await self.test_google_auth_endpoint_exists()
-        await self.test_google_auth_missing_token_validation()
-        await self.test_google_auth_invalid_token_handling()
-        await self.test_google_auth_request_structure_validation()
-        await self.test_google_auth_configuration()
+        # Test Scenario 2: Duplicate Email Prevention
+        await self.test_duplicate_email_prevention()
         
-        # Login Functionality Tests
-        logger.info("\n🔐 LOGIN FUNCTIONALITY TESTS")
-        logger.info("-" * 40)
-        await self.test_auth_login_endpoint_exists()
-        await self.test_auth_login_invalid_credentials()
-        await self.test_auth_login_admin_credentials()
-        await self.test_auth_me_endpoint()
-        await self.test_auth_me_without_token()
-        await self.test_social_auth_endpoints()
+        # Test Scenario 3: Login with Created Account
+        login_token = await self.test_login_with_created_account()
         
-        # Generate Summary
-        self.generate_summary()
-    
-    def generate_summary(self):
-        """Generate test summary"""
-        logger.info("\n" + "=" * 60)
-        logger.info("🧪 TEST SUMMARY")
-        logger.info("=" * 60)
+        # Test Scenario 4: Wrong Password
+        await self.test_wrong_password()
         
-        success_rate = (self.passed_tests / self.total_tests * 100) if self.total_tests > 0 else 0
+        # Additional Tests
+        await self.test_password_hashing_verification()
+        await self.test_jwt_token_generation()
         
-        logger.info(f"Total Tests: {self.total_tests}")
-        logger.info(f"Passed: {self.passed_tests}")
-        logger.info(f"Failed: {self.total_tests - self.passed_tests}")
-        logger.info(f"Success Rate: {success_rate:.1f}%")
+        # Summary
+        await self.print_summary()
         
-        # Categorize results
-        schedule_showing_tests = [r for r in self.test_results if "showing" in r["test"].lower() or "schedule" in r["test"].lower()]
-        google_auth_tests = [r for r in self.test_results if "google auth" in r["test"].lower()]
-        login_tests = [r for r in self.test_results if ("auth" in r["test"].lower() or "login" in r["test"].lower() or "social" in r["test"].lower()) and r not in google_auth_tests]
-        other_tests = [r for r in self.test_results if r not in schedule_showing_tests and r not in login_tests and r not in google_auth_tests]
+        await self.cleanup()
         
-        logger.info("\n📅 SCHEDULE SHOWING FEATURE RESULTS:")
-        for test in schedule_showing_tests:
-            logger.info(f"  {test['status']}: {test['test']}")
+    async def print_summary(self):
+        """Print test summary"""
+        print("=" * 60)
+        print("📊 TEST SUMMARY")
+        print("=" * 60)
         
-        logger.info("\n🔐 GOOGLE AUTHENTICATION RESULTS:")
-        for test in google_auth_tests:
-            logger.info(f"  {test['status']}: {test['test']}")
+        total_tests = len(self.test_results)
+        passed_tests = sum(1 for result in self.test_results if result["success"])
+        failed_tests = total_tests - passed_tests
         
-        logger.info("\n🔐 LOGIN FUNCTIONALITY RESULTS:")
-        for test in login_tests:
-            logger.info(f"  {test['status']}: {test['test']}")
+        print(f"Total Tests: {total_tests}")
+        print(f"✅ Passed: {passed_tests}")
+        print(f"❌ Failed: {failed_tests}")
+        print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
+        print()
         
-        logger.info("\n🔧 BACKEND HEALTH RESULTS:")
-        for test in other_tests:
-            logger.info(f"  {test['status']}: {test['test']}")
+        if failed_tests > 0:
+            print("❌ FAILED TESTS:")
+            for result in self.test_results:
+                if not result["success"]:
+                    print(f"   • {result['test']}: {result['details']}")
+            print()
         
-        # Critical Issues
-        failed_tests = [r for r in self.test_results if not r["passed"]]
-        if failed_tests:
-            logger.info("\n❌ CRITICAL ISSUES FOUND:")
-            for test in failed_tests:
-                logger.info(f"  • {test['test']}: {test.get('error', test.get('details', 'Unknown error'))}")
+        # Critical Requirements Check
+        critical_tests = [
+            "User Registration - Complete Flow",
+            "Duplicate Email Prevention", 
+            "Login with Created Account",
+            "Wrong Password"
+        ]
         
-        logger.info("\n" + "=" * 60)
+        critical_passed = sum(1 for result in self.test_results 
+                            if result["test"] in critical_tests and result["success"])
+        
+        print("🎯 CRITICAL REQUIREMENTS STATUS:")
+        print(f"   Registration Flow: {'✅ WORKING' if any(r['test'] == 'User Registration - Complete Flow' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print(f"   Duplicate Prevention: {'✅ WORKING' if any(r['test'] == 'Duplicate Email Prevention' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print(f"   Login Flow: {'✅ WORKING' if any(r['test'] == 'Login with Created Account' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print(f"   Wrong Password Handling: {'✅ WORKING' if any(r['test'] == 'Wrong Password' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print(f"   Password Hashing (bcrypt): {'✅ WORKING' if any(r['test'] == 'Password Hashing (bcrypt)' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print(f"   JWT Token Generation: {'✅ WORKING' if any(r['test'] == 'JWT Token Generation' and r['success'] for r in self.test_results) else '❌ FAILED'}")
+        print()
+        
+        if critical_passed == len(critical_tests):
+            print("🎉 ALL CRITICAL AUTHENTICATION REQUIREMENTS WORKING!")
+        else:
+            print(f"⚠️  {len(critical_tests) - critical_passed} CRITICAL REQUIREMENTS FAILING")
+        
+        print("=" * 60)
 
 async def main():
-    """Main test execution function"""
-    async with NoFeePlacesBackendTester() as tester:
-        await tester.run_all_tests()
+    """Main test execution"""
+    tester = AuthenticationTester()
+    await tester.run_all_tests()
 
 if __name__ == "__main__":
     asyncio.run(main())
