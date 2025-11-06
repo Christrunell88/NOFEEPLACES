@@ -655,10 +655,7 @@ const BlogPostPage = () => {
 };
 
 function App() {
-  const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  
   return (
-    <GoogleOAuthProvider clientId={googleClientId}>
       <ErrorBoundary>
         <ToastProvider>
           <AuthProvider>
