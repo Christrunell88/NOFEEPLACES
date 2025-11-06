@@ -77,6 +77,22 @@ const getDisplayTitle = (title, isAuthenticated) => {
   return title;
 };
 
+// Playful sign-in prompts - rotates through different messages
+const getSignInPrompt = () => {
+  const prompts = [
+    { emoji: '👀', text: 'Sign in to see full address' },
+    { emoji: '🔓', text: 'Unlock full details' },
+    { emoji: '✨', text: 'See the magic inside' },
+    { emoji: '🎯', text: 'Get the full picture' },
+    { emoji: '🗝️', text: 'Reveal the location' },
+    { emoji: '💫', text: 'Sign in for more' }
+  ];
+  
+  // Use a simple hash based on current time to get consistent but rotating prompts
+  const index = Math.floor(Date.now() / 10000) % prompts.length;
+  return prompts[index];
+};
+
 // Re-export all imported components
 export {
   Hero,
