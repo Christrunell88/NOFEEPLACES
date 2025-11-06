@@ -19,7 +19,7 @@
 ## How to Test:
 
 1. **Go to Admin Dashboard:**
-   - URL: `https://buildingtracker-1.preview.emergentagent.com/admin`
+   - URL: `https://nofee-login-fix.preview.emergentagent.com/admin`
    - Login: `placesfirm@gmail.com` / `Checkers080/?`
 
 2. **Click "Add-listing" Tab**

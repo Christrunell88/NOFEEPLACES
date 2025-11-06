@@ -86,7 +86,7 @@ async def fix_demo_landlord_listings():
     print(f"👀 Total views: {total_views}")
     print(f"📞 Total inquiries: {total_inquiries}")
     print(f"\n🔗 Dashboard URL:")
-    print(f"   https://buildingtracker-1.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
+    print(f"   https://nofee-login-fix.preview.emergentagent.com/landlord/dashboard/{demo_landlord_id}")
     
     client.close()
 

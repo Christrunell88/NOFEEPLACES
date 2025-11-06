@@ -12,7 +12,7 @@ def emergency_fix():
     
     # The problematic apartment we found
     PROBLEMATIC_ID = "c00cb712-9466-4f1a-9a6b-353bf7e5978e"
-    PRODUCTION_API = "https://buildingtracker-1.preview.emergentagent.com/api"
+    PRODUCTION_API = "https://nofee-login-fix.preview.emergentagent.com/api"
     
     print("🔍 Step 1: Verify the problem still exists...")
     

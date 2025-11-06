@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration from frontend/.env
-BASE_URL = "https://buildingtracker-1.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
 ADMIN_EMAIL = "placesfirm@gmail.com"
 ADMIN_PASSWORD = "Checkers080/?"
 

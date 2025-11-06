@@ -17,7 +17,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 
 # Configuration - Use production URL from frontend/.env
-BASE_URL = "https://buildingtracker-1.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
 
 class ComprehensivePriceSortingTester:
     def __init__(self):

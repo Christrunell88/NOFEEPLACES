@@ -8,7 +8,7 @@ import requests
 import json
 from datetime import datetime
 
-BASE_URL = "https://buildingtracker-1.preview.emergentagent.com/api"
+BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
 
 class ComprehensiveBackendTester:
     def __init__(self):

@@ -5,7 +5,7 @@ Apple Sign-In is not working on the custom domain `nofeeplaces.com` due to domai
 
 ## Root Cause
 The Apple OAuth redirect URI changed from:
-- **Old**: `https://buildingtracker-1.preview.emergentagent.com/apple-callback.html`
+- **Old**: `https://nofee-login-fix.preview.emergentagent.com/apple-callback.html`
 - **New**: `https://nofeeplaces.com/apple-callback.html`
 
 Apple Developer Console needs to be updated to recognize the new domain's callback URL.
@@ -26,7 +26,7 @@ https://nofeeplaces.com/apple-callback.html
 
 **Note:** You can keep the old preview URL if you want to maintain backward compatibility:
 ```
-https://buildingtracker-1.preview.emergentagent.com/apple-callback.html
+https://nofee-login-fix.preview.emergentagent.com/apple-callback.html
 https://nofeeplaces.com/apple-callback.html
 ```
 

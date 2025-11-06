@@ -2,7 +2,7 @@
 
 ## 🔐 Admin Access
 
-**Login URL:** https://buildingtracker-1.preview.emergentagent.com/admin
+**Login URL:** https://nofee-login-fix.preview.emergentagent.com/admin
 
 **Admin Credentials:**
 - Email: `placesfirm@gmail.com`
