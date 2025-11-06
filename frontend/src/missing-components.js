@@ -511,20 +511,27 @@ export const AuthModal = ({ onClose }) => {
       if (isLogin) {
         const result = await login(formData.email, formData.password);
         if (result.success) {
+          // Show success message briefly before closing
+          console.log('✅ Login successful!');
           onClose();
         } else {
-          setError(result.error);
+          setError(result.error || 'Login failed. Please check your credentials.');
+          console.error('❌ Login failed:', result.error);
         }
       } else {
         const result = await register(formData.email, formData.password, formData.fullName);
         if (result.success) {
+          // Show success message briefly before closing
+          console.log('✅ Registration successful!');
           onClose();
         } else {
-          setError(result.error);
+          setError(result.error || 'Registration failed. Please try again.');
+          console.error('❌ Registration failed:', result.error);
         }
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      console.error('❌ Unexpected error:', err);
+      setError('An error occurred. Please check your internet connection and try again.');
     } finally {
       setLoading(false);
     }
