@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 """
-NoFeePlaces Backend Testing Suite
-Comprehensive testing for Google Authentication and Backend Functionality
+Backend Authentication Testing Script
+Tests the complete email/password registration and login flow
 """
 
 import asyncio
 import aiohttp
 import json
-import uuid
-from datetime import datetime, timedelta
-from typing import Dict, Any, List
-import logging
+import time
+from datetime import datetime
+import sys
+import os
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# Backend URL from frontend .env
+BACKEND_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
 
 class NoFeePlacesBackendTester:
     def __init__(self):
