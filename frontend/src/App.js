@@ -323,7 +323,7 @@ const Home = () => {
         logout={logout}
         setShowAuthModal={setShowAuthModal}
       />
-      <Hero setShowAuthModal={setShowAuthModal} />
+      <Hero setShowAuthModal={setShowAuthModal} totalApartments={totalApartments} />
       
       {/* BOROUGH QUICK LINKS */}
       {searchStats?.boroughs && (
