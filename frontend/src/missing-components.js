@@ -97,7 +97,7 @@ export const Hero = ({ setShowAuthModal, totalApartments = 70 }) => {
           
           {/* Condensed Value Prop */}
           <p className="text-lg md:text-xl mb-8 text-white font-light opacity-90 max-w-2xl mx-auto">
-            70+ verified no-fee apartments • Save $3,000+ on broker fees
+            {totalApartments}+ verified no-fee apartments • Save $3,000+ on broker fees
           </p>
         </div>
       </div>
