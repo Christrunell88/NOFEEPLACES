@@ -186,6 +186,10 @@ class ContactResponse(BaseModel):
     contact_id: str
 
 # Social Authentication Models
+class FacebookAuthRequest(BaseModel):
+    access_token: str
+    user_id: str
+
 class AppleAuthRequest(BaseModel):
     authorization_code: str
     identity_token: str
@@ -530,6 +534,42 @@ async def get_or_create_user(user_data: Dict[str, Any]) -> Dict[str, Any]:
     
     await db.users.insert_one(user_create_data)
     return user_create_data
+
+# Social Authentication Endpoints
+@api_router.post("/auth/facebook", response_model=SocialAuthResponse)
+async def facebook_auth(auth_request: FacebookAuthRequest):
+    """Authenticate user with Facebook access token"""
+    try:
+        # Validate Facebook token and get user info
+        user_data = await facebook_auth_service.validate_access_token(auth_request.access_token)
+        
+        # Get or create user
+        user = await get_or_create_user(user_data)
+        
+        # Create access token
+        access_token = create_access_token(
+            data={"sub": user['id'], "email": user['email']}
+        )
+        
+        return SocialAuthResponse(
+            access_token=access_token,
+            user={
+                "id": user['id'],
+                "email": user['email'],
+                "name": user['name'],
+                "profile_picture": user.get('profile_picture'),
+                "facebook_id": user.get('facebook_id')
+            }
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Facebook authentication error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Authentication failed"
+        )
 
 @api_router.post("/auth/apple", response_model=SocialAuthResponse)
 async def apple_auth(auth_request: AppleAuthRequest):
@@ -3534,41 +3574,24 @@ async def get_me(request: Request):
 
 @app.post("/api/auth/google")
 async def google_auth(request: GoogleAuthRequest):
-    """Authenticate with Google using ID token"""
+    """Authenticate with Google"""
     try:
         from google.oauth2 import id_token
-        from google.auth.transport import requests as google_requests
+        from google.auth.transport import requests
         
+        # Verify Google token
         google_client_id = os.environ.get('GOOGLE_CLIENT_ID')
-        
         if not google_client_id:
-            logger.error("GOOGLE_CLIENT_ID not configured")
             raise HTTPException(status_code=500, detail="Google auth not configured")
         
-        if not request.token:
-            logger.error("No token provided in request")
-            raise HTTPException(status_code=400, detail="Token is required")
+        idinfo = id_token.verify_oauth2_token(
+            request.token,
+            requests.Request(),
+            google_client_id
+        )
         
-        logger.info("Processing Google ID token authentication")
-        
-        # Verify the Google ID token
-        try:
-            idinfo = id_token.verify_oauth2_token(
-                request.token,
-                google_requests.Request(),
-                google_client_id
-            )
-            logger.info(f"Token verified successfully for email: {idinfo.get('email')}")
-        except Exception as e:
-            logger.error(f"Token verification failed: {str(e)}")
-            raise HTTPException(status_code=401, detail=f"Invalid Google token: {str(e)}")
-        
-        email = idinfo.get('email')
-        name = idinfo.get('name', email.split('@')[0] if email else 'User')
-        
-        if not email:
-            logger.error("No email in token")
-            raise HTTPException(status_code=400, detail="Email not found in Google token")
+        email = idinfo['email']
+        name = idinfo.get('name', email.split('@')[0])
         
         # Find or create user
         user = await db.users.find_one({"email": email})
