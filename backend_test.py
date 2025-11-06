@@ -1,53 +1,70 @@
 #!/usr/bin/env python3
 """
-Backend Authentication Testing Script
-Tests the complete email/password registration and login flow
+Backend Authentication Flow Testing
+Test the complete sign-in/login authentication flow as requested
 """
 
 import asyncio
 import aiohttp
 import json
 import time
-from datetime import datetime
 import sys
-import os
-
-# Backend URL from frontend .env
-BACKEND_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
+from datetime import datetime
+from typing import Dict, Any, Optional
 
 class AuthenticationTester:
     def __init__(self):
+        # Get backend URL from frontend .env
+        self.backend_url = None
+        self.load_backend_url()
         self.session = None
         self.test_results = []
-        self.test_user_email = None
-        self.test_user_password = "TestPass123!"
-        self.test_user_name = "Test User"
         
-    async def setup(self):
-        """Setup test session"""
-        self.session = aiohttp.ClientSession()
-        # Generate unique email with timestamp
-        timestamp = int(time.time())
-        self.test_user_email = f"test-user-{timestamp}@example.com"
-        print(f"🔧 Test Setup Complete")
-        print(f"📧 Test Email: {self.test_user_email}")
-        print(f"🔑 Test Password: {self.test_user_password}")
-        print(f"👤 Test Name: {self.test_user_name}")
-        print(f"🌐 Backend URL: {BACKEND_URL}")
-        print("-" * 60)
-        
-    async def cleanup(self):
-        """Cleanup test session"""
+    def load_backend_url(self):
+        """Load backend URL from frontend .env file"""
+        try:
+            with open('/app/frontend/.env', 'r') as f:
+                for line in f:
+                    if line.startswith('REACT_APP_BACKEND_URL='):
+                        self.backend_url = line.split('=', 1)[1].strip()
+                        break
+            
+            if not self.backend_url:
+                raise ValueError("REACT_APP_BACKEND_URL not found in frontend/.env")
+                
+            print(f"✅ Backend URL loaded: {self.backend_url}")
+            
+        except Exception as e:
+            print(f"❌ Error loading backend URL: {e}")
+            sys.exit(1)
+    
+    async def setup_session(self):
+        """Setup HTTP session"""
+        connector = aiohttp.TCPConnector(ssl=False)
+        timeout = aiohttp.ClientTimeout(total=30)
+        self.session = aiohttp.ClientSession(
+            connector=connector,
+            timeout=timeout,
+            headers={'Content-Type': 'application/json'}
+        )
+    
+    async def cleanup_session(self):
+        """Cleanup HTTP session"""
         if self.session:
             await self.session.close()
-            
-    def log_result(self, test_name, success, details, response_data=None):
+    
+    def log_test_result(self, test_name: str, success: bool, details: str, response_data: Optional[Dict] = None):
         """Log test result"""
         status = "✅ PASS" if success else "❌ FAIL"
-        result = {
-            "test": test_name,
-            "success": success,
-            "details": details,
+        print(f"{status} {test_name}: {details}")
+        
+        self.test_results.append({
+            'test': test_name,
+            'success': success,
+            'details': details,
+            'response_data': response_data,
+            'timestamp': datetime.now().isoformat()
+        })
             "response_data": response_data
         }
         self.test_results.append(result)
