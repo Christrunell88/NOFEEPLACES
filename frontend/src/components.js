@@ -745,17 +745,24 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
 
         {/* Content Section - Clean & Minimal */}
         <div className="p-4">
-          {/* Title */}
-          <h3 className="text-base font-semibold text-gray-900 mb-1 line-clamp-1">
-            {apartment.title}
-          </h3>
+          {/* Title with blur effect for non-authenticated users */}
+          <div className="mb-1">
+            <h3 className="text-base font-semibold text-gray-900 line-clamp-1">
+              {getDisplayTitle(apartment.title, isAuthenticated)}
+            </h3>
+            {!isAuthenticated && (
+              <div className="mt-1 flex items-center gap-1 text-xs">
+                <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                <span className="text-indigo-600 font-medium">Sign in to reveal full address</span>
+              </div>
+            )}
+          </div>
 
           {/* Location */}
           <p className="text-sm text-gray-600 mb-3 line-clamp-1">
             {getDisplayAddress(apartment, isAuthenticated)}
-            {!isAuthenticated && (
-              <span className="ml-1 text-xs text-gray-400">• Sign in for full address</span>
-            )}
           </p>
 
           {/* Price & Details - Single Line */}
