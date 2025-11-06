@@ -756,12 +756,18 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
               )}
             </h3>
             {!isAuthenticated && (
-              <div className="mt-1.5 inline-flex items-center gap-1.5 px-2 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full text-xs group cursor-pointer hover:from-indigo-100 hover:to-purple-100 transition-all">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.dispatchEvent(new CustomEvent('openAuthModal'));
+                }}
+                className="mt-1.5 inline-flex items-center gap-1.5 px-2 py-1 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-full text-xs group cursor-pointer hover:from-indigo-100 hover:to-purple-100 transition-all border border-indigo-200 hover:border-indigo-300"
+              >
                 <span className="text-indigo-700 font-medium">👀 Sign in to see full address</span>
                 <svg className="w-3 h-3 text-indigo-500 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
-              </div>
+              </button>
             )}
           </div>
 
