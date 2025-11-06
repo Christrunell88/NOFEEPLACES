@@ -47,6 +47,36 @@ const getDisplayAddress = (apartment, isAuthenticated) => {
   }
 };
 
+// Helper function to blur/tease the title for non-authenticated users
+const getDisplayTitle = (title, isAuthenticated) => {
+  if (isAuthenticated || !title) {
+    return title;
+  }
+  
+  // Extract parts of the title (often formatted like "No Fee 2BR at Address")
+  const parts = title.split(' at ');
+  if (parts.length > 1) {
+    // Keep the apartment type, blur the address
+    const addressPart = parts[1];
+    const words = addressPart.split(' ');
+    
+    // Show first word (usually building name or street number), blur the rest
+    if (words.length > 1) {
+      return `${parts[0]} at ${words[0]} ████████`;
+    }
+  }
+  
+  // Fallback: blur last half of title
+  const words = title.split(' ');
+  if (words.length > 2) {
+    const visibleCount = Math.ceil(words.length / 2);
+    const visible = words.slice(0, visibleCount).join(' ');
+    return `${visible} ████████`;
+  }
+  
+  return title;
+};
+
 // Re-export all imported components
 export {
   Hero,
