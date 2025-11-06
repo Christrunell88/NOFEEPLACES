@@ -56,22 +56,22 @@ const getDisplayTitle = (title, isAuthenticated) => {
   // Extract parts of the title (often formatted like "No Fee 2BR at Address")
   const parts = title.split(' at ');
   if (parts.length > 1) {
-    // Keep the apartment type, blur the address
+    // Keep the apartment type, tease the address
     const addressPart = parts[1];
     const words = addressPart.split(' ');
     
     // Show first word (usually building name or street number), blur the rest
     if (words.length > 1) {
-      return `${parts[0]} at ${words[0]} ████████`;
+      return `${parts[0]} at ${words[0]}...`;
     }
   }
   
-  // Fallback: blur last half of title
+  // Fallback: show first part, tease the rest
   const words = title.split(' ');
-  if (words.length > 2) {
-    const visibleCount = Math.ceil(words.length / 2);
+  if (words.length > 3) {
+    const visibleCount = Math.ceil(words.length * 0.6); // Show 60%
     const visible = words.slice(0, visibleCount).join(' ');
-    return `${visible} ████████`;
+    return `${visible}...`;
   }
   
   return title;
