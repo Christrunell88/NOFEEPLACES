@@ -17,7 +17,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
 // Hero Component with Elegant Apartment Carousel and Condensed CTAs
-export const Hero = ({ setShowAuthModal }) => {
+export const Hero = ({ setShowAuthModal, totalApartments = 70 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     {
