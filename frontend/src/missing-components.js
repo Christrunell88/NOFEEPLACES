@@ -475,6 +475,7 @@ import SocialAuthButtons from './SocialAuth';
 export const AuthModal = ({ onClose }) => {
   const [showSocialAuth, setShowSocialAuth] = useState(true);
   const [isLogin, setIsLogin] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
