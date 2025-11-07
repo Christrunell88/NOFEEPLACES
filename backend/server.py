@@ -652,7 +652,7 @@ async def get_current_user(request: Request):
         return {
             "id": user['id'],
             "email": user['email'],
-            "name": user['name'],
+            "name": user.get('name') or user.get('full_name'),
             "profile_picture": user.get('profile_picture'),
             "facebook_id": user.get('facebook_id'),
             "apple_id": user.get('apple_id'),
