@@ -3547,7 +3547,8 @@ async def get_current_user(request: Request):
             algorithms=["HS256"]
         )
         
-        user_id = payload.get('user_id')
+        # Try 'sub' first (standard JWT), fallback to 'user_id' for backward compatibility
+        user_id = payload.get('sub') or payload.get('user_id')
         user = await db.users.find_one({"id": user_id})
         
         if not user:
