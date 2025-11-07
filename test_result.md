@@ -232,8 +232,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Malt Drive Apartment 508 Backend Integration"
-    - "Malt Drive Apartment 508 Addition and Display"
+    - "Core Authentication Testing - Email/Password & Google"
+    - "Contact Functionality for Authenticated Users"
+    - "Schedule Showing Calendar Functionality"
+    - "Borough Filter Functionality and Visual Indicators"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
