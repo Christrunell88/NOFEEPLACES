@@ -3499,7 +3499,8 @@ async def login_user(request: UserLoginRequest):
         # Generate JWT token
         import jwt
         token_data = {
-            "user_id": user['id'],
+            "sub": user['id'],
+            "user_id": user['id'],  # Keep for backward compatibility
             "email": user['email'],
             "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
         }
