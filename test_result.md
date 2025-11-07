@@ -342,11 +342,11 @@ frontend:
 
   - task: "Schedule Showing Calendar Frontend Flow"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/ScheduleShowingModal.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
