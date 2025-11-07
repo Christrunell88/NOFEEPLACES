@@ -224,10 +224,120 @@ backend:
           agent: "testing"
           comment: "MALT DRIVE APARTMENT 508 BACKEND INTEGRATION TESTING COMPLETED: Comprehensive testing with 80% success rate (8/10 tests passed). CORE FUNCTIONALITY EXCELLENT: ✅ Individual apartment retrieval working perfectly (GET /api/apartments/{unit_id} returns 200 with correct data: Studio 1 Bath, $3,685/mo, 21 images, 'No fee'), ✅ All search and filter functionality working (neighborhood=Long Island City, bedrooms=0, price range $3000-$4000, borough=Queens), ✅ Image URL validation passed (all 21 images from maltdrive.com in .avif format and accessible), ✅ Pydantic validation working with correct data types, ✅ Recently added listings endpoint functional. MINOR ISSUES IDENTIFIED: ⚠️ Building-specific queries returning broader results than expected (50 units instead of 6 for building), ⚠️ building_id field missing from apartment data (building_name present: 'Malt Drive 2-21'). DATABASE VERIFICATION: Found 12 total Malt Drive apartments across buildings 2-20 and 2-21 with price range $3,685-$7,660, Unit 508 correctly integrated and searchable. CONCLUSION: Malt Drive 508 backend integration is working excellently with all critical functionality operational. Unit is properly integrated, searchable, and displays correct data. Minor building relationship fields need attention but don't affect core functionality."
 
+backend:
+  - task: "Core Authentication Backend - Email/Password & Google"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "COMPREHENSIVE AUTHENTICATION TESTING REQUIRED: Need to verify all authentication endpoints are working correctly. SCOPE: Email/Password registration and login (/api/auth/register, /api/auth/login), Google authentication (/api/auth/google with googleToken), JWT token generation and validation, user persistence in database, /api/auth/me endpoint for authenticated user info. User has confirmed Apple and Facebook are not set up yet, so focusing only on Email and Google authentication. Previous testing showed Google auth working but need to verify complete flows for both methods work end-to-end."
+
+  - task: "Contact Functionality Backend for Authenticated Users"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "CONTACT FUNCTIONALITY TESTING REQUIRED: Need to verify contact/email endpoints are working correctly for authenticated users. SCOPE: /api/send-contact-email endpoint (used by EmailContactModal), /api/contact endpoint (general contact form), email service integration with SMTP, proper authentication state handling. Previous testing showed email contact API working excellently (90% success rate), but need to verify it works correctly with authenticated user context."
+
+  - task: "Schedule Showing Backend with Calendar"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "SCHEDULE SHOWING BACKEND TESTING REQUIRED: Need to verify scheduling endpoint works correctly and calendar functionality is streamlined. SCOPE: /api/showings/schedule endpoint, date/time validation (minimum 24 hours advance, max 3 months), email confirmations sent to user and admin, showing data persistence in database, retrieval of scheduled showings. Previous testing showed scheduling working without authentication requirement (user-friendly), need to verify it works with authenticated users and all validations are proper."
+
+  - task: "Borough Filtering Backend"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "BOROUGH FILTERING BACKEND TESTING REQUIRED: Need to verify borough filtering is working correctly in apartments API. SCOPE: /api/apartments endpoint with borough parameter (Brooklyn, Queens, Manhattan, Bronx), proper filtering logic, accurate apartment counts per borough. Frontend shows dynamic counts (Brooklyn 195, Queens 37, Manhattan 30, Bronx 2), need to verify backend returns correct filtered results when borough is specified."
+
+frontend:
+  - task: "Email/Password Sign-Up and Sign-In Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/missing-components.js, /app/frontend/src/auth.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "EMAIL AUTHENTICATION FLOW TESTING REQUIRED: Need to verify complete email/password authentication flows work end-to-end. SCOPE: AuthModal component with email/password fields, sign-up flow (registration with validation), sign-in flow (login with email/password), password show/hide toggle, password strength indicator, error handling and user feedback, authentication state persistence. Previous fixes included password field improvements and signup benefits display. Need comprehensive testing of complete user journey."
+
+  - task: "Google Sign-In Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/SocialAuth.js, /app/frontend/src/auth.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "GOOGLE AUTHENTICATION FLOW TESTING REQUIRED: Need to verify Google Sign-In works correctly with restored version. SCOPE: Google Sign-In button in AuthModal, Google OAuth flow (popup/redirect), googleToken handling and backend verification, user creation/login after Google auth, authentication state persistence after Google sign-in. CODE STATE: Google Sign-In was reverted to previously working version that accepts googleToken. Previous testing showed login button functional and modal accessible. Need to verify complete authentication flow works end-to-end."
+
+  - task: "Contact Functionality for Authenticated Users (Frontend)"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/EmailContactModal.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "CONTACT MODAL FRONTEND TESTING REQUIRED: Need to verify EmailContactModal properly populates with apartment data and allows authenticated users to send inquiries. SCOPE: EmailContactModal opens from listing cards, apartment details properly populate in modal (title, address, price), authenticated user info pre-fills (name, email), form submission works correctly, success/error feedback displayed. Previous testing found backend working perfectly but user reported 'Send Email Inquiry on listing card is not populating' issue. Need to verify frontend modal data binding is working correctly."
+
+  - task: "Schedule Showing Calendar Frontend Flow"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/ScheduleShowingModal.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "SCHEDULE SHOWING CALENDAR TESTING REQUIRED: Need to verify complete scheduling flow works and assess calendar streamlining needs. SCOPE: ScheduleShowingModal opens from listing cards, authentication check (shows sign-in gate if not authenticated), apartment info displays correctly, date picker (HTML5 date input) with min/max validation (tomorrow to 3 months), time slot selection (9 AM, 12 PM, 3 PM, 6 PM buttons), user info pre-fills for authenticated users, form validation and submission, email confirmation sent, success feedback. CURRENT IMPLEMENTATION: Uses HTML5 date input with predefined time slot buttons - functional but basic. User indicated calendar 'needs to be streamlined and working'. Need to test current functionality first, then assess if improvements needed."
+
+  - task: "Borough Filter Navigation with Visual Indicators"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js, /app/frontend/src/BrowseSections.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "BOROUGH NAVIGATION TESTING REQUIRED: Need to verify borough filter buttons work correctly and have proper visual indicators when active. SCOPE: Borough quick links display (Brooklyn, Queens, Manhattan, Bronx with counts), buttons are clickable and trigger filtering, filtered apartments display correctly, apartment count updates to match filter, active filter visual indicator (highlighting/styling on selected borough), clear filter functionality. CURRENT STATE: Homepage screenshot shows borough buttons with dynamic counts (Brooklyn 195, Queens 37, Manhattan 30, Bronx 2). Previous work implemented functional navigation and counts but visual active state indicator still needed. Need to verify filtering works and add/test active state styling."
+
 metadata:
   created_by: "main_agent"
-  version: "4.0"
-  test_sequence: 1
+  version: "5.0"
+  test_sequence: 2
   run_ui: false
 
 test_plan:
