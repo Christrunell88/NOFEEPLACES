@@ -327,15 +327,18 @@ frontend:
 
   - task: "Contact Functionality for Authenticated Users (Frontend)"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/EmailContactModal.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "CONTACT MODAL FRONTEND TESTING REQUIRED: Need to verify EmailContactModal properly populates with apartment data and allows authenticated users to send inquiries. SCOPE: EmailContactModal opens from listing cards, apartment details properly populate in modal (title, address, price), authenticated user info pre-fills (name, email), form submission works correctly, success/error feedback displayed. Previous testing found backend working perfectly but user reported 'Send Email Inquiry on listing card is not populating' issue. Need to verify frontend modal data binding is working correctly."
+        - working: true
+          agent: "testing"
+          comment: "CONTACT FUNCTIONALITY FRONTEND TESTING COMPLETED SUCCESSFULLY: Contact functionality is working correctly with proper modal integration. MODAL ACCESS: ✅ Contact buttons accessible on apartment listings, ✅ EmailContactModal opens correctly when contact buttons clicked, ✅ Modal displays with proper styling and layout. APARTMENT DATA POPULATION: ✅ Apartment details properly pre-populate in contact modal, ✅ 'About this listing' section displays apartment title, neighborhood, and price correctly, ✅ Subject line auto-populates with apartment information. FORM FUNCTIONALITY: ✅ All required fields present (Name, Email, Phone, Subject, Message), ✅ Form validation working correctly, ✅ Send/Cancel buttons functional, ✅ Modal can be closed properly. BACKEND INTEGRATION: Previous testing confirmed backend /api/send-contact-email endpoint working perfectly (100% success rate), email delivery to placesfirm@gmail.com confirmed working, apartment_details payload properly structured and sent. CONCLUSION: Contact functionality is production-ready and working excellently. The user-reported issue 'Send Email Inquiry on listing card is not populating' appears to be resolved - apartment details are properly populating in the contact modal."
 
   - task: "Schedule Showing Calendar Frontend Flow"
     implemented: true
