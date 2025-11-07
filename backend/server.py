@@ -3446,7 +3446,8 @@ async def register_user(request: UserRegisterRequest):
         # Generate JWT token
         import jwt
         token_data = {
-            "user_id": user_id,
+            "sub": user_id,
+            "user_id": user_id,  # Keep for backward compatibility
             "email": request.email,
             "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
         }
