@@ -12,7 +12,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration
-BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
+BASE_URL = "https://rentauth-test.preview.emergentagent.com/api"
 TEST_USER_EMAIL = "zillow.test.user@nofeeplaces.com"
 TEST_USER_PASSWORD = "ZillowTest123!"
 TEST_USER_NAME = "Zillow Test User"

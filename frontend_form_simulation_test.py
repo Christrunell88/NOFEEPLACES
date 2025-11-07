@@ -8,7 +8,7 @@ import requests
 import json
 from datetime import datetime
 
-BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
+BASE_URL = "https://rentauth-test.preview.emergentagent.com/api"
 
 def test_exact_frontend_form_data():
     """Test with exact data that would come from the frontend feedback modal"""
@@ -25,7 +25,7 @@ def test_exact_frontend_form_data():
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "priority": "high",
         "timestamp": datetime.now().isoformat(),
-        "url": "https://nofee-login-fix.preview.emergentagent.com/"
+        "url": "https://rentauth-test.preview.emergentagent.com/"
     }
     
     print("📝 Frontend Form Data Being Submitted:")
@@ -158,7 +158,7 @@ def test_edge_cases():
                 "userAgent": "Mozilla/5.0 (Test; Special-Chars_123) AppleWebKit/537.36",
                 "priority": "medium",
                 "timestamp": datetime.now().isoformat(),
-                "url": "https://nofee-login-fix.preview.emergentagent.com/test?special=chars&other=value"
+                "url": "https://rentauth-test.preview.emergentagent.com/test?special=chars&other=value"
             }
         },
         {
@@ -172,7 +172,7 @@ def test_edge_cases():
                 "userAgent": "Mozilla/5.0 (Very Long User Agent String That Contains Lots Of Information About The Browser And System) " + "x" * 100,
                 "priority": "low",
                 "timestamp": datetime.now().isoformat(),
-                "url": "https://nofee-login-fix.preview.emergentagent.com/very/long/url/path/that/might/cause/issues?" + "&".join([f"param{i}=value{i}" for i in range(20)])
+                "url": "https://rentauth-test.preview.emergentagent.com/very/long/url/path/that/might/cause/issues?" + "&".join([f"param{i}=value{i}" for i in range(20)])
             }
         },
         {
@@ -186,7 +186,7 @@ def test_edge_cases():
                 "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) 📱",
                 "priority": "low",
                 "timestamp": datetime.now().isoformat(),
-                "url": "https://nofee-login-fix.preview.emergentagent.com/🏠"
+                "url": "https://rentauth-test.preview.emergentagent.com/🏠"
             }
         }
     ]

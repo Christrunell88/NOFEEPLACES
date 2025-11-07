@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration from frontend/.env
-BASE_URL = "https://nofee-login-fix.preview.emergentagent.com/api"
+BASE_URL = "https://rentauth-test.preview.emergentagent.com/api"
 
 class NoFeePlacesHealthChecker:
     def __init__(self):

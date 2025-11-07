@@ -20,7 +20,7 @@ import json
 
 # Configuration
 EMERGENT_AUTH_ENABLED = os.environ.get('EMERGENT_AUTH_ENABLED', 'true').lower() == 'true'
-EMERGENT_REDIRECT_URL = os.environ.get('EMERGENT_REDIRECT_URL', 'https://nofee-login-fix.preview.emergentagent.com/dashboard')
+EMERGENT_REDIRECT_URL = os.environ.get('EMERGENT_REDIRECT_URL', 'https://rentauth-test.preview.emergentagent.com/dashboard')
 FACEBOOK_OAUTH_ENABLED = os.environ.get('FACEBOOK_OAUTH_ENABLED', 'false').lower() == 'true'
 APPLE_OAUTH_ENABLED = os.environ.get('APPLE_OAUTH_ENABLED', 'false').lower() == 'true'
 
