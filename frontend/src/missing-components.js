@@ -473,7 +473,7 @@ import SocialAuthButtons from './SocialAuth';
 
 // Auth Modal with Social Login
 export const AuthModal = ({ onClose }) => {
-  const [showSocialAuth, setShowSocialAuth] = useState(false); // Changed to false - show email/password first
+  const [showSocialAuth, setShowSocialAuth] = useState(true); // Revert - will hide social auth entirely
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
