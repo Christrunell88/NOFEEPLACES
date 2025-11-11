@@ -672,16 +672,7 @@ export const AuthModal = ({ onClose }) => {
               </button>
             </div>
 
-            <div className="mt-4 text-center">
-              <button
-                onClick={() => setShowSocialAuth(true)}
-                className="text-blue-600 hover:text-blue-800 text-sm"
-              >
-                ← Back to social login options
-              </button>
-            </div>
           </div>
-        )}
       </div>
     </div>
   );
