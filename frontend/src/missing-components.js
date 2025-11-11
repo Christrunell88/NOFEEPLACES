@@ -573,68 +573,7 @@ export const AuthModal = ({ onClose }) => {
           </div>
         )}
 
-        {showSocialAuth ? (
-          <div>
-            {/* Sign Up Benefits */}
-            <div className="mb-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-100">
-              <h3 className="text-sm font-semibold text-gray-800 mb-3">🎉 Sign up to unlock:</h3>
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">Schedule apartment showings</p>
-                    <p className="text-xs text-gray-600">Book tours directly with landlords</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">View more interior photos</p>
-                    <p className="text-xs text-gray-600">See complete photo galleries</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">See exact addresses</p>
-                    <p className="text-xs text-gray-600">Get full building location details</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <SocialAuthButtons 
-              onSuccess={handleSocialSuccess}
-              onError={handleSocialError}
-              onClose={onClose}
-            />
-            
-            <div className="mt-6 text-center">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or continue with email</span>
-                </div>
-              </div>
-              
-              <button
-                onClick={() => setShowSocialAuth(false)}
-                className="mt-4 w-full text-center text-blue-600 hover:text-blue-800 font-medium"
-              >
-                Use Email & Password
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div>
+        <div>
             <form onSubmit={handleSubmit} className="space-y-4">
               {!isLogin && (
                 <div>
