@@ -556,7 +556,7 @@ export const AuthModal = ({ onClose }) => {
       >
         <div className="flex justify-between items-center mb-6">
           <h2 id="auth-modal-title" className="text-2xl font-bold text-gray-800">
-            {showSocialAuth ? 'Sign In' : (isLogin ? 'Sign In' : 'Sign Up')}
+            {isLogin ? 'Sign In' : 'Sign Up'}
           </h2>
           <button
             onClick={onClose}
