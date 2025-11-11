@@ -149,8 +149,8 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
       </div>
 
       <div className="space-y-3">
-        {/* Google Login Button */}
-        <div id="google-signin-button">
+        {/* Google Login Button - TEMPORARILY HIDDEN (OAuth config needed) */}
+        {/* <div id="google-signin-button">
           <button
             onClick={handleGoogleLogin}
             disabled={isButtonDisabled}
@@ -176,7 +176,7 @@ const SocialAuthButtons = ({ onSuccess, onError, onClose }) => {
           </svg>
           {isButtonDisabled ? 'Signing in...' : 'Continue with Google'}
         </button>
-        </div>
+        </div> */}
 
         {/* Apple Sign-In Button */}
         <button
