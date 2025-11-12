@@ -311,9 +311,205 @@ class AuthenticationTester:
             )
             return False
     
+    async def test_jwt_validation_valid_token(self, user_credentials: Dict) -> bool:
+        """Test 5: JWT Token Validation with valid token"""
+        print("\n🔍 TEST 5: JWT Token Validation (Valid Token)")
+        
+        # First login to get a fresh token
+        login_data = {
+            "email": user_credentials['email'],
+            "password": user_credentials['password']
+        }
+        
+        status_code, response_data = await self.make_request('POST', '/api/auth/login', login_data)
+        
+        if status_code != 200:
+            self.log_test_result(
+                "JWT Token Validation (Valid Token)", 
+                False, 
+                f"Failed to get token for validation test. Login status: {status_code}",
+                response_data
+            )
+            return False
+        
+        access_token = response_data.get('access_token')
+        if not access_token:
+            self.log_test_result(
+                "JWT Token Validation (Valid Token)", 
+                False, 
+                "No access token received from login",
+                response_data
+            )
+            return False
+        
+        # Test /api/auth/me with valid token
+        headers = {'Authorization': f'Bearer {access_token}'}
+        
+        try:
+            url = f"{self.backend_url}/api/auth/me"
+            async with self.session.get(url, headers=headers) as response:
+                status_code = response.status
+                try:
+                    response_data = await response.json()
+                except:
+                    response_data = {"error": "Invalid JSON response", "text": await response.text()}
+        except Exception as e:
+            self.log_test_result(
+                "JWT Token Validation (Valid Token)", 
+                False, 
+                f"Request failed: {str(e)}",
+                {}
+            )
+            return False
+        
+        if status_code == 200:
+            # Check response structure
+            required_fields = ['id', 'email']
+            missing_fields = [field for field in required_fields if field not in response_data]
+            
+            if missing_fields:
+                self.log_test_result(
+                    "JWT Token Validation (Valid Token)", 
+                    False, 
+                    f"Missing required fields: {missing_fields}",
+                    response_data
+                )
+                return False
+            
+            # Check user data matches
+            if response_data.get('email') != user_credentials['email']:
+                self.log_test_result(
+                    "JWT Token Validation (Valid Token)", 
+                    False, 
+                    f"User email mismatch. Expected: {user_credentials['email']}, Got: {response_data.get('email')}",
+                    response_data
+                )
+                return False
+            
+            self.log_test_result(
+                "JWT Token Validation (Valid Token)", 
+                True, 
+                f"Successfully validated JWT token and retrieved user data for {user_credentials['email']}",
+                response_data
+            )
+            return True
+            
+        else:
+            self.log_test_result(
+                "JWT Token Validation (Valid Token)", 
+                False, 
+                f"JWT validation failed with status {status_code}: {response_data.get('detail', 'Unknown error')}",
+                response_data
+            )
+            return False
+    
+    async def test_jwt_validation_invalid_token(self) -> bool:
+        """Test 6: JWT Token Validation with invalid token"""
+        print("\n🔍 TEST 6: JWT Token Validation (Invalid Token)")
+        
+        # Test /api/auth/me with invalid token
+        headers = {'Authorization': 'Bearer invalid_token_12345'}
+        
+        try:
+            url = f"{self.backend_url}/api/auth/me"
+            async with self.session.get(url, headers=headers) as response:
+                status_code = response.status
+                try:
+                    response_data = await response.json()
+                except:
+                    response_data = {"error": "Invalid JSON response", "text": await response.text()}
+        except Exception as e:
+            self.log_test_result(
+                "JWT Token Validation (Invalid Token)", 
+                False, 
+                f"Request failed: {str(e)}",
+                {}
+            )
+            return False
+        
+        if status_code == 401:
+            expected_detail = "Invalid token"
+            actual_detail = response_data.get('detail', '')
+            
+            if expected_detail in actual_detail or "token" in actual_detail.lower():
+                self.log_test_result(
+                    "JWT Token Validation (Invalid Token)", 
+                    True, 
+                    f"Correctly rejected invalid token (401: {actual_detail})",
+                    response_data
+                )
+                return True
+            else:
+                self.log_test_result(
+                    "JWT Token Validation (Invalid Token)", 
+                    False, 
+                    f"Got 401 but unexpected error message: {actual_detail}",
+                    response_data
+                )
+                return False
+        else:
+            self.log_test_result(
+                "JWT Token Validation (Invalid Token)", 
+                False, 
+                f"Expected 401 status, got {status_code}: {response_data.get('detail', 'Unknown error')}",
+                response_data
+            )
+            return False
+    
+    async def test_jwt_validation_no_token(self) -> bool:
+        """Test 7: JWT Token Validation with no token"""
+        print("\n🔍 TEST 7: JWT Token Validation (No Token)")
+        
+        # Test /api/auth/me without Authorization header
+        try:
+            url = f"{self.backend_url}/api/auth/me"
+            async with self.session.get(url) as response:
+                status_code = response.status
+                try:
+                    response_data = await response.json()
+                except:
+                    response_data = {"error": "Invalid JSON response", "text": await response.text()}
+        except Exception as e:
+            self.log_test_result(
+                "JWT Token Validation (No Token)", 
+                False, 
+                f"Request failed: {str(e)}",
+                {}
+            )
+            return False
+        
+        if status_code == 401:
+            expected_detail = "Missing or invalid authorization header"
+            actual_detail = response_data.get('detail', '')
+            
+            if "authorization" in actual_detail.lower() or "missing" in actual_detail.lower():
+                self.log_test_result(
+                    "JWT Token Validation (No Token)", 
+                    True, 
+                    f"Correctly rejected request without token (401: {actual_detail})",
+                    response_data
+                )
+                return True
+            else:
+                self.log_test_result(
+                    "JWT Token Validation (No Token)", 
+                    False, 
+                    f"Got 401 but unexpected error message: {actual_detail}",
+                    response_data
+                )
+                return False
+        else:
+            self.log_test_result(
+                "JWT Token Validation (No Token)", 
+                False, 
+                f"Expected 401 status, got {status_code}: {response_data.get('detail', 'Unknown error')}",
+                response_data
+            )
+            return False
+    
     async def test_duplicate_registration(self, user_credentials: Dict) -> bool:
-        """Test 5: Try to register with existing email"""
-        print("\n🔍 TEST 5: Duplicate Registration Prevention")
+        """Test 8: Try to register with existing email"""
+        print("\n🔍 TEST 8: Duplicate Registration Prevention")
         
         registration_data = {
             "email": user_credentials['email'],
