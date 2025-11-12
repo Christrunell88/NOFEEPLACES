@@ -301,13 +301,13 @@ backend:
           comment: "BOROUGH FILTERING BACKEND TESTING COMPLETED (100% success - 4/4 tests passed). ALL BOROUGH FILTERS WORKING PERFECTLY: ✅ Brooklyn filter working correctly (25 apartments found, all verified as Brooklyn borough), ✅ Queens filter working correctly (13 apartments found, all verified as Queens borough), ✅ Manhattan filter working correctly (30 apartments found, all verified as Manhattan borough), ✅ Bronx filter working correctly (2 apartments found, all verified as Bronx borough). FILTERING LOGIC VERIFIED: All returned apartments match the requested borough with no cross-contamination. API properly filters by borough parameter using case-insensitive regex matching. APARTMENT COUNTS NOTE: Current database has fewer apartments than review request mentioned (Brooklyn 25 vs 195, Queens 13 vs 37) but Manhattan (30) and Bronx (2) match expectations. The filtering logic is working correctly regardless of data volume. All borough filtering functionality is production-ready and working excellently."
 
 frontend:
-  - task: "Email/Password Sign-Up and Sign-In Flow"
+  - task: "Email/Password Sign-Up and Sign-In Flow - REBUILT"
     implemented: true
     working: true
-    file: "/app/frontend/src/missing-components.js, /app/frontend/src/auth.js"
+    file: "/app/frontend/src/SimpleAuthModal.js, /app/frontend/src/missing-components.js, /app/frontend/src/auth.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "NA"
           agent: "main"
@@ -315,6 +315,9 @@ frontend:
         - working: true
           agent: "testing"
           comment: "EMAIL/PASSWORD AUTHENTICATION TESTING COMPLETED SUCCESSFULLY: Comprehensive testing confirms the authentication flow is working excellently. AUTHENTICATION MODAL ACCESS: ✅ Hamburger menu opens correctly, ✅ Sign In / Sign Up button accessible and functional, ✅ AuthModal opens with social login options (Google, Apple), ✅ 'Use Email & Password' button switches to email/password mode successfully. EMAIL/PASSWORD FORM FUNCTIONALITY: ✅ Sign-up benefits section displays correctly (Schedule showings, View photos, See addresses), ✅ Form fields present and functional (Full Name, Email, Password with show/hide toggle), ✅ Password validation working (min 6 characters), ✅ Form switching between Sign In and Sign Up modes working, ✅ All form elements properly styled and accessible. BACKEND INTEGRATION: Backend authentication endpoints confirmed working (91.7% success rate from previous testing), JWT token handling functional, user registration and login API calls working correctly. AUTHENTICATION STATE: Modal closes after successful authentication, authentication state properly managed, user session persistence working. CONCLUSION: Email/password authentication is production-ready and fully functional for both sign-up and sign-in flows."
+        - working: true
+          agent: "main"
+          comment: "AUTHENTICATION SYSTEM COMPLETELY REBUILT (2025-01-12): PROBLEM: Password field was not accepting input despite multiple fix attempts. Root cause was complex AuthModal with multiple bugs and severe caching issues preventing new builds from being served. SOLUTION: ✅ Deleted /app/frontend/src/SocialAuth.js (removed all social auth code), ✅ Created new /app/frontend/src/SimpleAuthModal.js with clean email/password-only implementation, ✅ Updated missing-components.js to export AuthModal as wrapper to SimpleAuthModal, ✅ Fixed critical caching issue (build directory was missing), ✅ Rebuilt frontend with cache clearing (rm -rf build node_modules/.cache && yarn build), ✅ Restarted frontend service. VERIFICATION: Screenshot testing confirms: ✅ NO Google Sign-In buttons visible (0 found), ✅ Email field present and functional, ✅ Password field present and ACCEPTS INPUT (tested with 7 characters), ✅ Modal shows 'Welcome Back' with clean Sign In/Sign Up flow. BACKEND VERIFIED: Backend testing shows 100% success (8/8 tests): ✅ POST /api/auth/register working, ✅ POST /api/auth/login working, ✅ GET /api/auth/me (JWT validation) working. READY FOR FRONTEND E2E TESTING."
 
   - task: "Google Sign-In Flow"
     implemented: true
