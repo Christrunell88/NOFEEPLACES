@@ -162,12 +162,12 @@ const SimpleAuthModal = ({ onClose }) => {
               <input
                 type="text"
                 id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-gray-900 bg-white"
                 placeholder="John Doe"
                 disabled={loading}
+                autoComplete="name"
               />
             </div>
           )}
@@ -180,12 +180,12 @@ const SimpleAuthModal = ({ onClose }) => {
             <input
               type="email"
               id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-gray-900 bg-white"
               placeholder="you@example.com"
               disabled={loading}
+              autoComplete="email"
             />
           </div>
 
@@ -198,12 +198,12 @@ const SimpleAuthModal = ({ onClose }) => {
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-12"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition text-gray-900 bg-white pr-12"
                 placeholder={isSignUp ? 'At least 6 characters' : 'Enter your password'}
                 disabled={loading}
+                autoComplete={isSignUp ? 'new-password' : 'current-password'}
               />
               <button
                 type="button"
