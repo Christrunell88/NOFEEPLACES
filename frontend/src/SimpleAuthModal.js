@@ -3,11 +3,9 @@ import { useAuth } from './auth';
 
 const SimpleAuthModal = ({ onClose }) => {
   const [isSignUp, setIsSignUp] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: ''
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -23,14 +21,6 @@ const SimpleAuthModal = ({ onClose }) => {
     };
   }, []);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-    setError('');
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -40,32 +30,32 @@ const SimpleAuthModal = ({ onClose }) => {
     try {
       if (isSignUp) {
         // Sign Up
-        if (!formData.fullName || !formData.email || !formData.password) {
+        if (!fullName || !email || !password) {
           setError('Please fill in all fields');
           setLoading(false);
           return;
         }
 
-        if (formData.password.length < 6) {
+        if (password.length < 6) {
           setError('Password must be at least 6 characters');
           setLoading(false);
           return;
         }
 
-        await register(formData.email, formData.password, formData.fullName);
+        await register(email, password, fullName);
         setSuccess('Account created successfully!');
         setTimeout(() => {
           onClose();
         }, 1500);
       } else {
         // Sign In
-        if (!formData.email || !formData.password) {
+        if (!email || !password) {
           setError('Please enter email and password');
           setLoading(false);
           return;
         }
 
-        await login(formData.email, formData.password);
+        await login(email, password);
         setSuccess('Signed in successfully!');
         setTimeout(() => {
           onClose();
@@ -82,11 +72,9 @@ const SimpleAuthModal = ({ onClose }) => {
     setIsSignUp(!isSignUp);
     setError('');
     setSuccess('');
-    setFormData({
-      email: '',
-      password: '',
-      fullName: ''
-    });
+    setEmail('');
+    setPassword('');
+    setFullName('');
   };
 
   return (
