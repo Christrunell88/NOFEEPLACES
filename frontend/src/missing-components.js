@@ -487,12 +487,6 @@ export const AuthModal = ({ onClose }) => {
   
   // Focus management for modal
   useEffect(() => {
-    // Focus the first focusable element when modal opens
-    const firstFocusable = document.querySelector('[role="dialog"] button, [role="dialog"] input');
-    if (firstFocusable) {
-      firstFocusable.focus();
-    }
-    
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
     
