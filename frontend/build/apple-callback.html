@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Sign In - Processing...</title>
+    <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+</head>
+<body>
+    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif;">
+        <div style="text-align: center;">
+            <h2>Processing Apple Sign In...</h2>
+            <p>Please wait while we complete your authentication.</p>
+        </div>
+    </div>
+    <script>
+        // This page handles the Apple Sign In callback
+        // It will automatically close and send the response back to the parent window
+        document.addEventListener('AppleIDSignInOnSuccess', (event) => {
+            // Success - data will be handled by the SDK
+            console.log('Apple Sign In successful');
+        });
+        
+        document.addEventListener('AppleIDSignInOnFailure', (event) => {
+            // Failure
+            console.error('Apple Sign In failed', event);
+        });
+    </script>
+</body>
+</html>
