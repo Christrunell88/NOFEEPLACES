@@ -471,16 +471,10 @@ export const LoadingSpinner = () => {
 // Import SimpleAuthModal component
 import SimpleAuthModal from './SimpleAuthModal';
 
-// Auth Modal with Social Login
+// Auth Modal - Simple Email/Password Authentication
 export const AuthModal = ({ onClose }) => {
-  const [showSocialAuth, setShowSocialAuth] = useState(true); // Revert - will hide social auth entirely
-  const [isLogin, setIsLogin] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: ''
-  });
+  // Use the new SimpleAuthModal component
+  return <SimpleAuthModal onClose={onClose} />;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { login, register } = useAuth();
