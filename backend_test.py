@@ -600,7 +600,16 @@ class AuthenticationTester:
             # Test 4: Login with non-existent user
             await self.test_user_login_nonexistent_user()
             
-            # Test 5: Try duplicate registration
+            # Test 5: JWT Token Validation (Valid Token)
+            await self.test_jwt_validation_valid_token(user_credentials)
+            
+            # Test 6: JWT Token Validation (Invalid Token)
+            await self.test_jwt_validation_invalid_token()
+            
+            # Test 7: JWT Token Validation (No Token)
+            await self.test_jwt_validation_no_token()
+            
+            # Test 8: Try duplicate registration
             await self.test_duplicate_registration(user_credentials)
             
         finally:
