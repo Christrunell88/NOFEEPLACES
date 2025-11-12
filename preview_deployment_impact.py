@@ -54,7 +54,7 @@ def preview_impact():
     
     try:
         # Get the problematic Central Park West apartment
-        response = requests.get("https://rentauth-test.preview.emergentagent.com/api/apartments",
+        response = requests.get("https://auth-revamp-8.preview.emergentagent.com/api/apartments",
                               params={"search": "Central Park West", "limit": 10})
         
         if response.status_code == 200:
@@ -68,7 +68,7 @@ def preview_impact():
                     print(f"      Action: Replaced with verified listings")
         
         # Check for other low-priced Manhattan apartments
-        response2 = requests.get("https://rentauth-test.preview.emergentagent.com/api/apartments", 
+        response2 = requests.get("https://auth-revamp-8.preview.emergentagent.com/api/apartments", 
                                params={"limit": 50})
         
         if response2.status_code == 200:

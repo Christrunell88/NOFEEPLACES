@@ -16,7 +16,7 @@ import time
 class DataPipelineTestSuite:
     def __init__(self):
         # Get backend URL from environment
-        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://rentauth-test.preview.emergentagent.com')
+        self.backend_url = os.environ.get('REACT_APP_BACKEND_URL', 'https://auth-revamp-8.preview.emergentagent.com')
         self.api_base = f"{self.backend_url}/api"
         
         # Pipeline paths

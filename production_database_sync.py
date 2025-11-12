@@ -18,7 +18,7 @@ class ProductionDatabaseSync:
         self.local_db_name = os.environ.get('DB_NAME', 'nofeeplaces')
         
         # Production API endpoint
-        self.production_api_url = "https://rentauth-test.preview.emergentagent.com/api"
+        self.production_api_url = "https://auth-revamp-8.preview.emergentagent.com/api"
         
         # Backup directory
         self.backup_dir = "/app/database_backups"

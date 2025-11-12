@@ -9,7 +9,7 @@ import json
 from typing import Dict, Any
 
 # Configuration
-BASE_URL = "https://rentauth-test.preview.emergentagent.com/api"
+BASE_URL = "https://auth-revamp-8.preview.emergentagent.com/api"
 
 class ApartmentCountInvestigator:
     def __init__(self):
