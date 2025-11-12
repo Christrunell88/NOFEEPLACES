@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    
+    <!-- Blog Homepage -->
+    <url>
+        <loc>https://nofeeplaces.com/blog</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
+    
+    <!-- Blog Posts -->
+    <url>
+        <loc>https://nofeeplaces.com/blog/how-to-search-for-no-fee-apartments-nyc-complete-2025-guide</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.85</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>How to search for no fee apartments in NYC - comprehensive guide</image:caption>
+            <image:title>NYC No Fee Apartment Search Guide</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/hells-kitchen-no-fee-apartments-complete-neighborhood-guide-2025</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>Hell's Kitchen no fee apartments neighborhood guide</image:caption>
+            <image:title>Hell's Kitchen No Fee Apartments Guide</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/the-ultimate-guide-to-no-fee-apartments-in-nyc-2025</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.80</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>Ultimate guide to finding no fee apartments in NYC</image:caption>
+            <image:title>Ultimate NYC No Fee Apartments Guide</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/nyc-rental-market-report-september-2025-no-fee-apartment-trends</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>NYC rental market report September 2025</image:caption>
+            <image:title>NYC Rental Market Report September 2025</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/5-mistakes-to-avoid-when-hunting-for-no-fee-apartments-in-nyc</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/3184290/pexels-photo-3184290.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>Common mistakes to avoid when apartment hunting in NYC</image:caption>
+            <image:title>NYC Apartment Hunting Mistakes to Avoid</image:title>
+        </image:image>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/williamsburg-no-fee-apartments-brooklyns-trendiest-neighborhood-guide</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.75</priority>
+        <image:image>
+            <image:loc>https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=800</image:loc>
+            <image:caption>Williamsburg no fee apartments neighborhood guide</image:caption>
+            <image:title>Williamsburg No Fee Apartments Guide</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Blog Categories -->
+    <url>
+        <loc>https://nofeeplaces.com/blog/category/neighborhood-guide</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/category/renters-guide</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/category/market-report</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+    <url>
+        <loc>https://nofeeplaces.com/blog/category/tips-advice</loc>
+        <lastmod>2025-09-17</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.70</priority>
+    </url>
+    
+</urlset>
