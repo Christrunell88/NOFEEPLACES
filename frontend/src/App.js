@@ -588,35 +588,8 @@ const ApartmentDetailsPage = () => {
   return <ApartmentDetails apartmentId={apartmentId} />;
 };
 
-const DashboardPage = () => {
-  const { user, isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-  
-  return <UserDashboard user={user} />;
-};
-
-const SavedSearchesPage = () => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-  
-  return <SavedSearches />;
-};
-
-const FavoritesPageRoute = () => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
-  }
-  
-  return <FavoritesPage />;
-};
+// Dashboard, SavedSearches, and Favorites pages are imported directly
+// They handle authentication internally
 
 const AdminAppointmentsPage = () => {
   // For now, no authentication check - but you can add admin role check here
