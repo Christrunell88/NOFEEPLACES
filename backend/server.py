@@ -212,6 +212,41 @@ class User(BaseModel):
     facebook_id: Optional[str] = None
     apple_id: Optional[str] = None
 
+
+# Favorites Models
+class FavoriteRequest(BaseModel):
+    apartment_id: str
+
+class FavoriteResponse(BaseModel):
+    success: bool
+    message: str
+    favorites_count: int
+
+class FavoriteApartment(BaseModel):
+    user_id: str
+    apartment_id: str
+    saved_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
+# Saved Searches Models
+class SavedSearchRequest(BaseModel):
+    search_name: str  # Auto-generated or user provided
+    filters: Dict[str, Any]  # Search criteria
+    email_frequency: str = "weekly"  # weekly, never
+
+class SavedSearchResponse(BaseModel):
+    success: bool
+    message: str
+    search_id: str
+
+class SavedSearch(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
+    search_name: str
+    filters: Dict[str, Any]
+    email_frequency: str = "weekly"
+    last_emailed: Optional[str] = None
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+
 # Contact Email Models
 class ContactEmailRequest(BaseModel):
     to: str
