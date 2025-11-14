@@ -106,16 +106,13 @@ export {
   SavedSearches,
   AdminAppointments,
   AIChatbot,
-  FavoritesPage,
   ApartmentComparison,
   ToastProvider,
   ErrorBoundary,
   CompleteGuideNoFeeApartments,
   BlogList,
   BlogPost,
-  EmailContactModal,
-  ApartmentDetailsModal,
-  ShowYourPlaceModal
+  NewsletterPage
 };
 
 // Toast notification component
