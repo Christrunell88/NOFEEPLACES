@@ -616,13 +616,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
     }))
   };
 
-  useEffect(() => {
-    // Check if apartment is in user's favorites on mount
-    if (isAuthenticated && user?.favorite_apartments?.includes(apartment.id)) {
-      setIsFavorited(true);
-    }
-  }, [isAuthenticated, user, apartment.id]);
-
   // Reset image index when apartment changes
   useEffect(() => {
     setCurrentImageIndex(0);
