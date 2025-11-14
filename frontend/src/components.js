@@ -1058,7 +1058,7 @@ export const ApartmentDetails = ({ apartmentId }) => {
 };
 
 // Apartment Details Modal Component
-const ApartmentDetailsModal = ({ apartment, onClose }) => {
+export const ApartmentDetailsModal = ({ apartment, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
