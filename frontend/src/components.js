@@ -111,8 +111,7 @@ export {
   ErrorBoundary,
   CompleteGuideNoFeeApartments,
   BlogList,
-  BlogPost,
-  NewsletterPage
+  BlogPost
 };
 
 // Toast notification component
