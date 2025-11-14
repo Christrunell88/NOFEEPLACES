@@ -3766,6 +3766,11 @@ async def check_favorite(request: Request, apartment_id: str):
             "is_favorite": favorite is not None
         }
         
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error checking favorite: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to check favorite status")
 
 # ============================================================================
 # SAVED SEARCHES ENDPOINTS
