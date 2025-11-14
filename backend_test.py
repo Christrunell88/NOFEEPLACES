@@ -1,42 +1,34 @@
 #!/usr/bin/env python3
 """
-Backend Authentication Flow Testing
-Test the complete sign-in/login authentication flow as requested
+Comprehensive Backend Testing for Favorites and Saved Searches API Endpoints
+Testing URL: https://auth-revamp-8.preview.emergentagent.com
 """
 
 import asyncio
 import aiohttp
 import json
-import time
 import sys
 from datetime import datetime
-from typing import Dict, Any, Optional
+from typing import Dict, List, Optional
 
-class AuthenticationTester:
-    def __init__(self):
-        # Get backend URL from frontend .env
-        self.backend_url = None
-        self.load_backend_url()
+class FavoritesAndSavedSearchesAPITester:
+    def __init__(self, base_url: str):
+        self.base_url = base_url.rstrip('/')
         self.session = None
-        self.test_results = []
+        self.auth_token = None
+        self.test_user_email = "testfav@example.com"
+        self.test_user_password = "testpass123"
+        self.test_user_name = "Test Favorites User"
+        self.apartment_ids = []
+        self.saved_search_ids = []
         
-    def load_backend_url(self):
-        """Load backend URL from frontend .env file"""
-        try:
-            with open('/app/frontend/.env', 'r') as f:
-                for line in f:
-                    if line.startswith('REACT_APP_BACKEND_URL='):
-                        self.backend_url = line.split('=', 1)[1].strip()
-                        break
-            
-            if not self.backend_url:
-                raise ValueError("REACT_APP_BACKEND_URL not found in frontend/.env")
-                
-            print(f"✅ Backend URL loaded: {self.backend_url}")
-            
-        except Exception as e:
-            print(f"❌ Error loading backend URL: {e}")
-            sys.exit(1)
+        # Test results tracking
+        self.results = {
+            "total_tests": 0,
+            "passed_tests": 0,
+            "failed_tests": 0,
+            "test_details": []
+        }
     
     async def setup_session(self):
         """Setup HTTP session"""
