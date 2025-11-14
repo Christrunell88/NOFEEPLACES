@@ -453,6 +453,8 @@ const Home = () => {
           </div>
           
           <div className="flex items-center gap-4">
+            {/* Save Search Button */}
+            <SaveSearchButton filters={searchFilters} />
             <SortOptions
               sortBy={sortBy}
               sortOrder={sortOrder}
