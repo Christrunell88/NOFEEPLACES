@@ -3872,6 +3872,10 @@ async def get_saved_searches(request: Request):
         
         # For each search, count new apartments since last email
         for search in searches:
+            # Remove MongoDB ObjectId field for JSON serialization
+            if '_id' in search:
+                del search['_id']
+                
             # Count apartments matching the search filters
             filter_query = {}
             
