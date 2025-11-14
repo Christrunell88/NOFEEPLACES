@@ -641,27 +641,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
     });
   };
 
-  const handleFavorite = async (e) => {
-    e.stopPropagation();
-    if (!isAuthenticated) {
-      alert('Please sign in to save favorites');
-      return;
-    }
-    
-    try {
-      const response = await axios.post(`${API}/favorites/toggle`, {
-        apartment_id: apartment.id
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }
-      });
-      
-      setIsFavorited(!isFavorited);
-      onFavorite && onFavorite(apartment.id, !isFavorited);
-    } catch (error) {
-      console.error('Failed to toggle favorite:', error);
-    }
-  };
-
   // Safely get current image with bounds checking
   const safeImageIndex = apartment.images && apartment.images.length > 0 
     ? Math.min(currentImageIndex, apartment.images.length - 1)
