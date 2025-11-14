@@ -42,6 +42,7 @@ import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 import LeadGenChatbot from './LeadGenChatbot';
 import { BrowseByNeighborhood, BoroughQuickLinks, RecentlyAdded, QuickFilters, SortOptions } from './BrowseSections';
+import FavoritesPage from './FavoritesPage';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
