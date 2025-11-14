@@ -557,7 +557,6 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
   const { isAuthenticated, user } = useAuth();
   const [imageError, setImageError] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isFavorited, setIsFavorited] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [showScheduleModal, setShowScheduleModal] = useState(false);
