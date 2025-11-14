@@ -3766,6 +3766,198 @@ async def check_favorite(request: Request, apartment_id: str):
             "is_favorite": favorite is not None
         }
         
+
+# ============================================================================
+# SAVED SEARCHES ENDPOINTS
+# ============================================================================
+
+def generate_search_name(filters: Dict[str, Any]) -> str:
+    """Auto-generate a descriptive name for a saved search"""
+    parts = []
+    
+    # Bedrooms
+    if filters.get('bedrooms') is not None:
+        bedrooms = filters['bedrooms']
+        if bedrooms == 0:
+            parts.append("Studio")
+        else:
+            parts.append(f"{bedrooms}BR")
+    
+    # Location
+    if filters.get('borough'):
+        parts.append(f"in {filters['borough']}")
+    elif filters.get('neighborhood'):
+        parts.append(f"in {filters['neighborhood']}")
+    
+    # Price range
+    min_price = filters.get('min_price')
+    max_price = filters.get('max_price')
+    if min_price and max_price:
+        parts.append(f"${int(min_price)}-${int(max_price)}")
+    elif min_price:
+        parts.append(f"${int(min_price)}+")
+    elif max_price:
+        parts.append(f"under ${int(max_price)}")
+    
+    return " ".join(parts) if parts else "Custom Search"
+
+@app.post("/api/saved-searches/create", response_model=SavedSearchResponse)
+async def create_saved_search(request: Request, search_request: SavedSearchRequest):
+    """Create a new saved search"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        # Auto-generate search name if not provided
+        search_name = search_request.search_name
+        if not search_name or search_name.strip() == "":
+            search_name = generate_search_name(search_request.filters)
+        
+        # Check if user already has this exact search
+        existing = await db.saved_searches.find_one({
+            "user_id": user_id,
+            "filters": search_request.filters
+        })
+        
+        if existing:
+            return SavedSearchResponse(
+                success=True,
+                message="You've already saved this search",
+                search_id=existing['id']
+            )
+        
+        # Create saved search
+        search_id = str(uuid.uuid4())
+        saved_search = SavedSearch(
+            id=search_id,
+            user_id=user_id,
+            search_name=search_name,
+            filters=search_request.filters,
+            email_frequency=search_request.email_frequency
+        ).dict()
+        
+        await db.saved_searches.insert_one(saved_search)
+        
+        logger.info(f"User {user_id} created saved search: {search_name}")
+        
+        return SavedSearchResponse(
+            success=True,
+            message=f"Search saved: {search_name}",
+            search_id=search_id
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error creating saved search: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to save search")
+
+@app.get("/api/saved-searches")
+async def get_saved_searches(request: Request):
+    """Get user's saved searches"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        searches_cursor = db.saved_searches.find({"user_id": user_id}).sort("created_at", -1)
+        searches = await searches_cursor.to_list(length=None)
+        
+        # For each search, count new apartments since last email
+        for search in searches:
+            # Count apartments matching the search filters
+            filter_query = {}
+            
+            if search['filters'].get('borough'):
+                filter_query['borough'] = {'$regex': search['filters']['borough'], '$options': 'i'}
+            
+            if search['filters'].get('bedrooms') is not None:
+                filter_query['bedrooms'] = search['filters']['bedrooms']
+            
+            if search['filters'].get('min_price'):
+                filter_query['price'] = filter_query.get('price', {})
+                filter_query['price']['$gte'] = search['filters']['min_price']
+            
+            if search['filters'].get('max_price'):
+                filter_query['price'] = filter_query.get('price', {})
+                filter_query['price']['$lte'] = search['filters']['max_price']
+            
+            # Count new listings since last email
+            if search.get('last_emailed'):
+                filter_query['created_at'] = {'$gte': search['last_emailed']}
+            
+            new_count = await db.apartments.count_documents(filter_query)
+            search['new_listings_count'] = new_count
+        
+        return {
+            "saved_searches": searches,
+            "total": len(searches)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching saved searches: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch saved searches")
+
+@app.delete("/api/saved-searches/{search_id}")
+async def delete_saved_search(request: Request, search_id: str):
+    """Delete a saved search"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        result = await db.saved_searches.delete_one({
+            "id": search_id,
+            "user_id": user_id
+        })
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Saved search not found")
+        
+        logger.info(f"User {user_id} deleted saved search {search_id}")
+        
+        return {
+            "success": True,
+            "message": "Saved search deleted"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting saved search: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to delete search")
+
+@app.put("/api/saved-searches/{search_id}")
+async def update_saved_search(request: Request, search_id: str, email_frequency: str = Query(...)):
+    """Update saved search email frequency"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        if email_frequency not in ['weekly', 'never']:
+            raise HTTPException(status_code=400, detail="Invalid email frequency. Must be 'weekly' or 'never'")
+        
+        result = await db.saved_searches.update_one(
+            {"id": search_id, "user_id": user_id},
+            {"$set": {"email_frequency": email_frequency}}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Saved search not found")
+        
+        logger.info(f"User {user_id} updated search {search_id} email frequency to {email_frequency}")
+        
+        return {
+            "success": True,
+            "message": f"Email alerts set to {email_frequency}"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating saved search: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to update search")
+
     except HTTPException:
         raise
     except Exception as e:
