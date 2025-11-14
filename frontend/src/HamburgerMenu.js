@@ -123,6 +123,49 @@ const HamburgerMenu = () => {
                   </div>
                 )}
 
+                {/* User Menu Items - Only show when authenticated */}
+                {isAuthenticated && (
+                  <div className="space-y-1 mb-6 pb-6 border-b border-gray-200">
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}>My Account</div>
+                    
+                    <Link
+                      to="/dashboard"
+                      onClick={closeMenu}
+                      className="flex items-center gap-2 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                      style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      </svg>
+                      Dashboard
+                    </Link>
+
+                    <Link
+                      to="/favorites"
+                      onClick={closeMenu}
+                      className="flex items-center gap-2 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                      style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
+                    >
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                      </svg>
+                      Favorites
+                    </Link>
+
+                    <Link
+                      to="/saved-searches"
+                      onClick={closeMenu}
+                      className="flex items-center gap-2 text-gray-800 hover:text-blue-600 hover:bg-blue-50 transition-all py-3 px-4 rounded-lg"
+                      style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif', fontSize: '15px', fontWeight: '500', letterSpacing: '-0.01em' }}
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                      </svg>
+                      Saved Searches
+                    </Link>
+                  </div>
+                )}
+
                 <div className="space-y-1">
                   <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif' }}>Company</div>
                   
