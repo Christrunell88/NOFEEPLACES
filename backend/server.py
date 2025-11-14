@@ -3610,6 +3610,168 @@ async def get_me(request: Request):
     user = await get_current_user(request)
     return user
 
+
+# ============================================================================
+# FAVORITES ENDPOINTS
+# ============================================================================
+
+@app.post("/api/favorites/add", response_model=FavoriteResponse)
+async def add_favorite(request: Request, favorite_request: FavoriteRequest):
+    """Add apartment to user's favorites (max 25)"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        apartment_id = favorite_request.apartment_id
+        
+        # Check if apartment exists
+        apartment = await db.apartments.find_one({"id": apartment_id})
+        if not apartment:
+            raise HTTPException(status_code=404, detail="Apartment not found")
+        
+        # Check current favorites count
+        current_count = await db.favorites.count_documents({"user_id": user_id})
+        if current_count >= 25:
+            raise HTTPException(
+                status_code=400, 
+                detail="You've reached the maximum of 25 saved apartments. Please remove some to add new ones."
+            )
+        
+        # Check if already favorited
+        existing = await db.favorites.find_one({
+            "user_id": user_id,
+            "apartment_id": apartment_id
+        })
+        
+        if existing:
+            return FavoriteResponse(
+                success=True,
+                message="Apartment already in your favorites",
+                favorites_count=current_count
+            )
+        
+        # Add to favorites
+        favorite_data = FavoriteApartment(
+            user_id=user_id,
+            apartment_id=apartment_id
+        ).dict()
+        
+        await db.favorites.insert_one(favorite_data)
+        new_count = current_count + 1
+        
+        logger.info(f"User {user_id} added apartment {apartment_id} to favorites")
+        
+        return FavoriteResponse(
+            success=True,
+            message="Apartment saved to favorites",
+            favorites_count=new_count
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error adding favorite: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to save apartment")
+
+@app.delete("/api/favorites/remove/{apartment_id}", response_model=FavoriteResponse)
+async def remove_favorite(request: Request, apartment_id: str):
+    """Remove apartment from user's favorites"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        # Remove from favorites
+        result = await db.favorites.delete_one({
+            "user_id": user_id,
+            "apartment_id": apartment_id
+        })
+        
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Apartment not in favorites")
+        
+        # Get updated count
+        new_count = await db.favorites.count_documents({"user_id": user_id})
+        
+        logger.info(f"User {user_id} removed apartment {apartment_id} from favorites")
+        
+        return FavoriteResponse(
+            success=True,
+            message="Apartment removed from favorites",
+            favorites_count=new_count
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error removing favorite: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to remove apartment")
+
+@app.get("/api/favorites")
+async def get_favorites(request: Request):
+    """Get user's favorite apartments with full apartment details"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        # Get all favorite apartment IDs for this user
+        favorites_cursor = db.favorites.find({"user_id": user_id}).sort("saved_at", -1)
+        favorites = await favorites_cursor.to_list(length=25)  # Max 25
+        
+        if not favorites:
+            return {
+                "favorites": [],
+                "total": 0
+            }
+        
+        # Get apartment IDs
+        apartment_ids = [fav['apartment_id'] for fav in favorites]
+        
+        # Fetch full apartment details
+        apartments_cursor = db.apartments.find({"id": {"$in": apartment_ids}})
+        apartments = await apartments_cursor.to_list(length=25)
+        
+        # Create a map of apartment_id to saved_at timestamp
+        saved_at_map = {fav['apartment_id']: fav['saved_at'] for fav in favorites}
+        
+        # Add saved_at to each apartment and sort by saved_at
+        for apt in apartments:
+            apt['saved_at'] = saved_at_map.get(apt['id'])
+        
+        # Sort apartments by saved_at (most recent first)
+        apartments.sort(key=lambda x: x.get('saved_at', ''), reverse=True)
+        
+        return {
+            "favorites": apartments,
+            "total": len(apartments)
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching favorites: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to fetch favorites")
+
+@app.get("/api/favorites/check/{apartment_id}")
+async def check_favorite(request: Request, apartment_id: str):
+    """Check if an apartment is in user's favorites"""
+    try:
+        user = await get_current_user(request)
+        user_id = user['id']
+        
+        favorite = await db.favorites.find_one({
+            "user_id": user_id,
+            "apartment_id": apartment_id
+        })
+        
+        return {
+            "is_favorite": favorite is not None
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error checking favorite: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to check favorite status")
+
 @app.post("/api/auth/google")
 async def google_auth(request: GoogleAuthRequest):
     """Authenticate with Google"""
