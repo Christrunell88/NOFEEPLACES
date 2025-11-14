@@ -23,7 +23,6 @@ import {
   SavedSearches,
   AdminAppointments,
   AIChatbot,
-  FavoritesPage,
   ApartmentComparison,
   ToastProvider,
   ErrorBoundary,
