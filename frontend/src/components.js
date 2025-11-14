@@ -744,20 +744,10 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             No Fee
           </div>
 
-          {/* Favorite Button - Minimal */}
-          <button
-            onClick={handleFavorite}
-            className={`absolute top-3 right-3 w-7 h-7 rounded-full flex items-center justify-center transition-all z-10 shadow-sm ${
-              isFavorited 
-                ? 'bg-red-500 text-white' 
-                : 'bg-white/95 text-gray-400 hover:text-red-500 hover:bg-white'
-            }`}
-            aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
-          >
-            <svg className="w-4 h-4" fill={isFavorited ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-          </button>
+          {/* Favorite Button */}
+          <div className="absolute top-3 right-3 z-10">
+            <FavoriteButton apartmentId={apartment.id} size="sm" />
+          </div>
         </div>
 
         {/* Content Section - Clean & Minimal */}
