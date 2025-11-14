@@ -3735,6 +3735,9 @@ async def get_favorites(request: Request):
         # Add saved_at to each apartment and sort by saved_at
         for apt in apartments:
             apt['saved_at'] = saved_at_map.get(apt['id'])
+            # Remove MongoDB ObjectId field for JSON serialization
+            if '_id' in apt:
+                del apt['_id']
         
         # Sort apartments by saved_at (most recent first)
         apartments.sort(key=lambda x: x.get('saved_at', ''), reverse=True)
