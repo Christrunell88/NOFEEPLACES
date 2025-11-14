@@ -641,7 +641,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/apartment/:id" element={<ApartmentDetailsPage />} />
                 <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/favorites" element={<FavoritesPageRoute />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
                 <Route path="/saved-searches" element={<SavedSearchesPage />} />
                 <Route path="/admin/appointments" element={<AdminAppointmentsPage />} />
                 <Route path="/complete-guide-no-fee-apartments-nyc" element={<CompleteGuidePage />} />
