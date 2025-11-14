@@ -396,10 +396,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Core Authentication Testing - Email/Password & Google"
-    - "Contact Functionality for Authenticated Users"
-    - "Schedule Showing Calendar Functionality"
-    - "Borough Filter Functionality and Visual Indicators"
+    - "Favorites and Saved Searches API Endpoints"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
