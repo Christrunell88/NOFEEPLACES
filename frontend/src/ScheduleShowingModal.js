@@ -89,6 +89,8 @@ const ScheduleShowingModal = ({ apartment, onClose }) => {
 
       if (response.data.success) {
         setSubmitStatus('success');
+        // Track conversion
+        trackScheduleShowing(apartment.id, apartment.title, showingDate);
         // Close modal after 3 seconds
         setTimeout(() => {
           onClose();
