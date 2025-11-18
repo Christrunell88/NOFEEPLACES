@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from './auth';
 import axios from 'axios';
+import { trackSaveSearch } from './analytics';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
