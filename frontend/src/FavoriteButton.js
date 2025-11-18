@@ -55,6 +55,7 @@ const FavoriteButton = ({ apartmentId, size = 'md', showToast = true }) => {
         });
         setIsFavorite(false);
         setFavoritesCount(response.data.favorites_count);
+        trackSaveFavorite(apartmentId, 'Apartment', 'remove');
         
         if (showToast) {
           showNotification('Removed from favorites', 'success');
