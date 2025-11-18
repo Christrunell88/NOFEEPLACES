@@ -77,6 +77,7 @@ const FavoriteButton = ({ apartmentId, size = 'md', showToast = true }) => {
         } else {
           setIsFavorite(true);
           setFavoritesCount(response.data.favorites_count);
+          trackSaveFavorite(apartmentId, 'Apartment', 'add');
           
           if (showToast) {
             showNotification('Saved to favorites', 'success');
