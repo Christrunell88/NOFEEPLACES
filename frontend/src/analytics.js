@@ -127,6 +127,42 @@ export const trackUserAuthentication = (method, action) => {
   });
 };
 
+// Conversion tracking - Schedule Showing
+export const trackScheduleShowing = (apartmentId, apartmentTitle, showingDate) => {
+  trackEvent('schedule_showing', {
+    event_category: 'Conversions',
+    apartment_id: apartmentId,
+    apartment_title: apartmentTitle,
+    showing_date: showingDate,
+    label: `Showing scheduled: ${apartmentTitle}`,
+    value: 1
+  });
+};
+
+// Conversion tracking - Save Favorite
+export const trackSaveFavorite = (apartmentId, apartmentTitle, action = 'add') => {
+  trackEvent('favorite_apartment', {
+    event_category: 'User_Engagement',
+    apartment_id: apartmentId,
+    apartment_title: apartmentTitle,
+    action: action, // 'add' or 'remove'
+    label: `Favorite ${action}: ${apartmentTitle}`,
+    value: action === 'add' ? 1 : -1
+  });
+};
+
+// Conversion tracking - Save Search
+export const trackSaveSearch = (searchName, filters) => {
+  trackEvent('save_search', {
+    event_category: 'User_Engagement',
+    search_name: searchName,
+    filters: JSON.stringify(filters),
+    label: `Search saved: ${searchName}`,
+    value: 1
+  });
+};
+
+
 // Search and filter tracking
 export const trackFilterUsage = (filterType, filterValue) => {
   trackEvent('filter_usage', {
