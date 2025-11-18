@@ -51,7 +51,7 @@ async def generate_sitemap():
     
     for path, priority, changefreq in static_pages:
         sitemap.append('  <url>')
-        sitemap.append(f'    <loc>{PREVIEW_DOMAIN}{path}</loc>')
+        sitemap.append(f'    <loc>{DOMAIN}{path}</loc>')
         sitemap.append(f'    <changefreq>{changefreq}</changefreq>')
         sitemap.append(f'    <priority>{priority}</priority>')
         sitemap.append('  </url>')
@@ -62,7 +62,7 @@ async def generate_sitemap():
         apt_id = apt.get('id')
         if apt_id:
             sitemap.append('  <url>')
-            sitemap.append(f'    <loc>{PREVIEW_DOMAIN}/apartment/{apt_id}</loc>')
+            sitemap.append(f'    <loc>{DOMAIN}/apartment/{apt_id}</loc>')
             sitemap.append('    <changefreq>weekly</changefreq>')
             sitemap.append('    <priority>0.8</priority>')
             
