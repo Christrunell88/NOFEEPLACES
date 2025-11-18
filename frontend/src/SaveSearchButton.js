@@ -71,6 +71,7 @@ const SaveSearchButton = ({ filters }) => {
       );
 
       if (response.data.success) {
+        trackSaveSearch(searchName, filters);
         showNotification(`Search saved: ${searchName}`, 'success');
       }
     } catch (err) {
