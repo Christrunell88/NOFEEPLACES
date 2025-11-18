@@ -28,7 +28,7 @@ async def generate_sitemap():
     
     # Homepage - highest priority
     sitemap.append('  <url>')
-    sitemap.append(f'    <loc>{PREVIEW_DOMAIN}/</loc>')
+    sitemap.append(f'    <loc>{DOMAIN}/</loc>')
     sitemap.append('    <changefreq>daily</changefreq>')
     sitemap.append('    <priority>1.0</priority>')
     sitemap.append('  </url>')
