@@ -41,11 +41,18 @@ const SimpleAuthModal = ({ onClose }) => {
           return;
         }
 
-        await register(email, password, fullName);
-        setSuccess('Account created successfully!');
-        setTimeout(() => {
-          onClose();
-        }, 1500);
+        const result = await register(email, password, fullName);
+        if (result.success) {
+          setSuccess('Account created successfully!');
+          setTimeout(() => {
+            onClose();
+            // Force page reload to update auth state across all components
+            window.location.reload();
+          }, 1500);
+        } else {
+          setError(result.error || 'Sign up failed');
+          setLoading(false);
+        }
       } else {
         // Sign In
         if (!email || !password) {
@@ -54,15 +61,21 @@ const SimpleAuthModal = ({ onClose }) => {
           return;
         }
 
-        await login(email, password);
-        setSuccess('Signed in successfully!');
-        setTimeout(() => {
-          onClose();
-        }, 1000);
+        const result = await login(email, password);
+        if (result.success) {
+          setSuccess('Signed in successfully!');
+          setTimeout(() => {
+            onClose();
+            // Force page reload to update auth state across all components
+            window.location.reload();
+          }, 1000);
+        } else {
+          setError(result.error || 'Sign in failed');
+          setLoading(false);
+        }
       }
     } catch (err) {
       setError(err.message || (isSignUp ? 'Sign up failed' : 'Sign in failed'));
-    } finally {
       setLoading(false);
     }
   };
