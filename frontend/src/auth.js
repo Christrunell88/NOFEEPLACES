@@ -165,7 +165,8 @@ export const AuthProvider = ({ children }) => {
     loginWithApple,
     loginWithGoogle,
     loading,
-    isAuthenticated: !!user || (!!token && !loading)
+    hasToken: !!token,
+    isAuthenticated: !!user && !loading
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
