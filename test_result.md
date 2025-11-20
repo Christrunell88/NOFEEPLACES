@@ -2402,3 +2402,25 @@ agent_communication:
           agent: "main"
           comment: "All share options implemented per user requirements: (1) All sharing methods included (email, copy link, social media), (2) Listing sent without custom message field (just apartment details), (3) Email includes one apartment image, sharer's name, and direct link to nofeeplaces.com, (4) Only friend receives email (not the sharer), (5) Non-authenticated users can share (anyone can share a link)."
 
+
+  - task: "Authentication State Persistence - CRITICAL FIX"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/auth.js"
+    stuck_count: 4
+    priority: "critical"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "CRITICAL ISSUE REPORTED BY USER: After signing in successfully, when user tries to Schedule Showing, they are asked to sign in AGAIN. Authentication state is not persisting correctly despite previous fixes. This is a RECURRING blocker preventing users from using authenticated features."
+        - working: "NA"
+          agent: "troubleshoot"
+          comment: "ROOT CAUSE IDENTIFIED: Race condition in isAuthenticated logic on line 168 of auth.js. The current logic 'isAuthenticated: !!user || (!!token && !loading)' returns FALSE during the window when token exists but user data is still loading from /api/auth/me. EXACT PROBLEM: After page reload, token exists in localStorage, loading is true (fetching user data), user is null (not loaded yet), Result: isAuthenticated = false || (true && false) = false. This causes ScheduleShowingModal to show 'Sign In Required' even though user has valid token. The issue is a timing gap where components check isAuthenticated before fetchUser() completes."
+        - working: "NA"
+          agent: "main"
+          comment: "CRITICAL FIX IMPLEMENTED: Changed isAuthenticated logic in /app/frontend/src/auth.js line 168 from 'isAuthenticated: !!user || (!!token && !loading)' to 'isAuthenticated: !!user && !loading'. This ensures isAuthenticated only returns true when user data has been successfully loaded AND loading is complete. Added 'hasToken: !!token' property to auth context for components that need to check token status independently. EXPECTED BEHAVIOR: User signs in → page reloads → clicks Schedule Showing → sees 'Checking authentication...' spinner (while loading=true) → then sees authenticated scheduling form (when loading=false and user exists). The ScheduleShowingModal already has correct loading check (lines 144-148) that waits for loading to complete before checking isAuthenticated, so no changes needed there."
+        - working: "NA"
+          agent: "main"
+          comment: "This was a recurring authentication issue (4th occurrence). The root cause was incorrect boolean logic that created a race condition. The fix ensures authentication state is only considered valid when user data has been fully loaded, preventing premature authentication checks."
+
