@@ -8,7 +8,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime
 
 DOMAIN = "https://nofeeplaces.com"
-PREVIEW_DOMAIN = "https://auth-revamp-8.preview.emergentagent.com"
+PREVIEW_DOMAIN = "https://realty-login.preview.emergentagent.com"
 
 async def generate_sitemap():
     """Generate sitemap with all pages and apartment listings"""

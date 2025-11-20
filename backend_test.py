@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Comprehensive Backend Testing for Favorites and Saved Searches API Endpoints
-Testing URL: https://auth-revamp-8.preview.emergentagent.com
+Testing URL: https://realty-login.preview.emergentagent.com
 """
 
 import asyncio

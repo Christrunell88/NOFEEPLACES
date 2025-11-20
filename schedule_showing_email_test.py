@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Backend URL from environment
-BACKEND_URL = "https://auth-revamp-8.preview.emergentagent.com"
+BACKEND_URL = "https://realty-login.preview.emergentagent.com"
 
 class ScheduleShowingEmailTester:
     def __init__(self):

@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timezone
 
 # Backend URL
-BACKEND_URL = "https://auth-revamp-8.preview.emergentagent.com"
+BACKEND_URL = "https://realty-login.preview.emergentagent.com"
 
 async def add_affordable_apartments():
     """Add affordable apartments across NYC neighborhoods"""

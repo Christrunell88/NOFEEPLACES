@@ -3,7 +3,7 @@ import asyncio
 import aiohttp
 
 async def check_building_data():
-    base_url = 'https://auth-revamp-8.preview.emergentagent.com/api'
+    base_url = 'https://realty-login.preview.emergentagent.com/api'
     unit_id = 'a56a07c7-d9a3-414d-95d8-104200f90351'
     
     async with aiohttp.ClientSession() as session:

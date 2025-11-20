@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Comprehensive Backend Testing for Favorites and Saved Searches API Endpoints
-Testing URL: https://auth-revamp-8.preview.emergentagent.com
+Testing URL: https://realty-login.preview.emergentagent.com
 """
 
 import asyncio
@@ -601,7 +601,7 @@ class FavoritesAndSavedSearchesAPITester:
 
 async def main():
     """Main test execution"""
-    backend_url = "https://auth-revamp-8.preview.emergentagent.com"
+    backend_url = "https://realty-login.preview.emergentagent.com"
     
     async with FavoritesAndSavedSearchesAPITester(backend_url) as tester:
         await tester.run_comprehensive_test()

@@ -7,7 +7,7 @@ import requests
 import json
 
 # Configuration
-BASE_URL = "https://auth-revamp-8.preview.emergentagent.com/api"
+BASE_URL = "https://realty-login.preview.emergentagent.com/api"
 
 def test_apartment_count_fix():
     """Test that the apartment count issue is resolved"""
