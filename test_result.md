@@ -2386,3 +2386,19 @@ agent_communication:
     - agent: "main"
       message: "AUTHENTICATION STATE PERSISTENCE FIX COMPLETED: Fixed P0 critical bug where users were not logged in after signing up. Added window.location.reload() to sign-up success flow in SimpleAuthModal.js to match sign-in behavior. localStorage infrastructure already exists in auth.js, so token persistence works correctly. Backend authentication verified working via curl tests: registration returns JWT, /api/auth/me validates token, protected endpoints accessible. Ready for comprehensive frontend testing with testing agent to verify complete sign-up flow: sign up → reload → stay logged in → access authenticated features."
 
+
+  - task: "Share Listing Feature Implementation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/ShareButton.js, /app/backend/server.py, /app/backend/email_service.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "SHARE LISTING FEATURE IMPLEMENTED: Added comprehensive share functionality allowing both authenticated and non-authenticated users to share apartment listings with friends. FRONTEND COMPONENTS: Created ShareButton.js with modal containing email sharing (with friend's email input), copy link functionality, and social media share buttons (WhatsApp, Facebook, Twitter). Component supports two variants: 'icon' for apartment cards (circular button) and 'full' for detail modal (full-width button). Integrated ShareButton into ApartmentCard (top-right corner next to favorite button) and ApartmentDetailsModal (action buttons section). BACKEND API: Added POST /api/apartments/{apartment_id}/share endpoint that handles sharing requests, detects authenticated vs non-authenticated users, and sends appropriate emails. Created send_share_listing_email method in email_service.py that sends beautifully formatted HTML emails including one apartment image, sharer's name (or 'A friend' for non-authenticated), apartment details (bedrooms, bathrooms, price, neighborhood), NO FEE badge, and direct link to listing on nofeeplaces.com. Email designed with professional styling, gradient header, responsive layout. SHARE OPTIONS: Email sharing (recipient gets formatted email with listing details), Copy link (shareable URL: nofeeplaces.com/apartment/{id}), Social media (WhatsApp, Facebook, Twitter with pre-filled text). NON-AUTHENTICATED SHARING: Anyone can share, but email message is generic. Authenticated users' names appear in the email for personalization. TESTING STATUS: Backend endpoint tested and responding correctly (email sending limited by SMTP credentials in test environment, but logic works). Frontend compiled successfully. Ready for comprehensive testing with testing agent to verify: share modal opens, email form validation, copy link works, social media buttons work, emails are sent with correct formatting."
+        - working: "NA"
+          agent: "main"
+          comment: "All share options implemented per user requirements: (1) All sharing methods included (email, copy link, social media), (2) Listing sent without custom message field (just apartment details), (3) Email includes one apartment image, sharer's name, and direct link to nofeeplaces.com, (4) Only friend receives email (not the sharer), (5) Non-authenticated users can share (anyone can share a link)."
+
