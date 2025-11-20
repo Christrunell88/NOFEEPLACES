@@ -35,7 +35,11 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
     } catch (error) {
       console.error('Failed to fetch user:', error);
-      logout();
+      // Only logout on authentication errors (401/403), not network errors
+      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        logout();
+      }
+      // For other errors (network, 500, etc.), keep token and let user retry
     } finally {
       setLoading(false);
     }
