@@ -166,6 +166,10 @@ class ContactRequest(BaseModel):
     apartment_id: Optional[str] = None
     preferred_contact: str = "email"
 
+
+class ShareRequest(BaseModel):
+    recipient_email: str
+
 class SearchRequest(BaseModel):
     query: Optional[str] = None
     location: Optional[str] = None
