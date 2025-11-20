@@ -711,8 +711,9 @@ export const ApartmentCard = ({ apartment, onFavorite, onContact }) => {
             No Fee
           </div>
 
-          {/* Favorite Button */}
-          <div className="absolute top-3 right-3 z-10">
+          {/* Action Buttons */}
+          <div className="absolute top-3 right-3 z-10 flex gap-2">
+            <ShareButton apartment={apartment} size="sm" />
             <FavoriteButton apartmentId={apartment.id} size="sm" />
           </div>
         </div>
