@@ -342,15 +342,18 @@ frontend:
 
   - task: "Google Sign-In Flow"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/SocialAuth.js, /app/frontend/src/auth.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "GOOGLE AUTHENTICATION FLOW TESTING REQUIRED: Need to verify Google Sign-In works correctly with restored version. SCOPE: Google Sign-In button in AuthModal, Google OAuth flow (popup/redirect), googleToken handling and backend verification, user creation/login after Google auth, authentication state persistence after Google sign-in. CODE STATE: Google Sign-In was reverted to previously working version that accepts googleToken. Previous testing showed login button functional and modal accessible. Need to verify complete authentication flow works end-to-end."
+        - working: false
+          agent: "testing"
+          comment: "CRITICAL AUTHENTICATION PERSISTENCE FAILURE IDENTIFIED: Comprehensive testing reveals a fundamental issue with JWT token persistence across page reloads. BACKEND API STATUS: ✅ Authentication APIs working perfectly (registration and login endpoints return valid JWT tokens), ✅ User registration successful with proper token generation, ✅ Token storage in localStorage initially successful. CRITICAL ISSUE: ❌ JWT tokens are being cleared from localStorage during page reload, ❌ Only 'ph_phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE_posthog' key remains in localStorage after reload, ❌ Authentication state not persisting despite valid tokens, ❌ Even manual token restoration after reload fails to authenticate user. ROOT CAUSE: The application appears to be clearing localStorage or not properly reading tokens on page initialization. This breaks the entire authentication persistence workflow. IMPACT: Users cannot stay logged in across page reloads, making the authentication system non-functional for real-world usage. REQUIRES IMMEDIATE INVESTIGATION: localStorage clearing mechanism, AuthProvider token reading logic, and page initialization authentication flow."
 
   - task: "Contact Functionality for Authenticated Users (Frontend)"
     implemented: true
