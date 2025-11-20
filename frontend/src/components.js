@@ -9,6 +9,7 @@ import { ListingMetaTags } from './MetaTags';
 import { RealEstateListingSchema } from './StructuredData';
 import ScheduleShowingModal from './ScheduleShowingModal';
 import FavoriteButton from './FavoriteButton';
+import ShareButton from './ShareButton';
 
 // Import all missing components
 import {
