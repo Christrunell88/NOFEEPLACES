@@ -43,11 +43,9 @@ const SimpleAuthModal = ({ onClose }) => {
 
         const result = await register(email, password, fullName);
         if (result.success) {
-          setSuccess('Account created successfully!');
+          setSuccess('Account created successfully! Redirecting...');
           setTimeout(() => {
             onClose();
-            // Force page reload to update auth state across all components
-            window.location.reload();
           }, 1500);
         } else {
           setError(result.error || 'Sign up failed');
