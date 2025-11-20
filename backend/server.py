@@ -1359,6 +1359,64 @@ async def get_similar_units(apartment_id: str):
         
     except Exception as e:
         logger.error(f"Error getting similar units: {str(e)}")
+
+@api_router.post("/apartments/{apartment_id}/share")
+async def share_apartment(apartment_id: str, share_request: ShareRequest, request: Request):
+    """Share apartment listing via email to a friend"""
+    try:
+        # Get apartment details
+        apartment = await db.apartments.find_one({"id": apartment_id})
+        if not apartment:
+            raise HTTPException(status_code=404, detail="Apartment not found")
+        
+        # Get sharer info (if authenticated)
+        sharer_name = "A friend"
+        try:
+            token = request.headers.get("Authorization", "").replace("Bearer ", "")
+            if token:
+                user = await get_current_user(request)
+                if user:
+                    sharer_name = user.get("name") or user.get("full_name") or user.get("email", "").split("@")[0]
+        except:
+            pass  # Non-authenticated user, use "A friend"
+        
+        # Prepare apartment data
+        apartment_title = apartment.get("title") or f"{apartment.get('bedrooms', 0)} BR in {apartment.get('neighborhood', 'NYC')}"
+        if apartment.get('bedrooms') == 0:
+            apartment_title = f"Studio in {apartment.get('neighborhood', 'NYC')}"
+        
+        apartment_price = apartment.get("price", 0)
+        apartment_image = apartment.get("images", [])[0] if apartment.get("images") else None
+        apartment_url = f"{os.getenv('REACT_APP_DOMAIN_URL', 'https://nofeeplaces.com')}/apartment/{apartment_id}"
+        apartment_neighborhood = apartment.get("neighborhood", "NYC")
+        apartment_bedrooms = apartment.get("bedrooms", 0)
+        apartment_bathrooms = apartment.get("bathrooms", 1)
+        
+        # Send share email
+        success = await email_service.send_share_listing_email(
+            recipient_email=share_request.recipient_email,
+            sharer_name=sharer_name,
+            apartment_title=apartment_title,
+            apartment_price=apartment_price,
+            apartment_url=apartment_url,
+            apartment_image=apartment_image,
+            apartment_neighborhood=apartment_neighborhood,
+            apartment_bedrooms=apartment_bedrooms,
+            apartment_bathrooms=apartment_bathrooms
+        )
+        
+        if success:
+            logger.info(f"Listing {apartment_id} shared by {sharer_name} to {share_request.recipient_email}")
+            return {"message": "Listing shared successfully", "success": True}
+        else:
+            raise HTTPException(status_code=500, detail="Failed to send email")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error sharing apartment: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to share listing")
+
         raise HTTPException(status_code=500, detail="Failed to get similar units")
 
 @api_router.post("/contact", response_model=ContactResponse)
