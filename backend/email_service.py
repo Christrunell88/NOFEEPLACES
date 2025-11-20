@@ -1136,6 +1136,142 @@ Time: {showing_time}
             logger.error(f"Error sending showing admin notification: {str(e)}")
             return False
     
+
+    async def send_share_listing_email(
+        self,
+        recipient_email: str,
+        sharer_name: str,
+        apartment_title: str,
+        apartment_price: float,
+        apartment_url: str,
+        apartment_image: Optional[str] = None,
+        apartment_neighborhood: str = "NYC",
+        apartment_bedrooms: int = 0,
+        apartment_bathrooms: float = 1
+    ) -> bool:
+        """Send listing share email to a friend"""
+        try:
+            # Format bedroom/bathroom text
+            bed_text = "Studio" if apartment_bedrooms == 0 else f"{apartment_bedrooms} Bedroom{'s' if apartment_bedrooms > 1 else ''}"
+            bath_text = f"{int(apartment_bathrooms)} Bath{'s' if apartment_bathrooms > 1 else ''}"
+            
+            subject = f"{sharer_name} shared an apartment with you on NoFeePlaces.com"
+            
+            # HTML Email Content
+            html_content = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            </head>
+            <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f4f4f4;">
+                <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <!-- Header -->
+                    <div style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; padding: 30px 20px; text-align: center;">
+                        <h1 style="margin: 0; font-size: 28px; font-weight: bold;">NoFeePlaces.com</h1>
+                        <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">NYC's No Fee Apartment Marketplace</p>
+                    </div>
+                    
+                    <!-- Main Content -->
+                    <div style="padding: 30px 20px;">
+                        <p style="font-size: 18px; color: #2563eb; font-weight: 600; margin: 0 0 20px 0;">
+                            🏠 {sharer_name} thought you'd be interested in this apartment
+                        </p>
+                        
+                        <!-- Apartment Image -->
+                        {f'''
+                        <div style="margin-bottom: 20px; border-radius: 8px; overflow: hidden;">
+                            <img src="{apartment_image}" alt="{apartment_title}" style="width: 100%; height: auto; display: block; max-height: 300px; object-fit: cover;" />
+                        </div>
+                        ''' if apartment_image else ''}
+                        
+                        <!-- Apartment Details -->
+                        <div style="background-color: #f9fafb; border-left: 4px solid #2563eb; padding: 20px; border-radius: 4px; margin-bottom: 25px;">
+                            <h2 style="margin: 0 0 15px 0; font-size: 22px; color: #1f2937;">
+                                {bed_text}, {bath_text}
+                            </h2>
+                            <div style="margin-bottom: 10px;">
+                                <span style="font-size: 14px; color: #6b7280;">📍 Location:</span>
+                                <span style="font-size: 16px; color: #1f2937; font-weight: 500;"> {apartment_neighborhood}</span>
+                            </div>
+                            <div style="margin-bottom: 10px;">
+                                <span style="font-size: 14px; color: #6b7280;">💰 Rent:</span>
+                                <span style="font-size: 24px; color: #2563eb; font-weight: bold;"> ${apartment_price:,.0f}</span>
+                                <span style="font-size: 14px; color: #6b7280;">/month</span>
+                            </div>
+                            <div style="display: inline-block; background-color: #fbbf24; color: #78350f; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-top: 10px;">
+                                ⭐ NO FEE
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 16px; color: #4b5563; margin-bottom: 25px;">
+                            {sharer_name} found this apartment on NoFeePlaces.com and wanted to share it with you. Click below to view the full listing with photos, amenities, and schedule a showing!
+                        </p>
+                        
+                        <!-- CTA Button -->
+                        <div style="text-align: center; margin: 30px 0;">
+                            <a href="{apartment_url}" style="display: inline-block; background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-size: 18px; font-weight: bold; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);">
+                                View Full Listing
+                            </a>
+                        </div>
+                        
+                        <p style="font-size: 14px; color: #6b7280; text-align: center; margin: 25px 0 0 0;">
+                            Or copy this link: <a href="{apartment_url}" style="color: #2563eb; text-decoration: none;">{apartment_url}</a>
+                        </p>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div style="background-color: #f9fafb; padding: 20px; text-align: center; border-top: 1px solid #e5e7eb;">
+                        <p style="margin: 0 0 10px 0; font-size: 14px; color: #6b7280;">
+                            Browse thousands of no-fee apartments in NYC
+                        </p>
+                        <p style="margin: 0 0 15px 0;">
+                            <a href="https://nofeeplaces.com" style="color: #2563eb; text-decoration: none; font-weight: 600;">NoFeePlaces.com</a>
+                        </p>
+                        <p style="margin: 0; font-size: 12px; color: #9ca3af;">
+                            © 2025 NoFeePlaces.com - NYC's Premier No Fee Apartment Platform
+                        </p>
+                    </div>
+                </div>
+            </body>
+            </html>
+            """
+            
+            # Plain text version
+            text_content = f"""
+{sharer_name} shared an apartment with you on NoFeePlaces.com
+
+{bed_text}, {bath_text}
+Location: {apartment_neighborhood}
+Rent: ${apartment_price:,.0f}/month
+NO FEE
+
+{sharer_name} found this apartment on NoFeePlaces.com and wanted to share it with you.
+
+View the full listing here: {apartment_url}
+
+Browse more no-fee apartments at NoFeePlaces.com
+            """
+            
+            success = await self.send_email_async(
+                to_email=recipient_email,
+                subject=subject,
+                html_content=html_content,
+                text_content=text_content
+            )
+            
+            if success:
+                logger.info(f"Share listing email sent successfully to {recipient_email} from {sharer_name}")
+            else:
+                logger.error(f"Failed to send share listing email to {recipient_email}")
+            
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error sending share listing email: {str(e)}")
+            return False
+
     def _generate_calendar_invite(
         self,
         summary: str,
