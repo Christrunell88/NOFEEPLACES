@@ -1308,9 +1308,7 @@ export const ApartmentDetailsModal = ({ apartment, onClose }) => {
                   </button>
                 </div>
                 
-                <div className="w-full">
-                  <ShareButton apartment={apartment} />
-                </div>
+                <ShareButton apartment={apartment} variant="full" />
                 
                 {/* View All Units Button */}
                 {similarUnits && similarUnits.total > 0 && (
