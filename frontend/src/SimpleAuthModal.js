@@ -10,7 +10,7 @@ const SimpleAuthModal = ({ onClose }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   
-  const { login, register } = useAuth();
+  const { login, register, loginWithGoogle } = useAuth();
 
   // Prevent body scroll when modal is open
   useEffect(() => {
