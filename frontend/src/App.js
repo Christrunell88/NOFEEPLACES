@@ -640,8 +640,7 @@ function App() {
       <ErrorBoundary>
         <ToastProvider>
           <RobustAuthProvider>
-            <AuthProvider>
-              <div className="App">
+            <div className="App">
               <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home />} />
