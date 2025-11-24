@@ -33,10 +33,10 @@ export const ListingMetaTags = ({ apartment }) => {
   const sqftText = sqft ? `${sqft} sqft ` : '';
   const pageDescription = `Rent this ${bedroomType} ${bathroomText} apartment in ${neighborhood}, ${borough} for $${price.toLocaleString()}/month with no broker fees. ${sqftText}${address}. List, rent, and earn without commissions.`;
   
-  // Get first image or default
+  // Get first image or default (young professional demographic)
   const imageUrl = (images && images.length > 0) 
     ? images[0] 
-    : 'https://images.pexels.com/photos/28426361/pexels-photo-28426361.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630';
+    : 'https://images.unsplash.com/photo-1607147728511-570d2aff5487?auto=format&fit=crop&w=1200&h=630&q=85';
   
   // Create URL-friendly slug
   const slug = `${neighborhood}-${borough}-${bedroomType}`.toLowerCase().replace(/\s+/g, '-');
