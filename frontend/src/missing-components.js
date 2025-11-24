@@ -468,12 +468,12 @@ export const LoadingSpinner = () => {
   );
 };
 
-// Import SimpleAuthModal component
-import SimpleAuthModal from './SimpleAuthModal';
+// Import BulletproofAuthModal component
+import BulletproofAuthModal from './BulletproofAuthModal';
 
 // Auth Modal - Simple Email/Password Authentication
 export const AuthModal = ({ onClose }) => {
-  return <SimpleAuthModal onClose={onClose} />;
+  return <BulletproofAuthModal onClose={onClose} />;
 };
 
 // Placeholder components for the remaining missing components
