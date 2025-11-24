@@ -4,8 +4,7 @@ import './accessibility.css';
 import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import * as Components from './components';
-import { AuthProvider, useAuth } from './auth';
-import { RobustAuthProvider } from './RobustAuth';
+import { RobustAuthProvider, useAuth } from './RobustAuth';
 import BulletproofAuthModal from './BulletproofAuthModal';
 import { 
   trackPageView, 
