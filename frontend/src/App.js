@@ -710,7 +710,6 @@ function App() {
               {/* Newsletter functionality temporarily removed */}
             </BrowserRouter>
           </div>
-            </AuthProvider>
           </RobustAuthProvider>
       </ToastProvider>
     </ErrorBoundary>
