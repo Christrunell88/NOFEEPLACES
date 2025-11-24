@@ -21,34 +21,34 @@ export const Hero = ({ setShowAuthModal, totalApartments = 70 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const heroImages = [
     {
-      url: 'https://images.pexels.com/photos/7464198/pexels-photo-7464198.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
-      alt: 'Young professional relaxing in modern NYC apartment',
+      url: 'https://images.unsplash.com/photo-1607147728511-570d2aff5487?auto=format&fit=crop&w=1200&h=600&q=85',
+      alt: 'Young independent professional woman in urban NYC setting',
+      style: 'Urban Professional'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1607147728331-ecf4ff0bd437?auto=format&fit=crop&w=1200&h=600&q=85',
+      alt: 'Attractive smart millennial finding her dream NYC apartment',
+      style: 'Modern Apartment Hunter'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1731273613974-4906a0bce337?auto=format&fit=crop&w=1200&h=600&q=85',
+      alt: 'Confident independent young professional ready for NYC living',
+      style: 'NYC Success'
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1626976270409-e03cdcfd5f87?auto=format&fit=crop&w=1200&h=600&q=85',
+      alt: 'Young healthy professional woman in stylish apartment',
       style: 'Apartment Living'
     },
     {
-      url: 'https://images.unsplash.com/photo-1753685726971-7219d3f27217?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200&h=600&fit=crop',
-      alt: 'Diverse woman enjoying her stylish apartment with natural light',
-      style: 'Modern Lifestyle'
+      url: 'https://images.pexels.com/photos/4559748/pexels-photo-4559748.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Smart sexy young professional navigating NYC lifestyle',
+      style: 'NYC Lifestyle'
     },
     {
-      url: 'https://images.pexels.com/photos/4246109/pexels-photo-4246109.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
-      alt: 'Young person in contemporary apartment living space',
-      style: 'NYC Living'
-    },
-    {
-      url: 'https://images.unsplash.com/photo-1758273706386-8d45d00ea3f7?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200&h=600&fit=crop',
-      alt: 'Young woman in stylish apartment with exposed brick wall',
-      style: 'Urban Apartment'
-    },
-    {
-      url: 'https://images.pexels.com/photos/6707116/pexels-photo-6707116.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
-      alt: 'Professional enjoying no-fee apartment lifestyle',
-      style: 'Apartment Life'
-    },
-    {
-      url: 'https://images.pexels.com/photos/7394507/pexels-photo-7394507.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
-      alt: 'Savvy New Yorker in modern apartment setting',
-      style: 'NYC Apartment'
+      url: 'https://images.pexels.com/photos/7464198/pexels-photo-7464198.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop',
+      alt: 'Independent young person enjoying modern NYC apartment',
+      style: 'No-Fee Living'
     }
   ];
 
