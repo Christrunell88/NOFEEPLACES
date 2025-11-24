@@ -573,9 +573,9 @@ const Home = () => {
 
       <Footer />
 
-      {/* Authentication Modal */}
+      {/* Authentication Modal - Bulletproof Version */}
       {showAuthModal && (
-        <AuthModal onClose={() => setShowAuthModal(false)} />
+        <BulletproofAuthModal onClose={() => setShowAuthModal(false)} />
       )}
       
       {/* Apartment Details Modal */}
