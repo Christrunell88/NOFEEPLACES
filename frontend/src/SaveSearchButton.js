@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from './auth';
+import { useAuth } from './RobustAuth';
 import axios from 'axios';
 import { trackSaveSearch } from './analytics';
 

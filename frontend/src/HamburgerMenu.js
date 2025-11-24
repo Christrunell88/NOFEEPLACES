@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from './auth';
+import { useAuth } from './RobustAuth';
 import { isAdminAuthenticated } from './AdminAuth';
 import { WordMark } from './WordMark';
 
