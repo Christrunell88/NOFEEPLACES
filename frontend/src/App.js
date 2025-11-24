@@ -46,6 +46,8 @@ import FavoritesPage from './FavoritesPage';
 import SavedSearchesPage from './SavedSearchesPage';
 import DashboardPage from './DashboardPage';
 import SaveSearchButton from './SaveSearchButton';
+import { LocalBusinessSchema, WebSiteSchema } from './AdvancedSchema';
+import { RentCalculator, SavingsCalculator, FAQPage } from './SEOTools';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
