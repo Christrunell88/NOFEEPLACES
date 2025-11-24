@@ -691,7 +691,16 @@ function App() {
                 <Route path="/why-no-fee" element={<WhyNoFeePage />} />
                 <Route path="/contact" element={<ContactUsPage />} />
                 <Route path="/lets-talk" element={<LetsTalkPage />} />
+                
+                {/* SEO Tools & Resources */}
+                <Route path="/rent-calculator" element={<RentCalculator />} />
+                <Route path="/savings-calculator" element={<SavingsCalculator />} />
+                <Route path="/faq" element={<FAQPage />} />
               </Routes>
+              
+              {/* Global Schema Markup */}
+              <LocalBusinessSchema />
+              <WebSiteSchema />
               
               {/* Consolidated Chatbot with Lead Gen + Feedback */}
               <LeadGenChatbot />
