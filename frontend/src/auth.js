@@ -130,8 +130,38 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginWithGoogle = async (googleToken) => {
+  const loginWithGoogle = async (googleToken = null) => {
     try {
+      // If no token provided, trigger Google Sign-In popup
+      if (!googleToken) {
+        return new Promise((resolve) => {
+          if (typeof window !== 'undefined' && window.google) {
+            const client_id = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+            
+            window.google.accounts.id.initialize({
+              client_id: client_id,
+              callback: async (response) => {
+                const result = await loginWithGoogle(response.credential);
+                resolve(result);
+              }
+            });
+            
+            window.google.accounts.id.prompt((notification) => {
+              if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                // Fallback to renderButton if prompt doesn't work
+                console.log('Google One Tap not displayed, using button fallback');
+              }
+            });
+          } else {
+            resolve({ 
+              success: false, 
+              error: 'Google Sign-In not loaded. Please refresh and try again.' 
+            });
+          }
+        });
+      }
+      
+      // Process Google token
       const response = await axios.post(`${API}/api/auth/google`, {
         token: googleToken
       });
