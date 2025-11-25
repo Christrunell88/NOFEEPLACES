@@ -4114,6 +4114,75 @@ async def google_auth(request: GoogleAuthRequest):
         logger.error(f"Google auth error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Google authentication failed: {str(e)}")
 
+
+# Emergent Google Auth Model
+class EmergentGoogleAuthRequest(BaseModel):
+    email: str
+    name: str
+    session_token: str
+
+@app.post("/api/auth/google-emergent")
+async def emergent_google_auth(request: EmergentGoogleAuthRequest):
+    """Authenticate with Emergent-managed Google OAuth"""
+    try:
+        email = request.email.lower().strip()
+        
+        # Find or create user
+        user = await db.users.find_one({"email": email})
+        
+        if not user:
+            # Create new user
+            user_id = str(uuid.uuid4())
+            user = {
+                "id": user_id,
+                "email": email,
+                "full_name": request.name,
+                "provider": "google",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "last_login": datetime.now(timezone.utc).isoformat(),
+                "is_active": True
+            }
+            await db.users.insert_one(user)
+            logger.info(f"New Google user created via Emergent: {email}")
+        else:
+            # Update last login
+            await db.users.update_one(
+                {"id": user['id']},
+                {"$set": {"last_login": datetime.now(timezone.utc).isoformat()}}
+            )
+            logger.info(f"Google user logged in via Emergent: {email}")
+        
+        # Generate JWT token
+        import jwt
+        token_data = {
+            "sub": user['id'],
+            "user_id": user['id'],
+            "email": user['email'],
+            "exp": datetime.now(timezone.utc).timestamp() + 604800  # 7 days
+        }
+        
+        access_token = jwt.encode(
+            token_data,
+            os.environ.get('JWT_SECRET', 'default_secret'),
+            algorithm="HS256"
+        )
+        
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "user": {
+                "id": user['id'],
+                "email": user['email'],
+                "full_name": user.get('full_name')
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Emergent Google auth error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Google authentication failed: {str(e)}")
+
 # ============================================================================
 # ADMIN ROUTES - Protected endpoints for admin dashboard
 # ============================================================================
