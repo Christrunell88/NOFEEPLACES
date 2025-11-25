@@ -61,7 +61,6 @@ const {
   MapView, 
   Footer,
   LoadingSpinner,
-  AuthModal,
   UserDashboard,
   ApartmentDetails,
   SavedSearches,
