@@ -441,6 +441,21 @@ test_plan:
   test_all: false
   test_priority: "high_first"
 
+  - task: "Share via Email Text Visibility Fix"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/ShareButton.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "User reported 'Share via email button is not displaying text in the field that user can see'. Applied inline style fix (`style={{ color: '#111827' }}`) to both email input field (line 230) and copy link field (line 257) in ShareButton.js ShareModal component, similar to the AuthModal text visibility fix."
+        - working: true
+          agent: "testing"
+          comment: "SHARE VIA EMAIL TEXT VISIBILITY FIX VERIFICATION COMPLETED SUCCESSFULLY (2025-11-25): Comprehensive testing confirms the inline style fix is working perfectly! TESTING SCOPE: Tested complete Share via Email modal workflow including share button access, modal opening, email field text visibility, copy link field text visibility, and all text elements verification. CRITICAL SUCCESS RESULTS: ✅ Share modal opens correctly when clicking share button on apartment cards (found 108 share buttons), ✅ Email input field text color is rgb(17, 24, 39) - DARK and CLEARLY VISIBLE (matches target #111827), ✅ Copy link field text color is rgb(17, 24, 39) - DARK and CLEARLY VISIBLE (matches target #111827), ✅ User can clearly see typed text 'testshare@example.com' in email field, ✅ User can clearly see share URL 'https://nofeeplaces.com/apartment/43a3f1c6-a482-4ef9-8655-9a41cb2be500' in copy link field, ✅ Modal functionality working correctly (open/close, form fields, buttons). TECHNICAL VALIDATION: The inline style fix `style={{ color: '#111827' }}` applied to both email (line 230) and copy link (line 257) input fields in ShareButton.js is functioning correctly, overriding any CSS class conflicts that previously caused invisible text. IMPACT: The critical UX issue where users couldn't see text in share modal input fields has been completely resolved. Users can now clearly see what they're typing in email fields and can see the share URL in copy link fields. CONCLUSION: Share via Email text visibility fix is production-ready and meets all success criteria from the review request. All 5 success criteria passed - the fix is working excellently."
+
 agent_communication:
     - agent: "main"
       message: "MALT DRIVE APARTMENT 508 ADDITION COMPLETED: Successfully added/updated Studio 1 Bath Apartment 508 at Malt Drive 2-21 building in Long Island City, Queens. SOURCE: Crawled and extracted comprehensive listing data from https://maltdrive.com/listing/2-21-malt-drive_508/. DATA UPDATED: Unit 508 upgraded from 8 images to 21 high-quality interior images in .avif format, complete amenity list added (Northern Exposure, Open Kitchen, Walk-In Closet, In-Unit Washer/Dryer, Solar Shades, plus building amenities), detailed description with pricing info ($3,685/mo gross rent with promotional offers), proper broker_fee field set to 'No fee' string for Pydantic validation. BUILDING STATS UPDATED: Malt Drive 2-21 maintains 6 available units with price range $3,685-$7,660, bedroom types Studio/1BR/2BR. BACKEND VERIFICATION: ✅ API endpoint /api/apartments/{id} returns 200 with complete apartment details, ✅ All 21 images accessible and properly formatted, ✅ Pydantic validation passing with correct data types, ✅ Building-specific endpoint ready for testing. FRONTEND VERIFICATION: ✅ Unit 508 displays in 'Recently Added' section showing '1/21' image counter, ✅ Correct title 'Studio 1 Bath at Malt Drive 2-21', ✅ Price $3,685/mo with 'No Fee' badge, ✅ Location 'Long Island City' with proper neighborhood classification (12 apartments in LIC), ✅ All amenities visible, ✅ Schedule Showing button functional. Ready for comprehensive backend and frontend testing."
