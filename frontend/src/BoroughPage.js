@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Header, ApartmentCard } from './components';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 import { BoroughMetaTags } from './CanonicalMeta';
 
 const API = process.env.REACT_APP_BACKEND_URL || '';

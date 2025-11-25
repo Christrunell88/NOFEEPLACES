@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 import { trackApartmentView, trackContactForm, trackHeroAction, trackNavigationClick } from './analytics';
 import HamburgerMenu from './HamburgerMenu';
 import { HeaderWordMark } from './WordMark';

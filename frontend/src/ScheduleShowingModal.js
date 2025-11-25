@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 import { trackScheduleShowing } from './analytics';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';

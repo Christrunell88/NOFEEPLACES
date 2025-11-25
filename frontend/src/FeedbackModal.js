@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 
 const FeedbackModal = ({ isOpen, onClose }) => {
   const { isAuthenticated, user, loading } = useAuth();

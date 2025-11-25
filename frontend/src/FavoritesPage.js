@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 import axios from 'axios';
 import { ApartmentDetailsModal } from './components';
 import { Link } from 'react-router-dom';

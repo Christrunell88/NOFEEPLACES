@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 import { ApartmentDetailsModal } from './components';
 import { EmailContactModal } from './missing-components';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from './RobustAuth';
+import { useAuth } from './auth';
 
 const ConversionOptimizedHero = () => {
   const { isAuthenticated } = useAuth();
