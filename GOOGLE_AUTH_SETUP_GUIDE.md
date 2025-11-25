@@ -16,10 +16,10 @@
 5. Create OAuth 2.0 Client ID (Web application)
 6. Add Authorized JavaScript origins:
    - `https://nofeeplaces.com`
-   - `https://realty-login.preview.emergentagent.com` (for testing)
+   - `https://login-rebuild.preview.emergentagent.com` (for testing)
 7. Add Authorized redirect URIs:
    - `https://nofeeplaces.com`
-   - `https://realty-login.preview.emergentagent.com`
+   - `https://login-rebuild.preview.emergentagent.com`
 8. Save and copy the Client ID
 
 ### 2. Update Frontend Environment

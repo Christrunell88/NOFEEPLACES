@@ -17,7 +17,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional, List
 
 # Configuration
-BASE_URL = "https://realty-login.preview.emergentagent.com/api"
+BASE_URL = "https://login-rebuild.preview.emergentagent.com/api"
 
 class NoFeePlacesDataQualityTester:
     def __init__(self):

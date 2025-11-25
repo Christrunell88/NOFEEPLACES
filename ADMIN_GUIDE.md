@@ -2,7 +2,7 @@
 
 ## 🔐 Admin Access
 
-**Login URL:** https://realty-login.preview.emergentagent.com/admin
+**Login URL:** https://login-rebuild.preview.emergentagent.com/admin
 
 **Admin Credentials:**
 - Email: `placesfirm@gmail.com`

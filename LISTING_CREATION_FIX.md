@@ -19,7 +19,7 @@
 ## How to Test:
 
 1. **Go to Admin Dashboard:**
-   - URL: `https://realty-login.preview.emergentagent.com/admin`
+   - URL: `https://login-rebuild.preview.emergentagent.com/admin`
    - Login: `placesfirm@gmail.com` / `Checkers080/?`
 
 2. **Click "Add-listing" Tab**

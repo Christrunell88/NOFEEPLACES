@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 
 class MaximizeInventoryFix:
     def __init__(self):
-        self.production_api = "https://realty-login.preview.emergentagent.com/api"
+        self.production_api = "https://login-rebuild.preview.emergentagent.com/api"
         
         # EXPANDED pricing ranges to capture maximum inventory
         # Very permissive ranges from budget to ultra-luxury

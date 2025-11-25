@@ -17,7 +17,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration - Using production URL from frontend/.env
-BASE_URL = "https://realty-login.preview.emergentagent.com/api"
+BASE_URL = "https://login-rebuild.preview.emergentagent.com/api"
 
 class ContactEmailTester:
     def __init__(self):

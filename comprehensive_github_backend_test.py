@@ -11,7 +11,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration from frontend/.env
-BASE_URL = "https://realty-login.preview.emergentagent.com/api"
+BASE_URL = "https://login-rebuild.preview.emergentagent.com/api"
 ADMIN_EMAIL = "placesfirm@gmail.com"
 ADMIN_PASSWORD = "Checkers080/?"
 
