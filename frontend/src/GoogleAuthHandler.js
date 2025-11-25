@@ -19,29 +19,15 @@ const GoogleAuthHandler = () => {
       try {
         console.log('[Google Auth] Processing session_id...');
 
-        // Call Emergent's session-data endpoint
-        const response = await axios.get(
-          'https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data',
-          {
-            headers: {
-              'X-Session-ID': sessionId
-            }
-          }
-        );
-
-        const { email, name, session_token } = response.data;
-
-        console.log('[Google Auth] Session data received:', email);
-
-        // Now send this session_token to our backend to create/login user
+        // Send session_id to our backend which will proxy the Emergent request
         const API_URL = process.env.REACT_APP_BACKEND_URL || '';
         const loginResponse = await axios.post(`${API_URL}/api/auth/google-emergent`, {
-          email,
-          name,
-          session_token
+          session_id: sessionId
         });
 
         const { access_token, user } = loginResponse.data;
+
+        console.log('[Google Auth] User logged in:', user.email);
 
         // Save token to localStorage
         localStorage.setItem('token', access_token);
