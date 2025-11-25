@@ -639,7 +639,7 @@ function App() {
   return (
       <ErrorBoundary>
         <ToastProvider>
-          <RobustAuthProvider>
+          <AuthProvider>
             <div className="App">
               <BrowserRouter>
               <Routes>
