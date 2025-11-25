@@ -4117,15 +4117,31 @@ async def google_auth(request: GoogleAuthRequest):
 
 # Emergent Google Auth Model
 class EmergentGoogleAuthRequest(BaseModel):
-    email: str
-    name: str
-    session_token: str
+    session_id: str
 
 @app.post("/api/auth/google-emergent")
 async def emergent_google_auth(request: EmergentGoogleAuthRequest):
     """Authenticate with Emergent-managed Google OAuth"""
     try:
-        email = request.email.lower().strip()
+        import httpx
+        
+        # Call Emergent's session-data endpoint to exchange session_id for user data
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                'https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data',
+                headers={'X-Session-ID': request.session_id},
+                timeout=10.0
+            )
+            
+            if response.status_code != 200:
+                raise HTTPException(
+                    status_code=response.status_code,
+                    detail="Failed to verify Google session"
+                )
+            
+            session_data = response.json()
+            email = session_data['email'].lower().strip()
+            name = session_data.get('name', email.split('@')[0])
         
         # Find or create user
         user = await db.users.find_one({"email": email})
@@ -4136,7 +4152,7 @@ async def emergent_google_auth(request: EmergentGoogleAuthRequest):
             user = {
                 "id": user_id,
                 "email": email,
-                "full_name": request.name,
+                "full_name": name,
                 "provider": "google",
                 "created_at": datetime.now(timezone.utc).isoformat(),
                 "last_login": datetime.now(timezone.utc).isoformat(),
