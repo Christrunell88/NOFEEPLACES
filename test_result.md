@@ -2455,11 +2455,11 @@ agent_communication:
 
   - task: "Share Listing Feature Implementation"
     implemented: true
-    working: "NA"
+    working: false
     file: "/app/frontend/src/ShareButton.js, /app/backend/server.py, /app/backend/email_service.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
@@ -2467,6 +2467,9 @@ agent_communication:
         - working: "NA"
           agent: "main"
           comment: "All share options implemented per user requirements: (1) All sharing methods included (email, copy link, social media), (2) Listing sent without custom message field (just apartment details), (3) Email includes one apartment image, sharer's name, and direct link to nofeeplaces.com, (4) Only friend receives email (not the sharer), (5) Non-authenticated users can share (anyone can share a link)."
+        - working: false
+          agent: "testing"
+          comment: "SHARE LISTING FEATURE BACKEND TESTING COMPLETED (2025-11-25): Comprehensive end-to-end testing reveals the Share Listing API logic is working correctly, but email service has critical SMTP authentication failure. BACKEND API LOGIC EXCELLENT (100% success - 5/5 tests passed): ✅ Share endpoint exists and is routable (POST /api/apartments/{apartment_id}/share), ✅ Request validation working correctly (422 for missing/invalid recipient_email), ✅ Apartment lookup logic working (404 for non-existent apartments), ✅ Authentication handling correct (optional authentication - works both with and without JWT tokens), ✅ Email format validation working perfectly (422 for invalid email formats like 'invalid-email'). CRITICAL EMAIL SERVICE ISSUE IDENTIFIED: ❌ SMTP authentication failing with Gmail: '535 5.7.8 Username and Password not accepted. BadCredentials', ❌ All share requests return HTTP 500 'Failed to send email' due to email service failure, ❌ Email service logs show consistent SMTP authentication errors for placesfirm@gmail.com. ROOT CAUSE ANALYSIS: The Share Listing feature implementation is technically sound - API routing, validation, authentication handling, and apartment lookup all work correctly. The issue is with email service configuration in backend/.env where EMAIL_PASSWORD for placesfirm@gmail.com is either incorrect or requires app-specific password for Gmail SMTP. VERIFICATION CHECKLIST RESULTS: ✅ API responds with correct HTTP status codes (422 for validation, 404 for not found, 500 for email service failure), ❌ Success response blocked by email service failure, ✅ Error responses include proper validation details, ✅ Email service is called (but fails at SMTP level), ✅ Authentication is optional and works correctly, ✅ Email validation works correctly, ✅ Non-existent apartment IDs handled gracefully. IMMEDIATE ACTION REQUIRED: Fix SMTP email credentials in backend/.env - verify EMAIL_PASSWORD is correct for placesfirm@gmail.com or generate app-specific password for Gmail. Once email service is fixed, Share Listing feature will work end-to-end as designed."
 
 
   - task: "Authentication State Persistence - CRITICAL FIX"
