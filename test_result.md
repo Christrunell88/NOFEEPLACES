@@ -345,9 +345,9 @@ frontend:
 
   - task: "Email/Password Input Visibility Fix"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/AuthModal.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -357,6 +357,9 @@ frontend:
         - working: true
           agent: "testing"
           comment: "EMAIL/PASSWORD INPUT VISIBILITY FIX VERIFICATION COMPLETED SUCCESSFULLY (2025-01-25): CRITICAL UX FIX CONFIRMED WORKING - Text typed in email and password fields is now clearly visible! COMPREHENSIVE TESTING RESULTS: ✅ Homepage navigation successful, ✅ Hamburger menu opened and Sign In button clicked successfully, ✅ Authentication modal opened with 'Welcome Back' title as expected, ✅ Email field found and test email 'testvisibility@example.com' typed successfully, ✅ CRITICAL SUCCESS: Email field text color is rgb(17, 24, 39) - DARK and CLEARLY VISIBLE (gray-900), ✅ Password field found and test password 'TestPassword123' typed successfully, ✅ CRITICAL SUCCESS: Password field masking color is rgb(17, 24, 39) - DARK and CLEARLY VISIBLE, ✅ Both fields show proper contrast between input text (dark) and placeholder text (light gray), ✅ No console errors detected during testing. TECHNICAL VALIDATION: The text-gray-900 class fix in AuthModal.js (lines 148 and 165) is working correctly, providing dark text color rgb(17, 24, 39) instead of light gray that was previously invisible. Placeholder text remains light gray rgb(156, 163, 175) for proper contrast. VISUAL CONFIRMATION: Screenshots show clear visibility of typed text in both email and password fields with excellent contrast against white background. CONCLUSION: The user-reported issue 'cannot see what they're typing in email/password fields' has been completely resolved. Users can now clearly see their input text in both fields. The visibility fix is production-ready and provides excellent user experience."
+        - working: false
+          agent: "testing"
+          comment: "CRITICAL REGRESSION DETECTED (2025-11-25): EMAIL/PASSWORD SIGN-IN VERIFICATION WITH CORRECT CREDENTIALS FAILED - Text visibility issue has returned! TESTING RESULTS: ✅ Backend API working perfectly (HTTP 200, JWT token generated successfully), ✅ Authentication modal opens with 'Welcome Back' title, ✅ Password field text color is correct: rgb(17, 24, 39) (dark and visible), ❌ CRITICAL ISSUE: Email field text color is rgb(255, 255, 255) (WHITE TEXT ON WHITE BACKGROUND - INVISIBLE), ❌ Frontend form submission not making API calls to backend, ❌ No success/error messages displayed after form submission. ROOT CAUSE: The text-gray-900 class fix has been reverted or overridden. Email field text is completely invisible to users. IMPACT: Users cannot see what they're typing in the email field, making sign-in impossible. Backend authentication works perfectly when called directly, but frontend form integration is broken. REQUIRES IMMEDIATE FIX: Re-apply text-gray-900 class to email input field in AuthModal.js and ensure form submission triggers API calls."
 
   - task: "Google Sign-In Flow"
     implemented: true
