@@ -6,6 +6,7 @@ import axios from "axios";
 import * as Components from './components';
 import { AuthProvider, useAuth } from './auth';
 import AuthModal from './AuthModal';
+import GoogleAuthHandler from './GoogleAuthHandler';
 import { 
   trackPageView, 
   trackApartmentSearch, 
