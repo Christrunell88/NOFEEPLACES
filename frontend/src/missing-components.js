@@ -468,13 +468,11 @@ export const LoadingSpinner = () => {
   );
 };
 
-// Import BulletproofAuthModal component
-import BulletproofAuthModal from './BulletproofAuthModal';
+// Import AuthModal component
+import AuthModal from './AuthModal';
 
 // Auth Modal - Simple Email/Password Authentication
-export const AuthModal = ({ onClose }) => {
-  return <BulletproofAuthModal onClose={onClose} />;
-};
+export { AuthModal };
 
 // Placeholder components for the remaining missing components
 export const UserDashboard = ({ user }) => (
