@@ -129,6 +129,7 @@ const AuthModal = ({ onClose }) => {
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="John Doe"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
+              style={{ color: '#111827' }}
                 disabled={loading}
                 autoComplete="name"
               />
@@ -146,6 +147,7 @@ const AuthModal = ({ onClose }) => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
+              style={{ color: '#111827' }}
               disabled={loading}
               autoComplete="email"
               required
@@ -163,6 +165,7 @@ const AuthModal = ({ onClose }) => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
+              style={{ color: '#111827' }}
               disabled={loading}
               autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
               required
