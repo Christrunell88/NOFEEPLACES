@@ -640,6 +640,7 @@ function App() {
       <ErrorBoundary>
         <ToastProvider>
           <AuthProvider>
+            <GoogleAuthHandler />
             <div className="App">
               <BrowserRouter>
               <Routes>
