@@ -165,7 +165,15 @@ const ShareModal = ({ apartment, onClose }) => {
         return;
     }
     
-    window.open(url, '_blank', 'width=600,height=400');
+    // Open in new window with proper specs to avoid blocking
+    const windowFeatures = 'width=600,height=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,status=no';
+    const newWindow = window.open(url, '_blank', windowFeatures);
+    
+    // Fallback if popup is blocked
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+      // Popup blocked - open in new tab instead
+      window.open(url, '_blank');
+    }
   };
 
   const showNotification = (message, type) => {
