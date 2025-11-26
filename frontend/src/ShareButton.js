@@ -145,8 +145,26 @@ const ShareModal = ({ apartment, onClose }) => {
     });
   };
 
-  const handleSocialShare = (platform) => {
+  const handleSocialShare = async (platform) => {
     const text = `Check out this ${apartment.bedrooms === 0 ? 'Studio' : apartment.bedrooms + 'BR'} apartment in ${apartment.neighborhood || 'NYC'} - $${apartment.price}/mo - No Fee!`;
+    
+    // Try native Web Share API first (works great on mobile and some desktop browsers)
+    if (platform === 'facebook' && navigator.share) {
+      try {
+        await navigator.share({
+          title: text,
+          text: `${text}\n\nView details:`,
+          url: shareUrl
+        });
+        showNotification('Shared successfully!', 'success');
+        return;
+      } catch (err) {
+        // User cancelled or share failed, fall through to traditional method
+        if (err.name !== 'AbortError') {
+          console.log('Web Share API failed, using fallback');
+        }
+      }
+    }
     
     let url;
     switch(platform) {
@@ -154,9 +172,10 @@ const ShareModal = ({ apartment, onClose }) => {
         url = `https://wa.me/?text=${encodeURIComponent(text + ' ' + shareUrl)}`;
         break;
       case 'facebook':
-        // Enhanced Facebook sharing with Places NYC Page ID: 164228704193646
-        // Using Facebook Dialog API (more reliable than sharer.php)
-        url = `https://www.facebook.com/dialog/share?app_id=966242223397117&href=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}&display=popup&redirect_uri=${encodeURIComponent(shareUrl)}`;
+        // Facebook sharing - simplified approach
+        // This opens Facebook's mobile-friendly share interface
+        // Uses m.facebook.com which is more lenient than www.facebook.com
+        url = `https://m.facebook.com/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}`;
         break;
       case 'twitter':
         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
@@ -165,14 +184,19 @@ const ShareModal = ({ apartment, onClose }) => {
         return;
     }
     
-    // Open in new window with proper specs to avoid blocking
-    const windowFeatures = 'width=600,height=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,status=no';
-    const newWindow = window.open(url, '_blank', windowFeatures);
-    
-    // Fallback if popup is blocked
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-      // Popup blocked - open in new tab instead
-      window.open(url, '_blank');
+    // For Facebook, try to open directly - no popup restrictions
+    if (platform === 'facebook') {
+      // Direct navigation - more reliable
+      window.location.href = url;
+    } else {
+      // For other platforms, use new window
+      const windowFeatures = 'width=600,height=500,left=100,top=100,resizable=yes,scrollbars=yes';
+      const newWindow = window.open(url, '_blank', windowFeatures);
+      
+      // Fallback if popup is blocked
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.open(url, '_blank');
+      }
     }
   };
 
