@@ -257,11 +257,159 @@ export const WebSiteSchema = () => {
   );
 };
 
+// ItemList Schema for Search Results
+export const ItemListSchema = ({ apartments, listName = "NYC No-Fee Apartments" }) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": listName,
+    "numberOfItems": apartments.length,
+    "itemListElement": apartments.slice(0, 20).map((apartment, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "ApartmentComplex",
+        "@id": `https://nofeeplaces.com/apartment/${apartment.id}`,
+        "name": apartment.title || `${apartment.bedrooms}BR in ${apartment.neighborhood}`,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": apartment.neighborhood,
+          "addressRegion": "NY",
+          "addressCountry": "US"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": apartment.price,
+          "priceCurrency": "USD"
+        }
+      }
+    }))
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Helmet>
+  );
+};
+
+// RealEstateAgent Schema
+export const RealEstateAgentSchema = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "NoFeePlaces",
+    "description": "NYC's premier no-fee apartment listing service. We help renters find verified no-fee apartments and save thousands on broker fees.",
+    "url": "https://nofeeplaces.com",
+    "logo": "https://nofeeplaces.com/logo.png",
+    "email": "hello@nofeeplaces.com",
+    "telephone": "+1-646-408-8048",
+    "areaServed": {
+      "@type": "City",
+      "name": "New York City",
+      "sameAs": "https://en.wikipedia.org/wiki/New_York_City"
+    },
+    "knowsAbout": [
+      "No-Fee Apartments",
+      "NYC Rental Market",
+      "Apartment Hunting",
+      "Broker Fee Savings"
+    ],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "NYC Real Estate Community"
+    }
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Helmet>
+  );
+};
+
+// Article Schema for Blog/Guide Pages
+export const ArticleSchema = ({ title, description, author = "NoFeePlaces Team", datePublished, dateModified, image }) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "image": image || "https://nofeeplaces.com/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": author,
+      "url": "https://nofeeplaces.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "NoFeePlaces",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://nofeeplaces.com/logo.png"
+      }
+    },
+    "datePublished": datePublished || new Date().toISOString(),
+    "dateModified": dateModified || new Date().toISOString(),
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://nofeeplaces.com/guide"
+    }
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Helmet>
+  );
+};
+
+// VideoObject Schema (for future video content)
+export const VideoSchema = ({ name, description, thumbnailUrl, uploadDate, duration, contentUrl }) => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": name,
+    "description": description,
+    "thumbnailUrl": thumbnailUrl,
+    "uploadDate": uploadDate,
+    "duration": duration,
+    "contentUrl": contentUrl,
+    "embedUrl": contentUrl,
+    "publisher": {
+      "@type": "Organization",
+      "name": "NoFeePlaces",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://nofeeplaces.com/logo.png"
+      }
+    }
+  };
+
+  return (
+    <Helmet>
+      <script type="application/ld+json">
+        {JSON.stringify(schema)}
+      </script>
+    </Helmet>
+  );
+};
+
 export default {
   ApartmentComplexSchema,
   LocalBusinessSchema,
   BreadcrumbSchema,
   FAQSchema,
   AggregateRatingSchema,
-  WebSiteSchema
+  WebSiteSchema,
+  ItemListSchema,
+  RealEstateAgentSchema,
+  ArticleSchema,
+  VideoSchema
 };
