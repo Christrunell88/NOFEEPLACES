@@ -89,6 +89,9 @@ const ShareModal = ({ apartment, onClose }) => {
   const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
   const DOMAIN_URL = process.env.REACT_APP_DOMAIN_URL || 'https://nofeeplaces.com';
   const shareUrl = `${DOMAIN_URL}/apartment/${apartment.id}`;
+  
+  // Facebook Page ID for Places NYC: 164228704193646
+  const FACEBOOK_PAGE_ID = '164228704193646';
 
   const handleEmailShare = async (e) => {
     e.preventDefault();
