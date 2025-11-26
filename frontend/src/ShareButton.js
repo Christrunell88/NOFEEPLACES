@@ -155,7 +155,8 @@ const ShareModal = ({ apartment, onClose }) => {
         break;
       case 'facebook':
         // Enhanced Facebook sharing with Places NYC Page ID: 164228704193646
-        url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}`;
+        // Using Facebook Dialog API (more reliable than sharer.php)
+        url = `https://www.facebook.com/dialog/share?app_id=966242223397117&href=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(text)}&display=popup&redirect_uri=${encodeURIComponent(shareUrl)}`;
         break;
       case 'twitter':
         url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`;
