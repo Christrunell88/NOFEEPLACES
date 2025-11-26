@@ -247,6 +247,24 @@ frontend:
           agent: "main"
           comment: "CONTACT INFORMATION RENDERING FIX COMPLETED: Identified root cause - the ApartmentDetails component (used for individual apartment pages) was missing the Contact Information section, while the ApartmentDetailsModal (popup) had it. Added comprehensive Contact Information section to ApartmentDetails component with: ✅ Email display with mailto link (placesfirm@gmail.com), ✅ Phone display with tel link (+1-646-408-8048), ✅ Company name (NoFeePlaces LLC), ✅ Professional purple-themed design matching site style, ✅ Icons and labels for each contact method, ✅ 'Send Message About This Apartment' button still available. Visual testing confirms all contact details are now prominently displayed on apartment detail pages. The section appears in a purple box with clear labels and clickable links for email and phone."
 
+  - task: "Copy Link Functionality Fix in Share Modal"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/ShareButton.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "User reported: 'Copy function is not working correctly' in the Share modal's Copy Link section. The copy button was not functioning properly."
+        - working: "NA"
+          agent: "main"
+          comment: "COPY LINK FUNCTIONALITY FIX IMPLEMENTED: Updated ShareButton.js to resolve copy functionality issues. CHANGES MADE: ✅ Added check for navigator.clipboard availability, ✅ Implemented fallback using document.execCommand('copy'), ✅ Added better error handling and user feedback, ✅ Created temporary textarea for fallback method. The implementation includes both modern Clipboard API and fallback for browsers that don't support it."
+        - working: true
+          agent: "testing"
+          comment: "COPY LINK FUNCTIONALITY FIX VERIFICATION COMPLETED SUCCESSFULLY (2025-11-26): Comprehensive testing confirms the copy functionality is now working perfectly after fixing the implementation logic. CRITICAL SUCCESS METRICS: ✅ Share modal opens correctly with 'Share This Listing' title, ✅ Copy Link section displays apartment URL correctly (https://nofeeplaces.com/apartment/[id]), ✅ Copy button is visible and clickable, ✅ Button changes from 'Copy' to '✓' (checkmark) when clicked, ✅ Success notification appears: 'Link copied to clipboard!', ✅ Button reverts back to 'Copy' after 2 seconds, ✅ Apartment URL is actually copied to clipboard (verified by pasting), ✅ Multiple copy actions work consistently, ✅ Fallback method activates when Clipboard API fails (expected behavior). TECHNICAL VALIDATION: Fixed critical logic flaw where Clipboard API permission errors prevented fallback method from executing. Updated handleCopyLink function to properly try modern API first, then fall back to document.execCommand when needed. Console shows 'Clipboard API failed, trying fallback method' (expected), and fallback method works perfectly. CONCLUSION: Copy Link functionality is production-ready and working excellently. Users can now successfully copy apartment URLs to clipboard with proper visual feedback and error handling."
+
 backend:
   - task: "Malt Drive Apartment 508 Backend Integration"
     implemented: true
