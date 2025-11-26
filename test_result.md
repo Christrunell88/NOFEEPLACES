@@ -2481,9 +2481,8 @@ agent_communication:
 
 test_plan:
   current_focus:
-    - "Authentication State Persistence After Sign-Up (P0 Critical Bug)"
-  stuck_tasks:
-    - "Authentication State Persistence After Sign-Up (P0 Critical Bug)"
+    - "Facebook Share ERR_BLOCKED_BY_RESPONSE Fix"
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
