@@ -136,43 +136,51 @@ const ShareModal = ({ apartment, onClose }) => {
   };
 
   const handleCopyLink = async () => {
-    try {
-      // Modern Clipboard API (preferred)
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shareUrl);
-        setCopySuccess(true);
-        showNotification('Link copied to clipboard!', 'success');
-        setTimeout(() => setCopySuccess(false), 2000);
-        return;
-      }
-      
-      // Fallback method for browsers that don't support Clipboard API
-      const textArea = document.createElement('textarea');
-      textArea.value = shareUrl;
-      textArea.style.position = 'fixed';
-      textArea.style.left = '-999999px';
-      textArea.style.top = '-999999px';
-      document.body.appendChild(textArea);
-      textArea.focus();
-      textArea.select();
-      
+    let copySuccessful = false;
+    
+    // Try modern Clipboard API first
+    if (navigator.clipboard && navigator.clipboard.writeText) {
       try {
+        await navigator.clipboard.writeText(shareUrl);
+        copySuccessful = true;
+      } catch (err) {
+        console.log('Clipboard API failed, trying fallback method:', err.message);
+        // Don't return here, let it fall through to fallback
+      }
+    }
+    
+    // If modern API failed or isn't available, use fallback method
+    if (!copySuccessful) {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
         const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
         if (successful) {
-          setCopySuccess(true);
-          showNotification('Link copied to clipboard!', 'success');
-          setTimeout(() => setCopySuccess(false), 2000);
+          copySuccessful = true;
         } else {
-          throw new Error('Copy command failed');
+          throw new Error('Fallback copy command failed');
         }
       } catch (err) {
+        console.error('Fallback copy failed:', err);
         showNotification('Failed to copy link. Please copy manually: ' + shareUrl, 'error');
-      } finally {
-        document.body.removeChild(textArea);
+        return;
       }
-    } catch (err) {
-      console.error('Copy failed:', err);
-      showNotification('Failed to copy link. Please copy manually.', 'error');
+    }
+    
+    // If we get here, copy was successful
+    if (copySuccessful) {
+      setCopySuccess(true);
+      showNotification('Link copied to clipboard!', 'success');
+      setTimeout(() => setCopySuccess(false), 2000);
     }
   };
 
